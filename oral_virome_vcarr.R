@@ -1197,3 +1197,7 @@ megaphage_nonviral <- megaphage_func[megaphage_func$tax_scope != "Viruses",]
 
 # Look at largest phage
 large_phage <- megaphage_eggnog[which.max(megaphage_eggnog$size),]
+
+# Select non-annorated proteins
+proteins_nanno <- megaphage_eggnog$query_name[is.na(megaphage_eggnog$seed_eggnog_ortholog)]
+write.table(proteins_nanno, "megaphage_proteins_no_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
