@@ -1,0 +1,719 @@
+ID,Cohort,Sample.name,sample_type,Gender,Age,Health,Merged_with,RA.duration,Location,Visit_Number
+ERR589348,Chinese,C1,saliva,F,49,healthy,ERR589348|ERR589349,NA,China,1
+ERR589346,Chinese,C1,dental,F,49,healthy,NA,NA,China,1
+ERR589765,Chinese,C1,stool,F,49,healthy,NA,NA,China,1
+ERR589382,Chinese,C10,saliva,F,68,healthy,ERR589382|ERR589383,NA,China,1
+ERR589355,Chinese,C10,dental,F,68,healthy,NA,NA,China,1
+ERR589858,Chinese,C10,stool,F,68,healthy,NA,NA,China,1
+ERR589850,Chinese,C11,stool,M,37,healthy,NA,NA,China,1
+ERR589384,Chinese,C12,saliva,M,52,healthy,ERR589384|ERR589385,NA,China,1
+ERR589363,Chinese,C12,dental,M,52,healthy,NA,NA,China,1
+ERR589820,Chinese,C12,stool,M,52,healthy,NA,NA,China,1
+ERR589386,Chinese,C13,saliva,F,46,healthy,ERR589386|ERR589387,NA,China,1
+ERR589359,Chinese,C13,dental,F,46,healthy,NA,NA,China,1
+ERR589818,Chinese,C13,stool,F,46,healthy,NA,NA,China,1
+ERR589388,Chinese,C14,saliva,F,42,healthy,ERR589388|ERR589389,NA,China,1
+ERR589352,Chinese,C14,dental,F,42,healthy,NA,NA,China,1
+ERR589807,Chinese,C14,stool,F,42,healthy,NA,NA,China,1
+ERR589390,Chinese,C15_S,saliva,M,46,healthy,ERR589390|ERR589391,NA,China,1
+ERR589361,Chinese,C15_S,dental,M,46,healthy,NA,NA,China,1
+ERR589835,Chinese,C15_S,stool,M,46,healthy,NA,NA,China,1
+ERR589812,Chinese,C17,stool,F,46,healthy,NA,NA,China,1
+ERR589392,Chinese,C18,saliva,F,41,healthy,ERR589392|ERR589393,NA,China,1
+ERR589356,Chinese,C18,dental,F,41,healthy,NA,NA,China,1
+ERR589800,Chinese,C18,stool,F,41,healthy,NA,NA,China,1
+ERR589394,Chinese,C19,saliva,F,37,healthy,ERR589394|ERR589395,NA,China,1
+ERR589360,Chinese,C19,dental,F,37,healthy,NA,NA,China,1
+ERR589830,Chinese,C19,stool,F,37,healthy,NA,NA,China,1
+ERR589749,Chinese,C2,stool,F,52,healthy,NA,NA,China,1
+ERR589872,Chinese,C20,stool,F,39,healthy,NA,NA,China,1
+ERR589824,Chinese,C21,stool,F,57,healthy,NA,NA,China,1
+ERR589874,Chinese,C22,stool,F,48,healthy,NA,NA,China,1
+ERR589396,Chinese,C24,saliva,F,53,healthy,ERR589396|ERR589397,NA,China,1
+ERR589362,Chinese,C24,dental,F,53,healthy,NA,NA,China,1
+ERR589798,Chinese,C24,stool,F,53,healthy,NA,NA,China,1
+ERR589863,Chinese,C25,stool,F,54,healthy,NA,NA,China,1
+ERR589398,Chinese,C26,saliva,F,38,healthy,ERR589398|ERR589399,NA,China,1
+ERR589373,Chinese,C26,dental,F,38,healthy,NA,NA,China,1
+ERR589811,Chinese,C26,stool,F,38,healthy,NA,NA,China,1
+ERR589400,Chinese,C27,saliva,F,48,healthy,ERR589400|ERR589401,NA,China,1
+ERR589354,Chinese,C27,dental,F,48,healthy,NA,NA,China,1
+ERR589792,Chinese,C27,stool,F,48,healthy,NA,NA,China,1
+ERR589402,Chinese,C29,saliva,F,42,healthy,ERR589402|ERR589403,NA,China,1
+ERR589368,Chinese,C29,dental,F,42,healthy,NA,NA,China,1
+ERR589795,Chinese,C29,stool,F,42,healthy,NA,NA,China,1
+ERR589350,Chinese,C3,saliva,F,45,healthy,NA,NA,China,1
+ERR589768,Chinese,C3,stool,F,45,healthy,NA,NA,China,1
+ERR589404,Chinese,C31,saliva,F,43,healthy,ERR589404|ERR589405,NA,China,1
+ERR589372,Chinese,C31,dental,F,43,healthy,NA,NA,China,1
+ERR589791,Chinese,C31,stool,F,43,healthy,NA,NA,China,1
+ERR589406,Chinese,C32,saliva,F,41,healthy,ERR589406|ERR589407,NA,China,1
+ERR589371,Chinese,C32,dental,F,41,healthy,NA,NA,China,1
+ERR589806,Chinese,C32,stool,F,41,healthy,NA,NA,China,1
+ERR589821,Chinese,C33,stool,F,45,healthy,NA,NA,China,1
+ERR589784,Chinese,C34,stool,F,39,healthy,NA,NA,China,1
+ERR589456,Chinese,C35,saliva,F,44,healthy,ERR589456|ERR589457,NA,China,1
+ERR589370,Chinese,C35,dental,F,44,healthy,NA,NA,China,1
+ERR589799,Chinese,C35,stool,F,44,healthy,NA,NA,China,1
+ERR589458,Chinese,C36,saliva,F,43,healthy,ERR589458|ERR589459,NA,China,1
+ERR589817,Chinese,C36,stool,F,43,healthy,NA,NA,China,1
+ERR589869,Chinese,C38,stool,F,57,healthy,NA,NA,China,1
+ERR589865,Chinese,C39,stool,F,41,healthy,NA,NA,China,1
+ERR589754,Chinese,C4,stool,F,43,healthy,NA,NA,China,1
+ERR589408,Chinese,C40,saliva,F,40,healthy,ERR589408|ERR589409,NA,China,1
+ERR589367,Chinese,C40,dental,F,40,healthy,NA,NA,China,1
+ERR589827,Chinese,C40,stool,F,40,healthy,NA,NA,China,1
+ERR589845,Chinese,C41,stool,F,48,healthy,NA,NA,China,1
+ERR589862,Chinese,C42,stool,F,38,healthy,NA,NA,China,1
+ERR589410,Chinese,C43,saliva,F,46,healthy,ERR589410|ERR589411,NA,China,1
+ERR589376,Chinese,C43,dental,F,46,healthy,NA,NA,China,1
+ERR589793,Chinese,C43,stool,F,46,healthy,NA,NA,China,1
+ERR589813,Chinese,C44,stool,F,34,healthy,NA,NA,China,1
+ERR589809,Chinese,C45,stool,M,54,healthy,NA,NA,China,1
+ERR589412,Chinese,C47,saliva,F,58,healthy,ERR589412|ERR589413,NA,China,1
+ERR589378,Chinese,C47,dental,F,58,healthy,NA,NA,China,1
+ERR589802,Chinese,C47,stool,F,58,healthy,NA,NA,China,1
+ERR589808,Chinese,C48,stool,F,36,healthy,NA,NA,China,1
+ERR589861,Chinese,C49,stool,F,47,healthy,NA,NA,China,1
+ERR589414,Chinese,C50,saliva,F,46,healthy,ERR589414|ERR589415,NA,China,1
+ERR589381,Chinese,C50,dental,F,46,healthy,NA,NA,China,1
+ERR589797,Chinese,C50,stool,F,46,healthy,NA,NA,China,1
+ERR589416,Chinese,C51,saliva,F,44,healthy,ERR589416|ERR589417,NA,China,1
+ERR589377,Chinese,C51,dental,F,44,healthy,NA,NA,China,1
+ERR589829,Chinese,C51_S,stool,M,57,healthy,NA,NA,China,1
+ERR589851,Chinese,C52,stool,F,24,healthy,NA,NA,China,1
+ERR589418,Chinese,C53,saliva,M,45,healthy,ERR589418|ERR589419,NA,China,1
+ERR589379,Chinese,C53,dental,M,45,healthy,NA,NA,China,1
+ERR589796,Chinese,C53,stool,M,45,healthy,NA,NA,China,1
+ERR589836,Chinese,C54,stool,M,50,healthy,NA,NA,China,1
+ERR589794,Chinese,C55,stool,F,40,healthy,NA,NA,China,1
+ERR589873,Chinese,C56,stool,F,42,healthy,NA,NA,China,1
+ERR589788,Chinese,C57,stool,F,32,healthy,NA,NA,China,1
+ERR589837,Chinese,C58,stool,F,35,healthy,NA,NA,China,1
+ERR589420,Chinese,C59,saliva,M,27,healthy,ERR589420|ERR589421,NA,China,1
+ERR589351,Chinese,C59,dental,M,27,healthy,NA,NA,China,1
+ERR589785,Chinese,C60,stool,F,38,healthy,NA,NA,China,1
+ERR589422,Chinese,C62,saliva,F,23,healthy,ERR589422|ERR589423,NA,China,1
+ERR589380,Chinese,C62,dental,F,23,healthy,NA,NA,China,1
+ERR589868,Chinese,C62,stool,F,23,healthy,NA,NA,China,1
+ERR589814,Chinese,C63,stool,F,47,healthy,NA,NA,China,1
+ERR589825,Chinese,C65,stool,M,45,healthy,NA,NA,China,1
+ERR589424,Chinese,C68,saliva,M,38,healthy,ERR589424|ERR589425,NA,China,1
+ERR589375,Chinese,C68,dental,M,38,healthy,NA,NA,China,1
+ERR589871,Chinese,C68,stool,M,38,healthy,NA,NA,China,1
+ERR589853,Chinese,C69,stool,F,19,healthy,NA,NA,China,1
+ERR589426,Chinese,C7,saliva,F,54,healthy,ERR589426|ERR589427,NA,China,1
+ERR589366,Chinese,C7,dental,F,54,healthy,NA,NA,China,1
+ERR589819,Chinese,C7,stool,F,54,healthy,NA,NA,China,1
+ERR589428,Chinese,C70,saliva,M,48,healthy,ERR589428|ERR589429,NA,China,1
+ERR589364,Chinese,C70,dental,M,48,healthy,NA,NA,China,1
+ERR589867,Chinese,C70,stool,M,48,healthy,NA,NA,China,1
+ERR589430,Chinese,C71,saliva,F,48,healthy,ERR589430|ERR589431,NA,China,1
+ERR589374,Chinese,C71,dental,F,48,healthy,NA,NA,China,1
+ERR589805,Chinese,C71,stool,F,48,healthy,NA,NA,China,1
+ERR589432,Chinese,C72,saliva,M,35,healthy,ERR589432|ERR589433,NA,China,1
+ERR589358,Chinese,C72,dental,M,35,healthy,NA,NA,China,1
+ERR589849,Chinese,C72,stool,M,35,healthy,NA,NA,China,1
+ERR589875,Chinese,C73,stool,F,46,healthy,NA,NA,China,1
+ERR589852,Chinese,C74,stool,M,22,healthy,NA,NA,China,1
+ERR589847,Chinese,C75,stool,M,44,healthy,NA,NA,China,1
+ERR589790,Chinese,C76,stool,M,44,healthy,NA,NA,China,1
+ERR589846,Chinese,C77,stool,M,36,healthy,NA,NA,China,1
+ERR589856,Chinese,C78,stool,M,24,healthy,NA,NA,China,1
+ERR589810,Chinese,C80,stool,F,43,healthy,NA,NA,China,1
+ERR589857,Chinese,C84,stool,M,28,healthy,NA,NA,China,1
+ERR589449,Chinese,C88_S,dental,M,42,healthy,NA,NA,China,1
+ERR589758,Chinese,C88_S,stool,M,42,healthy,NA,NA,China,1
+ERR589353,Chinese,C89,dental,M,42,healthy,ERR589353|ERR589541,NA,China,1
+ERR589435,Chinese,C89,saliva,M,42,healthy,NA,NA,China,1
+ERR589848,Chinese,C89,stool,M,42,healthy,NA,NA,China,1
+ERR589866,Chinese,C90,stool,M,47,healthy,NA,NA,China,1
+ERR589801,Chinese,C91,stool,M,54,healthy,NA,NA,China,1
+ERR589855,Chinese,C92,stool,F,52,healthy,NA,NA,China,1
+ERR589436,Chinese,C93,saliva,F,57,healthy,ERR589436|ERR589437,NA,China,1
+ERR589365,Chinese,C93,dental,F,57,healthy,NA,NA,China,1
+ERR589864,Chinese,C93,stool,F,57,healthy,NA,NA,China,1
+ERR589438,Chinese,C99,saliva,F,41,healthy,ERR58943|ERR58949,NA,China,1
+ERR589357,Chinese,C99,dental,F,41,healthy,NA,NA,China,1
+ERR589826,Chinese,C99,stool,F,41,healthy,NA,NA,China,1
+ERR589483,Chinese,D1_N,dental,F,32,unhealthy,NA,6-10Yr,China,1
+ERR589494,Chinese,D1_N,saliva,F,32,unhealthy,NA,6-10Yr,China,1
+ERR589839,Chinese,D1_N,stool,F,32,unhealthy,NA,6-10Yr,China,1
+ERR589463,Chinese,D100,dental,F,42,unhealthy,ERR589463|ERR589620|ERR589686,1-3Yr,China,1
+ERR589533,Chinese,D100,stool,F,42,unhealthy,ERR589533|ERR589752,1-3Yr,China,1
+ERR589558,Chinese,D102,stool,M,56,unhealthy,NA,<3M,China,1
+ERR589631,Chinese,D102,dental,M,56,unhealthy,NA,<3M,China,1
+ERR589621,Chinese,D104,dental,F,64,unhealthy,ERR589621|ERR589687,>10Yr,China,1
+ERR589530,Chinese,D104,stool,F,64,unhealthy,NA,>10Yr,China,1
+ERR589651,Chinese,D108,dental,F,52,unhealthy,ERR589651|ERR589693,3-6Yr,China,1
+ERR589468,Chinese,D113,dental,F,46,unhealthy,ERR589468|ERR589623|ERR589690,<3M,China,1
+ERR589486,Chinese,D113,saliva,F,46,unhealthy,NA,<3M,China,1
+ERR589535,Chinese,D113,stool,F,46,unhealthy,NA,<3M,China,1
+ERR589632,Chinese,D114,dental,M,53,unhealthy,ERR589632|ERR589681,6-12M,China,1
+ERR589560,Chinese,D114,stool,M,53,unhealthy,NA,6-12M,China,1
+ERR589633,Chinese,D117,dental,F,55,unhealthy,NA,3-6Yr,China,1
+ERR589469,Chinese,D118,dental,F,59,unhealthy,ERR589469|ERR589634|ERR589699,6-12M,China,1
+ERR589487,Chinese,D118,saliva,F,59,unhealthy,NA,6-12M,China,1
+ERR589561,Chinese,D118,stool,F,59,unhealthy,NA,6-12M,China,1
+ERR589635,Chinese,D121,dental,F,38,unhealthy,ERR589635|ERR589700,6-12M,China,1
+ERR589562,Chinese,D121,stool,F,38,unhealthy,NA,6-12M,China,1
+ERR589484,Chinese,D122,dental,F,62,unhealthy,ERR589484|ERR589636|ERR589701,<3M,China,1
+ERR589497,Chinese,D122,saliva,F,62,unhealthy,NA,<3M,China,1
+ERR589511,Chinese,D124,stool,F,61,unhealthy,ERR589511|ERR589565,3-6M,China,1
+ERR589638,Chinese,D124,dental,F,61,unhealthy,ERR589638|ERR589702,3-6M,China,1
+ERR589567,Chinese,D126,stool,M,53,unhealthy,ERR589567|ERR589841,6-12M,China,1
+ERR589703,Chinese,D126,dental,M,53,unhealthy,NA,6-12M,China,1
+ERR589642,Chinese,D130,dental,M,57,unhealthy,ERR589642|ERR589705,3-6M,China,1
+ERR589569,Chinese,D130,stool,M,57,unhealthy,NA,3-6M,China,1
+ERR589509,Chinese,D132,stool,F,35,unhealthy,ERR589509|ERR589571,6-12M,China,1
+ERR589644,Chinese,D132,dental,F,35,unhealthy,ERR589644|ERR589707,6-12M,China,1
+ERR589572,Chinese,D133,stool,F,65,unhealthy,NA,<3M,China,1
+ERR589708,Chinese,D133,dental,F,65,unhealthy,NA,<3M,China,1
+ERR589744,Chinese,D134,stool,F,54,unhealthy,NA,6-12M,China,1
+ERR589470,Chinese,D135,dental,F,52,unhealthy,ERR589470|ERR589709,>10Yr,China,1
+ERR589488,Chinese,D135,saliva,F,52,unhealthy,NA,>10Yr,China,1
+ERR589573,Chinese,D135,stool,F,52,unhealthy,NA,>10Yr,China,1
+ERR589769,Chinese,D138,stool,F,67,unhealthy,ERR589769|ERR589844,1Yr,China,1
+ERR589471,Chinese,D138,dental,F,67,unhealthy,NA,1Yr,China,1
+ERR589489,Chinese,D138,saliva,F,67,unhealthy,NA,1Yr,China,1
+ERR589451,Chinese,D14_M,saliva,F,48,unhealthy,NA,<3M,China,1
+ERR589453,Chinese,D14_M,dental,F,48,unhealthy,NA,<3M,China,1
+ERR589843,Chinese,D141,stool,F,53,unhealthy,NA,>10Yr,China,1
+ERR589645,Chinese,D144,dental,M,54,unhealthy,ERR589645|ERR589710,6-12M,China,1
+ERR589646,Chinese,D145,dental,M,50,unhealthy,ERR589646|ERR589711,>10Yr,China,1
+ERR589574,Chinese,D145,stool,M,50,unhealthy,NA,>10Yr,China,1
+ERR589648,Chinese,D147,dental,F,59,unhealthy,ERR589648|ERR589713,1-3Yr,China,1
+ERR589576,Chinese,D147,stool,F,59,unhealthy,NA,1-3Yr,China,1
+ERR589442,Chinese,D147_M,stool,F,59,unhealthy,NA,1-3Yr,China,1
+ERR589624,Chinese,D15,dental,F,43,unhealthy,ERR589624|ERR589691,1-3Yr,China,1
+ERR589550,Chinese,D15,stool,F,43,unhealthy,NA,1-3Yr,China,1
+ERR589517,Chinese,D150,dental,F,49,unhealthy,ERR589517|ERR589649|ERR589714,1-3Yr,China,1
+ERR589519,Chinese,D150,saliva,F,49,unhealthy,NA,1-3Yr,China,1
+ERR589577,Chinese,D150,stool,F,49,unhealthy,NA,1-3Yr,China,1
+ERR589833,Chinese,D153,stool,F,70,unhealthy,NA,1-3Yr,China,1
+ERR589495,Chinese,D155,saliva,F,40,unhealthy,NA,<3M,China,1
+ERR589745,Chinese,D155,stool,F,40,unhealthy,NA,<3M,China,1
+ERR589499,Chinese,D157,dental,F,55,unhealthy,ERR589499|ERR589653,1-3Yr,China,1
+ERR589580,Chinese,D157,stool,F,55,unhealthy,ERR589580|ERR589816,1-3Yr,China,1
+ERR589520,Chinese,D157,saliva,F,55,unhealthy,NA,1-3Yr,China,1
+ERR589473,Chinese,D158,dental,M,60,unhealthy,ERR589473|ERR589654,>10Yr,China,1
+ERR589581,Chinese,D158,stool,M,60,unhealthy,ERR589581|ERR589840,>10Yr,China,1
+ERR589496,Chinese,D158,saliva,M,60,unhealthy,NA,>10Yr,China,1
+ERR589756,Chinese,D159,stool,F,48,unhealthy,NA,1-3Yr,China,1
+ERR589763,Chinese,D161,stool,F,50,unhealthy,NA,<3M,China,1
+ERR589770,Chinese,D163,stool,F,55,unhealthy,NA,1-3Yr,China,1
+ERR589656,Chinese,D166,dental,F,36,unhealthy,ERR589656|ERR589719,3-6M,China,1
+ERR589583,Chinese,D166,stool,F,36,unhealthy,NA,3-6M,China,1
+ERR589767,Chinese,D168,stool,F,24,unhealthy,NA,6-12M,China,1
+ERR589502,Chinese,D169,stool,F,55,unhealthy,ERR589502|ERR589755,1-3Yr,China,1
+ERR589658,Chinese,D172,dental,F,52,unhealthy,ERR589658|ERR589721,1-3Yr,China,1
+ERR589595,Chinese,D172,stool,F,52,unhealthy,NA,1-3Yr,China,1
+ERR589594,Chinese,D173,stool,F,48,unhealthy,NA,1-3Yr,China,1
+ERR589722,Chinese,D173,dental,F,48,unhealthy,NA,1-3Yr,China,1
+ERR589740,Chinese,D174,stool,F,39,unhealthy,NA,1-3Yr,China,1
+ERR589659,Chinese,D177,dental,F,46,unhealthy,ERR589659|ERR589724,<3M,China,1
+ERR589592,Chinese,D177,stool,F,46,unhealthy,NA,<3M,China,1
+ERR589660,Chinese,D178,dental,F,41,unhealthy,ERR589660|ERR589725,1-3Yr,China,1
+ERR589591,Chinese,D178,stool,F,41,unhealthy,NA,1-3Yr,China,1
+ERR589474,Chinese,D179,dental,M,47,unhealthy,ERR589474|ERR589661|ERR589726,6-12M,China,1
+ERR589490,Chinese,D179,saliva,M,47,unhealthy,NA,6-12M,China,1
+ERR589590,Chinese,D179,stool,M,47,unhealthy,NA,6-12M,China,1
+ERR589475,Chinese,D182,dental,F,49,unhealthy,ERR589475|ERR589662|ERR589727,3-6Yr,China,1
+ERR589491,Chinese,D182,saliva,F,49,unhealthy,NA,3-6Yr,China,1
+ERR589589,Chinese,D182,stool,F,49,unhealthy,NA,3-6Yr,China,1
+ERR589771,Chinese,D184,stool,M,59,unhealthy,NA,1-3Yr,China,1
+ERR589663,Chinese,D185,dental,F,44,unhealthy,ERR589663|ERR589728,1-3Yr,China,1
+ERR589587,Chinese,D185,stool,F,44,unhealthy,NA,1-3Yr,China,1
+ERR589772,Chinese,D187,stool,F,63,unhealthy,NA,3-6Yr,China,1
+ERR589586,Chinese,D188,stool,F,56,unhealthy,NA,>10Yr,China,1
+ERR589664,Chinese,D188,dental,F,56,unhealthy,NA,>10Yr,China,1
+ERR589665,Chinese,D190,dental,F,36,unhealthy,ERR589665|ERR589730,6-12M,China,1
+ERR589585,Chinese,D190,stool,F,36,unhealthy,NA,6-12M,China,1
+ERR589444,Chinese,D191_M,dental,M,46,unhealthy,NA,1-3Yr,China,1
+ERR589464,Chinese,D191_M,saliva,M,46,unhealthy,NA,1-3Yr,China,1
+ERR589757,Chinese,D191_M,stool,M,46,unhealthy,NA,1-3Yr,China,1
+ERR589773,Chinese,D194,stool,F,52,unhealthy,NA,3-6M,China,1
+ERR589774,Chinese,D195,stool,F,56,unhealthy,ERR589774|ERR589834,1-3Yr,China,1
+ERR589515,Chinese,D195,dental,F,56,unhealthy,NA,1-3Yr,China,1
+ERR589775,Chinese,D196,stool,F,63,unhealthy,NA,6-12M,China,1
+ERR589737,Chinese,D197,stool,F,34,unhealthy,ERR589737|ERR589787,1-3Yr,China,1
+ERR589516,Chinese,D197,dental,F,34,unhealthy,NA,1-3Yr,China,1
+ERR589521,Chinese,D197,saliva,F,34,unhealthy,NA,1-3Yr,China,1
+ERR589508,Chinese,D198,stool,F,48,unhealthy,ERR589508|ERR589776,>10Yr,China,1
+ERR589440,Chinese,D201,stool,M,49,unhealthy,ERR589440|ERR589732,1-3Yr,China,1
+ERR589777,Chinese,D202,stool,F,53,unhealthy,ERR589777|ERR589832,6-10Yr,China,1
+ERR589514,Chinese,D202,dental,F,53,unhealthy,NA,6-10Yr,China,1
+ERR589522,Chinese,D202,saliva,F,53,unhealthy,NA,6-10Yr,China,1
+ERR589778,Chinese,D204,stool,F,40,unhealthy,NA,1-3Yr,China,1
+ERR589510,Chinese,D205,stool,F,53,unhealthy,ERR589510|ERR589735,>10Yr,China,1
+ERR589779,Chinese,D206,stool,F,54,unhealthy,ERR589779|ERR589803,3-6M,China,1
+ERR589746,Chinese,D208,stool,M,64,unhealthy,ERR589746|ERR589822,<3M,China,1
+ERR589736,Chinese,D209,stool,F,34,unhealthy,ERR589736|ERR589823,6-12M,China,1
+ERR589518,Chinese,D209,dental,F,34,unhealthy,NA,6-12M,China,1
+ERR589523,Chinese,D209,saliva,F,34,unhealthy,NA,6-12M,China,1
+ERR589513,Chinese,D210,stool,F,54,unhealthy,ERR589513|ERR589780,6-10Yr,China,1
+ERR589507,Chinese,D212,stool,F,51,unhealthy,ERR589507|ERR589738,3-6Yr,China,1
+ERR589747,Chinese,D213,stool,M,65,unhealthy,NA,<3M,China,1
+ERR589742,Chinese,D214,stool,M,57,unhealthy,NA,3-6M,China,1
+ERR589870,Chinese,D216,stool,F,48,unhealthy,NA,>10Yr,China,1
+ERR589741,Chinese,D218,stool,M,41,unhealthy,NA,<3M,China,1
+ERR589782,Chinese,D219,stool,M,52,unhealthy,NA,<3M,China,1
+ERR589762,Chinese,D220,stool,F,45,unhealthy,NA,>10Yr,China,1
+ERR589759,Chinese,D225,stool,F,46,unhealthy,ERR589759|ERR589815,6-12M,China,1
+ERR589500,Chinese,D225,dental,F,46,unhealthy,NA,6-12M,China,1
+ERR589524,Chinese,D225,saliva,F,46,unhealthy,NA,6-12M,China,1
+ERR589748,Chinese,D226,stool,M,61,unhealthy,NA,>10Yr,China,1
+ERR589480,Chinese,D23,dental,F,65,unhealthy,ERR589480|ERR589599,3-6Yr,China,1
+ERR589501,Chinese,D235,stool,M,58,unhealthy,ERR589501|ERR589764,>10Yr,China,1
+ERR589498,Chinese,D240_M,dental,F,56,unhealthy,NA,1-3Yr,China,1
+ERR589525,Chinese,D240_M,saliva,F,56,unhealthy,NA,1-3Yr,China,1
+ERR589831,Chinese,D246,stool,F,42,unhealthy,NA,6-10Yr,China,1
+ERR589842,Chinese,D248,stool,F,45,unhealthy,NA,3-6M,China,1
+ERR589627,Chinese,D25,dental,F,36,unhealthy,ERR589627|ERR589694,1-3Yr,China,1
+ERR589553,Chinese,D25,stool,F,36,unhealthy,NA,1-3Yr,China,1
+ERR589786,Chinese,D252,stool,F,57,unhealthy,NA,3-6M,China,1
+ERR589804,Chinese,D255,stool,F,46,unhealthy,NA,1-3Yr,China,1
+ERR589503,Chinese,D264,stool,F,45,unhealthy,ERR589503|ERR589854,>10Yr,China,1
+ERR589505,Chinese,D266_G,stool,F,32,unhealthy,NA,1-3Yr,China,1
+ERR589536,Chinese,D29,stool,M,55,unhealthy,NA,<3M,China,1
+ERR589600,Chinese,D29,dental,M,55,unhealthy,NA,<3M,China,1
+ERR589538,Chinese,D31,stool,F,27,unhealthy,NA,>10Yr,China,1
+ERR589601,Chinese,D31,dental,F,27,unhealthy,NA,>10Yr,China,1
+ERR589528,Chinese,D33,stool,F,51,unhealthy,NA,6-10Yr,China,1
+ERR589602,Chinese,D33,dental,F,51,unhealthy,NA,6-10Yr,China,1
+ERR589604,Chinese,D41,dental,F,61,unhealthy,ERR589604|ERR589669,>10Yr,China,1
+ERR589532,Chinese,D41,stool,F,61,unhealthy,NA,>10Yr,China,1
+ERR589605,Chinese,D43,dental,F,46,unhealthy,NA,>10Yr,China,1
+ERR589547,Chinese,D44,stool,F,41,unhealthy,NA,<3M,China,1
+ERR589671,Chinese,D44,dental,F,41,unhealthy,NA,<3M,China,1
+ERR589476,Chinese,D45_N,dental,M,54,unhealthy,NA,6-12M,China,1
+ERR589452,Chinese,D47_N,stool,F,32,unhealthy,ERR589452|ERR589506,>10Yr,China,1
+ERR589455,Chinese,D49_M,dental,F,56,unhealthy,NA,3-6M,China,1
+ERR589750,Chinese,D49_M,stool,F,56,unhealthy,NA,3-6M,China,1
+ERR589446,Chinese,D50_M,dental,F,50,unhealthy,NA,6-10Yr,China,1
+ERR589465,Chinese,D50_M,saliva,F,50,unhealthy,NA,6-10Yr,China,1
+ERR589743,Chinese,D50_M,stool,F,50,unhealthy,NA,6-10Yr,China,1
+ERR589477,Chinese,D51,dental,F,57,unhealthy,ERR589477|ERR589606|ERR589673,6-10Yr,China,1
+ERR589443,Chinese,D51,stool,F,57,unhealthy,NA,6-10Yr,China,1
+ERR589492,Chinese,D51,saliva,F,57,unhealthy,NA,6-10Yr,China,1
+ERR589608,Chinese,D53,dental,F,59,unhealthy,ERR589608|ERR589675,>10Yr,China,1
+ERR589537,Chinese,D53,stool,F,59,unhealthy,NA,>10Yr,China,1
+ERR589478,Chinese,D54_N,dental,F,44,unhealthy,NA,3-6M,China,1
+ERR589493,Chinese,D54_N,saliva,F,44,unhealthy,NA,3-6M,China,1
+ERR589481,Chinese,D55,dental,F,44,unhealthy,ERR589481|ERR589609,>10Yr,China,1
+ERR589540,Chinese,D55,stool,F,44,unhealthy,NA,>10Yr,China,1
+ERR589482,Chinese,D57,dental,M,58,unhealthy,ERR589482|ERR589610|ERR589676,3-6Yr,China,1
+ERR589544,Chinese,D57,stool,M,58,unhealthy,NA,3-6Yr,China,1
+ERR589454,Chinese,D60,dental,F,50,unhealthy,ERR589454|ERR58961|ERR589677,3-6Yr,China,1
+ERR589531,Chinese,D60,stool,F,50,unhealthy,ERR589531|ERR589760,3-6Yr,China,1
+ERR589613,Chinese,D62,dental,F,47,unhealthy,ERR589613|ERR589678,<3M,China,1
+ERR589828,Chinese,D64,stool,F,39,unhealthy,NA,>10Yr,China,1
+ERR589479,Chinese,D64_G,dental,F,32,unhealthy,NA,>10Yr,China,1
+ERR589628,Chinese,D69,dental,F,39,unhealthy,ERR589628|ERR589692,3-6Yr,China,1
+ERR589554,Chinese,D69,stool,F,39,unhealthy,NA,3-6Yr,China,1
+ERR589629,Chinese,D73,dental,F,27,unhealthy,ERR589629|ERR589696,1-3Yr,China,1
+ERR589556,Chinese,D77,stool,M,66,unhealthy,NA,3-6Yr,China,1
+ERR589630,Chinese,D77,dental,M,66,unhealthy,NA,3-6Yr,China,1
+ERR589450,Chinese,D79,dental,F,36,unhealthy,ERR589450|ERR589614,3-6Yr,China,1
+ERR589534,Chinese,D79,stool,F,36,unhealthy,ERR589534|ERR589783,3-6Yr,China,1
+ERR589466,Chinese,D79,saliva,F,36,unhealthy,NA,3-6Yr,China,1
+ERR589666,Chinese,D8_N,dental,F,57,unhealthy,ERR589666|ERR589731,1-3Yr,China,1
+ERR589734,Chinese,D80,stool,F,36,unhealthy,NA,3-6M,China,1
+ERR589445,Chinese,D80_G,dental,F,36,unhealthy,NA,3-6M,China,1
+ERR589548,Chinese,D82,stool,M,44,unhealthy,NA,1Yr,China,1
+ERR589679,Chinese,D82,dental,M,44,unhealthy,NA,1Yr,China,1
+ERR589447,Chinese,D84_M,dental,F,51,unhealthy,NA,6-12M,China,1
+ERR589617,Chinese,D86,dental,F,56,unhealthy,ERR589617|ERR589680,3-6Yr,China,1
+ERR589543,Chinese,D86,stool,F,56,unhealthy,NA,3-6Yr,China,1
+ERR589448,Chinese,D88_M_3,stool,M,NA,unhealthy,ERR589448|ERR589504,3-6Yr,China,1
+ERR589512,Chinese,D90,stool,F,37,unhealthy,ERR589512|ERR589527,1-3Yr,China,1
+ERR589618,Chinese,D90,dental,F,37,unhealthy,ERR589618|ERR589682,1-3Yr,China,1
+ERR589460,Chinese,D92_M,dental,F,46,unhealthy,NA,1-3Yr,China,1
+ERR589751,Chinese,D92_M,stool,F,46,unhealthy,NA,1-3Yr,China,1
+ERR589461,Chinese,D93,dental,F,57,unhealthy,ERR589461|ERR589683,1Yr,China,1
+ERR589546,Chinese,D93,stool,F,57,unhealthy,ERR589546|ERR589739,1Yr,China,1
+ERR589467,Chinese,D93,saliva,F,57,unhealthy,NA,1Yr,China,1
+ERR589619,Chinese,D94,dental,F,43,unhealthy,ERR589619|ERR589684,3-6Yr,China,1
+ERR589557,Chinese,D98,stool,F,54,unhealthy,ERR589557|ERR589753,3-6Yr,China,1
+ERR589685,Chinese,D99,dental,F,47,unhealthy,NA,3-6M,China,1
+SRS011061,HMP1,6788b769d0b62444378462474da09823,stool,F,NA,healthy,NA,NA,US,1
+SRS011086,HMP1,6788b769d0b62444378462474da09823,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS011090,HMP1,6788b769d0b62444378462474da09823,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS011098,HMP1,6788b769d0b62444378462474da09823,gingiva,F,NA,healthy,NA,NA,US,1
+SRS013879,HMP1,6788b769d0b62444378462474da09a28,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS013881,HMP1,6788b769d0b62444378462474da09a28,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS014107,HMP1,6788b769d0b62444378462474da09a28,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015434,HMP1,6788b769d0b62444378462474da0a428,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015436,HMP1,6788b769d0b62444378462474da0a428,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015440,HMP1,6788b769d0b62444378462474da0a428,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015745,HMP1,6788b769d0b62444378462474da0a6c5,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015755,HMP1,6788b769d0b62444378462474da0a6c5,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015762,HMP1,6788b769d0b62444378462474da0a6c5,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015782,HMP1,6788b769d0b62444378462474da0a6c5,stool,M,NA,healthy,NA,NA,US,1
+SRS017687,HMP1,6788b769d0b62444378462474da0b8a4,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS017691,HMP1,6788b769d0b62444378462474da0b8a4,gingiva,F,NA,healthy,NA,NA,US,1
+SRS017701,HMP1,6788b769d0b62444378462474da0b8a4,stool,F,NA,healthy,NA,NA,US,1
+SRS017713,HMP1,6788b769d0b62444378462474da0b8a4,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS018427,HMP1,6788b769d0b62444378462474da0bae1,stool,M,NA,healthy,NA,NA,US,1
+SRS018439,HMP1,6788b769d0b62444378462474da0bae1,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS018443,HMP1,6788b769d0b62444378462474da0bae1,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS018656,HMP1,6788b769d0b62444378462474da0c49e,stool,F,NA,healthy,NA,NA,US,1
+SRS018661,HMP1,6788b769d0b62444378462474da0c49e,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS018665,HMP1,6788b769d0b62444378462474da0c49e,gingiva,F,NA,healthy,NA,NA,US,1
+SRS018739,HMP1,6788b769d0b62444378462474da0c49e,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS019387,HMP1,6788b769d0b62444378462474da0ca2d,gingiva,M,NA,healthy,NA,NA,US,1
+SRS019389,HMP1,6788b769d0b62444378462474da0ca2d,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS019391,HMP1,6788b769d0b62444378462474da0ca2d,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS019397,HMP1,6788b769d0b62444378462474da0ca2d,stool,M,NA,healthy,NA,NA,US,1
+SRS062878,HMP1,6788b769d0b62444378462474da0ca2d,hard palate,M,NA,healthy,NA,NA,US,1
+SRS065335,HMP1,6788b769d0b62444378462474da0ca2d,throat,M,NA,healthy,NA,NA,US,1
+SRS019974,HMP1,6788b769d0b62444378462474da0d68e,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS019976,HMP1,6788b769d0b62444378462474da0d68e,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS019980,HMP1,6788b769d0b62444378462474da0d68e,gingiva,F,NA,healthy,NA,NA,US,1
+SRS021948,HMP1,6788b769d0b62444378462474da0d87e,stool,F,NA,healthy,NA,NA,US,1
+SRS021954,HMP1,6788b769d0b62444378462474da0d87e,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS021960,HMP1,6788b769d0b62444378462474da0d87e,gingiva,F,NA,healthy,NA,NA,US,1
+SRS021986,HMP1,6788b769d0b62444378462474da0d87e,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS012902,HMP1,6788b769d0b62444378462474da0ddd4,stool,F,NA,healthy,NA,NA,US,1
+SRS012916,HMP1,6788b769d0b62444378462474da0ddd4,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS012918,HMP1,6788b769d0b62444378462474da0ddd4,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS012922,HMP1,6788b769d0b62444378462474da0ddd4,gingiva,F,NA,healthy,NA,NA,US,1
+SRS048719,HMP1,6788b769d0b62444378462474da0e7cf,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS049712,HMP1,6788b769d0b62444378462474da0e7cf,stool,M,NA,healthy,NA,NA,US,1
+SRS057791,HMP1,6788b769d0b62444378462474da0e7cf,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS105100,HMP1,6788b769d0b62444378462474da0e7cf,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015154,HMP1,6788b769d0b62444378462474da0ecda,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS015158,HMP1,6788b769d0b62444378462474da0ecda,gingiva,F,NA,healthy,NA,NA,US,1
+SRS015174,HMP1,6788b769d0b62444378462474da0ecda,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS015190,HMP1,6788b769d0b62444378462474da0ecda,stool,F,NA,healthy,NA,NA,US,1
+SRS014573,HMP1,6788b769d0b62444378462474da0ed09,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS014575,HMP1,6788b769d0b62444378462474da0ed09,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS014578,HMP1,6788b769d0b62444378462474da0ed09,gingiva,F,NA,healthy,NA,NA,US,1
+SRS014613,HMP1,6788b769d0b62444378462474da0ed09,stool,F,NA,healthy,NA,NA,US,1
+SRS017511,HMP1,6788b769d0b62444378462474da0fb19,gingiva,F,NA,healthy,NA,NA,US,1
+SRS017521,HMP1,6788b769d0b62444378462474da0fb19,stool,F,NA,healthy,NA,NA,US,1
+SRS017533,HMP1,6788b769d0b62444378462474da0fb19,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS017537,HMP1,6788b769d0b62444378462474da0fb19,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS043239,HMP1,6788b769d0b62444378462474da10131,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS050244,HMP1,6788b769d0b62444378462474da10131,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS053398,HMP1,6788b769d0b62444378462474da10131,stool,F,NA,healthy,NA,NA,US,1
+SRS055401,HMP1,6788b769d0b62444378462474da10131,gingiva,F,NA,healthy,NA,NA,US,1
+SRS043646,HMP1,6788b769d0b62444378462474da107de,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS045004,HMP1,6788b769d0b62444378462474da107de,stool,M,NA,healthy,NA,NA,US,1
+SRS045127,HMP1,6788b769d0b62444378462474da107de,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS049268,HMP1,6788b769d0b62444378462474da107de,gingiva,M,NA,healthy,NA,NA,US,1
+SRS042284,HMP1,6788b769d0b62444378462474da10975,stool,F,NA,healthy,NA,NA,US,1
+SRS047100,HMP1,6788b769d0b62444378462474da10975,gingiva,F,NA,healthy,NA,NA,US,1
+SRS052874,HMP1,6788b769d0b62444378462474da10975,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS053603,HMP1,6788b769d0b62444378462474da10975,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS014271,HMP1,6788b769d0b62444378462474da10ca1,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS063287,HMP1,6788b769d0b62444378462474da10ca1,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS064493,HMP1,6788b769d0b62444378462474da10ca1,gingiva,M,NA,healthy,NA,NA,US,1
+SRS013521,HMP1,6788b769d0b62444378462474da1116f,stool,F,NA,healthy,NA,NA,US,1
+SRS013533,HMP1,6788b769d0b62444378462474da1116f,gingiva,F,NA,healthy,NA,NA,US,1
+SRS049147,HMP1,6788b769d0b62444378462474da1116f,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS011586,HMP1,6788b769d0b62444378462474da1195c,stool,F,NA,healthy,NA,NA,US,1
+SRS016815,HMP1,6788b769d0b62444378462474da1195c,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS011239,HMP1,6788b769d0b62444378462474da9bc2c,stool,F,NA,healthy,NA,NA,US,1
+SRS011243,HMP1,6788b769d0b62444378462474da9bc2c,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS011247,HMP1,6788b769d0b62444378462474da9bc2c,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS011255,HMP1,6788b769d0b62444378462474da9bc2c,gingiva,F,NA,healthy,NA,NA,US,1
+SRS012279,HMP1,6788b769d0b62444378462474da9bfef,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS012281,HMP1,6788b769d0b62444378462474da9bfef,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS012285,HMP1,6788b769d0b62444378462474da9bfef,gingiva,F,NA,healthy,NA,NA,US,1
+SRS013476,HMP1,6788b769d0b62444378462474da9c2e6,stool,M,NA,healthy,NA,NA,US,1
+SRS013502,HMP1,6788b769d0b62444378462474da9c2e6,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS013506,HMP1,6788b769d0b62444378462474da9c2e6,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS017304,HMP1,6788b769d0b62444378462474da9c2e6,gingiva,M,NA,healthy,NA,NA,US,1
+SRS014888,HMP1,6788b769d0b62444378462474da9cf8f,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS014890,HMP1,6788b769d0b62444378462474da9cf8f,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS014894,HMP1,6788b769d0b62444378462474da9cf8f,gingiva,M,NA,healthy,NA,NA,US,1
+SRS014923,HMP1,6788b769d0b62444378462474da9cf8f,stool,M,NA,healthy,NA,NA,US,1
+SRS015985,HMP1,6788b769d0b62444378462474da9db36,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015989,HMP1,6788b769d0b62444378462474da9db36,gingiva,M,NA,healthy,NA,NA,US,1
+SRS016002,HMP1,6788b769d0b62444378462474da9db36,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS016018,HMP1,6788b769d0b62444378462474da9db36,stool,M,NA,healthy,NA,NA,US,1
+SRS016196,HMP1,6788b769d0b62444378462474da9dce6,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS016200,HMP1,6788b769d0b62444378462474da9dce6,gingiva,F,NA,healthy,NA,NA,US,1
+SRS016203,HMP1,6788b769d0b62444378462474da9dce6,stool,F,NA,healthy,NA,NA,US,1
+SRS016225,HMP1,6788b769d0b62444378462474da9dce6,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS016495,HMP1,6788b769d0b62444378462474da9e958,stool,F,NA,healthy,NA,NA,US,1
+SRS016501,HMP1,6788b769d0b62444378462474da9e958,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS016503,HMP1,6788b769d0b62444378462474da9e958,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS016541,HMP1,6788b769d0b62444378462474da9e958,gingiva,F,NA,healthy,NA,NA,US,1
+SRS017191,HMP1,6788b769d0b62444378462474da9f46a,stool,M,NA,healthy,NA,NA,US,1
+SRS017209,HMP1,6788b769d0b62444378462474da9f46a,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS017215,HMP1,6788b769d0b62444378462474da9f46a,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS017227,HMP1,6788b769d0b62444378462474da9f46a,gingiva,M,NA,healthy,NA,NA,US,1
+SRS017808,HMP1,6788b769d0b62444378462474da9f907,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS017810,HMP1,6788b769d0b62444378462474da9f907,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS017814,HMP1,6788b769d0b62444378462474da9f907,gingiva,M,NA,healthy,NA,NA,US,1
+SRS017821,HMP1,6788b769d0b62444378462474da9f907,stool,M,NA,healthy,NA,NA,US,1
+SRS018351,HMP1,6788b769d0b62444378462474da9f9e0,stool,M,NA,healthy,NA,NA,US,1
+SRS018357,HMP1,6788b769d0b62444378462474da9f9e0,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS018359,HMP1,6788b769d0b62444378462474da9f9e0,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS018394,HMP1,6788b769d0b62444378462474da9f9e0,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015893,HMP1,6788b769d0b62444378462474daa079f,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015895,HMP1,6788b769d0b62444378462474daa079f,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015899,HMP1,6788b769d0b62444378462474daa079f,gingiva,M,NA,healthy,NA,NA,US,1
+SRS049389,HMP1,6788b769d0b62444378462474daa13aa,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS049959,HMP1,6788b769d0b62444378462474daa13aa,stool,M,NA,healthy,NA,NA,US,1
+SRS050628,HMP1,6788b769d0b62444378462474daa13aa,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS058808,HMP1,6788b769d0b62444378462474daa13aa,gingiva,M,NA,healthy,NA,NA,US,1
+SRS042643,HMP1,6788b769d0b62444378462474daa1bb0,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS043755,HMP1,6788b769d0b62444378462474daa1bb0,gingiva,M,NA,healthy,NA,NA,US,1
+SRS045049,HMP1,6788b769d0b62444378462474daa1bb0,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS045713,HMP1,6788b769d0b62444378462474daa1bb0,stool,M,NA,healthy,NA,NA,US,1
+SRS043001,HMP1,6788b769d0b62444378462474daa28eb,stool,F,NA,healthy,NA,NA,US,1
+SRS044366,HMP1,6788b769d0b62444378462474daa28eb,gingiva,F,NA,healthy,NA,NA,US,1
+SRS044373,HMP1,6788b769d0b62444378462474daa28eb,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS050007,HMP1,6788b769d0b62444378462474daa28eb,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS017247,HMP1,6788b769d0b62444378462474daa3374,stool,M,NA,healthy,NA,NA,US,1
+SRS024081,HMP1,6788b769d0b62444378462474daa3374,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS024087,HMP1,6788b769d0b62444378462474daa3374,gingiva,M,NA,healthy,NA,NA,US,1
+SRS022530,HMP1,6788b769d0b62444378462474daa36c2,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS022532,HMP1,6788b769d0b62444378462474daa36c2,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS022536,HMP1,6788b769d0b62444378462474daa36c2,gingiva,F,NA,healthy,NA,NA,US,1
+SRS022713,HMP1,6788b769d0b62444378462474daa3baa,stool,F,NA,healthy,NA,NA,US,1
+SRS022719,HMP1,6788b769d0b62444378462474daa3baa,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS022721,HMP1,6788b769d0b62444378462474daa3baa,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS022725,HMP1,6788b769d0b62444378462474daa3baa,gingiva,F,NA,healthy,NA,NA,US,1
+SRS011271,HMP1,6788b769d0b62444378462474daa42a5,stool,M,NA,healthy,NA,NA,US,1
+SRS012983,HMP1,6788b769d0b62444378462474daa42a5,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS012985,HMP1,6788b769d0b62444378462474daa42a5,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS012989,HMP1,6788b769d0b62444378462474daa42a5,gingiva,M,NA,healthy,NA,NA,US,1
+SRS023591,HMP1,6788b769d0b62444378462474daa4893,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS023595,HMP1,6788b769d0b62444378462474daa4893,gingiva,F,NA,healthy,NA,NA,US,1
+SRS023617,HMP1,6788b769d0b62444378462474daa4893,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS011529,HMP1,6788b769d0b62444378462474daa5350,stool,M,NA,healthy,NA,NA,US,1
+SRS052061,HMP1,6788b769d0b62444378462474daa5350,gingiva,M,NA,healthy,NA,NA,US,1
+SRS011084,HMP1,6788b769d0b62444378462474db493eb,stool,M,NA,healthy,NA,NA,US,1
+SRS011115,HMP1,6788b769d0b62444378462474db493eb,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS011126,HMP1,6788b769d0b62444378462474db493eb,gingiva,M,NA,healthy,NA,NA,US,1
+SRS021473,HMP1,6788b769d0b62444378462474db493eb,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS013818,HMP1,6788b769d0b62444378462474db49a82,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS013825,HMP1,6788b769d0b62444378462474db49a82,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS013836,HMP1,6788b769d0b62444378462474db49a82,gingiva,M,NA,healthy,NA,NA,US,1
+SRS013942,HMP1,6788b769d0b62444378462474db49fd5,saliva,M,NA,healthy,NA,NA,US,1
+SRS013945,HMP1,6788b769d0b62444378462474db49fd5,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS013946,HMP1,6788b769d0b62444378462474db49fd5,gingiva,M,NA,healthy,NA,NA,US,1
+SRS013947,HMP1,6788b769d0b62444378462474db49fd5,palatine tonsil,M,NA,healthy,NA,NA,US,1
+SRS013948,HMP1,6788b769d0b62444378462474db49fd5,throat,M,NA,healthy,NA,NA,US,1
+SRS019120,HMP1,6788b769d0b62444378462474db49fd5,saliva,M,NA,healthy,NA,NA,US,1
+SRS019122,HMP1,6788b769d0b62444378462474db49fd5,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS019126,HMP1,6788b769d0b62444378462474db49fd5,palatine tonsil,M,NA,healthy,NA,NA,US,1
+SRS019127,HMP1,6788b769d0b62444378462474db49fd5,throat,M,NA,healthy,NA,NA,US,1
+SRS014459,HMP1,6788b769d0b62444378462474db4a034,stool,F,NA,healthy,NA,NA,US,1
+SRS014468,HMP1,6788b769d0b62444378462474db4a034,saliva,F,NA,healthy,NA,NA,US,1
+SRS014470,HMP1,6788b769d0b62444378462474db4a034,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS014472,HMP1,6788b769d0b62444378462474db4a034,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS014473,HMP1,6788b769d0b62444378462474db4a034,gingiva,F,NA,healthy,NA,NA,US,1
+SRS014474,HMP1,6788b769d0b62444378462474db4a034,palatine tonsil,F,NA,healthy,NA,NA,US,1
+SRS014475,HMP1,6788b769d0b62444378462474db4a034,throat,F,NA,healthy,NA,NA,US,1
+SRS015055,HMP1,6788b769d0b62444378462474db4a034,saliva,F,NA,healthy,NA,NA,US,1
+SRS015061,HMP1,6788b769d0b62444378462474db4a034,palatine tonsil,F,NA,healthy,NA,NA,US,1
+SRS015062,HMP1,6788b769d0b62444378462474db4a034,throat,F,NA,healthy,NA,NA,US,1
+SRS014683,HMP1,6788b769d0b62444378462474db4a440,stool,M,NA,healthy,NA,NA,US,1
+SRS014684,HMP1,6788b769d0b62444378462474db4a440,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS014686,HMP1,6788b769d0b62444378462474db4a440,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS014687,HMP1,6788b769d0b62444378462474db4a440,gingiva,M,NA,healthy,NA,NA,US,1
+SRS014689,HMP1,6788b769d0b62444378462474db4a440,throat,M,NA,healthy,NA,NA,US,1
+SRS014692,HMP1,6788b769d0b62444378462474db4a440,saliva,M,NA,healthy,NA,NA,US,1
+SRS019026,HMP1,6788b769d0b62444378462474db4a440,palatine tonsil,M,NA,healthy,NA,NA,US,1
+SRS019027,HMP1,6788b769d0b62444378462474db4a440,throat,M,NA,healthy,NA,NA,US,1
+SRS015038,HMP1,6788b769d0b62444378462474db4b0ba,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS015040,HMP1,6788b769d0b62444378462474db4b0ba,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS015044,HMP1,6788b769d0b62444378462474db4b0ba,gingiva,F,NA,healthy,NA,NA,US,1
+SRS015133,HMP1,6788b769d0b62444378462474db4b0ba,stool,F,NA,healthy,NA,NA,US,1
+SRS015264,HMP1,6788b769d0b62444378462474db4bbc9,stool,M,NA,healthy,NA,NA,US,1
+SRS015272,HMP1,6788b769d0b62444378462474db4bbc9,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015274,HMP1,6788b769d0b62444378462474db4bbc9,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015278,HMP1,6788b769d0b62444378462474db4bbc9,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015941,HMP1,6788b769d0b62444378462474db4cb65,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015947,HMP1,6788b769d0b62444378462474db4cb65,gingiva,M,NA,healthy,NA,NA,US,1
+SRS049283,HMP1,6788b769d0b62444378462474db4cb65,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS016086,HMP1,6788b769d0b62444378462474db4cdd8,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS016088,HMP1,6788b769d0b62444378462474db4cdd8,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS016092,HMP1,6788b769d0b62444378462474db4cdd8,gingiva,F,NA,healthy,NA,NA,US,1
+SRS016095,HMP1,6788b769d0b62444378462474db4cdd8,stool,F,NA,healthy,NA,NA,US,1
+SRS016989,HMP1,6788b769d0b62444378462474db4d533,stool,M,NA,healthy,NA,NA,US,1
+SRS017007,HMP1,6788b769d0b62444378462474db4d533,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS017013,HMP1,6788b769d0b62444378462474db4d533,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS017025,HMP1,6788b769d0b62444378462474db4d533,gingiva,M,NA,healthy,NA,NA,US,1
+SRS017120,HMP1,6788b769d0b62444378462474db4d9ad,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS017127,HMP1,6788b769d0b62444378462474db4d9ad,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS017139,HMP1,6788b769d0b62444378462474db4d9ad,gingiva,M,NA,healthy,NA,NA,US,1
+SRS017433,HMP1,6788b769d0b62444378462474db4e1be,stool,F,NA,healthy,NA,NA,US,1
+SRS017439,HMP1,6788b769d0b62444378462474db4e1be,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS017441,HMP1,6788b769d0b62444378462474db4e1be,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS017445,HMP1,6788b769d0b62444378462474db4e1be,gingiva,F,NA,healthy,NA,NA,US,1
+SRS019587,HMP1,6788b769d0b62444378462474db4eb8c,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS019591,HMP1,6788b769d0b62444378462474db4eb8c,gingiva,F,NA,healthy,NA,NA,US,1
+SRS019601,HMP1,6788b769d0b62444378462474db4eb8c,stool,F,NA,healthy,NA,NA,US,1
+SRS019607,HMP1,6788b769d0b62444378462474db4eb8c,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS020328,HMP1,6788b769d0b62444378462474db4faa7,stool,F,NA,healthy,NA,NA,US,1
+SRS020334,HMP1,6788b769d0b62444378462474db4faa7,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS020336,HMP1,6788b769d0b62444378462474db4faa7,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS020340,HMP1,6788b769d0b62444378462474db4faa7,gingiva,F,NA,healthy,NA,NA,US,1
+SRS024015,HMP1,6788b769d0b62444378462474db505cb,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS024017,HMP1,6788b769d0b62444378462474db505cb,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS024021,HMP1,6788b769d0b62444378462474db505cb,gingiva,F,NA,healthy,NA,NA,US,1
+SRS018133,HMP1,6788b769d0b62444378462474db50f19,stool,M,NA,healthy,NA,NA,US,1
+SRS018145,HMP1,6788b769d0b62444378462474db50f19,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS018149,HMP1,6788b769d0b62444378462474db50f19,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS018157,HMP1,6788b769d0b62444378462474db50f19,gingiva,M,NA,healthy,NA,NA,US,1
+SRS022137,HMP1,6788b769d0b62444378462474db51246,stool,F,NA,healthy,NA,NA,US,1
+SRS022143,HMP1,6788b769d0b62444378462474db51246,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS022145,HMP1,6788b769d0b62444378462474db51246,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS022149,HMP1,6788b769d0b62444378462474db51246,gingiva,F,NA,healthy,NA,NA,US,1
+SRS016037,HMP1,6788b769d0b62444378462474dbcafd2,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS016039,HMP1,6788b769d0b62444378462474dbcafd2,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS016043,HMP1,6788b769d0b62444378462474dbcafd2,gingiva,M,NA,healthy,NA,NA,US,1
+SRS016056,HMP1,6788b769d0b62444378462474dbcafd2,stool,M,NA,healthy,NA,NA,US,1
+SRS016297,HMP1,6788b769d0b62444378462474dbcbc1d,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS016319,HMP1,6788b769d0b62444378462474dbcbc1d,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS016331,HMP1,6788b769d0b62444378462474dbcbc1d,gingiva,M,NA,healthy,NA,NA,US,1
+SRS016335,HMP1,6788b769d0b62444378462474dbcbc1d,stool,M,NA,healthy,NA,NA,US,1
+SRS016569,HMP1,6788b769d0b62444378462474dbcbf3b,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS016575,HMP1,6788b769d0b62444378462474dbcbf3b,gingiva,F,NA,healthy,NA,NA,US,1
+SRS016600,HMP1,6788b769d0b62444378462474dbcbf3b,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS018300,HMP1,6788b769d0b62444378462474dbcc68b,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS018313,HMP1,6788b769d0b62444378462474dbcc68b,stool,M,NA,healthy,NA,NA,US,1
+SRS018329,HMP1,6788b769d0b62444378462474dbcc68b,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS018337,HMP1,6788b769d0b62444378462474dbcc68b,gingiva,M,NA,healthy,NA,NA,US,1
+SRS018774,HMP1,6788b769d0b62444378462474dbcc9bf,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS018778,HMP1,6788b769d0b62444378462474dbcc9bf,gingiva,M,NA,healthy,NA,NA,US,1
+SRS018791,HMP1,6788b769d0b62444378462474dbcc9bf,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS018817,HMP1,6788b769d0b62444378462474dbcc9bf,stool,M,NA,healthy,NA,NA,US,1
+SRS019219,HMP1,6788b769d0b62444378462474dbccddb,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS019221,HMP1,6788b769d0b62444378462474dbccddb,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS019225,HMP1,6788b769d0b62444378462474dbccddb,gingiva,F,NA,healthy,NA,NA,US,1
+SRS019267,HMP1,6788b769d0b62444378462474dbccddb,stool,F,NA,healthy,NA,NA,US,1
+SRS020220,HMP1,6788b769d0b62444378462474dbccfa7,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS020222,HMP1,6788b769d0b62444378462474dbccfa7,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS020226,HMP1,6788b769d0b62444378462474dbccfa7,gingiva,M,NA,healthy,NA,NA,US,1
+SRS020233,HMP1,6788b769d0b62444378462474dbccfa7,stool,M,NA,healthy,NA,NA,US,1
+SRS020856,HMP1,6788b769d0b62444378462474dbcd792,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS020858,HMP1,6788b769d0b62444378462474dbcd792,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS020862,HMP1,6788b769d0b62444378462474dbcd792,gingiva,M,NA,healthy,NA,NA,US,1
+SRS024375,HMP1,6788b769d0b62444378462474dbcdc39,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS024377,HMP1,6788b769d0b62444378462474dbcdc39,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS024381,HMP1,6788b769d0b62444378462474dbcdc39,gingiva,F,NA,healthy,NA,NA,US,1
+SRS053335,HMP1,6788b769d0b62444378462474dbcde09,stool,F,NA,healthy,NA,NA,US,1
+SRS053630,HMP1,6788b769d0b62444378462474dbcde09,gingiva,F,NA,healthy,NA,NA,US,1
+SRS053854,HMP1,6788b769d0b62444378462474dbcde09,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS058186,HMP1,6788b769d0b62444378462474dbcde09,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS045254,HMP1,6788b769d0b62444378462474dbce565,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS048164,HMP1,6788b769d0b62444378462474dbce565,stool,M,NA,healthy,NA,NA,US,1
+SRS051244,HMP1,6788b769d0b62444378462474dbce565,gingiva,M,NA,healthy,NA,NA,US,1
+SRS057539,HMP1,6788b769d0b62444378462474dbce565,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS047824,HMP1,6788b769d0b62444378462474dbcf1c0,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS052876,HMP1,6788b769d0b62444378462474dbcf1c0,gingiva,F,NA,healthy,NA,NA,US,1
+SRS054956,HMP1,6788b769d0b62444378462474dbcf1c0,stool,F,NA,healthy,NA,NA,US,1
+SRS055118,HMP1,6788b769d0b62444378462474dbcf1c0,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS045262,HMP1,6788b769d0b62444378462474dbcfdfc,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS051941,HMP1,6788b769d0b62444378462474dbcfdfc,gingiva,F,NA,healthy,NA,NA,US,1
+SRS052697,HMP1,6788b769d0b62444378462474dbcfdfc,stool,F,NA,healthy,NA,NA,US,1
+SRS054687,HMP1,6788b769d0b62444378462474dbcfdfc,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS014124,HMP1,6788b769d0b62444378462474dbd0552,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS014126,HMP1,6788b769d0b62444378462474dbd0552,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS051378,HMP1,6788b769d0b62444378462474dbd0552,gingiva,F,NA,healthy,NA,NA,US,1
+SRS015537,HMP1,6788b769d0b62444378462474dbd1240,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015540,HMP1,6788b769d0b62444378462474dbd1240,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015574,HMP1,6788b769d0b62444378462474dbd1240,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015578,HMP1,6788b769d0b62444378462474dbd1240,stool,M,NA,healthy,NA,NA,US,1
+SRS042457,HMP1,6788b769d0b62444378462474dbd147c,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS043663,HMP1,6788b769d0b62444378462474dbd147c,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS045313,HMP1,6788b769d0b62444378462474dbd147c,gingiva,M,NA,healthy,NA,NA,US,1
+SRS049900,HMP1,6788b769d0b62444378462474dbd147c,stool,M,NA,healthy,NA,NA,US,1
+SRS011134,HMP1,6788b769d0b62444378462474dc5ea30,stool,M,NA,healthy,NA,NA,US,1
+SRS011140,HMP1,6788b769d0b62444378462474dc5ea30,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS011144,HMP1,6788b769d0b62444378462474dc5ea30,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS011152,HMP1,6788b769d0b62444378462474dc5ea30,gingiva,M,NA,healthy,NA,NA,US,1
+SRS013164,HMP1,6788b769d0b62444378462474dc5f656,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS013170,HMP1,6788b769d0b62444378462474dc5f656,gingiva,M,NA,healthy,NA,NA,US,1
+SRS023987,HMP1,6788b769d0b62444378462474dc5f656,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS011302,HMP1,6788b769d0b62444378462474dc5f751,stool,F,NA,healthy,NA,NA,US,1
+SRS011306,HMP1,6788b769d0b62444378462474dc5f751,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS011310,HMP1,6788b769d0b62444378462474dc5f751,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS011343,HMP1,6788b769d0b62444378462474dc5f751,gingiva,F,NA,healthy,NA,NA,US,1
+SRS015209,HMP1,6788b769d0b62444378462474dc5fc9b,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS015215,HMP1,6788b769d0b62444378462474dc5fc9b,gingiva,F,NA,healthy,NA,NA,US,1
+SRS056892,HMP1,6788b769d0b62444378462474dc5fc9b,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS050752,HMP1,6788b769d0b62444378462474dc602b6,stool,F,NA,healthy,NA,NA,US,1
+SRS054653,HMP1,6788b769d0b62444378462474dc602b6,gingiva,F,NA,healthy,NA,NA,US,1
+SRS056323,HMP1,6788b769d0b62444378462474dc602b6,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS050029,HMP1,6788b769d0b62444378462474dc6121b,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS052227,HMP1,6788b769d0b62444378462474dc6121b,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS052604,HMP1,6788b769d0b62444378462474dc6121b,gingiva,F,NA,healthy,NA,NA,US,1
+SRS054590,HMP1,6788b769d0b62444378462474dc6121b,stool,F,NA,healthy,NA,NA,US,1
+SRS014979,HMP1,6788b769d0b62444378462474dc6169c,stool,F,NA,healthy,NA,NA,US,1
+SRS063272,HMP1,6788b769d0b62444378462474dc6169c,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS064449,HMP1,6788b769d0b62444378462474dc6169c,gingiva,F,NA,healthy,NA,NA,US,1
+SRS064774,HMP1,6788b769d0b62444378462474dc6169c,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS015374,HMP1,6788b769d0b62444378462474dc625a8,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS015378,HMP1,6788b769d0b62444378462474dc625a8,gingiva,F,NA,healthy,NA,NA,US,1
+SRS015395,HMP1,6788b769d0b62444378462474dc625a8,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS063351,HMP1,6788b769d0b62444378462474dc625a8,palatine tonsil,F,NA,healthy,NA,NA,US,1
+SRS013687,HMP1,6788b769d0b62444378462474dc63594,stool,M,NA,healthy,NA,NA,US,1
+SRS013705,HMP1,6788b769d0b62444378462474dc63594,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS013711,HMP1,6788b769d0b62444378462474dc63594,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS013723,HMP1,6788b769d0b62444378462474dc63594,gingiva,M,NA,healthy,NA,NA,US,1
+SRS016342,HMP1,6788b769d0b62444378462474dc64204,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS016349,HMP1,6788b769d0b62444378462474dc64204,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS016360,HMP1,6788b769d0b62444378462474dc64204,gingiva,M,NA,healthy,NA,NA,US,1
+SRS017307,HMP1,6788b769d0b62444378462474dc64204,stool,M,NA,healthy,NA,NA,US,1
+SRS016954,HMP1,6788b769d0b62444378462474dc6516e,stool,M,NA,healthy,NA,NA,US,1
+SRS017076,HMP1,6788b769d0b62444378462474dc6516e,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS017080,HMP1,6788b769d0b62444378462474dc6516e,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS017088,HMP1,6788b769d0b62444378462474dc6516e,gingiva,M,NA,healthy,NA,NA,US,1
+SRS023346,HMP1,6788b769d0b62444378462474dc65268,stool,F,NA,healthy,NA,NA,US,1
+SRS023352,HMP1,6788b769d0b62444378462474dc65268,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS023354,HMP1,6788b769d0b62444378462474dc65268,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS023358,HMP1,6788b769d0b62444378462474dc65268,gingiva,F,NA,healthy,NA,NA,US,1
+SRS013215,HMP1,6788b769d0b62444378462474dc6667d,stool,M,NA,healthy,NA,NA,US,1
+SRS013234,HMP1,6788b769d0b62444378462474dc6667d,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS013239,HMP1,6788b769d0b62444378462474dc6667d,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS013252,HMP1,6788b769d0b62444378462474dc6667d,gingiva,M,NA,healthy,NA,NA,US,1
+SRS015644,HMP1,6788b769d0b62444378462474dc6724b,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS015646,HMP1,6788b769d0b62444378462474dc6724b,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS015650,HMP1,6788b769d0b62444378462474dc6724b,gingiva,M,NA,healthy,NA,NA,US,1
+SRS016740,HMP1,6788b769d0b62444378462474dc681cd,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS016742,HMP1,6788b769d0b62444378462474dc681cd,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS016746,HMP1,6788b769d0b62444378462474dc681cd,gingiva,M,NA,healthy,NA,NA,US,1
+SRS016753,HMP1,6788b769d0b62444378462474dc681cd,stool,M,NA,healthy,NA,NA,US,1
+SRS018569,HMP1,6788b769d0b62444378462474dc68b7d,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS018573,HMP1,6788b769d0b62444378462474dc68b7d,gingiva,M,NA,healthy,NA,NA,US,1
+SRS018575,HMP1,6788b769d0b62444378462474dc68b7d,stool,M,NA,healthy,NA,NA,US,1
+SRS018591,HMP1,6788b769d0b62444378462474dc68b7d,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS019327,HMP1,6788b769d0b62444378462474dc69197,dorsum of tongue,F,NA,healthy,NA,NA,US,1
+SRS019329,HMP1,6788b769d0b62444378462474dc69197,buccal mucosa,F,NA,healthy,NA,NA,US,1
+SRS019333,HMP1,6788b769d0b62444378462474dc69197,gingiva,F,NA,healthy,NA,NA,US,1
+SRS019381,HMP1,6788b769d0b62444378462474dc69197,stool,F,NA,healthy,NA,NA,US,1
+SRS019872,HMP1,6788b769d0b62444378462474dc6998e,buccal mucosa,M,NA,healthy,NA,NA,US,1
+SRS019894,HMP1,6788b769d0b62444378462474dc6998e,dorsum of tongue,M,NA,healthy,NA,NA,US,1
+SRS019906,HMP1,6788b769d0b62444378462474dc6998e,gingiva,M,NA,healthy,NA,NA,US,1
+ERR1474564,Philippines,Ae08,saliva,M,24,healthy,NA,NA,Philippines,1
+ERR1474565,Philippines,Ae10,saliva,M,23,healthy,NA,NA,Philippines,1
+ERR1474566,Philippines,Ae12,saliva,F,30,healthy,NA,NA,Philippines,1
+ERR1474567,Philippines,Ae61,saliva,F,26,healthy,NA,NA,Philippines,1
+ERR1474568,Philippines,Cae01,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474569,Philippines,Cae06,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474570,Philippines,Cae42,saliva,M,NA,healthy,NA,NA,Philippines,1
+ERR1474571,Philippines,Cae45,saliva,M,NA,healthy,NA,NA,Philippines,1
+ERR1474572,Philippines,B29,saliva,M,30,healthy,NA,NA,Philippines,1
+ERR1474573,Philippines,B33,saliva,F,20,healthy,NA,NA,Philippines,1
+ERR1474574,Philippines,B35,saliva,M,23,healthy,NA,NA,Philippines,1
+ERR1474575,Philippines,B42,saliva,M,28,healthy,NA,NA,Philippines,1
+ERR1474576,Philippines,B62,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474577,Philippines,B64,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474578,Philippines,B73,saliva,M,NA,healthy,NA,NA,Philippines,1
+ERR1474579,Philippines,B99,saliva,F,39,healthy,NA,NA,Philippines,1
+ERR1474580,Philippines,Ag09,saliva,M,NA,healthy,NA,NA,Philippines,1
+ERR1474581,Philippines,Ag27,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474582,Philippines,Ag44,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474583,Philippines,Ag57,saliva,M,NA,healthy,NA,NA,Philippines,1
+ERR1474584,Philippines,Cag05,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474585,Philippines,Cag09,saliva,M,NA,healthy,NA,NA,Philippines,1
+ERR1474586,Philippines,Cag23,saliva,F,NA,healthy,NA,NA,Philippines,1
+ERR1474587,Philippines,Cag34,saliva,M,NA,healthy,NA,NA,Philippines,1
