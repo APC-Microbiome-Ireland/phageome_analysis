@@ -1,0 +1,11 @@
+ID  OMP_myx_plus
+AC  TIGR04565
+DE  outer membrane beta-barrel protein
+AU  Haft DH
+TC  60.00 60.00
+NC  50.00 50.00
+AL  muscle_manual
+IT  subfamily_domain
+EN  outer membrane beta-barrel protein
+TP  TIGRFAMs
+CC  Members of this family are outer membrane beta-barrel proteins, as inferred by distant homologies to other families (e.g. PF13505) and by the concentration of aromatic residues, especially Phe, in the OMP signal region, which is flush with the C-terminus in some members, but followed by a few residues in others. Members have variable insertions and deletions, affecting scores, so this HMM does not cleanly separate all members from all non-members. Members are common in the Myxococcales, with five occurring in Myxococcus xanthus DK 1622.

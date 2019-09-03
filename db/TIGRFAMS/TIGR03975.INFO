@@ -1,0 +1,21 @@
+ID  rSAM_ocin_1
+AC  TIGR03975
+DE  ribosomal peptide maturation radical SAM protein 1
+AU  Haft DH
+TC  281.85 281.85
+NC  255.45 255.45
+AL  muscle_manual
+IT  subfamily
+EN  ribosomal peptide maturation radical SAM protein 1
+TP  TIGRFAMs
+CC  Models TIGR03793 and TIGR03798 describe bacteriocin precursor families to occur often in large paralogous families and are subject to various modifications, including by LanM family lantibiotic synthases and by cyclodehydratases. This model represents a radical SAM protein family that regularly occurs in the context of these bacteriocins, and may occur where other familiar peptide modification enzymes are absent.
+RN  [1]
+RM  PMID:20500830 
+RT  Expansion of ribosomally produced natural products: a nitrile hydratase- and Nif11-related precursor family. 
+RA  Haft DH, Basu MK, Mitchell DA 
+RL  BMC Biol. 2010 May 25;8:70. doi: 10.1186/1741-7007-8-70.
+RN  [2]
+RM  PMID:22983711 
+RT  Metagenome mining reveals polytheonamides as posttranslationally modified ribosomal peptides. 
+RA  Freeman MF, Gurgui C, Helf MJ, Morinaka BI, Uria AR, Oldham NJ, Sahl HG, Matsunaga S, Piel J 
+RL  Science. 2012 Oct 19;338(6105):387-90. doi: 10.1126/science.1226121.

@@ -1,0 +1,27 @@
+ID  RNAse_H_YqgF
+AC  TIGR00250
+DE  putative transcription antitermination factor YqgF
+AU  Loftus BJ, Haft DH
+TC  43.25 43.25
+NC  38.45 38.45
+AL  clustalw
+IT  hypoth_equivalog
+EN  putative transcription antitermination factor YqgF
+TP  TIGRFAMs
+CC  This protein family, which exhibits an RNAse H fold in crystal structure, has been proposed as a putative Holliday junction resolvase, an alternate to RuvC.
+RN  [1]
+RM  PMID:22353788 
+RT  Mutations in the essential Escherichia coli gene, yqgF, and their effects on transcription. 
+RA  Iwamoto A, Osawa A, Kawai M, Honda H, Yoshida S, Furuya N, Kato J 
+RL  J Mol Microbiol Biotechnol. 2012;22(1):17-23. doi: 10.1159/000336517.
+RN  [2]
+RM  PMID:14512736
+RT  Solution structure of the hypothetical protein YqgF from Escherichia coli reveals an RNAse H fold.
+RA  Liu D, Wang YS, Wyss DF
+RL  J Biomol NMR. 2003 Dec;27(4):389-92.
+RN  [3]
+RM  PMID:10982859
+RT  SURVEY AND SUMMARY: holliday junction resolvases and related nucleases: identification of new families, phyletic distribution and evolutionary trajectories.
+RA  Aravind L, Makarova KS, Koonin EV
+RL  Nucleic Acids Res. 2000 Sep 15;28(18):3417-32.
+DR  HAMAP; MF_00651; 434 of 441

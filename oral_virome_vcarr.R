@@ -58,7 +58,7 @@ rownames(metadata) = metadata$ID
 # #Remove rows with all zeroes
 # vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
 # 
-# ########## Read in and process contig annotations############
+########## Read in and process contig annotations############
 # 
 # contig_data = data.frame(
 #   row.names = contig_ids,
@@ -145,7 +145,7 @@ rownames(metadata) = metadata$ID
 # #contig_data = contig_data[which(contig_data$ribo_prot_count <= 3),]
 # #contig_data = contig_data[which(contig_data$pvogs_count/(contig_data$size/1000) >= 0.3),]
 # 
-# ########## Host information from CRISPR and tRNA matches#################
+########## Host information from CRISPR and tRNA matches#################
 # #Read in and process CRISPR BLAST data
 # crispr_bitscore_cutoff = 45
 # trna_bitscore_cutoff = 65
@@ -177,7 +177,7 @@ rownames(metadata) = metadata$ID
 #   contig_data[i,"crispr_host"] = temp[which.max(temp$bitscore),"genus"]
 # }
 # 
-# ########## Taxonomy from co-clustering with RefSeq######################
+########## Taxonomy from co-clustering with RefSeq######################
 # clusters_tax = list()
 # for(i in unique(as.character(contig_data$vcontact_cluster))) {
 #   tax_string = as.character(vcontact[which(vcontact$Cluster_id == i),"Taxonomy"])
@@ -1168,7 +1168,8 @@ ggplot(megaphages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = crisp
   scale_fill_manual("Predicted host", values = crispr_colours)
 dev.off()
 
-########## Eggnog analysis ####
+########## Protein annotation ####
+#### EGGNOG
 megaphage_prots <- read.delim("data/megaphage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
 names(megaphage_prots) <- "query_name"
 eggnog <- read.delim("data/megaphage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
@@ -1201,3 +1202,38 @@ large_phage <- megaphage_eggnog[which.max(megaphage_eggnog$size),]
 # Select non-annorated proteins
 proteins_nanno <- megaphage_eggnog$query_name[is.na(megaphage_eggnog$seed_eggnog_ortholog)]
 write.table(proteins_nanno, "data/megaphage_proteins_no_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
+
+#### HMMER on Pfam (with no eggnog annotation)
+megaphages_pfam <- read.table(file="data/megaphage_proteins_no_eggannot_pfam.out", sep = "", stringsAsFactors = F, header = FALSE)
+column_headers <- c("target_name", "target_accession", "query_name", "query_accession", "evalue", "score", "bias", "evalue_bestdomain", "score_bestdomain", "bias_bestdomain", "exp", "reg", "clu", "ov", "env", "dom", "rep", "inc")
+names(megaphages_pfam) <- column_headers
+
+pfam_metadata <- data.frame(ids = unique(megaphages_pfam$query_accession))
+description <- rep(NA, nrow(pfam_metadata))
+for(i in 1:nrow(pfam_metadata)) {
+  tmp <- system(paste0("grep -A2 ", pfam_metadata$ids[i], "$ db/PFAM/Pfam-A.hmm.dat"), intern = TRUE)
+  description[i] <- gsub("#=GF DE   ", "", tmp[grep("DE   ", tmp)])
+}
+pfam_metadata$description <- description
+megaphages_noneggnog_pfam <- left_join(megaphages_pfam, pfam_metadata, by = c("query_accession"="ids")) %>%
+  select(target_name, query_accession, description)
+
+#### HMMER on TIGRFAM (with no eggnog annotation)
+megaphages_tigrfams <- read.table(file="data/megaphage_proteins_no_eggannot_tigrfams.out", sep = "", stringsAsFactors = F, header = FALSE)
+names(megaphages_tigrfams) <- column_headers
+
+tigrfams_metadata <- data.frame(ids = unique(megaphages_tigrfams$query_name))
+description <- rep(NA, nrow(tigrfams_metadata))
+for(i in 1:nrow(tigrfams_metadata)) {
+  tmp <- read.delim(file = paste0("db/TIGRFAMS/", tigrfams_metadata$ids[i], ".INFO"), stringsAsFactors = FALSE, header = FALSE)
+  description[i] <- gsub("DE  ", "", tmp$V1[grep("DE  ", tmp$V1)])
+}
+tigrfams_metadata$description <- description
+megaphages_noneggnog_tigrfams <- left_join(megaphages_tigrfams, tigrfams_metadata, by = c("query_name"="ids")) %>%
+  select(target_name, query_name, description)
+
+# Filter by e-value 1e-50
+megaphages_pfam <- megaphages_pfam[megaphages_pfam$evalue <= 1e-50,]
+megaphages_tigrfams <- megaphages_tigrfams[megaphages_tigrfams$evalue <= 1e-50,]
+
+#### BLAST on NCBI NR (with no eggnog annotation)

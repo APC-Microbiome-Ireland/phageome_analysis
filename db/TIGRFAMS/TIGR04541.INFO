@@ -1,0 +1,23 @@
+ID  thiaminase_BcmE
+AC  TIGR04541
+DE  thiamine pyridinylase
+AU  Haft DH
+TC  175.00 175.00
+NC  50.00 50.00
+AL  muscle
+IT  equivalog
+EN  thiamine pyridinylase
+GS  bcmE
+EC  2.5.1.2
+TP  TIGRFAMs
+CC  Members of this family are thiamine pyridinylase (EC 2.5.1.2), also called thiaminase I. Most examples of this secreted, thiamine-degrading enzyme are encoded with a cluster for biosynthesis of the thiamine antivitamin bacimethrin.
+RN  [1]
+RM  PMID:8631946
+RT  Mechanistic studies on thiaminase I. Overexpression and identification of the active site nucleophile.
+RA  Costello CA, Kelleher NL, Abe M, McLafferty FW, Begley TP
+RL  J Biol Chem. 1996 Feb 16;271(7):3445-52.
+RN  [2]
+RM  PMID:24654570
+RT  Biosynthesis of a thiamin antivitamin in Clostridium botulinum.
+RA  Cooper LE, O'Leary SE, Begley TP
+RL  Biochemistry. 2014 Apr 15;53(14):2215-7. doi: 10.1021/bi500281a.

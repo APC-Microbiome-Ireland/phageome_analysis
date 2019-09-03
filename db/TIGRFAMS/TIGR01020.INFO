@@ -1,0 +1,13 @@
+ID  uS5_euk_arch
+AC  TIGR01020
+DE  ribosomal protein uS5
+AU  Durkin S
+TC  181.65 181.65
+NC  122.55 122.55
+AL  clustalw
+IT  equivalog
+EN  ribosomal protein uS5, eukaryotic/archaeal form
+GS  rpsE
+TP  TIGRFAMs
+CC  This model finds eukaryotic ribosomal protein uS5 (previously S2 in yeast and human) as well as archaeal ribosomal protein uS5.
+DR  HAMAP; MF_01307; 47 of 571

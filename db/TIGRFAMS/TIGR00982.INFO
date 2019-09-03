@@ -1,0 +1,12 @@
+ID  uS12_E_A
+AC  TIGR00982
+DE  ribosomal protein uS12
+AU  Haft DH
+TC  140.20 140.20
+NC  104.30 104.30
+AL  clustalw
+IT  equivalog
+EN  ribosomal protein uS12, eukaryotic/archaeal form
+TP  TIGRFAMs
+CC  This model represents eukaryotic and archaeal forms of ribosomal protein uS12. This protein was known previously as S23 in eukaryotes and as either S12 or S23 in the Archaea.
+DR  HAMAP; MF_00403; 48 of 726

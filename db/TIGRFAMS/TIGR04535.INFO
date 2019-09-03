@@ -1,0 +1,11 @@
+ID  ferrit_encaps
+AC  TIGR04535
+DE  ferritin-like protein
+AU  Haft DH
+TC  125.00 125.00
+NC  115.00 115.00
+AL  clustalw_manual
+IT  hypoth_equivalog
+EN  ferritin-like protein
+TP  TIGRFAMs
+CC  Two families of proteins are known to be encoded, with some regularity, next to the gene for encapsulin (PF04454), with surrounds the target protein to form a prokaryotic proteinaceous organelle. One is the family of enzymes that includes Dyp-type peroxidases. The other is this family, with a resemblance to bacterioferritins. Encapsulin-associated forms of the proteins in these two families have a necessary C-terminal motif that resembles DGSL[SGN]IGSL[KR]. Members of this family that include the last columns of the HMM in the hit region (and are encoded next to the encapsulin gene) should be designated encapsulin-associated ferritin-like protein.

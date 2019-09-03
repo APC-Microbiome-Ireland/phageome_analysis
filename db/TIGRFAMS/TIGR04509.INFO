@@ -1,0 +1,11 @@
+ID  mod_pep_NH_fam
+AC  TIGR04509
+DE  putative modified peptide
+AU  Haft DH
+TC  34.00 34.00
+NC  33.00 25.00
+AL  muscle_manual
+IT  subfamily
+EN  putative modified peptide
+TP  TIGRFAMs
+CC  Members of this family average 110 residues in length, with strong N-terminal homology to both the nitrile hydratase (NH) alpha subunit and family TIGR03793 of NH-related ribosomally translated natural product precursors. A neighboring gene resembles SagB, the dehydrogenase of many thiazole and oxazole modified peptide systems, supporting the hypothesis that members of this family are post-translationally modified.

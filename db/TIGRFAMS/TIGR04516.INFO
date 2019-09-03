@@ -1,0 +1,12 @@
+ID  glycosyl_450act
+AC  TIGR04516
+DE  glycosyltransferase, activator-dependent family
+AU  Haft DH
+TC  440.00 440.00
+NC  400.00 400.00
+AL  muscle_manual
+IT  subfamily
+EN  glycosyltransferase, activator-dependent family
+EC  2.4.1.-
+TP  TIGRFAMs
+CC  Many biosynthesis clusters for secondary metabolites feature a glycosyltransferase gene next to a P450 homolog, often with the P450 lacking a critical heme-binding Cys. These P540-derived sequences seem to be allosteric activators of glycosyltransferases such as the member of this family. This HMM describes a set of related glycosyltransferases, many of which can be recognized as activator-dependent from genomic context.

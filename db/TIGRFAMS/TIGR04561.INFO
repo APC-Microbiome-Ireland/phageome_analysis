@@ -1,0 +1,11 @@
+ID  membra_charge
+AC  TIGR04561
+DE  integral membrane protein
+AU  Haft DH
+TC  30.00 30.00
+NC  29.50 29.50
+AL  muscle_manual
+IT  hypoth_equivalog
+EN  integral membrane protein
+TP  TIGRFAMs
+CC  Members of this protein are short (about 85-residue), low-complexity sequences of unknown function, with a highly hydrophobic N-terminal region of about 40 amino acids followed by a charged (Asp, Glu, Lys, and Arg-rich), sometimes repetitive C-terminal region. Members occur exclusively among the Mollicutes (Mycoplasma, Mesoplasma, Acholeplasma, Spiroplasma, Entomoplasma). The gene neighborhood of this protein is not conserved.

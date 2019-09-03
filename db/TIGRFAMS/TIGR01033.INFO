@@ -1,0 +1,23 @@
+ID  TIGR01033
+AC  TIGR01033
+DE  DNA-binding regulatory protein, YebC/PmpR family
+AU  Haft DH, Ujwal ML
+TC  208.75 208.75
+NC  139.65 139.65
+AL  clustalw
+IT  subfamily
+EN  DNA-binding regulatory protein, YebC/PmpR family
+TP  TIGRFAMs
+CC  This model describes a minimally characterized protein family, restricted to bacteria excepting for some eukaryotic sequences that have possible transit peptides. YebC from E. coli is crystallized, and PA0964 from Pseudomonas aeruginosa has been shown to be a sequence-specific DNA-binding regulatory protein. In silico analysis suggests a role in Holliday junction resolution.
+RN  [1]
+RM  PMID:23046553 
+RT  In silico identification of a multi-functional regulatory protein involved in Holliday junction resolution in bacteria. 
+RA  Zhang Y, Lin J, Gao Y 
+RL  BMC Syst Biol. 2012 Jul 16;6 Suppl 1:S20. doi: 10.1186/1752-0509-6-S1-S20.
+RN  [2]
+RM  PMID:18641136
+RT  The YebC family protein PA0964 negatively regulates the Pseudomonas aeruginosa quinolone signal system and pyocyanin production.
+RA  Liang H, Li L, Dong Z, Surette MG, Duan K
+RL  J Bacteriol. 2008 Sep;190(18):6217-27. Epub 2008 Jul 18.
+DR  COGS; COG0217
+DR  HAMAP; MF_00693; 487 of 518

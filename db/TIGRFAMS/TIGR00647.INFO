@@ -1,0 +1,22 @@
+ID  DNA_bind_WhiA
+AC  TIGR00647
+DE  DNA-binding protein WhiA
+AU  Loftus BJ, Haft DH
+TC  44.10 44.10
+NC  38.25 38.25
+AL  clustalw
+IT  equivalog
+EN  DNA-binding protein WhiA
+GS  whiA
+TP  TIGRFAMs
+CC  This family describes a DNA-binding protein widely conserved in Gram-positive bacteria, and occasionally occurring elsewhere, such as in Thermotoga. It is associated with cell division, and in sporulating organisms with sporulation.
+RN  [1]
+RM  PMID:24097947 
+RT  The conserved DNA-binding protein WhiA is involved in cell division in Bacillus subtilis. 
+RA  Surdova K, Gamba P, Claessen D, Siersma T, Jonker MJ, Errington J, Hamoen LW 
+RL  J Bacteriol. 2013 Dec;195(24):5450-60. doi: 10.1128/JB.00507-13.
+RN  [2]
+RM  PMID:10986251 
+RT  WhiA, a protein of unknown function conserved among gram-positive bacteria, is essential for sporulation in Streptomyces coelicolor A3(2). 
+RA  Ainsa JA, Ryding NJ, Hartley N, Findlay KC, Bruton CJ, Chater KF 
+RL  J Bacteriol. 2000 Oct;182(19):5470-8.

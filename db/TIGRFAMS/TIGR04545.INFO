@@ -1,0 +1,18 @@
+ID  rSAM_ahbD_hemeb
+AC  TIGR04545
+DE  heme b synthase
+AU  Haft DH
+TC  500.00 500.00
+NC  425.00 425.00
+AL  muscle_manual
+IT  equivalog
+EN  heme b synthase
+GS  ahbD
+EC  1.3.99.-
+TP  TIGRFAMs
+CC  Members of this family are AhbD (alternative heme biosynthetic protein D), a radical SAM enzyme in sulfate-reducing bacteria and methanogens that performs the last decarboxylations to synthesize heme b from Fe-coproporphyrin III. Members include DVU_0855, previously included in error in TIGR04055, the NirJ2 family thought to be involved in heme d1 biosynthesis.
+RN  [1]
+RM  PMID:24713144 
+RT  Characterisation of Desulfovibrio vulgaris haem b synthase, a radical SAM family member. 
+RA  Lobo SA, Lawrence AD, Romao CV, Warren MJ, Teixeira M, Saraiva LM 
+RL  Biochim Biophys Acta. 2014 Jul;1844(7):1238-47.

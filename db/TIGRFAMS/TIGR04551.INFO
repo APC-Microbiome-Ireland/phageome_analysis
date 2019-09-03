@@ -1,0 +1,11 @@
+ID  TIGR04551
+AC  TIGR04551
+DE  TIGR04551 family protein
+AU  Haft DH
+TC  300.00 200.00
+NC  110.00 110.00
+AL  muscle_manual
+IT  subfamily
+EN  TIGR04551 family protein
+TP  TIGRFAMs
+CC  Members of this family are proteins of unknown function, about 620 amino acids in length, and universal in but restricted to the Myxococcales, an order within the Deltaproteobacteria with at least 15 sequenced genomes as of 8/2014. The most closely related homologs outside the Myxococcales show localized homology only and display sharply lower scores. Relatively few protein families (roughly 20) could be built to have a comparable restriction to the Myxococcales. The putative protein sorting signal MYXO-CTERM (TIGR03901) appears so far universal in but restricted to the Myxococcales, making the present family a candidate to be involved in recognizing and processing proteins with that signal.

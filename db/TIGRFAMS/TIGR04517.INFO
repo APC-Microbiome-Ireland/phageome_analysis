@@ -1,0 +1,16 @@
+ID  rSAM_PoyD
+AC  TIGR04517
+DE  radical SAM family RiPP maturation amino acid epimerase
+AU  Haft DH
+TC  325.00 325.00
+NC  300.00 300.00
+AL  muscle_manual
+IT  subfamily
+EN  radical SAM family RiPP maturation amino acid epimerase
+TP  TIGRFAMs
+CC  This HMM describes PoyD and its homologs. These are divergent putative radical SAM enzymes, with the classical CxxxCxxC motif but with few members approaching the cutoff score of Pfam model PF04055. PoyD appears responsible for catalyzing a unidirectional L-to-D epimerization of 18 the 48 residues in the core peptide of the first characterized polytheonamide. The RiPP (ribosomally translated natural product) precursor, and peptides encoded near many other members of this family, belong to the nitrile hydratase leader peptide (NHLP) family.
+RN  [1]
+RM  PMID:22983711 
+RT  Metagenome mining reveals polytheonamides as posttranslationally modified ribosomal peptides. 
+RA  Freeman MF, Gurgui C, Helf MJ, Morinaka BI, Uria AR, Oldham NJ, Sahl HG, Matsunaga S, Piel J 
+RL  Science. 2012 Oct 19;338(6105):387-90. doi: 10.1126/science.1226121.

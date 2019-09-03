@@ -1,0 +1,11 @@
+ID  MoCo_extend_TAT
+AC  TIGR04519
+DE  MoCo/4Fe-4S cofactor protein extended Tat translocation domain
+AU  Haft DH
+TC  20.60 20.60
+NC  20.50 19.50
+AL  muscle_manual
+IT  equivalog_domain
+EN  MoCo/4Fe-4S cofactor protein extended Tat translocation domain
+TP  TIGRFAMs
+CC  This model describes a forty-five residue domain in which the last six residues represent the start of a TAT (Twin-Arginine Translocation) sorting signal. TAT allows proteins already folded, with cofactor already bound, to transit the membrane and reach the periplasm with the ability to perform redox or other cofactor-dependent activities. TAT signals are not normally seen so far from a well-supported start site. Member proteins may all be mutually homologous, with both a molybdenum cofactor-binding domain and a 4Fe-4S dicluster-binding domain.

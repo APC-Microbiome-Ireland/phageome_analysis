@@ -1,0 +1,17 @@
+ID  eL8_ribo
+AC  TIGR03677
+DE  ribosomal protein eL8
+AU  Selengut J
+TC  134.60 134.60
+NC  134.35 134.35
+AL  muscle
+IT  equivalog
+EN  ribosomal protein eL8, archaeal form
+GS  rpl7ae
+TP  TIGRFAMs
+CC  This model specifically identifies the archaeal version of the large ribosomal complex protein eL8, previously designated L8 in yeast and L7Ae in the archaea. The family is a narrower version of the PF01248 model which also recognizes the L30 protein.
+RN  [1]
+RM  PMID:16008351 
+RT  The crystal structure of the Methanocaldococcus jannaschii multifunctional L7Ae RNA-binding protein reveals an induced-fit interaction with the box C/D RNAs. 
+RA  Suryadi J, Tran EJ, Maxwell ES, Brown BA 2nd 
+RL  Biochemistry. 2005 Jul 19;44(28):9657-72.

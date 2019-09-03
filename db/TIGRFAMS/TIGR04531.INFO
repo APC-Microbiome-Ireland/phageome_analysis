@@ -1,0 +1,22 @@
+ID  nonproteo_OH
+AC  TIGR04531
+DE  putative nonproteinogenic amino acid hydroxylase
+AU  Haft DH
+TC  300.00 300.00
+NC  180.00 180.00
+AL  muscle_manual
+IT  subfamily
+EN  putative nonproteinogenic amino acid hydroxylase
+EC  1.14.-.-
+TP  TIGRFAMs
+CC  This extremely rare protein family, a branch of the 2-oxoglutarate dependent oxygenase family related to proline 3-hydroxylase, appears only in natural product biosynthetic clusters that include nonribosomal peptide synthases. One members is PlyP from the polyoxypeptin A cluster, suggested to hydroxylate 3-methylproline. Another, GetF from the GE81112 biosynthetic gene cluster, is a proposed to hydroxylate pipecolic acid.
+RN  [1]
+RM  PMID:24506891 
+RT  Identification and characterization of the biosynthetic gene cluster of polyoxypeptin A, a potent apoptosis inducer. 
+RA  Du Y, Wang Y, Huang T, Tao M, Deng Z, Lin S 
+RL  BMC Microbiol. 2014 Feb 8;14:30. doi: 10.1186/1471-2180-14-30.
+RN  [2]
+RM  PMID:20710026 
+RT  Insights into an unusual nonribosomal peptide synthetase biosynthesis: identification and characterization of the GE81112 biosynthetic gene cluster. 
+RA  Binz TM, Maffioli SI, Sosio M, Donadio S, Muller R 
+RL  J Biol Chem. 2010 Oct 22;285(43):32710-9. doi: 10.1074/jbc.M110.146803.

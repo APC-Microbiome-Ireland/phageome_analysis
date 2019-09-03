@@ -1,0 +1,11 @@
+ID  cyanosortA_assc
+AC  TIGR04153
+DE  cyanosortase A-associated protein
+AU  Haft DH
+TC  100.00 80.00
+NC  25.00 25.00
+AL  muscle_manual
+IT  subfamily
+EN  cyanosortase A-associated protein
+TP  TIGRFAMs
+CC  Members of this protein family are found exclusively in the Cyanobacteria, usually usually encoded next to and in at least one case fused to a gene encoding cyanoexosortase A. Note that family TIGR04533 shows a similar relationship to cyanoexosortase B (TIGR04156), and no EpsI is found.

@@ -1,0 +1,11 @@
+ID  uS13_arch
+AC  TIGR03629
+DE  ribosomal protein uS13
+AU  Haft DH
+TC  175.55 175.55
+NC  175.20 175.20
+AL  muscle_manual
+IT  equivalog
+EN  ribosomal protein uS13, archaeal form
+TP  TIGRFAMs
+CC  This model describes exclusively the archaeal ribosomal protein S13P. It excludes the homologous eukaryotic 40S ribosomal protein S18 and bacterial 30S ribosomal protein S13.

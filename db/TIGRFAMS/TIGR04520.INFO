@@ -1,0 +1,17 @@
+ID  ECF_ATPase_1
+AC  TIGR04520
+DE  energy-coupling factor transporter ATPase
+AU  Haft DH
+TC  315.00 315.00
+NC  270.00 270.00
+AL  muscle_manual
+IT  equivalog
+EN  energy-coupling factor transporter ATPase
+EC  3.6.3.-
+TP  TIGRFAMs
+CC  Members of this family are ATP-binding cassette (ABC) proteins by homology, but belong to energy coupling factor (ECF) transport systems. The architecture in general is two ATPase subunits (or a double-length fusion protein), a T component, and a substrate capture (S) component that is highly variable, and may be interchangeable in genomes with only one T component. This model identifies many but not examples of the upstream member of the pair of ECF ATPases in Firmicutes and Mollicutes.
+RN  [1]
+RM  PMID:18931129 
+RT  A novel class of modular transporters for vitamins in prokaryotes. 
+RA  Rodionov DA, Hebbeln P, Eudes A, ter Beek J, Rodionova IA, Erkens GB, Slotboom DJ, Gelfand MS, Osterman AL, Hanson AD, Eitinger T 
+RL  J Bacteriol. 2009 Jan;191(1):42-51. doi: 10.1128/JB.01208-08.

@@ -1,0 +1,27 @@
+ID  sMetMonox_MmoD
+AC  TIGR04550
+DE  soluble methane monooxygenase-binding protein MmoD
+AU  Haft DH
+TC  80.00 80.00
+NC  28.00 28.00
+AL  muscle_manual
+IT  equivalog
+EN  soluble methane monooxygenase-binding protein MmoD
+GS  mmoD
+TP  TIGRFAMs
+CC  Members of this family are MmoD, a protein that binds the soluble (as opposed to the membrane-bound, copper-rich, particulate) methane monooxygenase and may regulate its activity. Recent work suggests that MmoD, together with methanobactin, acts a copper switch to regulate which enzyme form is produced.
+RN  [1]
+RM  PMID:11709550 
+RT  Why OrfY? Characterization of MMOD, a long overlooked component of the soluble methane monooxygenase from Methylococcus capsulatus (Bath). 
+RA  Merkx M, Lippard SJ 
+RL  J Biol Chem. 2002 Feb 22;277(8):5858-65.
+RN  [2]
+RM  PMID:15610020 
+RT  Preparation and X-ray structures of metal-free, dicobalt and dimanganese forms of soluble methane monooxygenase hydroxylase from Methylococcus capsulatus (Bath). 
+RA  Sazinsky MH, Merkx M, Cadieux E, Tang S, Lippard SJ 
+RL  Biochemistry. 2004 Dec 28;43(51):16263-76.
+RN  [3]
+RM  PMID:23682956 
+RT  Methanobactin and MmoD work in concert to act as the 'copper-switch' in methanotrophs.
+RA  Semrau JD, Jagadevan S, Dispirito AA, Khalifa A, Scanlan J, Bergman BH, Freemeier BC, Baral BS, Bandow NL, Vorobev A, Haft DH, Vuilleumier S, Murrell JC 
+RL  Environ Microbiol. 2013 Apr 29. doi: 10.1111/1462-2920.12150.

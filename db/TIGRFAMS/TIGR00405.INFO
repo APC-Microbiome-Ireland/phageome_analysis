@@ -1,0 +1,17 @@
+ID  KOW_elon_Spt5
+AC  TIGR00405
+DE  transcription elongation factor Spt5
+AU  Haft DH, Loftus BJ
+TC  69.95 69.95
+NC  49.85 49.85
+AL  clustalw
+IT  equivalog
+EN  transcription elongation factor Spt5
+TP  TIGRFAMs
+CC  This protein contains a KOW domain, shared by bacterial NusG and the uL24 (previously L24p/L26e) family of ribosomal proteins. The most recent papers and crystal structures make this a transcription elongation factor rather than a ribosomal protein.
+DR  PFAM; PF00467;
+RN  [1]
+RM  PMID:20197319 
+RT  Spt4/5 stimulates transcription elongation through the RNA polymerase clamp coiled-coil motif. 
+RA  Hirtreiter A, Damsma GE, Cheung AC, Klose D, Grohmann D, Vojnic E, Martin AC, Cramer P, Werner F 
+RL  Nucleic Acids Res. 2010 Jul;38(12):4040-51.

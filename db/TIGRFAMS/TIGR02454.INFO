@@ -1,0 +1,18 @@
+ID  ECF_T_CbiQ
+AC  TIGR02454
+DE  cobalt ECF transporter T component CbiQ
+AU  Selengut J, Haft DH
+TC  111.80 111.80
+NC  105.15 105.15
+AL  clustalw
+IT  equivalog
+EN  cobalt ECF transporter T component CbiQ
+GS  cbiQ
+TR  3.A.1.18.1
+TP  TIGRFAMs
+CC  This model represents the CbiQ component of the cobalt-specific ECF-type. CbiQ is now recognized as the T component of energy-coupling factor (ECF)-type transporters. The S component confers specificity (CbiM-N for cobalt systems), which CbiO is the ABC-family ATPase. In general, proteins found by this model reside next to the other putative subunits of the complex, identified as CbiN, CbiO, or CbiM. Note that the designation of cobalt transporter has been spread excessively among ECF system transporters with many other specificities.
+RN  [1]
+RM  PMID:18931129 
+RT  A novel class of modular transporters for vitamins in prokaryotes. 
+RA  Rodionov DA, Hebbeln P, Eudes A, ter Beek J, Rodionova IA, Erkens GB, Slotboom DJ, Gelfand MS, Osterman AL, Hanson AD, Eitinger T 
+RL  J Bacteriol. 2009 Jan;191(1):42-51. doi: 10.1128/JB.01208-08.

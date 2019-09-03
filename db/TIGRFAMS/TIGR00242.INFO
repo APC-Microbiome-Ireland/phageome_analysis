@@ -1,0 +1,24 @@
+ID  TIGR00242
+AC  TIGR00242
+DE  division/cell wall cluster transcriptional repressor MraZ
+AU  Loftus BJ, Haft DH
+TC  98.35 98.35
+NC  46.10 46.10
+AL  clustalw
+IT  equivalog
+EN  division/cell wall cluster transcriptional repressor MraZ
+GS  mraZ
+TP  TIGRFAMs
+CC  Members of this family contain two tandem copies of a domain described by Pfam HMM PF02381. This protein often is found with other genes of the dcw (division cell wall) gene cluster, including mraW, ftsI, murE, murF, ftsW, murG, etc. Recent work shows MraW in E. coli binds an upstream region with three tandem GTGGG repeats separated by 5bp spacers. We find similar sites in other species.
+DR  PFAM; PF02381
+RN  [1]
+RM  PMID:24659771 
+RT  The highly conserved MraZ protein is a transcriptional regulator in Escherichia coli. 
+RA  Eraso JM, Markillie LM, Mitchell HD, Taylor RC, Orr G, Margolin W 
+RL  J Bacteriol. 2014 Jun;196(11):2053-66. doi: 10.1128/JB.01370-13.
+RN  [2]
+RM  10876091
+RT  Organization and transcription of the division cell wall (dcw) cluster in Neisseria gonorrhoeae.
+RA  Francis F, Ramirez-Arcos S, Salimnia H, Victor C, Dillon JR.
+RL  Gene. 2000 Jun 27;251(2):141-51.
+DR  HAMAP; MF_01008; 260 of 314

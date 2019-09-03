@@ -1,0 +1,17 @@
+ID  hemophoreRv0203
+AC  TIGR04530
+DE  hemophore
+AU  Haft DH
+TC  120.00 120.00
+NC  100.00 100.00
+AL  muscle_manual
+IT  equivalog
+EN  hemophore, mycobacterial-type
+TP  TIGRFAMs
+CC  Members of this family, including Rv0203 from Mycobacterium tuberculosis, are secreted heme-binding proteins used in heme acquisition. Such proteins are called hemophores. Members have a cleavable N-terminal signal peptide, and a mature region just over 100 amino acids long with a pair of invariant Cys residues. An unrelated hemophore, HasA, occurs in Gram-negative pathogens such as Yersinia pestis.
+RN  [1]
+RM  PMID:23760277 
+RT  The Mycobacterium tuberculosis secreted protein Rv0203 transfers heme to membrane proteins MmpL3 and MmpL11. 
+RA  Owens CP, Chim N, Graves AB, Harmston CA, Iniguez A, Contreras H, Liptak MD, Goulding CW 
+RL  J Biol Chem. 2013 Jul 26;288(30):21714-28. doi: 10.1074/jbc.M113.453076.
+DR  PDB; 3MAY

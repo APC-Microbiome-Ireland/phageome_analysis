@@ -1,0 +1,11 @@
+ID  arch_S11P
+AC  TIGR03628
+DE  ribosomal protein uS11
+AU  Haft DH
+TC  182.35 182.35
+NC  181.95 181.95
+AL  muscle_manual
+IT  equivalog
+EN  ribosomal protein uS11P, archaeal form
+TP  TIGRFAMs
+CC  This model describes exclusively the archaeal ribosomal protein S11P. It excludes homologous ribosomal proteins S14 from eukaryotes and S11 from bacteria.

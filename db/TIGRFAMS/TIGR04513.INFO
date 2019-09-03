@@ -1,0 +1,11 @@
+ID  VPAMP_CTERM
+AC  TIGR04513
+DE  VPAMP-CTERM protein sorting domain
+AU  Haft DH
+TC  32.00 32.00
+NC  26.00 24.00
+AL  muscle_manual
+IT  subfamily_domain
+EN  VPAMP-CTERM protein sorting domain
+TP  TIGRFAMs
+CC  This domain is found as the extreme C-terminal region of four extracellular protein (mostly protease) precursor sequences in Chthoniobacter flavus Ellin428,  first representative sequenced from the Spartobacteria class of phylum Verrucomicrobia. This domain contains the cognate signal for one four exosortase family enzymes in the C. flavus genome, and coexists with the more common PEP-CTERM domain, found on more than 50 proteins.

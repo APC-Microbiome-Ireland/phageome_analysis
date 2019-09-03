@@ -1,0 +1,11 @@
+ID  mycoplas_twoTM
+AC  TIGR04527
+DE  two transmembrane protein
+AU  Haft DH
+TC  125.00 125.00
+NC  85.00 40.00
+AL  muscle_manual
+IT  subfamily
+EN  two transmembrane protein
+TP  TIGRFAMs
+CC  Members of this family are uncharacterized proteins from the genus Mycoplasma, typically about 260 amino acids long, with a hydrophobic predicted transmembrane alpha helix toward each end. Often two family members are encoded in tandem, e.g. MG_279 and MG_280 from Mycoplasma genitalium.

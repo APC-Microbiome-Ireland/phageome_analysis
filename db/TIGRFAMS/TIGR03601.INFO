@@ -1,0 +1,16 @@
+ID  B_an_ocin
+AC  TIGR03601
+DE  bacteriocin, heterocycloanthracin/sonorensin family
+AU  Haft DH
+TC  35.00 35.00
+NC  33.00 27.00
+AL  muscle_manual
+IT  subfamily
+EN  bacteriocin, heterocycloanthracin/sonorensin family
+TP  TIGRFAMs
+CC  Numerous bacteria encode systems for producing bacteriocins by extensive modification of ribosomally produced precursors. Members of the TOMM class (thiazole/oxazole-modified microcins) are recognizable by association with cyclodehydratase (and often dehydrogenase) maturation proteins. This family consists of a special subclass, the heterocycloanthracin family, that share a homologous leader peptide region and then a repeat region with Cys as every third residue. In Bacillus anthracis and Bacillus cereus, the RiPP (ribosomally translated and post-translationally modified natural product) precursor is encoded far from its maturase genes, and every strain has the system. In other species (e.g. B. licheniformis, B. sorenensis), precursor and maturase genes are close together. Sonorensin, from B. sonorensis MT93, was shown to have broad spectrum antimicrobial activity, affecting Gram-positive and Gram-negative bacteria.
+RN  [1]
+RM  PMID:19383135
+RT  A strain-variable bacteriocin in Bacillus anthracis and Bacillus cereus with repeated Cys-Xaa-Xaa motifs.
+RA  Haft DH
+RL  Biol Direct. 2009 Apr 21;4(1):15.

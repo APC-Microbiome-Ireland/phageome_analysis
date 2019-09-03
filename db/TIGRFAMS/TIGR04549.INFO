@@ -1,0 +1,11 @@
+ID  LP_HExxH_w_tonB
+AC  TIGR04549
+DE  substrate import-associated zinc metallohydrolase lipoprotein
+AU  Haft DH
+TC  75.00 75.00
+NC  65.00 65.00
+AL  muscle_manual
+IT  subfamily
+EN  substrate import-associated zinc metallohydrolase lipoprotein
+TP  TIGRFAMs
+CC  Members of this family are lipoproteins with the typical zinc metallohydrolase HExxH motif and additional similarities to a better-documented zinc peptidase family, PF06167. The seed alignment begins immediately after the lipoprotein motif Cys residue. Up to five members of this protein family occur per genome, in the context of certain gene pairs related to RagA and RagB, or to SusC and SusD. Those gene pairs, like the present family, are restricted to the Bacteriodetes, may number up to 100 pairs per genome, and are linked to TonB-dependent uptake of biopolymer-derived nutrients such as glycans. A possible function for this lipoprotein is to hydrolyse larger molecules to prepare substrates for import and utilization.

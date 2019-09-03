@@ -1,0 +1,17 @@
+ID  myxo_TraA_Nterm
+AC  TIGR04566
+DE  outer membrane exchange protein TraA, N-terminal region
+AU  Haft DH
+TC  80.00 80.00
+NC  35.00 35.00
+AL  muscle_manual
+IT  subfamily_domain
+EN  outer membrane exchange protein TraA, N-terminal region
+GS  traA
+TP  TIGRFAMs
+CC  In Myxococcus xanthus, the protein pair TraA (MXAN_6895) and TraB (MXAN_6898) are required for contact-dependent exchange of outer membrane proteins. The C-terminal half of TrA consists largely of Cys-rich tandem repeats. This model describes the N-terminal region  of TraA, and related protein MXAN_4924. This region is suggested to be similar to the lectin PA14. Members of this family are restricted to a subset of the Myxococcales, and so have a narrower species distribution than the MYXO-CTERM putative protein sorting signal (TIGR03901), which is universal in the Myxococcales. Note that TIGR04201 matches at least seven repeats in the C-terminal region of TraA. T
+RN  [1]
+RM  PMID:22511878 
+RT  Cell contact-dependent outer membrane exchange in myxobacteria: genetic determinants and mechanism. 
+RA  Pathak DT, Wei X, Bucuvalas A, Haft DH, Gerloff DL, Wall D 
+RL  PLoS Genet. 2012;8(4):e1002626. doi: 10.1371/journal.pgen.1002626.

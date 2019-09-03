@@ -1,0 +1,18 @@
+ID  RNAP_delt_lowGC
+AC  TIGR04567
+DE  DNA-directed RNA polymerase delta subunit
+AU  Haft DH
+TC  42.00 42.00
+NC  40.00 40.00
+AL  muscle_manual
+IT  equivalog
+EN  DNA-directed RNA polymerase delta subunit
+GS  rpoE
+EC  2.7.7.6
+TP  TIGRFAMs
+CC  Members of this family are the RNA polymerase delta subunit, as found in the Firmicutes and the Mollicutes. All members of the seed alignment have an extended C-terminal low-complexity region, consisting largely of Asp and Glu, that is not included in the model. Proteins giving borderline scores should be checked to confirm a similar acidic C-terminal domain.
+RN  [1]
+RM  PMID:23543716 
+RT  The delta subunit of RNA polymerase is required for rapid changes in gene expression and competitive fitness of the cell. 
+RA  Rabatinova A, Sanderova H, Jirat Matejckova J, Korelusova J, Sojka L, Barvik I, Papouskova V, Sklenar V, Zidek L, Krasny L 
+RL  J Bacteriol. 2013 Jun;195(11):2603-11. doi: 10.1128/JB.00188-13.

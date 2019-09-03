@@ -1,0 +1,16 @@
+ID  arch_SelU_Cterm
+AC  TIGR04569
+DE  selenouridine synthase, SelU C-terminal-like subunit
+AU  Haft DH
+TC  180.00 180.00
+NC  110.00 110.00
+AL  muscle
+IT  equivalog
+EN  selenouridine synthase, SelU C-terminal-like subunit
+TP  TIGRFAMs
+CC  This protein is involved in biosynthesis of a selenonucleotide, probably 2-selenouridine, in tRNA of some archaea, such as Methanococcus maripaludis. This protein resembles the C-terminal region of bacterial SelU, and its partner protein resembles the N-terminal region.
+RN  [1]
+RM  PMID:22293502 
+RT  Selenomodification of tRNA in archaea requires a bipartite rhodanese enzyme. 
+RA  Su D, Ojo TT, Soll D, Hohn MJ 
+RL  FEBS Lett. 2012 Mar 23;586(6):717-21.

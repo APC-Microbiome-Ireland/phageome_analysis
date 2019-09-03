@@ -1,0 +1,11 @@
+ID  P450_cycloAA_1
+AC  TIGR04538
+DE  cytochrome P450, cyclodipeptide synthase-associated
+AU  Haft DH
+TC  500.00 500.00
+NC  400.00 400.00
+AL  muscle
+IT  subfamily
+EN  cytochrome P450, cyclodipeptide synthase-associated
+TP  TIGRFAMs
+CC  Members of this subfamily are cytochrome P450 enzymes that occur next to tRNA-dependent cyclodipeptide synthases. This group does NOT include CYP121 (Rv2275) from Mycobacterium tuberculosis, adjacent to the cyclodityrosine synthetase Rv2276.

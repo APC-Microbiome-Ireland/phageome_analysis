@@ -1,0 +1,18 @@
+ID  citramal_synth
+AC  TIGR00977
+DE  citramalate synthase
+AU  Haft DH
+TC  450.00 450.00
+NC  325.00 325.00
+AL  clustalw
+IT  equivalog
+EN  citramalate synthase
+GS  cimA
+EC  2.3.1.182
+TP  TIGRFAMs
+CC  This model includes GSU1798 and is now known to represent citramalate synthase. Members are related to 2-isopropylmalate synthases and homocitrate synthases but phylogenetically distinct. The role is isoleucine biosynthesis, the first dedicated step.
+RN  [1]
+RM  PMID:18245290 
+RT  Elucidation of an alternate isoleucine biosynthesis pathway in Geobacter sulfurreducens. 
+RA  Risso C, Van Dien SJ, Orloff A, Lovley DR, Coppi MV 
+RL  J Bacteriol. 2008 Apr;190(7):2266-74. doi: 10.1128/JB.01841-07.

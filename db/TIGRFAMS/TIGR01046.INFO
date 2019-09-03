@@ -1,0 +1,14 @@
+ID  uS10_euk_arch
+AC  TIGR01046
+DE  ribosomal protein uS10
+AU  Ujwal ML, Haft DH
+TC  96.25 96.25
+NC  81.10 81.10
+AL  clustalw
+IT  equivalog
+EN  ribosomal protein uS10, eukaryotic/archaeal
+GS  rpsJ
+TP  TIGRFAMs
+CC  This model describes the archaeal ribosomal protein uS10 and
+CC  its equivalents (previously called S20) in eukaryotes.
+DR  HAMAP; MF_00508; 42 of 587

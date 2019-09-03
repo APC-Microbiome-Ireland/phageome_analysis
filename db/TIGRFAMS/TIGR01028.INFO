@@ -1,0 +1,14 @@
+ID  uS7_euk_arch
+AC  TIGR01028
+DE  ribosomal protein uS7
+AU  Haft DH
+TC  200.00 200.00
+NC  95.00 95.00
+AL  clustalw
+IT  equivalog
+EN  ribosomal protein uS7, eukaryotic/archaeal
+GS  rpsG
+TP  TIGRFAMs
+CC  This HMM describes the members from the eukaryotic cytosol and the Archaea of the family that includes ribosomal protein uS7 (previously S5 in yeast and human). A separate model describes bacterial and organellar S7.
+DR  COGS; COG0049
+DR  HAMAP; MF_00480; 41 of 796

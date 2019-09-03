@@ -1,0 +1,21 @@
+ID  T9SS_PorP_fam
+AC  TIGR03519
+DE  type IX secretion system membrane protein, PorP/SprF family
+AU  Haft DH, Selengut J
+TC  90.55 90.55
+NC  73.05 73.05
+AL  muscle_manual
+IT  subfamily
+EN  type IX secretion system membrane protein, PorP/SprF family
+TP  TIGRFAMs
+CC  This HMM describes a protein family unique to, and greatly expanded in, the Bacteriodetes. Species in this lineage include several, such as Cytophaga hutchinsonii and Flavobacterium johnsoniae, that have type IX secretion systems (T9SS) and exhibit a poorly understood rapid gliding phenotype. Several members of this protein family are found in operons with other genes whose loss leads to a loss a this motility.
+RN  [1]
+RM  PMID:19966289 
+RT  A protein secretion system linked to bacteroidete gliding motility and pathogenesis. 
+RA  Sato K, Naito M, Yukitake H, Hirakawa H, Shoji M, McBride MJ, Rhodes RG, Nakayama K 
+RL  Proc Natl Acad Sci U S A. 2010 Jan 5;107(1):276-81. doi: 10.1073/pnas.0912010107.
+RN  [2]
+RM  PMID:24257839 
+RT  Deletion of the Cytophaga hutchinsonii type IX secretion system gene sprP results in defects in gliding motility and cellulose utilization. 
+RA  Zhu Y, McBride MJ 
+RL  Appl Microbiol Biotechnol. 2014 Jan;98(2):763-75. doi: 10.1007/s00253-013-5355-2.

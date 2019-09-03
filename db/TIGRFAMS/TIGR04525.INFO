@@ -1,0 +1,16 @@
+ID  prot_M_MG281
+AC  TIGR04525
+DE  IgG-blocking protein M
+AU  Haft DH
+TC  140.00 140.00
+NC  40.00 40.00
+AL  clustalw_manual
+IT  equivalog
+EN  IgG-blocking protein M
+TP  TIGRFAMs
+CC  Members of this family, including MG_281 of Mycoplasma genitalium, bind conserved regions of the IgG light chain sequences, blocking IgG's normal function of antigen-specific binding. It is therefore an important virulence protein. Members of this family are found also in  Mycoplasma pneumoniae, M. penetrans, M. gallisepticum, and M. iowae. Model TIGR04524 describes a region within this protein that is shared by many additional Mycoplasma and Ureaplasma proteins.
+RN  [1]
+RM  PMID:24503852 
+RT  A structurally distinct human mycoplasma protein that generically blocks antigen-antibody union. 
+RA  Grover RK, Zhu X, Nieusma T, Jones T, Boero I, MacLeod AS, Mark A, Niessen S, Kim HJ, Kong L, Assad-Garcia N, Kwon K, Chesi M, Smider VV, Salomon DR, Jelinek DF, Kyle RA, Pyles RB, Glass JI, Ward AB, Wilson IA, Lerner RA 
+RL  Science. 2014 Feb 7;343(6171):656-61. doi: 10.1126/science.1246135.

@@ -1,0 +1,22 @@
+ID  ketoArg_3Met
+AC  TIGR04543
+DE  2-ketoarginine methyltransferase
+AU  Haft DH
+TC  425.00 425.00
+NC  400.00 400.00
+AL  muscle_manual
+IT  equivalog
+EN  2-ketoarginine methyltransferase
+EC  2.1.1.243
+TP  TIGRFAMs
+CC  This SAM-dependent C-methyltransferase performs the middle step of a three step conversion from arginine to beta-methylarginine. It performs a C-methylation at position 3 of 5-guanidino-2-oxopentanoic acid (keto-arginine). An aminotransferase converts arginine to 5-guanidino-2-oxopentanoic acid, and later converts 5-guanidino-3-methyl-2-oxopentanoic acid to beta-methylarginine.
+RN  [1]
+RM  PMID:24907335 
+RT  Biosynthesis of beta-Methylarginine residue of Peptidyl Nucleoside Arginomycin in Streptomyces arginensis NRRL 15941.
+RA  Feng J, Wu J, Gao J, Xia Z, Deng Z, He X 
+RL  Appl Environ Microbiol. 2014 Jun 6. pii: AEM.01172-14. 
+RN  [2]
+RM  PMID:20190091 
+RT  Identification of the biosynthetic gene cluster for 3-methylarginine, a toxin produced by Pseudomonas syringae pv. syringae 22d/93. 
+RA  Braun SD, Hofmann J, Wensing A, Ullrich MS, Weingart H, Volksch B, Spiteller D 
+RL  Appl Environ Microbiol. 2010 Apr;76(8):2500-8. doi: 10.1128/AEM.00666-09.

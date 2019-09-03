@@ -1,0 +1,16 @@
+ID  PT_fungal_PKS
+AC  TIGR04532
+DE  polyketide product template domain
+AU  Haft DH
+TC  168.00 168.00
+NC  165.00 165.00
+AL  clustalw_manual
+IT  subfamily_domain
+EN  iterative type I PKS product template domain
+TP  TIGRFAMs
+CC  Sequences found by this model are the so-called product template (PT) domain of various fungal iterative type I polyketide synthases. This domain resembles PF14765, designated polyketide synthase dehydratase by Pfam, but members of that family are primarily bacterial, where type I PKS are predominantly modular, not iterative. The dehydratase active site residues well-conserved in PF14765 (His in the first hot dog domain, Asp in the second hot dog domain) seem well conserved in this family also.
+RN  [1]
+RM  PMID:20479000 
+RT  Classification, prediction, and verification of the regioselectivity of fungal polyketide synthase product template domains. 
+RA  Li Y, Image II, Xu W, Image I, Tang Y, Image I 
+RL  J Biol Chem. 2010 Jul 23;285(30):22764-73.

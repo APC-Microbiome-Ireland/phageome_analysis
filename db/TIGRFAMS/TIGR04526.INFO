@@ -1,0 +1,11 @@
+ID  predic_Ig_block
+AC  TIGR04526
+DE  putative immunoglobulin-blocking virulence protein
+AU  Haft DH
+TC  150.00 150.00
+NC  45.00 45.00
+AL  muscle_manual
+IT  subfamily
+EN  putative immunoglobulin-blocking virulence protein
+TP  TIGRFAMs
+CC  Members of this family are putative virulence proteins of Mycoplasma and Ureaplasma species. Members share a region of sequence similarity (see TIGR04524) with protein M, a Mycoplasma genitalium protein that binds a conserved light chain region of IgG and blocks its protective function of antigen-specific binding. The seed alignment for this model includes an N-terminal signal-anchor domain and a proline-rich linker domain, and a C-terminal extension, in addition to the protein M-like domain recognized by TIGR04524.

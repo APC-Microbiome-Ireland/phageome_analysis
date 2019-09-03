@@ -1,0 +1,22 @@
+ID  3metArgNH2trans
+AC  TIGR04544
+DE  beta-methylarginine biosynthesis bifunctional aminotransferase
+AU  Haft DH
+TC  350.00 350.00
+NC  180.00 180.00
+AL  muscle
+IT  equivalog
+EN  beta-methylarginine biosynthesis bifunctional aminotransferase
+EC  2.6.-.-
+TP  TIGRFAMs
+CC  Members of this family are the bifunctional aminotransferase that catalyzes the first and third steps in the three-step conversion of arginine to beta-methylarginine. It first converts arginine to 2-ketoarginine, then converts 3-methyl-2-ketoarginine to 3-methylarginine. All members of the seed alignment are encoded next to a 2-ketoarginine methyltransferase (EC 2.1.1.243).
+RN  [1]
+RM  PMID:20190091 
+RT  Identification of the biosynthetic gene cluster for 3-methylarginine, a toxin produced by Pseudomonas syringae pv. syringae 22d/93. 
+RA  Braun SD, Hofmann J, Wensing A, Ullrich MS, Weingart H, Volksch B, Spiteller D 
+RL  Appl Environ Microbiol. 2010 Apr;76(8):2500-8. doi: 10.1128/AEM.00666-09.
+RN  [2]
+RM  PMID:24907335 
+RT  Biosynthesis of beta-Methylarginine residue of Peptidyl Nucleoside Arginomycin in Streptomyces arginensis NRRL 15941.
+RA  Feng J, Wu J, Gao J, Xia Z, Deng Z, He X 
+RL  Appl Environ Microbiol. 2014 Jun 6. pii: AEM.01172-14.

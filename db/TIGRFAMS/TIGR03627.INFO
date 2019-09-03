@@ -1,0 +1,11 @@
+ID  uS9_arch
+AC  TIGR03627
+DE  ribosomal protein uS9
+AU  Haft DH
+TC  162.75 162.75
+NC  160.50 160.50
+AL  muscle_manual
+IT  equivalog
+EN  ribosomal protein uS9, archaeal form
+TP  TIGRFAMs
+CC  This model describes exclusively the archaeal ribosomal protein S9P. Homologous eukaryotic and bacterial ribosomal proteins are excluded from this model.

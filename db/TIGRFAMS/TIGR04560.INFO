@@ -1,0 +1,11 @@
+ID  ribo_THX
+AC  TIGR04560
+DE  ribosomal small subunit protein bTHX
+AU  Haft DH
+TC  26.00 26.00
+NC  24.00 24.00
+AL  muscle_manual
+IT  equivalog
+EN  ribosomal small subunit protein bTHX
+TP  TIGRFAMs
+CC  Members of this protein are the lineage-specific bacterial ribosomal small subunit proteint bTHX (previously THX), originally shown to exist in the genus Thermus. The protein is conserved for the first 26 amino acids, past which some members continue with additional sequence, often repetitive or low-complexity. This model also finds eukaryotic organelle forms, which have additional N-terminal transit peptides.

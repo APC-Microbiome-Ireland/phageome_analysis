@@ -1,0 +1,13 @@
+ID  queE_Cx14CxxC
+AC  TIGR04508
+DE  7-carboxy-7-deazaguanine synthase
+AU  Haft DH
+TC  240.00 240.00
+NC  200.00 200.00
+AL  muscle_manual
+IT  equivalog
+EN  7-carboxy-7-deazaguanine synthase, Cx14CxxC type
+GS  queE
+EC  4.3.99.3
+TP  TIGRFAMs
+CC  In the pathway of 7-cyano-7-deazaquanine (preQ0) biosynthesis, the radical SAM enzyme QueE is quite variable. This HMM describes a variant form in which the three-Cys motif that binds the signature 4Fe-4S cluster takes the form Cx14CxxC, as in Burkholderia multivorans ATCC 17616. The crystal structure is known.

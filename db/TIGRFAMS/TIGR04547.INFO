@@ -1,0 +1,11 @@
+ID  Mollicu_LP
+AC  TIGR04547
+DE  MOLPALP family lipoprotein
+AU  Haft DH
+TC  65.00 65.00
+NC  55.00 55.00
+AL  muscle_manual
+IT  subfamily
+EN  MOLPALP family lipoprotein
+TP  TIGRFAMs
+CC  Members of this family are surface lipoproteins, about 900 amino acids long on average, found only in the Mollicutes (Mycoplasma, Entomoplasma, Acholeplasma, Mesoplasma, Spiroplasma). Paralogs occur, such as  MCAP_0360, MCAP_0361, and MCAP_0362 in Mycoplasma capricolum. This family shares significant N-terminal sequence similarity with STREFT (Secreted Thousand Residue Frequently Tandem), described by model TIGR04512; several members of the STREFT family have been misannotated as GnsA/GnsB family proteins. For proteins in this family, we suggest the name MOLPALP (Mollicutes Paralogous Lipoprotein) family lipoprotein

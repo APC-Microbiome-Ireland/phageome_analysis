@@ -1,0 +1,11 @@
+ID  mod_pep_cyc
+AC  TIGR04510
+DE  putative peptide modification system cyclase
+AU  Haft DH
+TC  400.00 400.00
+NC  320.00 320.00
+AL  muscle_manual
+IT  subfamily
+EN  putative peptide modification system cyclase
+TP  TIGRFAMs
+CC  Members of this family show homology to mononucleotidyl cyclases and to tetratricopeptide repeat (TPR) proteins. Members occur in next to two other markers of ribosomal peptide modification systems. One is a dehydrogenase related to SagB proteins from thiazole/oxazole modification systems. The other is the putative precursor, related to the nitrile hydratase-related leader peptide (NHLP) and nitrile hydratase alpha subunit families. These systems occur in many species of Xanthomonas and Stenotrophomonas, among others.

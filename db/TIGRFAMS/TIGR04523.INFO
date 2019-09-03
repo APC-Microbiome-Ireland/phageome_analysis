@@ -1,0 +1,11 @@
+ID  Mplasa_alph_rch
+AC  TIGR04523
+DE  helix-rich protein
+AU  Haft DH
+TC  270.00 270.00
+NC  200.00 110.00
+AL  muscle_manual
+IT  subfamily
+EN  helix-rich Mycoplasma protein
+TP  TIGRFAMs
+CC  Members of this family occur strictly within a subset of Mycoplasma species. Members average 750 amino acids in length, including signal peptide. Sequences are predicted (Jpred 3) to be almost entirely alpha-helical. These sequences show strong periodicity (consistent with long alpha helical structures) and low complexity rich in D,E,N,Q, and K. Genes encoding these proteins are often found in tandem. The function is unknown.

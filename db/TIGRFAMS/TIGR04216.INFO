@@ -1,0 +1,27 @@
+ID  halo_surf_glyco
+AC  TIGR04216
+DE  major cell surface glycoprotein
+AU  Haft DH
+TC  400.00 400.00
+NC  150.00 150.00
+AL  muscle_manual
+IT  equivalog
+EN  major cell surface glycoprotein
+GS  csg
+TP  TIGRFAMs
+CC  Members of this family are the S-layer-forming halobacterial major cell surface glycoprotein. The highest scores below model cutoffs are fragmentary paralogs to actual members of the family. Modifications include at N-linked and O-linked glycosylation, a C-terminal diphytanylglyceryl modification, and probable cleavage of the PGF-CTERM tail.
+RN  [1]
+RM  PMID:10364251 
+RT  Evidence for covalent attachment of diphytanylglyceryl phosphate to the cell-surface glycoprotein of Halobacterium halobium. 
+RA  Kikuchi A, Sagami H, Ogura K 
+RL  J Biol Chem. 1999 Jun 18;274(25):18011-6.
+RN  [2]
+RM  PMID:23651326 
+RT  Haloferax volcanii archaeosortase is required for motility, mating, and C-terminal processing of the S-layer glycoprotein. 
+RA  Abdul Halim MF, Pfeiffer F, Zou J, Frisch A, Haft D, Wu S, Tolic N, Brewer H, Payne SH, Pasa-Tolic L, Pohlschroder M 
+RL  Mol Microbiol. 2013 Jun;88(6):1164-75. doi: 10.1111/mmi.12248.
+RN  [3]
+RM  PMID:24512091 
+RT  Proteomic analysis of the secretome of haloarchaeon Natrinema sp. J7-2. 
+RA  Feng J, Wang J, Zhang Y, Du X, Xu Z, Wu Y, Tang W, Li M, Tang B, Tang XF 
+RL  J Proteome Res. 2014 Mar 7;13(3):1248-58. doi: 10.1021/pr400728x.

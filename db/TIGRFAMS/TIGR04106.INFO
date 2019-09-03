@@ -1,0 +1,17 @@
+ID  cas8c_GSU0052
+AC  TIGR04106
+DE  CRISPR-associated protein GSU0052/csb3, Dpsyc system
+AU  Haft DH
+TC  125.00 125.00
+NC  30.00 30.00
+AL  muscle_manual
+IT  equivalog
+EN  CRISPR-associated protein GSU0052/csb3, Dpsyc system
+GS  csb3
+TP  TIGRFAMs
+CC  This HMM describes a CRISPR-associated (cas) protein unique to the Dpsyc subtype (named for Desulfotalea psychrophila), a variant type I-C subtype, although not universal to the that subtype. Members of this family occur in CRISPR loci of Geobacter sulfurreducens PCA, Gemmata obscuriglobus UQM 2246, Rhodospirillum centenum SW, Planctomyces limnophilus DSM 3776, and Methylosinus trichosporium OB3b.
+RN  [1]
+RM  PMID:21756346 
+RT  Unification of Cas protein families and a simple scenario for the origin and evolution of CRISPR-Cas systems. 
+RA  Makarova KS, Aravind L, Wolf YI, Koonin EV 
+RL  Biol Direct. 2011 Jul 14;6:38. doi: 10.1186/1745-6150-6-38.

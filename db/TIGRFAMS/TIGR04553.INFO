@@ -1,0 +1,11 @@
+ID  ABC_peri_selen
+AC  TIGR04553
+DE  putative selenate ABC transporter periplasmic binding protein
+AU  Haft DH
+TC  250.00 250.00
+NC  240.00 240.00
+AL  muscle_manual
+IT  hypoth_equivalog
+EN  putative selenate ABC transporter periplasmic binding protein
+TP  TIGRFAMs
+CC  Members of this family ABC transporter periplasmic binding proteins and represent one clade within a larger family that includes phosphate, phosphite, and phosphonate transporters. All members of the seed alignment occur near a gene for SelD, the selenium-activating protein needed to make selenocysteine or selenouridine. Context therefore suggests members should be able to transport selenate, although transporting other substrates as well (e.g. phosphonates) is possible. This model has no overlap with TIGR03431, whose members are found regularly with phosphonate catabolism operons.

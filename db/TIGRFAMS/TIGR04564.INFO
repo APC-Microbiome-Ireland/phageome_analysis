@@ -1,0 +1,11 @@
+ID  Synergist_CTERM
+AC  TIGR04564
+DE  Synergist-CTERM protein sorting domain
+AU  Haft DH
+TC  22.50 22.50
+NC  21.90 21.90
+AL  muscle_manual
+IT  domain
+EN  Synergist-CTERM protein sorting domain
+TP  TIGRFAMs
+CC  This HMM identifies a C-terminal domain of about 27 residues whose features are 1) a short Gly/Ser-rich region that ends in an invariant Gly-Cys motif, 2) a highly hydrophobic probable transmembrane alpha helix with a nearly invariant Pro near the end, and 3) a cluster of basic residues (Arg, Lys), and then the end of the protein. This domain occurs, so far, only in species of Synergistetes (Dethiosulfovibrio peptidovorans, Aminiphilus circumscriptus, Aminomonas paucivorans, Fretibacterium fastidiosum, Cloacibacillus evryensis, Synergistes jonesii, etc). This region closely resembles the MXYO-CTERM region of the Myxococcales, a division of the Deltaproteobacteria (see TIGR03901), but that domain lacks the the conserved Pro, frequently has two Cys residues instead of one, and most importantly, has a spacer region separating the Gly-Cys motif from the transmembrane segment. As with MYXO-CTERM, the enzyme presumed to recognize and cleave the sorting signal is not known. The lack of a spacer region between motif and TM segment suggests the presumed protease is located largely within the membrane, like rhombosortase and archaeosortase, rather than merely tethered to it like sortase.

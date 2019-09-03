@@ -1,0 +1,18 @@
+ID  sulfite_DH_soxC
+AC  TIGR04555
+DE  sulfite dehydrogenase
+AU  Haft DH
+TC  420.00 420.00
+NC  330.00 330.00
+AL  muscle_manual
+IT  equivalog
+EN  sulfite dehydrogenase
+GS  soxC
+EC  1.8.2.1
+TP  TIGRFAMs
+CC  Members of this family are the sulfite dehydrogenase SoxC. All members have a twin-arginine translocation (TAT) signal for secretion of proteins with bound cofactor across the plasma membrane.
+RN  [1]
+RM  PMID:9260941 
+RT  Cloning and characterization of sulfite dehydrogenase, two c-type cytochromes, and a flavoprotein of Paracoccus denitrificans GB17: essential role of sulfite dehydrogenase in lithotrophic sulfur oxidation. 
+RA  Wodara C, Bardischewsky F, Friedrich CG 
+RL  J Bacteriol. 1997 Aug;179(16):5014-23.

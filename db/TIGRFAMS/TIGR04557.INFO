@@ -1,0 +1,16 @@
+ID  fuse_rel_SoxYZ
+AC  TIGR04557
+DE  quinoprotein dehydrogenase-associated SoxYZ-like carrier
+AU  Haft DH
+TC  140.00 140.00
+NC  135.00 135.00
+AL  muscle_manual
+IT  equivalog
+EN  quinoprotein dehydrogenase-associated SoxYZ-like carrier
+TP  TIGRFAMs
+CC  Members of this family are fusion proteins, with the N-terminal region similar to the sulfur oxidation protein SoxY (TIGR04488) and the C-terminal region similar to sulfur oxidation protein SoxZ (TIGR04490). Members occur exclusively in species with PQQ-dependent enzymes that have a Cys-Cys motif (TIGR03075) for electron transfer to c550 family cytochrome. By homology to the sulfur moiety-binding subunit SoxY, we predict the conserved Cys in the Gly-Gly-Cys motif binds some unknown adduct.
+RN  [1]
+RM  PMID:19224199 
+RT  Quinoprotein ethanol dehydrogenase from Pseudomonas aeruginosa: the unusual disulfide ring formed by adjacent cysteine residues is essential for efficient electron transfer to cytochrome c550. 
+RA  Mennenga B, Kay CW, Gorisch H 
+RL  Arch Microbiol. 2009 Apr;191(4):361-7. doi: 10.1007/s00203-009-0460-4.

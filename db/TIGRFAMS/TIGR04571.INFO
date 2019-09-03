@@ -1,0 +1,19 @@
+ID  LmtA_Leptospira
+AC  TIGR04571
+DE  lipid A Kdo2 1-phosphate O-methyltransferase
+AU  Haft DH
+TC  325.00 325.00
+NC  275.00 275.00
+AL  muscle_manual
+IT  exception
+EN  lipid A Kdo2 1-phosphate O-methyltransferase
+GS  lmtA
+EC  2.1.1.-
+TP  TIGRFAMs
+CC  This family describes LmtA, which methylates a phosphate on the Kdo2 sugar of lipid A. The model is classified as exception (more specific than equivalog) to reflect that its scope is limited to the genus Leptospira, whereas homologs with matching activity might exist more broadly. Members of this family belong to the broader family of PF04191, phospholipid methyltransferase, which includes a characterized yeast enzyme that acts on a range of unsaturated phospholipids.
+RN  [1]
+RM  PMID:15994324 
+RT  A Leptospira interrogans enzyme with similarity to yeast Ste14p that methylates the 1-phosphate group of lipid A. 
+RA  Boon Hinckley M, Reynolds CM, Ribeiro AA, McGrath SC, Cotter RJ, Lauw FN, Golenbock DT, Raetz CR 
+RL  J Biol Chem. 2005 Aug 26;280(34):30214-24.
+DR  PFAM; PF04191; phospholipid methyltransferase

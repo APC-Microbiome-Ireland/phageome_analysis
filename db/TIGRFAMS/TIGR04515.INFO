@@ -1,0 +1,16 @@
+ID  P450_rel_GT_act
+AC  TIGR04515
+DE  P450-derived glycosyltranferase activator
+AU  Haft DH
+TC  343.00 343.00
+NC  280.00 280.00
+AL  muscle_manual
+IT  subfamily
+EN  P450-derived glycosyltranferase activator
+TP  TIGRFAMs
+CC  Members of this family resemble cytochrome P450 by homolog, but lack a critical heme-binding Cys residue. Members in general are encoded next to a glycosyltransferase gene in a natural products biosynthesis cluster, physically interact with it, and help the glycosyltransferase achieve high specificity while retaining high activity. Many members of this family assist in the attachment of a sugar moiety to a natural product such as a polyketide.
+RN  [1]
+RM  PMID:22056329 
+RT  Structure of the glycosyltransferase EryCIII in complex with its activating P450 homologue EryCII. 
+RA  Moncrieffe MC, Fernandez MJ, Spiteller D, Matsumura H, Gay NJ, Luisi BF, Leadlay PF 
+RL  J Mol Biol. 2012 Jan 6;415(1):92-101. doi: 10.1016/j.jmb.2011.10.036.

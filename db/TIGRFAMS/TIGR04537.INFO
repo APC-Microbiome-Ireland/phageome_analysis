@@ -1,0 +1,21 @@
+ID  encap_target
+AC  TIGR04537
+DE  encapsulation C-terminal sorting signal
+AU  Haft DH
+TC  11.00 11.00
+NC  10.80 10.80
+AL  manual
+IT  domain
+EN  encapsulation C-terminal sorting signal
+TP  TIGRFAMs
+CC  This model describes a diverse region of extremely small size (11 residues), so unavoidably there are both false-positives and false-negatives. All true hits should occur in proteins encoded next to an encapsulating protein (see PF04454), and should occur near the extreme C-terminus. Families previously known to have this domain on some members to mediate encapsulation include dye-decolorizing peroxidases and a ferritin-like protein, but (as this model helps show) there are others, including some hemerythrin family proteins and novel family TIGR04536.
+RN  [1]
+RM  PMID:23560779 
+RT  Assembly in vitro of Rhodococcus jostii RHA1 encapsulin and peroxidase DypB to form a nanocompartment. 
+RA  Rahmanpour R, Bugg TD 
+RL  FEBS J. 2013 May;280(9):2097-104. doi: 10.1111/febs.12234.
+RN  [2]
+RM  PMID:19172747 
+RT  Structural basis of enzyme encapsulation into a bacterial nanocompartment. 
+RA  Sutter M, Boehringer D, Gutmann S, Gunther S, Prangishvili D, Loessner MJ, Stetter KO, Weber-Ban E, Ban N 
+RL  Nat Struct Mol Biol. 2008 Sep;15(9):939-47. doi: 10.1038/nsmb.1473.

@@ -1,0 +1,12 @@
+ID  uL6_arch
+AC  TIGR03653
+DE  ribosomal protein uL6
+AU  Haft DH
+TC  185.40 185.40
+NC  183.35 183.35
+AL  clustalw_manual
+IT  equivalog
+EN  ribosomal protein uL6, archaeal form
+GS  rpl6p
+TP  TIGRFAMs
+CC  Members of this protein family are the archaeal form ofribosomal protein uL6 (previously L9 in yeast and human). The top-scoring proteins not selected by this model are eukaryotic cytosolic uL6. Bacterial ribosomal protein L6 scores lower and is described by a distinct model.

@@ -1,0 +1,12 @@
+ID  SoxH_rel_PQQ_2
+AC  TIGR04559
+DE  quinoprotein relay system zinc metallohydrolase 2
+AU  Haft DH
+TC  280.00 280.00
+NC  240.00 240.00
+AL  muscle_manual
+IT  hypoth_equivalog_domain
+EN  quinoprotein relay system zinc metallohydrolase 2
+EC  3.-.-.-
+TP  TIGRFAMs
+CC  By homology, members are Zn metallohydrolases in the same family as the SoxH protein associated with sulfate metabolism, Bacillus cereus beta-lactamase II (see PDB:1bc2), and, more distantly, hydroxyacylglutathione hydrolase (glyoxalase II). All members occur in genomes with both PQQ biosynthesis and a PQQ-dependent (quinoprotein) dehydrogenase that has a motif of two consecutive Cys residues (see TIGR03075). The Cys-Cys motif is associated with electron transfer by specialized cytochromes such as c551. All these genomes also include a fusion protein (TIGR04557) whose domains resemble SoxY and SoxZ from thiosulfate oxidation. A conserved Cys in this fusion protein aligns to the Cys residue in SoxY that carries sulfur cycle intermediates. In many genomes, the genes for PQQ biosynthesis enzymes, PQQ-dependent enzymes, their associated cytochromes, and members of this family are clustered. Note that one to three closely related Zn metallohydrolases may occur; this family represents a specific clade among them. Some members of this family have a short additional N-terminal domain with four conserved Cys residues.

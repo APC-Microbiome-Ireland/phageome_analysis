@@ -1,0 +1,11 @@
+ID  geobac_encap
+AC  TIGR04536
+DE  encapsulated protein
+AU  Haft DH
+TC  100.00 100.00
+NC  30.00 30.00
+AL  muscle_manual
+IT  hypoth_equivalog
+EN  encapsulated protein
+TP  TIGRFAMs
+CC  Members of this family are lineage-restricted uncharacterized proteins found mostly in Brevibacillus and Geobacillus. Members are encoded next to the gene for encapsulin (which once was called a bacteriocin), and have the C-terminal motif for associating with encapsulin.

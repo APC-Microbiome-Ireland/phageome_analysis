@@ -1,0 +1,11 @@
+ID  EcfS_MSC_0063
+AC  TIGR04522
+DE  putative energy coupling factor transporter S component
+AU  Haft DH
+TC  60.00 60.00
+NC  56.00 56.00
+AL  muscle_manual
+IT  hypoth_equivalog
+EN  putative energy coupling factor transporter S component, MSC_0063 family
+TP  TIGRFAMs
+CC  This family of proteins is restricted to the Mollicutes (including Mycoplasma, Spiroplasma, and Ureaplasma). Members belong to a superfamily of multiple membrane-spanning proteins, among which those with assigned activities function as the S component (the specificity component) of ECF transporters. However, members fail to score better than the trusted cutoffs to previously built models for S component proteins (see Pfam family PF07155).

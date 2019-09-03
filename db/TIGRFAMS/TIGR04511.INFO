@@ -1,0 +1,11 @@
+ID  SagB_rel_DH_2
+AC  TIGR04511
+DE  putative peptide maturation dehydrogenase
+AU  Haft DH
+TC  240.00 240.00
+NC  220.00 220.00
+AL  muscle_manual
+IT  exception
+EN  putative peptide maturation dehydrogenase
+TP  TIGRFAMs
+CC  Members resemble the peptide maturation dehydrogenase SagB of thiazole and oxazole modification systems, and occur in a what appears to be a new type of peptide modification system. One adjacent marker is a new type of nitrile hydratase alpha subunit-related putative precursor, TIGR04509, distantly related the NHLP leader peptide family TIGR03793. Another is a large protein, TIGR04510, with regions similar to adenylate cyclases and TPR proteins.

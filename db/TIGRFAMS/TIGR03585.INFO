@@ -1,0 +1,23 @@
+ID  PseH
+AC  TIGR03585
+DE  UDP-4-amino-4,6-dideoxy-N-acetyl-beta-L-altrosamine N-acetyltransferase
+AU  Selengut J, Haft DH
+TC  93.10 93.10
+NC  81.60 81.60
+AL  muscle
+IT  equivalog
+EN  UDP-4-amino-4,6-dideoxy-N-acetyl-beta-L-altrosamine N-acetyltransferase
+GS  pseH
+EC  2.3.1.202
+TP  TIGRFAMs
+CC  Sequences in this family are members of the PF00583 (GNAT) superfamily of acetyltransferases and are proposed to perform a N-acetylation step in the process of pseudaminic acid biosynthesis in Campylobacter species [1].  This gene is commonly observed in apparent operons with other genes responsible for the biosynthesis of pseudaminic acid and as a component of flagellar and exopolysaccharide biosynthesis loci.  Significantly, many genomes containing other components of this pathway lack this gene, indicating that some other N-acetyl transferases may be incolved and/or the step is optional, resulting in a non-acetylated pseudaminic acid variant sugar.
+RN  [1]
+RM  PMID:19483088 
+RT  Structural and functional analysis of Campylobacter jejuni PseG: a udp-sugar hydrolase from the pseudaminic acid biosynthetic pathway. 
+RA  Rangarajan ES, Proteau A, Cui Q, Logan SM, Potetinova Z, Whitfield D, Purisima EO, Cygler M, Matte A, Sulea T, Schoenhofen IC 
+RL  J Biol Chem. 2009 Jul 31;284(31):20989-1000. doi: 10.1074/jbc.M109.012351.
+RN  [2]
+RM  PMID:16684771 
+RT  Functional characterization of the flagellar glycosylation locus in Campylobacter jejuni 81-176 using a focused metabolomics approach. 
+RA  McNally DJ, Hui JP, Aubry AJ, Mui KK, Guerry P, Brisson JR, Logan SM, Soo EC 
+RL  J Biol Chem. 2006 Jul 7;281(27):18489-98. Epub 2006 May 9.

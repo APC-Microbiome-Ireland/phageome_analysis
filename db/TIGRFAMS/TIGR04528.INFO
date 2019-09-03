@@ -1,0 +1,11 @@
+ID  acido_non_PQQ
+AC  TIGR04528
+DE  acido-empty-quinoprotein group A
+AU  Haft DH
+TC  650.00 650.00
+NC  575.00 575.00
+AL  muscle_manual
+IT  subfamily
+EN  acido-empty-quinoprotein group A
+TP  TIGRFAMs
+CC  Members of this family closely resemble  quinoproteins and quinohemoproteins such as PQQ-dependent methanol, glucose, and shikimate dehydrogenases, but restricted to species of Acidobacteria unable to synthesize PQQ. Seven members occur in candidatus Solibacter usitatus Ellin6076, eleven in Acidobacteriaceae bacterium KBS 96, etc. Members have N-terminal signal sequences. They lack the pair of adjacent Cys residues, involved in electron transfer, typical for family TIGR03075, and they lack CxxCH motifs for cytochrome c-like heme-binding. What cofactor these paralogous families of enzymes might use is unclear.

@@ -1,0 +1,11 @@
+ID  Mycopla_NOT_gsn
+AC  TIGR04512
+DE  STREFT protein
+AU  Haft DH
+TC  125.00 125.00
+NC  40.00 40.00
+AL  muscle_manual
+IT  subfamily
+EN  STREFT protein
+TP  TIGRFAMs
+CC  Members of this family occur strictly in the genus Mycoplasma, average 1050 in length with little length variability, have an N-terminal signal sequence, and exhibit no detectable sequence similarity to any characterized protein. Up to four tandem copies occur in some Mycoplasma (e.g. M. putrefaciens KS1). Incorrect inclusion of a 57-amino acid stretch of one family member in Pfam model PF08178, for a helix-turn-helix transcriptional regulator in several E. coli phage, has caused many members of this family to be annotated, in error, as GnsA/GnsB family proteins. We suggest the name STREFT (Secreted Thousand Residue Frequently Tandem) protein as a distinctive name to spread and replace the incorrect GnsA/GnsB designation.

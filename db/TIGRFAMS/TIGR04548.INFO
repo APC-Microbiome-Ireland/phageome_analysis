@@ -1,0 +1,11 @@
+ID  DnaD_Mollicutes
+AC  TIGR04548
+DE  DnaD family protein
+AU  Haft DH
+TC  100.00 100.00
+NC  75.00 75.00
+AL  muscle
+IT  hypoth_equivalog
+EN  DnaD family protein, Mollicutes type
+TP  TIGRFAMs
+CC  This model describes the full length of a family of proteins in the Mollicutes (Mycoplasma, Spiroplasma, Mesoplasma, etc.) homologous to the N-terminal region of DnaD from Bacillus subtilis.

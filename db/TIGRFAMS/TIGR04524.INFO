@@ -1,0 +1,16 @@
+ID  mycoplas_M_dom
+AC  TIGR04524
+DE  IgG-blocking virulence domain
+AU  Haft DH
+TC  40.00 40.00
+NC  28.00 24.00
+AL  muscle_manual
+IT  domain
+EN  IgG-blocking virulence domain
+TP  TIGRFAMs
+CC  This model defines a domain restricted to Mycoplasma and Ureaplasma proteins. Members include protein M of Mycoplasma genitalium, MG_281, a virulence protein that binds the IgG light chain to block the binding of antibody to antigen. The crystal structure of the protein M antibody-binding region is solved (PDB|4NZR), and includes this homology domain. Full-length homologs to MG_281 are known in a few other Mycoplasma species, but this model's seed alignment demonstrates distant homology to many additional proteins with a much wider distribution across the Mollicutes. Member proteins include paralogous families in some species, such as MCAP_0345, MCAP_0347, MCAP_0349, and MCAP_0351 in Mycoplasma capricolum.
+RN  [1]
+RM  PMID:24503852 
+RT  A structurally distinct human mycoplasma protein that generically blocks antigen-antibody union. 
+RA  Grover RK, Zhu X, Nieusma T, Jones T, Boero I, MacLeod AS, Mark A, Niessen S, Kim HJ, Kong L, Assad-Garcia N, Kwon K, Chesi M, Smider VV, Salomon DR, Jelinek DF, Kyle RA, Pyles RB, Glass JI, Ward AB, Wilson IA, Lerner RA 
+RL  Science. 2014 Feb 7;343(6171):656-61. doi: 10.1126/science.1246135.

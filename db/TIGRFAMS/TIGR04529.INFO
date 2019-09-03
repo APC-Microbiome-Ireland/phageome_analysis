@@ -1,0 +1,31 @@
+ID  MTB_hemophore
+AC  TIGR04529
+DE  hemophore-related protein, Rv0203/Rv1174c family
+AU  Haft DH
+TC  32.00 32.00
+NC  30.00 29.00
+AL  muscle_manual
+IT  subfamily
+EN  hemophore-related protein, Rv0203/Rv1174c family
+TP  TIGRFAMs
+CC  Members of this family occur as paralogs in most Mycobacterium strains, including 2 in M. tuberculosis, 6 in M. avium, and 9 in M. smegmatis. Members have a cleaved N-terminal signal peptide and exactly two Cys residues in the mature protein, both at invariant positions. The best characterized member, Rv0203, is a hemophore, that is, a secreted polypeptide that binds heme and delivers it to a transport system for import. Hemophores are protein analogs of siderophores, natural products that chelate non-heme iron and deliver it to receptors for transport. The unrelated HasA family of hemophores has been described in Gram-negative bacteria such as Yersinia pestis and Pseudomonas aeruginosa.
+RN  [1]
+RM  PMID:23760277 
+RT  The Mycobacterium tuberculosis secreted protein Rv0203 transfers heme to membrane proteins MmpL3 and MmpL11. 
+RA  Owens CP, Chim N, Graves AB, Harmston CA, Iniguez A, Contreras H, Liptak MD, Goulding CW 
+RL  J Biol Chem. 2013 Jul 26;288(30):21714-28. doi: 10.1074/jbc.M113.453076.
+RN  [2]
+RM  PMID:21383189 
+RT  Discovery and characterization of a unique mycobacterial heme acquisition system. 
+RA  Tullius MV, Harmston CA, Owens CP, Chim N, Morse RP, McMath LM, Iniguez A, Kimmey JM, Sawaya MR, Whitelegge JP, Horwitz MA, Goulding CW 
+RL  Proc Natl Acad Sci U S A. 2011 Mar 22;108(12):5051-6.
+RN  [3]
+RM  PMID:11101579 
+RT  Distinct differences in repertoires of low-molecular-mass secreted antigens of Mycobacterium avium complex and Mycobacterium tuberculosis. 
+RA  Olsen I, Reitan LJ, Wiker HG 
+RL  J Clin Microbiol. 2000 Dec;38(12):4453-8.
+RN  [4]
+RM  PMID:16828326 
+RT  The secretion antigen SA5K has a role in the adaptation of Mycobacterium bovis bacillus Calmette-Guerin to intracellular stress and hypoxia. 
+RA  Bottai D, Batoni G, Esin S, Florio W, Brancatisano FL, Favilli F, Maisetta G, Campa M 
+RL  Microbes Infect. 2006 Jul;8(8):2254-61.

@@ -1,0 +1,26 @@
+ID  tRNA_cyclodipep
+AC  TIGR04539
+DE  tRNA-dependent cyclodipeptide synthase
+AU  Haft DH
+TC  45.00 45.00
+NC  34.00 34.00
+AL  muscle_manual
+IT  subfamily
+EN  tRNA-dependent cyclodipeptide synthase
+TP  TIGRFAMs
+CC  Members of this family take two aminoacylated tRNA molecules and produce a cyclic dipeptide with two peptide bonds. This enzyme therefore produces a type of nonribosomal peptide, but by a mechanism entirely different from the typical non-ribosomal peptide synthase (NRPS) that relies on adenylation to activate amino acids. Three characterized members of this family are the cyclodityrosine synthase of Mycobacterium tuberculosis (an essential gene), a cyclo(L-Phe-L-Leu) synthase from Streptomyces noursei involved in natural product biosynthesis, and cyclodileucine synthase YvmC from Bacillus licheniformis. Many cyclodipeptide synthases are found next to a cytochrome P450 that further modifies the product.
+RN  [1]
+RM  PMID:20852636 
+RT  The structure and mechanism of the Mycobacterium tuberculosis cyclodityrosine synthetase. 
+RA  Vetting MW, Hegde SS, Blanchard JS 
+RL  Nat Chem Biol. 2010 Nov;6(11):797-9. doi: 10.1038/nchembio.440.
+RN  [2]
+RM  PMID:21325056 
+RT  Structural basis for nonribosomal peptide synthesis by an aminoacyl-tRNA synthetase paralog. 
+RA  Bonnefond L, Arai T, Sakaguchi Y, Suzuki T, Ishitani R, Nureki O 
+RL  Proc Natl Acad Sci U S A. 2011 Mar 8;108(10):3912-7. doi:10.1073/pnas.1019480108.
+RN  [3]
+RM  PMID:21296757 
+RT  Cyclodipeptide synthases, a family of class-I aminoacyl-tRNA synthetase-like enzymes involved in non-ribosomal peptide synthesis. 
+RA  Sauguet L, Moutiez M, Li Y, Belin P, Seguin J, Le Du MH, Thai R, Masson C, Fonvielle M, Pernodet JL, Charbonnier JB, Gondry M 
+RL  Nucleic Acids Res. 2011 May;39(10):4475-89. doi: 10.1093/nar/gkr027.

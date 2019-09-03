@@ -1,0 +1,12 @@
+ID  rSAM_ahbC_deAc
+AC  TIGR04546
+DE  12,18-didecarboxysiroheme deacetylase
+AU  Haft DH
+TC  650.00 650.00
+NC  600.00 600.00
+AL  muscle_manual
+IT  equivalog
+EN  12,18-didecarboxysiroheme deacetylase
+GS  ahbC
+TP  TIGRFAMs
+CC  This model describes one of a pair of radical SAM enzymes involved in the alternative heme biosynthesis (ahb) pathway for heme b biosynthesis from siroheme. This anaerobic pathway occurs in sulfate-reducing bacteria and methanogens. A very similar pair of radical SAM enzymes (TIGR04054, TIGR04055) is involved in heme d1 biosynthesis in species such as Heliobacillus mobilis and Heliophilum fasciatum.

@@ -1,0 +1,17 @@
+ID  GMC_mycofac_2
+AC  TIGR04542
+DE  GMC family mycofactocin-associated oxidreductase
+AU  Haft DH
+TC  400.00 400.00
+NC  325.00 325.00
+AL  muscle_manual
+IT  hypoth_equivalog
+EN  GMC family mycofactocin-associated oxidreductase
+EC  1.-.-.-
+TP  TIGRFAMs
+CC  This model describes a set of dehydrogenases belonging to the glucose-methanol-choline oxidoreductase (GMC oxidoreductase) family. Members of the present family are restricted to the bacterial genus Gordonia, and seem to replace the related family TIGR03970, which occurs in Actinobacteria generally but not in the genus Gordonia. Members of both this family and TIGR03970 are associated with the mycofactocin biosynthesis operon in Actinobacteria.
+RN  [1]
+RM  PMID:21223593 
+RT  Bioinformatic evidence for a widely distributed, ribosomally produced electron carrier precursor, its maturation proteins, and its nicotinoprotein redox partners. 
+RA  Haft DH 
+RL  BMC Genomics. 2011 Jan 11;12:21. doi: 10.1186/1471-2164-12-21.

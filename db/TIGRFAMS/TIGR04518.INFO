@@ -1,0 +1,11 @@
+ID  ECF_S_folT_fam
+AC  TIGR04518
+DE  ECF transporter S component, folate family
+AU  Haft DH
+TC  60.00 60.00
+NC  45.00 45.00
+AL  muscle_manual
+IT  subfamily
+EN  ECF transporter S component, folate family
+TP  TIGRFAMs
+CC  Members of this HMM are the multiple membrane-spanning S (specificity) component of ECF (energy coupling factor) type uptake transporters. All seed members were found in the vicinity of the bifunctional enzyme folC, involved in making active cofactor from imported folate. However, some species have multiple members of this family, suggesting some diversity of function.

@@ -1,0 +1,16 @@
+ID  PKS_assoc
+AC  TIGR04556
+DE  polyketide synthase-associated domain
+AU  Haft DH
+TC  80.00 80.00
+NC  40.00 40.00
+AL  muscle_manual
+IT  domain
+EN  polyketide synthase-associated domain
+TP  TIGRFAMs
+CC  This model describes a rare domain found as the N-terminal region of a number of dinoflagellate-specific proteins that resemble type I polyketide synthases.
+RN  [1]
+RM  PMID:23139807 
+RT  Putative monofunctional type I polyketide synthase units: a dinoflagellate-specific feature? 
+RA  Eichholz K, Beszteri B, John U 
+RL  PLoS One. 2012;7(11):e48624. doi: 10.1371/journal.pone.0048624.
