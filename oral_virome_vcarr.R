@@ -24,19 +24,19 @@ library(stringr)
 set.seed(1)
 
 ########## Read in metadata ####
-metadata = read.csv("metadata_v2.csv")
+metadata = read.csv("data/metadata_v2.csv")
 rownames(metadata) = metadata$ID
 
 ########## Read in and process raw data######################
 # #Contigs
-# contig_ids = read.table("virsorter_positive.ids")
+# contig_ids = read.table("data/virsorter_positive.ids")
 # contig_ids = unique(as.character(contig_ids$V1))
 # 
 # #Read alignment counts
-# vir_counts = read.table("bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
-# #vir_counts = fread("bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
-# vir_coverage = read.table("breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
-# #vir_coverage = fread("breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
+# vir_counts = read.table("data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
+# #vir_counts = fread("data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
+# vir_coverage = read.table("data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
+# #vir_coverage = fread("data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
 # counts_total = vir_counts["Total_reads",]
 # vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
 # vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
@@ -80,18 +80,18 @@ rownames(metadata) = metadata$ID
 #   country = NA
 # )
 # 
-# circular = read.table("circular_contigs.ids", header=FALSE)
-# vir_refseq = read.table("refseq_annot.txt", sep = "\t", header=FALSE)
-# crasslike = read.table("crasslike_annot.txt", sep = "\t", header=FALSE)
-# demovir = read.table("DemoVir_assignments.txt", sep = "\t", header=TRUE, row.names = 1)
-# gc_content = read.table("virsorter_positive_gc_content.txt", header=FALSE, row.names = 1)
-# ribo_prot_count = read.table("ribosomal_prot_counts.txt", header=FALSE)
+# circular = read.table("data/circular_contigs.ids", header=FALSE)
+# vir_refseq = read.table("data/refseq_annot.txt", sep = "\t", header=FALSE)
+# crasslike = read.table("data/crasslike_annot.txt", sep = "\t", header=FALSE)
+# demovir = read.table("data/DemoVir_assignments.txt", sep = "\t", header=TRUE, row.names = 1)
+# gc_content = read.table("data/virsorter_positive_gc_content.txt", header=FALSE, row.names = 1)
+# ribo_prot_count = read.table("data/ribosomal_prot_counts.txt", header=FALSE)
 # rownames(ribo_prot_count) = as.character(ribo_prot_count$V2)
-# pvogs_count = read.table("pvogs_counts_per_contig.txt", header=FALSE)
+# pvogs_count = read.table("data/pvogs_counts_per_contig.txt", header=FALSE)
 # rownames(pvogs_count) = as.character(pvogs_count$V2)
-# vcontact = read.table("new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
+# vcontact = read.table("data/new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
 # rownames(vcontact) = as.character(vcontact$contig_ID)
-# integrase = read.table("integrase_contigs.ids", header=FALSE)
+# integrase = read.table("data/integrase_contigs.ids", header=FALSE)
 # contig_data[rownames(contig_data) %in% circular$V1,"circular"] = TRUE
 # contig_data[rownames(contig_data) %in% integrase$V1,"integrase"] = TRUE
 # contig_data$gc_content = as.numeric(as.character(gc_content[rownames(contig_data), "V2"]))
@@ -127,7 +127,7 @@ rownames(metadata) = metadata$ID
 # contig_data$pvogs_count = pvogs_count[rownames(contig_data), "V1"]
 # contig_data$vcontact_cluster = vcontact[rownames(contig_data), "Cluster_id"]
 # 
-# country = read.table("sample_countries.txt")
+# country = read.table("data/sample_countries.txt")
 # rownames(country) = country$V2
 # contig_data$sample = sapply(strsplit(as.character(contig_data$name), split = "_"), "[[", 1)
 # 
@@ -195,8 +195,8 @@ rownames(metadata) = metadata$ID
 # #Cleanup
 # rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
 #    pvogs_count,vcontact,crispr_hits2)
-# #saveRDS(contig_data,  file = "contig_data.RDS")
-# #write.table(contig_data, file = "contig_data.txt")
+# #saveRDS(contig_data,  file = "data/contig_data.RDS")
+# #write.table(contig_data, file = "data/contig_data.txt")
 
 ########## Contig scatterplot####################################
 contig_scatter_demovir = ggplot(contig_data, aes(x = size, y = coverage, fill = demovir, shape = circular, size = circular)) +
@@ -226,16 +226,16 @@ vir_counts_prop_melt <- left_join(vir_counts_prop_melt, metadata[,c("ID", "sampl
 
 #Aggregate counts by Demovir/vConTACT2
 vir_counts_prop_melt <- vir_counts_prop_melt %>% filter(value != 0)
-#saveRDS(vir_counts_prop_melt, file = "vir_counts_prop_melt.RDS")
+#saveRDS(vir_counts_prop_melt, file = "data/vir_counts_prop_melt.RDS")
 vir_counts_prop_melt_agg <- vir_counts_prop_melt %>% group_by(Var2, demovir, vcontact_cluster, sample_type, Location) %>%
   summarise(V1 = sum(value))
 #vir_counts_prop_melt_agg = vir_counts_prop_melt[, sum(value), by=.(Var2, demovir, vcontact_cluster, sample_type, Location)]
-#saveRDS(vir_counts_prop_melt_agg,  file = "vir_counts_prop_melt_agg.RDS")
+#saveRDS(vir_counts_prop_melt_agg,  file = "data/vir_counts_prop_melt_agg.RDS")
 
 #Aggregate counts by CRISPR host
 vir_counts_prop_melt_agg2 = vir_counts_prop_melt[, sum(value), by=.(Var2, crispr_host, sample_type, Location)]
 vir_counts_prop_melt_agg2$crispr_host = as.factor(vir_counts_prop_melt_agg2$crispr_host)
-#saveRDS(vir_counts_prop_melt_agg2, file = "vir_counts_prop_melt_agg2.RDS")
+#saveRDS(vir_counts_prop_melt_agg2, file = "data/vir_counts_prop_melt_agg2.RDS")
 rm(vir_counts_prop_melt)
 
 barplot_demovir = ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
@@ -252,10 +252,10 @@ rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
 vir_counts_prop_agg = vir_counts_prop_agg[,-1]
 vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
 
-#saveRDS(vir_counts_prop_agg,  file = "vir_counts_prop_agg.RDS")
+#saveRDS(vir_counts_prop_agg,  file = "data/vir_counts_prop_agg.RDS")
 
 # Compute distance matrix and run t-SNE
-vir_counts_prop_agg <- readRDS("vir_counts_prop_agg.RDS")
+vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
 vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID]
 vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID[metadata$Visit_Number == 1]]
 
@@ -286,16 +286,16 @@ for(k in 2:(length(avg_sil)+1)) {
 samples_clust <- pam(cluster_counts_dist, which.max(avg_sil)+1)
 
 # Read contig data
-contig_data <- readRDS("contig_data.RDS")
+contig_data <- readRDS("data/contig_data.RDS")
 
 clusters_samples_tsne$cluster = as.factor(samples_clust$cluster[clusters_samples_tsne$ID])
 clusters_samples_tsne$n_contigs = sapply(rownames(clusters_samples_tsne), function(x) length(which(contig_data$sample == x)))
 clusters_samples_tsne$total_reads = as.numeric(counts_total[clusters_samples_tsne$ID])
 
-#saveRDS(clusters_samples_tsne,  file = "clusters_samples_tsne.RDS")
+#saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
 
 #Make t-SNE plots
-clusters_samples_tsne <- readRDS("clusters_samples_tsne.RDS")
+clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
 tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster, shape = Location)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7) +
   scale_shape_manual("Country", values = c(21, 24, 22)) +
@@ -328,10 +328,10 @@ glm(cluster ~ Location + sample_type + Gender + Age + Health, family = "binomial
 # Difficult as variables colinear
 
 ########## Differentially abundant clusters#####################
-clusters_samples_tsne <- readRDS("clusters_samples_tsne.RDS")
-vir_counts_prop_agg <- readRDS("vir_counts_prop_agg.RDS")
+clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
+vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
 vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% clusters_samples_tsne$ID]
-contig_data <- readRDS("contig_data.RDS")
+contig_data <- readRDS("data/contig_data.RDS")
 clusters_samples_kw = apply(vir_counts_prop_agg, 1, function(x) kruskal.test(x, clusters_samples_tsne$cluster)$p.value)
 clusters_samples_kw = p.adjust(clusters_samples_kw, method = "bonferroni") #Correct p values
 vir_counts_prop_agg_diff = vir_counts_prop_agg[names(which(clusters_samples_kw < 0.001)),]
@@ -341,9 +341,9 @@ viral_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg),
 )
 
 ########## Differentially abundant megaphages ####
-clusters_samples_tsne <- readRDS("clusters_samples_tsne.RDS")
-vir_counts_prop_agg <- readRDS("vir_counts_prop_agg.RDS")
-megaphage_contigs <- read.table("megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
+vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
+megaphage_contigs <- read.table("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
 megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
 megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
@@ -360,7 +360,7 @@ megaphage_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg),
                                    demovir = sapply(rownames(vir_counts_prop_agg), function(x) names(which.max(table(megaphage_contigs[which(megaphage_contigs$vcontact_cluster == x),"demovir"])))))
 
 # Taxa list
-vcontact = read.table("new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
+vcontact = read.table("data/new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
 rownames(vcontact) = as.character(vcontact$contig_ID)
 clusters_tax_megaphage = list()
 for(i in unique(as.character(megaphage_contigs$vcontact_cluster))) {
@@ -417,18 +417,18 @@ rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2[,1]
 vir_counts_prop_agg2 = vir_counts_prop_agg2[,-1]
 vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
 
-#saveRDS(vir_counts_prop_agg2,  file = "vir_counts_prop_agg2.RDS")
+#saveRDS(vir_counts_prop_agg2,  file = "data/vir_counts_prop_agg2.RDS")
 
 ########## Saving output#######################################
-pdf(file="contigs_scatter.pdf", paper="A4r", width=11, height=8.5)
+pdf(file="figures/contigs_scatter.pdf", paper="A4r", width=11, height=8.5)
 contig_scatter_demovir
 dev.off()
 
-pdf(file="samples_barplot.pdf", paper="A4r", width=11, height=8.5)
+pdf(file="figures/samples_barplot.pdf", paper="A4r", width=11, height=8.5)
 barplot_demovir
 dev.off()
 
-pdf(file="samples_tsne.pdf", paper="A4r", width=11, height=8.5)
+pdf(file="figures/samples_tsne.pdf", paper="A4r", width=11, height=8.5)
 grid.arrange(tsne_plot1, tsne_plot2, tsne_plot3, tsne_plot4, nrow = 2)
 dev.off()
 
@@ -444,7 +444,7 @@ dev.off()
 vir_counts_prop_agg_diff_log = log10(vir_counts_prop_agg_diff+1)
 vir_counts_prop_agg_diff_log[is.infinite(vir_counts_prop_agg_diff_log)] = -8
 
-pdf(file = "heatplot_clusters.pdf", width=8.5, height=11, pointsize = 12)
+pdf(file = "figures/heatplot_clusters.pdf", width=8.5, height=11, pointsize = 12)
 heatmap.2(vir_counts_prop_agg_diff_log,
           margins = c(10,10),
           trace = "none",
@@ -479,7 +479,7 @@ dev.off()
 vir_counts_prop_agg2_log = log10(vir_counts_prop_agg2)
 vir_counts_prop_agg2_log[is.infinite(vir_counts_prop_agg2_log)] = -8
 
-pdf(file = "heatplot_hosts.pdf", width=8.5, height=11, pointsize = 12)
+pdf(file = "figures/heatplot_hosts.pdf", width=8.5, height=11, pointsize = 12)
 heatmap.2(vir_counts_prop_agg2_log,
           margins = c(10,10),
           trace = "none",
@@ -538,7 +538,7 @@ metadata_us <- metadata[metadata$Location == "US",]
 metadata_longus <- metadata_us %>% group_by(Sample.name, sample_type) %>%
   filter(any(Visit_Number == 3))
 
-vir_counts_prop_melt <- readRDS("vir_counts_prop_melt.RDS")
+vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_longus <- left_join(metadata_longus[,c("ID", "Sample.name", "Visit_Number")], vir_counts_prop_melt, by = c("ID"="Var2"))
 vir_counts_longus <- vir_counts_longus[!is.na(vir_counts_longus$Var1),]
 
@@ -685,7 +685,7 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
 dev.off()
 
 ########## Procrustes analysis #########
-metaphlan <- read.csv("all_metaphlan.csv", stringsAsFactors = FALSE)
+metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
 row.names(metaphlan) <- metaphlan$X
 metaphlan <- metaphlan[,names(metaphlan) != "X"]
 metaphlan <- metaphlan[,names(metaphlan) %in% colnames(vir_counts_prop_agg)]
@@ -807,7 +807,7 @@ cor_group4 <- runSpearmanCorrelation(vir_counts_prop_agg[,colnames(vir_counts_pr
                                      metaphlan_species[,colnames(metaphlan_species) %in% clusters_samples_tsne$ID[clusters_samples_tsne$cluster == 4]])
 cor_all <- runSpearmanCorrelation(vir_counts_prop_agg, metaphlan_species)
 
-save(cor_group1, cor_group2, cor_group3, cor_group4, file = "cor_groups.RData")
+save(cor_group1, cor_group2, cor_group3, cor_group4, file = "data/cor_groups.RData")
 load("cor_groups.RData")
 
 phyla <- unique(c(cor_group1$phylum, cor_group2$phylum, cor_group3$phylum, cor_group4$phylum))
@@ -910,7 +910,7 @@ plotMultipleRichnessGraphs <- function(ttest_groups, df_paired){
 }
 
 # Read data
-vir_counts_prop_melt <- readRDS("vir_counts_prop_melt.RDS")
+vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_prop_melt <- left_join(metadata, vir_counts_prop_melt, by = c("ID"="Var2","sample_type","Location"))
 vir_counts_prop_melt <- vir_counts_prop_melt[vir_counts_prop_melt$Visit_Number == 1,]
 
@@ -933,7 +933,7 @@ grid.arrange(grobs = richness_graphs, layout_matrix = lay)
 dev.off()
 
 ########## Jumbo/mega circular phages ####
-megaphage_contigs <- read.delim("megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
 megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
 megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
@@ -983,7 +983,7 @@ dev.off()
 
 ########## Phages and ARGs ####
 # Read data
-contig_data <- readRDS("contig_data.RDS")
+contig_data <- readRDS("data/contig_data.RDS")
 contig_data <- left_join(metadata, contig_data, by = c("ID"= "sample", "Location"="country"))
 contig_data <- contig_data[contig_data$Visit_Number == 1,]
 contig_data$Health <- as.character(contig_data$Health)
@@ -992,7 +992,7 @@ contig_data$Health[contig_data$Health == "unhealthy"] <- "rheumatoid arthritis"
 contig_data$Location_Health <- paste(contig_data$Location, "-", contig_data$Health)
 contig_data <- contig_data %>% group_by(Location, sample_type, Health) %>% mutate(num_samples = n_distinct(ID))
 
-args_data <- read.csv("all_assemblies_card_90.csv", stringsAsFactors = FALSE)
+args_data <- read.csv("data/all_assemblies_card_90.csv", stringsAsFactors = FALSE)
 args_data$ID <- gsub("_card.out", "", gsub(".*/", "", args_data$filename))
 args_data$name <- paste0(args_data$ID, "_", args_data$qseqid)
 
@@ -1114,11 +1114,11 @@ dev.off()
 
 ########## Megaphages and ARGs ####
 # Read data
-metaphage_arg_blast <- read.table("megaphage_proteins_card.out", stringsAsFactors = FALSE)
+metaphage_arg_blast <- read.table("data/megaphage_proteins_card.out", stringsAsFactors = FALSE)
 column_headers <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
 names(metaphage_arg_blast) <- column_headers
 
-# megaphage_contigs <- read.table("megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+# megaphage_contigs <- read.table("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 # megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
 # megaphage_contigs <- megaphage_contigs[megaphage_contigs$Visit_Number == 1,]
 # megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
@@ -1126,7 +1126,7 @@ names(metaphage_arg_blast) <- column_headers
 # megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
 # megaphage_contigs$Location_Health <- paste(megaphage_contigs$Location, "-", megaphage_contigs$Health)
 # megaphage_contigs <- megaphage_contigs %>% group_by(Location, sample_type, Health) %>% mutate(num_samples = n_distinct(ID))
-# args_data <- read.csv("all_assemblies_card_90.csv", stringsAsFactors = FALSE)
+# args_data <- read.csv("data/all_assemblies_card_90.csv", stringsAsFactors = FALSE)
 # args_data$ID <- gsub("_card.out", "", gsub(".*/", "", args_data$filename))
 # args_data$name <- paste0(args_data$ID, "_", args_data$qseqid)
 # 
@@ -1169,13 +1169,13 @@ ggplot(megaphages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = crisp
 dev.off()
 
 ########## Eggnog analysis ####
-megaphage_prots <- read.delim("megaphage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
+megaphage_prots <- read.delim("data/megaphage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
 names(megaphage_prots) <- "query_name"
-eggnog <- read.delim("megaphage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
+eggnog <- read.delim("data/megaphage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
 names(eggnog) <- c("query_name", "seed_eggnog_ortholog", "seed_ortholog_evalue", "seed_ortholog_score", "predicted_taxonomic_group",
                    "predicted_protein_name", "gene_ontology_terms", "EC_number", "KEGG_ko", "KEGG_pathway", "KEGG_module", "KEGG_reaction",
                    "KEGG_rclass", "BRITE", "KEGG_TC", "CAZy", "BiGG_reaction", "tax_scope", "eggnog_ogs", "bestOG", "COG_functional_cat", "eggnog_description")
-megaphage_contigs <- read.delim("megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 
 megaphage_eggnog <- left_join(megaphage_prots, eggnog, by = "query_name")
 megaphage_eggnog$name <- sub("_[^_]+$", "", megaphage_eggnog$query_name)
@@ -1200,4 +1200,4 @@ large_phage <- megaphage_eggnog[which.max(megaphage_eggnog$size),]
 
 # Select non-annorated proteins
 proteins_nanno <- megaphage_eggnog$query_name[is.na(megaphage_eggnog$seed_eggnog_ortholog)]
-write.table(proteins_nanno, "megaphage_proteins_no_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
+write.table(proteins_nanno, "data/megaphage_proteins_no_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
