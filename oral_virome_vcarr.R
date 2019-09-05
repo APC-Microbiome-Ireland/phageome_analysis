@@ -21,6 +21,7 @@ library(maSigPro)
 library(purrr)
 library(ggrepel)
 library(stringr)
+library(tidyr)
 set.seed(1)
 
 ########## Read in metadata ####
@@ -1168,7 +1169,7 @@ ggplot(megaphages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = crisp
   scale_fill_manual("Predicted host", values = crispr_colours)
 dev.off()
 
-########## Protein annotation ####
+########## Auxilliary Metabolic Genes ####
 #### EGGNOG
 megaphage_prots <- read.delim("data/megaphage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
 names(megaphage_prots) <- "query_name"
@@ -1196,12 +1197,89 @@ megaphage_nonviral <- megaphage_func[megaphage_func$tax_scope != "Viruses",]
 
 # Some megaphages have a lot of bacterial genes - as much as 43% of genes bacterial
 
+# Summarise functional groups for each cohort
+megaphage_eggnog_annot <- megaphage_eggnog[!is.na(megaphage_eggnog$seed_eggnog_ortholog),]
+megaphage_eggnog_annot <- megaphage_eggnog_annot[megaphage_eggnog_annot$COG_functional_cat != "",]
+megaphage_eggnog_cogs <- megaphage_eggnog_annot %>%
+  mutate(COG_functional_cat = strsplit(as.character(COG_functional_cat), "")) %>%
+  unnest(COG_functional_cat)
+
+metabolic_summary <- megaphage_eggnog_cogs %>% group_by(Location, Health, sample_type, COG_functional_cat) %>%
+  summarise(n_cog = n()) %>%
+  group_by(Location, Health, sample_type) %>%
+  mutate(sum_n_cog = sum(n_cog)) %>%
+  mutate(per_cog = n_cog/sum_n_cog * 100)
+
+# Plot functional groups for each body site and cohort
+ggplot(metabolic_summary, aes(sample_type, per_cog, fill = COG_functional_cat)) +
+  geom_bar(stat = "identity") +
+  facet_grid(~ Location + Health, space = "free", scale = "free")
+
+# Summarise functional groups for each cluster
+metabolic_cluster_summary <- megaphage_eggnog_cogs %>% group_by(vcontact_cluster, COG_functional_cat) %>%
+  summarise(n_cog = n()) %>%
+  group_by(vcontact_cluster) %>%
+  mutate(sum_n_cog = sum(n_cog)) %>%
+  mutate(per_cog = n_cog/sum_n_cog * 100)
+
+# Plot functional groups for each cluster
+ggplot(metabolic_cluster_summary, aes(vcontact_cluster, per_cog, fill = COG_functional_cat)) +
+  geom_bar(stat = "identity") 
+
+# Look for unique metabolites
+test <- megaphage_eggnog_annot %>% group_by(vcontact_cluster, eggnog_description) %>%
+  summarise(n_desc = n_distinct(query_name)) %>%
+  group_by(vcontact_cluster) %>%
+  mutate(sum_n_desc = sum(n_desc)) %>%
+  mutate(per_desc = n_desc/sum_n_desc*100)
+
+# Group into metabolic profiles
+megaphage_cogs <- acast(megaphage_eggnog_cogs, name ~ eggnog_description)
+cogs_dist <- dist(megaphage_cogs, "binary")
+mds <- wcmdscale(cogs_dist, w=rep(1,nrow(megaphage_cogs)))
+mds <- as.data.frame(mds)
+set.seed(42)
+hc <- hclust(cogs_dist)
+
+# Silhoette analysis
+avg_sil <- numeric(10)
+for(k in 2:(length(avg_sil)+1)) {
+  tmp <- silhouette(cutree(hc, k = k), cogs_dist)
+  avg_sil[k-1] <- mean(tmp[,3])
+}
+
+# Plot PCoA and hierarchical clusters
+mds$clusters <- as.character(cutree(hc, which.max(avg_sil)+1))
+ggplot(mds, aes(V1, V2, color = clusters)) +
+  geom_point(alpha = 0.6) +
+  xlab("PCo 1") + ylab("PCo 2") +
+  scale_color_discrete("Clusters") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"))
+
+# Plot other groups
+mds$name <- row.names(mds)
+mds <- left_join(mds, megaphage_contigs, by = "name") %>%
+  left_join(metadata, by = c("sample"="ID"))
+ggplot(mds, aes(V1, V2, color = size)) +
+  geom_point(alpha = 0.6) +
+  xlab("PCo 1") + ylab("PCo 2") 
+  scale_color_discrete("Clusters") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"))
+
+########## Protein Functional Annotation ####
 # Select non-annotated proteins
 proteins_nanno <- megaphage_eggnog$query_name[is.na(megaphage_eggnog$seed_eggnog_ortholog)]
 #write.table(proteins_nanno, "data/megaphage_proteins_no_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
 
-# Selected annotated proteins
+# Selected annotated proteins for protein annotation
 megaphages_eggnog <- megaphage_eggnog %>% select(query_name, seed_eggnog_ortholog, eggnog_description)
+
 
 #### HMMER on Pfam (with no eggnog annotation)
 megaphages_pfam <- read.table(file="data/megaphage_proteins_no_eggannot_pfam.out", sep = "", stringsAsFactors = F, header = FALSE)
