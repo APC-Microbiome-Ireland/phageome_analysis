@@ -25,8 +25,10 @@ library(tidyr)
 set.seed(1)
 
 ########## Read in metadata ####
-metadata = read.csv("data/metadata_v2.csv")
+metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
 rownames(metadata) = metadata$ID
+metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <- "rheumatoid arthritis"
+metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
 
 ########## Read in and process raw data######################
 # #Contigs
@@ -290,29 +292,28 @@ samples_clust <- pam(cluster_counts_dist, which.max(avg_sil)+1)
 contig_data <- readRDS("data/contig_data.RDS")
 
 clusters_samples_tsne$cluster = as.factor(samples_clust$cluster[clusters_samples_tsne$ID])
-clusters_samples_tsne$n_contigs = sapply(rownames(clusters_samples_tsne), function(x) length(which(contig_data$sample == x)))
+clusters_samples_tsne$n_contigs = sapply(clusters_samples_tsne$ID, function(x) length(which(contig_data$sample == x)))
 clusters_samples_tsne$total_reads = as.numeric(counts_total[clusters_samples_tsne$ID])
 
-#saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
+saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
 
 #Make t-SNE plots
 clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
-tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster, shape = Location)) +
-  theme_classic() + geom_point(size = 1.5, alpha = 0.7) +
-  scale_shape_manual("Country", values = c(21, 24, 22)) +
+tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster)) +
+  theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
   scale_fill_manual(values = brewer.pal(8, "Set2"),
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
-tsne_plot2 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_contigs, size = log10(total_reads), shape = Location)) +
-  theme_classic() + geom_point(alpha = 0.7) +
-  scale_shape_manual("Country", values = c(21, 24, 22)) +
+tsne_plot2 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_contigs, size = log10(total_reads))) +
+  theme_classic() + geom_point(alpha = 0.7, pch = 21) +
+  scale_fill_continuous("No. contigs") + scale_size_continuous("Log10(Reads mapped)") +
   xlab("Dim 1") + ylab("Dim 2")
 
-tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sample_type, shape = Location)) +
+tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sample_type, shape = Location_Health)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7) +
-  scale_shape_manual("Country", values = c(21, 24, 22)) +
-  scale_fill_brewer("body site", palette = "Set3",
+  scale_shape_manual("Country - Health", values = c(21, 24, 22, 23)) +
+  scale_fill_brewer("Body Site", palette = "Set3",
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
@@ -433,11 +434,11 @@ pdf(file="figures/samples_tsne.pdf", paper="A4r", width=11, height=8.5)
 grid.arrange(tsne_plot1, tsne_plot2, tsne_plot3, tsne_plot4, nrow = 2)
 dev.off()
 
-tiff("figures/Figure1a.tiff", width = 1500, height = 500, res = 150)
+tiff("figures/tsne_clusters_bodysite_cohort.tiff", width = 1600, height = 500, res = 150)
 grid.arrange(tsne_plot1, tsne_plot3, nrow = 1)
 dev.off()
 
-tiff("figures/Supplementary_Figure1.tiff", width = 1500, height = 500, res = 100)
+tiff("figures/tsne_contigs_age_gender.tiff", width = 1600, height = 500, res = 130)
 grid.arrange(tsne_plot2, tsne_plot4, nrow = 1)
 dev.off()
 
@@ -1195,82 +1196,97 @@ megaphage_egng_summary <- megaphage_eggnog %>% group_by(name, tax_scope, size, L
 megaphage_func <- megaphage_egng_summary[!is.na(megaphage_egng_summary$tax_scope),]
 megaphage_nonviral <- megaphage_func[megaphage_func$tax_scope != "Viruses",]
 
-# Some megaphages have a lot of bacterial genes - as much as 43% of genes bacterial
-
 # Summarise functional groups for each cohort
 megaphage_eggnog_annot <- megaphage_eggnog[!is.na(megaphage_eggnog$seed_eggnog_ortholog),]
 megaphage_eggnog_annot <- megaphage_eggnog_annot[megaphage_eggnog_annot$COG_functional_cat != "",]
 megaphage_eggnog_cogs <- megaphage_eggnog_annot %>%
   mutate(COG_functional_cat = strsplit(as.character(COG_functional_cat), "")) %>%
   unnest(COG_functional_cat)
-
-metabolic_summary <- megaphage_eggnog_cogs %>% group_by(Location, Health, sample_type, COG_functional_cat) %>%
+functional_cats <- c("Translation, ribosomal structure and biogenesis", "RNA processing and modification", 
+                     "Transcription", "Replication, recombination and repair", "Chromatin structure and dynamics",
+                     "Cell cycle control, cell division, chromosome partitioning", "Nuclear structure", "Defense mechanisms",
+                     "Signal transduction mechanisms", "Cell wall/membrane/envelope biogenesis", "Cell motility",
+                     "Cytoskeleton", "Extracellular structures", "Intracellular trafficking, secretion, and vesicular transport",
+                     "Posttranslational modification, protein turnover, chaperones", "Energy production and conversion", 
+                     "Carbohydrate transport and metabolism", "Amino acid transport and metabolism", "Nucleotide transport and metabolism", 
+                     "Coenzyme transport and metabolism", "Lipid transport and metabolism", "Inorganic ion transport and metabolism", 
+                     "Secondary metabolites biosynthesis, transport and catabolism", "General function prediction only", "Function unknown")
+names(functional_cats) <- c("J", "A", "K", "L", "B", "D", "Y", "V", "T", "M", "N", "Z", "W", "U", "O", "C", "G", "E", "F", "H", "I", "P", "Q", "R", "S")
+megaphage_eggnog_cogs$functional_cats <- sapply(megaphage_eggnog_cogs$COG_functional_cat, function(x) functional_cats[names(functional_cats) == x])
+metabolic_summary <- megaphage_eggnog_cogs %>% group_by(Location, Health, sample_type, functional_cats) %>%
   summarise(n_cog = n()) %>%
   group_by(Location, Health, sample_type) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
   mutate(per_cog = n_cog/sum_n_cog * 100)
 
 # Plot functional groups for each body site and cohort
-ggplot(metabolic_summary, aes(sample_type, per_cog, fill = COG_functional_cat)) +
-  geom_bar(stat = "identity") +
-  facet_grid(~ Location + Health, space = "free", scale = "free")
+qual_col_pals <- brewer.pal.info[brewer.pal.info$category == 'qual',]
+functional_colours <- c(rev(unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))))
+names(functional_colours) <- functional_cats
+functional_colours <- functional_colours[!is.na(names(functional_colours))]
+functional_colours[names(functional_colours) == "Function unknown"] <- "white"
+
+tiff("figures/functional_categories_bodysite.tiff", width = 2500, height = 1000, res = 150)
+ggplot(metabolic_summary, aes(sample_type, per_cog, fill = functional_cats)) +
+  geom_bar(stat = "identity", colour = "black", size = 0.1) +
+  facet_grid(~ Location + Health, space = "free", scale = "free") +
+  scale_fill_manual("Functional Categories", values = functional_colours) +
+  xlab("Body Site") + ylab("Percentage") + theme_classic()
+dev.off()
 
 # Summarise functional groups for each cluster
-metabolic_cluster_summary <- megaphage_eggnog_cogs %>% group_by(vcontact_cluster, COG_functional_cat) %>%
+metabolic_cluster_summary <- megaphage_eggnog_cogs %>% group_by(crispr_host, functional_cats) %>%
   summarise(n_cog = n()) %>%
-  group_by(vcontact_cluster) %>%
+  group_by(crispr_host) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
   mutate(per_cog = n_cog/sum_n_cog * 100)
 
 # Plot functional groups for each cluster
-ggplot(metabolic_cluster_summary, aes(vcontact_cluster, per_cog, fill = COG_functional_cat)) +
-  geom_bar(stat = "identity") 
-
-# Look for unique metabolites
-test <- megaphage_eggnog_annot %>% group_by(vcontact_cluster, eggnog_description) %>%
-  summarise(n_desc = n_distinct(query_name)) %>%
-  group_by(vcontact_cluster) %>%
-  mutate(sum_n_desc = sum(n_desc)) %>%
-  mutate(per_desc = n_desc/sum_n_desc*100)
+metabolic_cluster_summary$crispr_host <- factor(metabolic_cluster_summary$crispr_host, levels=c("Neisseria", "Veillonella", "Centipeda", "Lachnoanaerobaculum", "Streptococcus", "Rothia", "Atopobium", "Selenomonas", NA))
+tiff("figures/functional_categories_host.tiff", width = 2600, height = 1000, res = 150)
+ggplot(metabolic_cluster_summary, aes(crispr_host, per_cog, fill = functional_cats)) +
+  geom_bar(stat = "identity", colour = "black", size = 0.1) +
+  scale_fill_manual("Functional Categories", values = functional_colours) +
+  xlab("Predicted host") + ylab("Percentage") + theme_classic()
+dev.off()
 
 # Group into metabolic profiles
 megaphage_cogs <- acast(megaphage_eggnog_cogs, name ~ eggnog_description)
 cogs_dist <- dist(megaphage_cogs, "binary")
-mds <- wcmdscale(cogs_dist, w=rep(1,nrow(megaphage_cogs)))
-mds <- as.data.frame(mds)
 set.seed(42)
-hc <- hclust(cogs_dist)
-
-# Silhoette analysis
-avg_sil <- numeric(10)
-for(k in 2:(length(avg_sil)+1)) {
-  tmp <- silhouette(cutree(hc, k = k), cogs_dist)
-  avg_sil[k-1] <- mean(tmp[,3])
-}
-
-# Plot PCoA and hierarchical clusters
-mds$clusters <- as.character(cutree(hc, which.max(avg_sil)+1))
-ggplot(mds, aes(V1, V2, color = clusters)) +
-  geom_point(alpha = 0.6) +
-  xlab("PCo 1") + ylab("PCo 2") +
-  scale_color_discrete("Clusters") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        axis.line = element_line(colour = "black"))
-
-# Plot other groups
+mds <- wcmdscale(cogs_dist, w=rep(1,nrow(megaphage_cogs)))
+mds <- as.data.frame(mds[,1:2])
 mds$name <- row.names(mds)
 mds <- left_join(mds, megaphage_contigs, by = "name") %>%
   left_join(metadata, by = c("sample"="ID"))
-ggplot(mds, aes(V1, V2, color = size)) +
-  geom_point(alpha = 0.6) +
+
+# Plot contig size and crispr host
+tiff("figures/pcoa_eggnog_crisprhost_size.tiff", width = 1000, height = 750, res = 150)
+ggplot(mds, aes(V1, V2, size = size, fill = crispr_host)) +
+  theme_classic() + geom_point(pch = 21, alpha = 0.7) +
+  scale_fill_brewer("Predicted host", palette = "Set2",
+                    guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
+  xlab("PCo 1") + ylab("PCo 2")
+dev.off()
+
+# Plot body site and Country - Health
+tiff("figures/pcoa_eggnog_bodysite_cohort.tiff", width = 1000, height = 750, res = 150)
+ggplot(mds, aes(V1, V2, fill = sample_type, shape = Location_Health)) +
+  geom_point(size = 3, alpha = 0.7) + theme_classic() +
+  scale_shape_manual("Country - Health", values = c(21, 24, 22, 23)) +
+  scale_fill_brewer("Body Site", palette = "Set3",
+                    guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("PCo 1") + ylab("PCo 2") 
-  scale_color_discrete("Clusters") +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        axis.line = element_line(colour = "black"))
+dev.off()
+
+# Plot age and gender
+tiff("figures/pcoa_eggnog_age_gender.tiff", width = 1000, height = 750, res = 150)
+ggplot(mds, aes(V1, V2, fill = Age, shape = Gender)) +
+  theme_classic() + geom_point(size = 2.5, alpha = 0.7) +
+  scale_shape_manual("Sex", values = c(21, 22)) +
+  scale_fill_distiller(palette = "Spectral") +
+  xlab("PCo 1") + ylab("PCo 2")
+dev.off()
 
 ########## Protein Functional Annotation ####
 # Select non-annotated proteins
