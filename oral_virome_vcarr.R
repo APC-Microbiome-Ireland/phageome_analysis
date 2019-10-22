@@ -13,15 +13,17 @@ library(parallelDist)
 library(cluster)
 library(limma)
 library(dplyr)
-# library(devtools)
-# install_github("jokergoo/ComplexHeatmap")
+library(devtools)
 library(circlize)
+#BiocManager::install("ComplexHeatmap")
 library(ComplexHeatmap)
+#BiocManager::install("maSigPro")
 library(maSigPro)
 library(purrr)
 library(ggrepel)
 library(stringr)
 library(tidyr)
+library(gtable)
 set.seed(1)
 
 ########## Read in metadata ####
@@ -31,175 +33,182 @@ metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <
 metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
 
 ########## Read in and process raw data######################
-# #Contigs
-# contig_ids = read.table("data/virsorter_positive.ids")
-# contig_ids = unique(as.character(contig_ids$V1))
-# 
-# #Read alignment counts
-# vir_counts = read.table("data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
-# #vir_counts = fread("data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
-# vir_coverage = read.table("data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
-# #vir_coverage = fread("data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
-# counts_total = vir_counts["Total_reads",]
-# vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
-# vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
-# vir_counts[vir_coverage < 0.75] = 0 #Apply breadth of coverage filter (<75% coverage are removed)
-# rm(vir_coverage)
-# 
-# vir_counts_unaligned = counts_total - apply(vir_counts, 2, sum)
-# vir_counts = rbind(vir_counts, vir_counts_unaligned)
-# vir_counts_prop = apply(vir_counts, 2, function(x) x/sum(x))
-# rm(vir_counts)
-# vir_counts_prop = vir_counts_prop[-nrow(vir_counts_prop),]
-# 
-# #Remove samples with missing total counts
-# vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) any(is.na(x))))]
-# 
-# #Remove samples with missing metadata
-# vir_counts_prop = vir_counts_prop[,which(colnames(vir_counts_prop) %in% rownames(metadata))]
-# 
-# #Remove rows with all zeroes
-# vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
-# 
+#Contigs
+contig_ids = read.table("data/virsorter_positive.ids")
+contig_ids = unique(as.character(contig_ids$V1))
+
+#Read alignment counts
+vir_counts = read.table("data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
+#vir_counts = fread("data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
+vir_coverage = read.table("data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
+#vir_coverage = fread("data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
+counts_total = vir_counts["Total_reads",]
+vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
+vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
+vir_counts[vir_coverage < 0.75] = 0 #Apply breadth of coverage filter (<75% coverage are removed)
+rm(vir_coverage)
+
+vir_counts_unaligned = counts_total - apply(vir_counts, 2, sum)
+vir_counts = rbind(vir_counts, vir_counts_unaligned)
+vir_counts_prop = apply(vir_counts, 2, function(x) x/sum(x))
+rm(vir_counts)
+vir_counts_prop = vir_counts_prop[-nrow(vir_counts_prop),]
+
+#Remove samples with missing total counts
+vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) any(is.na(x))))]
+
+#Remove samples with missing metadata
+vir_counts_prop = vir_counts_prop[,which(colnames(vir_counts_prop) %in% rownames(metadata))]
+
+#Remove rows with all zeroes
+vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
+
+saveRDS(vir_counts_prop, file ="data/vir_counts_prop.RDS")
+
 ########## Read in and process contig annotations############
-# 
-# contig_data = data.frame(
-#   row.names = contig_ids,
-#   name = contig_ids,
-#   size = as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)),
-#   coverage = as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 7)),
-#   circular = FALSE,
-#   gc_content = NA,
-#   hit_to_vir_refseq = FALSE,
-#   hit_to_crasslike = FALSE,
-#   demovir = NA,
-#   vir_refseq = NA,
-#   crasslike = NA,
-#   ribo_prot_count = 0,
-#   pvogs_count = 0,
-#   integrase = FALSE,
-#   vcontact_cluster = NA,
-#   sample = NA,
-#   country = NA
-# )
-# 
-# circular = read.table("data/circular_contigs.ids", header=FALSE)
-# vir_refseq = read.table("data/refseq_annot.txt", sep = "\t", header=FALSE)
-# crasslike = read.table("data/crasslike_annot.txt", sep = "\t", header=FALSE)
-# demovir = read.table("data/DemoVir_assignments.txt", sep = "\t", header=TRUE, row.names = 1)
-# gc_content = read.table("data/virsorter_positive_gc_content.txt", header=FALSE, row.names = 1)
-# ribo_prot_count = read.table("data/ribosomal_prot_counts.txt", header=FALSE)
-# rownames(ribo_prot_count) = as.character(ribo_prot_count$V2)
-# pvogs_count = read.table("data/pvogs_counts_per_contig.txt", header=FALSE)
-# rownames(pvogs_count) = as.character(pvogs_count$V2)
-# vcontact = read.table("data/new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
-# rownames(vcontact) = as.character(vcontact$contig_ID)
-# integrase = read.table("data/integrase_contigs.ids", header=FALSE)
-# contig_data[rownames(contig_data) %in% circular$V1,"circular"] = TRUE
-# contig_data[rownames(contig_data) %in% integrase$V1,"integrase"] = TRUE
-# contig_data$gc_content = as.numeric(as.character(gc_content[rownames(contig_data), "V2"]))
-# contig_data[rownames(contig_data) %in% vir_refseq$V1,"hit_to_vir_refseq"] = TRUE
-# contig_data[rownames(contig_data) %in% crasslike$V1,"hit_to_crasslike"] = TRUE
-# contig_data$demovir = demovir[rownames(contig_data),"Family"]
-# contig_data$demovir = as.character(contig_data$demovir)
-# contig_data[contig_data$demovir %in%
-#               c("Flaviviridae", "Iridoviridae", "Poxviridae", "Retroviridae", "Mimiviridae", "Pithoviridae",
-#                 "Ascoviridae", "Nudiviridae", "Baculoviridae", "Marseilleviridae", "Picornaviridae",
-#                 "Phycodnaviridae", "Herpesviridae", "Alloherpesviridae"), "demovir"] = "Other"
-# contig_data[contig_data$demovir %in% c(NA, "Unassigned"), "demovir"] = "Unassigned"
-# contig_data[contig_data$hit_to_crasslike, "demovir"] = "crAss-like"
-# contig_data$demovir = as.factor(contig_data$demovir)
-# contig_data$demovir = factor(contig_data$demovir, levels =
-#                                c("Bicaudaviridae", "Tectiviridae", "Inoviridae", "Microviridae",
-#                                  "Siphoviridae", "Myoviridae", "Podoviridae", "crAss-like",
-#                                  "Other", "Unassigned")) #Manually reordering levels. Check carefully!!!
-# 
-# for(i in levels(vir_refseq$V1))
-# {
-#   contig_data[i, "vir_refseq"] = as.character(vir_refseq[vir_refseq$V1 == i,][1,2]) #use first hit
-# }
-# contig_data$vir_refseq = as.factor(contig_data$vir_refseq)
-# 
-# for(i in levels(crasslike$V1))
-# {
-#   contig_data[i, "crasslike"] = as.character(crasslike[crasslike$V1 == i,][1,2]) #use first hit
-# }
-# contig_data$crasslike = as.factor(contig_data$crasslike)
-# 
-# contig_data$ribo_prot_count = ribo_prot_count[rownames(contig_data), "V1"]
-# contig_data$pvogs_count = pvogs_count[rownames(contig_data), "V1"]
-# contig_data$vcontact_cluster = vcontact[rownames(contig_data), "Cluster_id"]
-# 
-# country = read.table("data/sample_countries.txt")
-# rownames(country) = country$V2
-# contig_data$sample = sapply(strsplit(as.character(contig_data$name), split = "_"), "[[", 1)
-# 
-# #contig_data[contig_data$sample %in% unlist(merged_samples), "sample"] =
-# #  as.character(sapply(contig_data[contig_data$sample %in% unlist(merged_samples), "sample"],
-# #                      function(x) merged_samples[[grep(x, merged_samples)]][1]))
-# 
-# contig_data$country = metadata[contig_data$sample,"Location"]
-# contig_data[which((is.na(contig_data$country))),"country"] =
-#   country[contig_data[which((is.na(contig_data$country))),"sample"],"V1"]
-# 
-# #Filter contigs based on number of ribosomal protein hits and pVOGs
-# contig_data[is.na(contig_data$ribo_prot_count), "ribo_prot_count"] = 0
-# contig_data[is.na(contig_data$pvogs_count), "pvogs_count"] = 0
-# #contig_data = contig_data[which(contig_data$ribo_prot_count <= 3),]
-# #contig_data = contig_data[which(contig_data$pvogs_count/(contig_data$size/1000) >= 0.3),]
-# 
+
+contig_data = data.frame(
+  row.names = contig_ids,
+  name = contig_ids,
+  size = as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)),
+  coverage = as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 7)),
+  circular = FALSE,
+  gc_content = NA,
+  hit_to_vir_refseq = FALSE,
+  hit_to_crasslike = FALSE,
+  demovir = NA,
+  vir_refseq = NA,
+  crasslike = NA,
+  ribo_prot_count = 0,
+  pvogs_count = 0,
+  integrase = FALSE,
+  vcontact_cluster = NA,
+  sample = NA,
+  country = NA
+)
+
+circular = read.table("data/circular_contigs.ids", header=FALSE)
+vir_refseq = read.table("data/refseq_annot.txt", sep = "\t", header=FALSE)
+crasslike = read.table("data/crasslike_annot.txt", sep = "\t", header=FALSE)
+demovir = read.table("data/DemoVir_assignments.txt", sep = "\t", header=TRUE, row.names = 1)
+gc_content = read.table("data/virsorter_positive_gc_content.txt", header=FALSE, row.names = 1)
+ribo_prot_count = read.table("data/ribosomal_prot_counts.txt", header=FALSE)
+rownames(ribo_prot_count) = as.character(ribo_prot_count$V2)
+pvogs_count = read.table("data/pvogs_counts_per_contig.txt", header=FALSE)
+rownames(pvogs_count) = as.character(pvogs_count$V2)
+vcontact = read.table("data/new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
+rownames(vcontact) = as.character(vcontact$contig_ID)
+integrase = read.table("data/integrase_contigs.ids", header=FALSE)
+contig_data[rownames(contig_data) %in% circular$V1,"circular"] = TRUE
+contig_data[rownames(contig_data) %in% integrase$V1,"integrase"] = TRUE
+contig_data$gc_content = as.numeric(as.character(gc_content[rownames(contig_data), "V2"]))
+contig_data[rownames(contig_data) %in% vir_refseq$V1,"hit_to_vir_refseq"] = TRUE
+contig_data[rownames(contig_data) %in% crasslike$V1,"hit_to_crasslike"] = TRUE
+contig_data$demovir = demovir[rownames(contig_data),"Family"]
+contig_data$demovir = as.character(contig_data$demovir)
+contig_data[contig_data$demovir %in%
+              c("Flaviviridae", "Iridoviridae", "Poxviridae", "Retroviridae", "Mimiviridae", "Pithoviridae",
+                "Ascoviridae", "Nudiviridae", "Baculoviridae", "Marseilleviridae", "Picornaviridae",
+                "Phycodnaviridae", "Herpesviridae", "Alloherpesviridae"), "demovir"] = "Other"
+contig_data[contig_data$demovir %in% c(NA, "Unassigned"), "demovir"] = "Unassigned"
+contig_data[contig_data$hit_to_crasslike, "demovir"] = "crAss-like"
+contig_data$demovir = as.factor(contig_data$demovir)
+contig_data$demovir = factor(contig_data$demovir, levels =
+                               c("Bicaudaviridae", "Tectiviridae", "Inoviridae", "Microviridae",
+                                 "Siphoviridae", "Myoviridae", "Podoviridae", "crAss-like",
+                                 "Other", "Unassigned")) #Manually reordering levels. Check carefully!!!
+
+for(i in levels(vir_refseq$V1))
+{
+  contig_data[i, "vir_refseq"] = as.character(vir_refseq[vir_refseq$V1 == i,][1,2]) #use first hit
+}
+contig_data$vir_refseq = as.factor(contig_data$vir_refseq)
+
+for(i in levels(crasslike$V1))
+{
+  contig_data[i, "crasslike"] = as.character(crasslike[crasslike$V1 == i,][1,2]) #use first hit
+}
+contig_data$crasslike = as.factor(contig_data$crasslike)
+
+contig_data$ribo_prot_count = ribo_prot_count[rownames(contig_data), "V1"]
+contig_data$pvogs_count = pvogs_count[rownames(contig_data), "V1"]
+contig_data$vcontact_cluster = vcontact[rownames(contig_data), "Cluster_id"]
+
+country = read.table("data/sample_countries.txt")
+rownames(country) = country$V2
+contig_data$sample = sapply(strsplit(as.character(contig_data$name), split = "_"), "[[", 1)
+
+#contig_data[contig_data$sample %in% unlist(merged_samples), "sample"] =
+#  as.character(sapply(contig_data[contig_data$sample %in% unlist(merged_samples), "sample"],
+#                      function(x) merged_samples[[grep(x, merged_samples)]][1]))
+
+contig_data$country = metadata[contig_data$sample,"Location"]
+contig_data[which((is.na(contig_data$country))),"country"] =
+  country[contig_data[which((is.na(contig_data$country))),"sample"],"V1"]
+
+#Filter contigs based on number of ribosomal protein hits and pVOGs
+contig_data[is.na(contig_data$ribo_prot_count), "ribo_prot_count"] = 0
+contig_data[is.na(contig_data$pvogs_count), "pvogs_count"] = 0
+#contig_data = contig_data[which(contig_data$ribo_prot_count <= 3),]
+#contig_data = contig_data[which(contig_data$pvogs_count/(contig_data$size/1000) >= 0.3),]
+
+# Remove megaphages that are not viral
+megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+contig_data <- contig_data[contig_data$name %in% megaphage_contigs$name | contig_data$size <= 2e5,]
+
 ########## Host information from CRISPR and tRNA matches#################
-# #Read in and process CRISPR BLAST data
-# crispr_bitscore_cutoff = 45
-# trna_bitscore_cutoff = 65
-# crispr_evalue_cutoff = 1E-05
-# trna_evalue_cutoff = 1E-10
-# 
-# #crispr_hits1 =
-# #  read.table(file = 'refseq89_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
-# crispr_hits2 =
-#   read.table(file = 'hmp_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
-# 
-# #crispr_hits = rbind(crispr_hits1, crispr_hits2)
-# crispr_hits = crispr_hits2
-# 
-# colnames(crispr_hits) = c("qseqid", "sseqid", "bitscore", "pident", "length", "qlen", "evalue", "sstart", "send", "sname")
-# crispr_hits = crispr_hits[crispr_hits$evalue < crispr_evalue_cutoff,]
-# crispr_hits = crispr_hits[crispr_hits$bitscore >= crispr_bitscore_cutoff,]#Remove low score hits
-# crispr_hits$sname = gsub("UNVERIFIED: ", "", crispr_hits$sname)
-# crispr_hits$sname = gsub("TPA: ", "", crispr_hits$sname)
-# crispr_hits$sname = gsub("Candidatus ", "", crispr_hits$sname)
-# crispr_hits$sname = gsub("^complete chromosome ", "", crispr_hits$sname)
-# crispr_hits$genus =
-#   sapply(strsplit(as.character(crispr_hits$sname), split = " "), "[[", 2) #Check manually!
-# 
-# contig_data$crispr_host = NA
-# for(i in unique(as.character(crispr_hits$sseqid))) {
-#   temp = crispr_hits[crispr_hits$sseqid == i,c("genus", "bitscore")]
-#   temp = aggregate(bitscore ~ genus, data = temp, sum)
-#   contig_data[i,"crispr_host"] = temp[which.max(temp$bitscore),"genus"]
-# }
-# 
+#Read in and process CRISPR BLAST data
+crispr_bitscore_cutoff = 45
+trna_bitscore_cutoff = 65
+crispr_evalue_cutoff = 1E-05
+trna_evalue_cutoff = 1E-10
+
+#crispr_hits1 =
+#  read.table(file = 'refseq89_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
+crispr_hits2 =
+  read.table(file = 'hmp_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
+
+#crispr_hits = rbind(crispr_hits1, crispr_hits2)
+crispr_hits = crispr_hits2
+
+colnames(crispr_hits) = c("qseqid", "sseqid", "bitscore", "pident", "length", "qlen", "evalue", "sstart", "send", "sname")
+crispr_hits = crispr_hits[crispr_hits$evalue < crispr_evalue_cutoff,]
+crispr_hits = crispr_hits[crispr_hits$bitscore >= crispr_bitscore_cutoff,]#Remove low score hits
+crispr_hits$sname = gsub("UNVERIFIED: ", "", crispr_hits$sname)
+crispr_hits$sname = gsub("TPA: ", "", crispr_hits$sname)
+crispr_hits$sname = gsub("Candidatus ", "", crispr_hits$sname)
+crispr_hits$sname = gsub("^complete chromosome ", "", crispr_hits$sname)
+crispr_hits$genus =
+  sapply(strsplit(as.character(crispr_hits$sname), split = " "), "[[", 2) #Check manually!
+
+contig_data$crispr_host = NA
+for(i in unique(as.character(crispr_hits$sseqid))) {
+  temp = crispr_hits[crispr_hits$sseqid == i,c("genus", "bitscore")]
+  temp = aggregate(bitscore ~ genus, data = temp, sum)
+  contig_data[i,"crispr_host"] = temp[which.max(temp$bitscore),"genus"]
+}
+
 ########## Taxonomy from co-clustering with RefSeq######################
-# clusters_tax = list()
-# for(i in unique(as.character(contig_data$vcontact_cluster))) {
-#   tax_string = as.character(vcontact[which(vcontact$Cluster_id == i),"Taxonomy"])
-#   if(length(tax_string[!is.na(tax_string)]) > 0) {
-#     clusters_tax[[i]] = tax_string[!is.na(tax_string)]
-#   }
-# }
-# sink("clusters_taxonomy.txt")
-# print(clusters_tax)
-# sink()
-# 
-# #Dereplicate contigs according to the set used in read alignment step
-# contig_data = contig_data[rownames(vir_counts_prop),]
-# 
-# #Cleanup
-# rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
-#    pvogs_count,vcontact,crispr_hits2)
-# #saveRDS(contig_data,  file = "data/contig_data.RDS")
-# #write.table(contig_data, file = "data/contig_data.txt")
+clusters_tax = list()
+for(i in unique(as.character(contig_data$vcontact_cluster))) {
+  tax_string = as.character(vcontact[which(vcontact$Cluster_id == i),"Taxonomy"])
+  if(length(tax_string[!is.na(tax_string)]) > 0) {
+    clusters_tax[[i]] = tax_string[!is.na(tax_string)]
+  }
+}
+sink("clusters_taxonomy.txt")
+print(clusters_tax)
+sink()
+
+#Dereplicate contigs according to the set used in read alignment step
+contig_data = contig_data[rownames(vir_counts_prop),]
+
+#Cleanup
+rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
+   pvogs_count,vcontact,crispr_hits2)
+contig_data <- data.table(contig_data)
+saveRDS(contig_data,  file = "data/contig_data.RDS")
+write.table(contig_data, file = "data/contig_data.txt")
 
 ########## Contig scatterplot####################################
 contig_scatter_demovir = ggplot(contig_data, aes(x = size, y = coverage, fill = demovir, shape = circular, size = circular)) +
@@ -222,29 +231,43 @@ contig_scatter_demovir = ggplot(contig_data, aes(x = size, y = coverage, fill = 
   facet_wrap(~integrase, nrow = 2)
 
 ########## Virome composition barplots###########################
-#Make long format table
+# Make long format table
+vir_counts_prop <- readRDS("data/vir_counts_prop.RDS")
+contig_data <- readRDS("data/contig_data.RDS")
 vir_counts_prop_melt = melt(vir_counts_prop)
-vir_counts_prop_melt <- left_join(vir_counts_prop_melt, contig_data[,c("name", "demovir", "vcontact_cluster", "crispr_host", "integrase")], by = c("Var1"="name"))
+rm(vir_counts_prop)
+vir_counts_prop_melt <- right_join(vir_counts_prop_melt, contig_data[,c("name", "demovir", "vcontact_cluster", "crispr_host", "integrase")], by = c("Var1"="name"))
+
+# Aggregate counts by Demovir/vConTACT2
+vir_counts_prop_melt <- vir_counts_prop_melt %>% filter(value != 0)
+
+# Add metadata
 vir_counts_prop_melt <- left_join(vir_counts_prop_melt, metadata[,c("ID", "sample_type", "Location")], by = c("Var2"="ID"))
 
-#Aggregate counts by Demovir/vConTACT2
-vir_counts_prop_melt <- vir_counts_prop_melt %>% filter(value != 0)
-#saveRDS(vir_counts_prop_melt, file = "data/vir_counts_prop_melt.RDS")
+saveRDS(vir_counts_prop_melt, file = "data/vir_counts_prop_melt.RDS")
+
+vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_prop_melt_agg <- vir_counts_prop_melt %>% group_by(Var2, demovir, vcontact_cluster, sample_type, Location) %>%
   summarise(V1 = sum(value))
-#vir_counts_prop_melt_agg = vir_counts_prop_melt[, sum(value), by=.(Var2, demovir, vcontact_cluster, sample_type, Location)]
-#saveRDS(vir_counts_prop_melt_agg,  file = "data/vir_counts_prop_melt_agg.RDS")
+vir_counts_prop_melt <- as.data.table(vir_counts_prop_melt)
+vir_counts_prop_melt_agg = vir_counts_prop_melt[, sum(value), by=.(Var2, demovir, vcontact_cluster, sample_type, Location)]
+saveRDS(vir_counts_prop_melt_agg,  file = "data/vir_counts_prop_melt_agg.RDS")
 
-#Aggregate counts by CRISPR host
+# Aggregate counts by CRISPR host
 vir_counts_prop_melt_agg2 = vir_counts_prop_melt[, sum(value), by=.(Var2, crispr_host, sample_type, Location)]
 vir_counts_prop_melt_agg2$crispr_host = as.factor(vir_counts_prop_melt_agg2$crispr_host)
-#saveRDS(vir_counts_prop_melt_agg2, file = "data/vir_counts_prop_melt_agg2.RDS")
-rm(vir_counts_prop_melt)
+saveRDS(vir_counts_prop_melt_agg2, file = "data/vir_counts_prop_melt_agg2.RDS")
 
-barplot_demovir = ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
+barplot_demovir <- ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
   geom_bar(stat = "identity") +
-  scale_fill_manual(values = c(brewer.pal(12, "Paired")[c(1,2,4,5,7,8,9,10,12)], "lightgray")) +
-  facet_wrap(~sample_type, scales = "free_x")
+  scale_fill_manual("Viral Family",  values = c(brewer.pal(length(unique(vir_counts_prop_melt_agg$demovir)), "Set3"))) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  ylab("Proportion of mapped reads") + xlab("Sample")
+
+tiff("figures/barplot_demovir.tiff", width = 5000, height = 2000, res = 400)
+barplot_demovir
+dev.off()
 
 ########## Virome beta-diversity###########################
 #Re-cast counts matrix by vConTACT2 clusters
@@ -255,7 +278,7 @@ rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
 vir_counts_prop_agg = vir_counts_prop_agg[,-1]
 vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
 
-#saveRDS(vir_counts_prop_agg,  file = "data/vir_counts_prop_agg.RDS")
+saveRDS(vir_counts_prop_agg,  file = "data/vir_counts_prop_agg.RDS")
 
 # Compute distance matrix and run t-SNE
 vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
@@ -266,8 +289,6 @@ vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% m
 set.seed(1)
 cluster_counts_dist = vegdist(t(vir_counts_prop_agg), method = "bray")
 clusters_samples_tsne = tsne(cluster_counts_dist)
-# # PCA
-# clusters_samples_pca <- prcomp(cluster_counts_dist, scale. = TRUE, center = TRUE)
 
 #Annotate t-SNE coordinates
 clusters_samples_tsne = as.data.frame(clusters_samples_tsne)
@@ -276,20 +297,14 @@ clusters_samples_tsne$ID <- rownames(clusters_samples_tsne)
 colnames(clusters_samples_tsne) = c("tsne1", "tsne2", "ID")
 clusters_samples_tsne <- left_join(clusters_samples_tsne, metadata, by = "ID")
 
-# #De novo clustering
-# samples_clust = pam(cluster_counts_dist, 7)
-
 # Silhoette analysis of PAM (k-medoids)
 avg_sil <- numeric(20)
 for(k in 2:(length(avg_sil)+1)) {
   tmp <- silhouette(pam(cluster_counts_dist, k = k), cluster_counts_dist)
   avg_sil[k-1] <- mean(tmp[,3])
 }
-# New clusters
+# Group by silhouette width
 samples_clust <- pam(cluster_counts_dist, which.max(avg_sil)+1)
-
-# Read contig data
-contig_data <- readRDS("data/contig_data.RDS")
 
 clusters_samples_tsne$cluster = as.factor(samples_clust$cluster[clusters_samples_tsne$ID])
 clusters_samples_tsne$n_contigs = sapply(clusters_samples_tsne$ID, function(x) length(which(contig_data$sample == x)))
@@ -297,19 +312,23 @@ clusters_samples_tsne$total_reads = as.numeric(counts_total[clusters_samples_tsn
 
 saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
 
-#Make t-SNE plots
+# Make t-SNE plots
 clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
+
+# Label by cluster
 tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
-  scale_fill_manual(values = brewer.pal(8, "Set2"),
+  scale_fill_manual("Group", values = brewer.pal(8, "Set2"),
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
-tsne_plot2 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_contigs, size = log10(total_reads))) +
+# Label by contig size
+tsne_plot2 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_contigs, size = log10(total_reads))) +
   theme_classic() + geom_point(alpha = 0.7, pch = 21) +
   scale_fill_continuous("No. contigs") + scale_size_continuous("Log10(Reads mapped)") +
   xlab("Dim 1") + ylab("Dim 2")
 
+# Label by body sites, geographical location and health
 tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sample_type, shape = Location_Health)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7) +
   scale_shape_manual("Country - Health", values = c(21, 24, 22, 23)) +
@@ -317,12 +336,45 @@ tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sam
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
+# Calculate proportion of samples
+cluster_res <- clusters_samples_tsne %>% group_by(cluster, Location_Health, sample_type) %>% summarise(n = n()) %>%
+  group_by(cluster) %>%
+  mutate(total_n = sum(n)) %>%
+  mutate(prop_cluster = n/total_n*100, Location_Health_sampletype = paste(sample_type, "-", Location_Health))
+
+# Label by sample types
+cols <- c("grey", brewer.pal(9, "Blues")[c(3,5,7)], "yellowgreen", brewer.pal(9, "YlOrRd")[c(5,7,9)], brewer.pal(9, "RdPu")[c(3,5,7,9)])
+tsne_bar3 <- ggplot(cluster_res, aes(cluster, prop_cluster, fill=Location_Health_sampletype)) +
+  geom_bar(stat="identity") +
+  scale_fill_manual("Body Site - Geographical Location - Health", values = cols) +
+  xlab("Group") + ylab("Percentage") +
+  theme_classic()
+
+# Label by sex and age
 tsne_plot4 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = Age, shape = Gender)) +
   theme_classic() + geom_point(size = 2.5, alpha = 0.7) +
   scale_shape_manual("Sex", values = c(21, 22)) +
   #scale_fill_gradient2()
   scale_fill_distiller(palette = "Spectral") +
   xlab("Dim 1") + ylab("Dim 2")
+
+# Save plots
+tiff("figures/tsne_clusters.tiff", width = 700, height = 500, res = 150)
+tsne_plot1
+dev.off()
+
+tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
+tsne_bar3
+dev.off()
+
+# Set the same legend widths
+g2 <- ggplotGrob(tsne_plot2)
+g4 <- ggplotGrob(tsne_plot4)
+g4$widths <- g2$widths
+
+tiff("figures/tsne_contigs_age_gender.tiff", width = 1600, height = 500, res = 130)
+grid.arrange(g2, g4, nrow = 1)
+dev.off()
 
 ########## GLM of variables###########
 glm_samples <- clusters_samples_tsne[!is.na(clusters_samples_tsne$Age),]
@@ -419,7 +471,41 @@ rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2[,1]
 vir_counts_prop_agg2 = vir_counts_prop_agg2[,-1]
 vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
 
-#saveRDS(vir_counts_prop_agg2,  file = "data/vir_counts_prop_agg2.RDS")
+#Hosts heatmap
+vir_counts_prop_agg2_log = log10(vir_counts_prop_agg2)
+vir_counts_prop_agg2_log[is.infinite(vir_counts_prop_agg2_log)] = -8
+
+# pdf(file = "figures/heatplot_hosts.pdf", width=8.5, height=11, pointsize = 12)
+cols <- brewer.pal(length(unique(metadata$sample_type)), "Spectral")
+names(cols) <- unique(metadata$sample_type)
+tiff("figures/heatplot_hosts.tiff", width = 1000, height = 1500, res = 150)
+heatmap.2(vir_counts_prop_agg2_log,
+          margins = c(10,10),
+          trace = "none",
+          scale = "none",
+          hclustfun = function(x) {hclust(x, method = "ward.D2")},
+          dendrogram = "both",
+          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+          breaks = seq(-8, 0, length.out = 9),
+          symbreaks = FALSE,
+          keysize = 1,
+          lhei = c(1,8),
+          key.title = NA, key.xlab = "log10(prop. reads mapped)", key.ylab = NA,
+          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
+          labRow = rownames(vir_counts_prop_agg2_log),
+          labCol = NA,
+          cexCol = 0.5,
+          cexRow = 1,
+          xlab = "Samples",
+          ylab = "Predicted hosts",
+          main = NA
+)
+legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])),
+       col = cols, bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+dev.off()
+
+saveRDS(vir_counts_prop_agg2,  file = "data/vir_counts_prop_agg2.RDS")
 
 ########## Saving output#######################################
 pdf(file="figures/contigs_scatter.pdf", paper="A4r", width=11, height=8.5)
@@ -432,14 +518,6 @@ dev.off()
 
 pdf(file="figures/samples_tsne.pdf", paper="A4r", width=11, height=8.5)
 grid.arrange(tsne_plot1, tsne_plot2, tsne_plot3, tsne_plot4, nrow = 2)
-dev.off()
-
-tiff("figures/tsne_clusters_bodysite_cohort.tiff", width = 1600, height = 500, res = 150)
-grid.arrange(tsne_plot1, tsne_plot3, nrow = 1)
-dev.off()
-
-tiff("figures/tsne_contigs_age_gender.tiff", width = 1600, height = 500, res = 130)
-grid.arrange(tsne_plot2, tsne_plot4, nrow = 1)
 dev.off()
 
 #Clusters heatmap
@@ -477,38 +555,7 @@ legend(x = 0.01, y = 0.2, legend = levels(viral_clusters_df[rownames(vir_counts_
        lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
 dev.off()
 
-#Hosts heatmap
-vir_counts_prop_agg2_log = log10(vir_counts_prop_agg2)
-vir_counts_prop_agg2_log[is.infinite(vir_counts_prop_agg2_log)] = -8
-
-pdf(file = "figures/heatplot_hosts.pdf", width=8.5, height=11, pointsize = 12)
-heatmap.2(vir_counts_prop_agg2_log,
-          margins = c(10,10),
-          trace = "none",
-          scale = "none",
-          hclustfun = function(x) {hclust(x, method = "ward.D2")},
-          dendrogram = "both",
-          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
-          breaks = seq(-8, 0, length.out = 9),
-          symbreaks = FALSE,
-          keysize = 1,
-          lhei = c(1,8),
-          key.title = NA,
-          ColSideColors = brewer.pal(9, "Set1")[as.numeric(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
-          labRow = rownames(vir_counts_prop_agg2_log),
-          labCol = NA,
-          cexCol = 0.5,
-          cexRow = 1,
-          xlab = "Samples",
-          ylab = "Predicted hosts",
-          main = NA
-)
-legend(x = 0.01, y = 0.8, legend = levels(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"]),
-       col = brewer.pal(9, "Set1"), bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
-dev.off()
-
-save.image()
+# save.image()
 
 ########## Venn diagram showing overview of total phages for each group ##########
 unique_clusters <- unique(clusters_samples_tsne$cluster)
@@ -523,14 +570,14 @@ vir_group_list <- sapply(unique_clusters, function(x) {
   vir_group <- rownames(vir_tmp)[rowSums(vir_tmp) != 0]
   return(vir_group)
   })
-names(vir_group_list) <- c("Group 1\n(dorsum \nof tongue \n& saliva)", "Group 2\n(buccal mucosa)", "Group 3\n(dental)", "Group 4\n(stool)")
+names(vir_group_list) <- c("Group 1\n(buccal mucosa)", "Group 2\n(dorsum of tongue,\n saliva & dental)", "Group 3\n(dental)", "Group 4\n(stool)")
 max_group_length <- max(sapply(vir_group_list, function(x) length(x)))
 
 vir_group_list <- lapply(vir_group_list, function(x) c(x, rep(NA, max_group_length - length(x))))
 
 vir_group_all <- do.call(cbind, vir_group_list)
 
-tiff("figures/Figure1b.tiff", width = 600, height = 600)
+tiff("figures/venn_diagram.tiff", width = 600, height = 600)
 suma2Venn(vir_group_all, zcolor = brewer.pal(length(unique_clusters), "Set2"), cexil = 1.5, cexsn = 1.4)
 dev.off()
 
@@ -594,7 +641,7 @@ contig_cum_tp_summary <- left_join(contig_cum_tp_summary, contig_one, by = c("sa
   mutate(contig_frac = total_contig_least/total_contig)
 
 # Plot
-tiff("figures/Figure2a.tiff", height = 400, width = 1100, res = 100)
+tiff("figures/cumulative_contig_count.tiff", height = 400, width = 1100, res = 100)
 ggplot(contig_cum_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_type)) +
   geom_boxplot() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
@@ -620,7 +667,7 @@ contig_cum_reads_summary <- left_join(contig_cum_reads, contig_cum_reads_tp1, by
   group_by(sample_type, Sample.name, Var1) %>%
   mutate(cum_tp = order(Visit_Number))
 
-tiff("figures/Figure2b.tiff", height = 400, width = 1100, res = 90)
+tiff("figures/cumulative_read_count.tiff", height = 400, width = 1100, res = 90)
 ggplot(contig_cum_reads_summary, aes(x = as.factor(cum_tp), y = frac_reads, fill = sample_type)) +
   geom_boxplot() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
@@ -647,7 +694,7 @@ df_nmds_persist$sample_type <- sapply(df_nmds_persist$ID, function(x) metadata$s
 
 # Plot NMDS
 group_colours <- brewer.pal(length(unique(df_nmds_persist$sample_type)), "Spectral")
-tiff("figures/Figure2c.tiff", width = 2000, height = 1000, res = 200)
+tiff("figures/persistent_phages.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_persist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
   geom_point() +
   geom_density2d(alpha=0.3) +
@@ -675,7 +722,7 @@ df_nmds_nonpersist$Location <- sapply(df_nmds_nonpersist$ID, function(x) metadat
 df_nmds_nonpersist$sample_type <- sapply(df_nmds_nonpersist$ID, function(x) metadata$sample_type[metadata$ID == x])
 
 # Plot NMDS
-tiff("figures/Figure2d.tiff", width = 2000, height = 700, res = 200)
+tiff("figures/transient_phages.tiff", width = 2000, height = 700, res = 200)
 ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
   geom_point() +
   geom_density2d(alpha=0.2) +
@@ -890,29 +937,45 @@ runTtest <- function(df_paired){
   return(ttest_groups)
 }
 
-plotMultipleRichnessGraphs <- function(ttest_groups, df_paired){
-  
+plotRichnessGraph <- function(df_paired_richness_group, ttest_group, cols) {
+  g <- ggplot(df_paired_richness_group, aes(sample_type, richness, fill = sample_type)) +
+    geom_boxplot(outlier.shape = NA) +
+    geom_jitter(size = 0.8) +
+    theme_classic() +
+    ylab("Phage Cluster Richness") +
+    xlab("") +
+    ylim(c(0, max(df_paired_richness_group$richness) + 20)) +
+    ggtitle(paste(ttest_group$Location, sep = "\n")) +
+    geom_text(data = ttest_group, aes(label=asterisk),
+              x = 1.5, y = max(df_paired_richness_group$richness)+10, size = 7,
+              inherit.aes = FALSE) +
+    scale_fill_manual("body site", values = cols[names(cols) %in% unique(df_paired_richness_group$sample_type)]) +
+    theme(legend.text = element_text(size = 14), legend.title = element_text(size = 16))
+  return(g)
+}
+
+plotMultipleRichnessGraphs <- function(ttest_groups, df_paired, cols){
   df_paired_richness <- df_paired[!duplicated(paste0(df_paired$ID, df_paired$group)),]
   g <- list()
   for(i in 1:nrow(ttest_groups)){
     df_paired_richness_group <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & df_paired_richness$group == ttest_groups$group[i],]
-    g[[i]] <- ggplot(df_paired_richness_group, aes(sample_type, richness)) +
-      geom_boxplot(outlier.shape = NA) +
-      geom_jitter(size = 0.8) +
-      theme_classic() +
-      ylab("MAP Richness") +
-      xlab("") +
-      ylim(c(0, max(df_paired_richness_group$richness) + 20)) +
-      ggtitle(paste(ttest_groups[i,]$Location, sep = "\n")) +
-      geom_text(data = ttest_groups[i,], aes(label=asterisk),
-                x = 1.5, y = max(df_paired_richness_group$richness)+10, size = 7,
-                inherit.aes = FALSE)
+    g[[i]] <- plotRichnessGraph(df_paired_richness_group, ttest_groups[i,], cols) +
+      theme(legend.position = "none")
   }
   return(g)
 }
 
+g_legend <- function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
 # Read data
 vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
+
+# Join with metadata
 vir_counts_prop_melt <- left_join(metadata, vir_counts_prop_melt, by = c("ID"="Var2","sample_type","Location"))
 vir_counts_prop_melt <- vir_counts_prop_melt[vir_counts_prop_melt$Visit_Number == 1,]
 
@@ -926,12 +989,47 @@ pair_list <- list(c("stool", "dental"), c("stool", "saliva"), c("dental", "saliv
                   c("dorsum of tongue", "buccal mucosa"), c("dorsum of tongue", "dental"), c("buccal mucosa", "dental"))
 richness_paired <- createPairedData(richness_summary, pair_list)
 richness_ttest <- runTtest(richness_paired)
-richness_graphs <- plotMultipleRichnessGraphs(richness_ttest, richness_paired)
+cols <- brewer.pal(length(unique(metadata$sample_type)), "Spectral")
+names(cols) <- unique(metadata$sample_type)
+richness_graphs <- plotMultipleRichnessGraphs(richness_ttest, richness_paired, cols)
+richness_graphs[[length(richness_graphs)+1]] <- g_legend(plotRichnessGraph(richness_paired, richness_ttest, cols))
 
 # Plot graph
-lay <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
-tiff("figures/Figure3a.tiff", width = 2100, height = 1500, res = 220)
+lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
+tiff("figures/alpha_diversity.tiff", width = 2400, height = 1500, res = 220)
 grid.arrange(grobs = richness_graphs, layout_matrix = lay)
+dev.off()
+
+########## Size of phages ####
+contig_data <- readRDS("data/contig_data.RDS")
+contig_data <- left_join(contig_data, metadata, by = c("sample" = "ID"))
+contig_data <- contig_data[!is.na(contig_data$sample_type),]
+
+countSizeCat <- function(contig_data, size_lower, size_upper) {
+  size_summary <- contig_data %>%
+    group_by(sample_type) %>%
+    mutate(n_samples = n_distinct(sample)) %>% ungroup() %>%
+    filter(circular, size <= size_upper, size > size_lower) %>%
+    group_by(sample_type, n_samples) %>%
+    summarise(n = n_distinct(vcontact_cluster)) %>%
+    mutate(n_per_sample = n/n_samples) %>%
+    mutate(size_lower = size_lower, category = paste(as.character(size_lower/1e3), "<\n<=", as.character(size_upper/1e3)))
+  return(size_summary)
+}
+
+sizes_lower <- c(0, 1e4, 5e4, 2e5, 3e5)
+sizes_upper <- c(sizes_lower[-1], Inf)
+size_summary <- map2_df(.x = sizes_lower, .y = sizes_upper, .f = function(.x, .y) countSizeCat(contig_data, .x, .y))
+size_summary$category <- gsub("\n<= Inf", "", size_summary$category)
+
+cols <- brewer.pal(length(unique(metadata$sample_type)), "Spectral")
+names(cols) <- unique(metadata$sample_type)
+
+tiff("figures/circular_phage_size.tiff", width = 800, height = 500, res = 150)
+ggplot(size_summary, aes(reorder(category, size_lower), n_per_sample, fill = sample_type)) +
+  geom_bar(stat = "identity") + xlab("Size (kb)") + ylab("No. unqiue circular phage clusters \n/ no. samples") + 
+  theme_classic() +
+  scale_fill_manual("Body Site", values = cols)
 dev.off()
 
 ########## Jumbo/mega circular phages ####
@@ -951,12 +1049,11 @@ megaphage_contigs$numeric_samplename[is.na(megaphage_contigs$numeric_samplename)
 label_colours <- c("blue", "orange", "turquoise", "darkgreen")
 pd <- position_dodge(0.8)
 h <- 200
-tiff("figures/megaphage_individual.tiff", width = 2500, height = 1000, res = 200)
+tiff("figures/jumbophage_individual.tiff", width = 2500, height = 1000, res = 200)
 ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, group = numeric_samplename)) +
   geom_line(position=pd, colour="grey90", linetype = "dashed") +
   geom_point(position=pd, alpha = 0.6) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
-  geom_text(aes(1, h, label = "Megaphage - 200 kb", vjust = 1), colour = "red", size = 3) + 
   theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
   scale_y_continuous(breaks = seq(200, 800, 50)) +
   theme(panel.grid.major.y = element_line(colour = "grey90"), 
@@ -967,12 +1064,11 @@ ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, 
   scale_colour_manual("Country - Health", values = label_colours) 
 dev.off()
 
-tiff("figures/megaphage_cluster.tiff", width = 2500, height = 1000, res = 200)
+tiff("figures/jumbophage_cluster.tiff", width = 2500, height = 1000, res = 200)
 ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, group = vcontact_cluster)) +
   geom_line(position=pd, colour="grey90", linetype = "dashed") +
   geom_point(position = pd, alpha = 0.6) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
-  geom_text(aes(1, h, label = "Megaphage - 200 kb", vjust = 1), colour = "red", size = 3) + 
   theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
   scale_y_continuous(breaks = seq(200, 800, 50)) +
   theme(panel.grid.major.y = element_line(colour = "grey90"), 
@@ -981,7 +1077,21 @@ ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, 
         legend.text = element_text(size = 12),
         legend.title = element_text(size = 16)) +
   scale_colour_manual("Country - Health", values = label_colours) 
-dev.off()  
+dev.off() 
+
+tiff("figures/circular_jumbophages.tiff", width = 2500, height = 1000, res = 250)
+ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health)) +
+  geom_jitter(alpha = 0.6, size = 2) +
+  geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
+  theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
+  scale_y_continuous(breaks = seq(200, 800, 50)) +
+  theme(panel.grid.major.y = element_line(colour = "grey90"), 
+        axis.text.x = element_text(size = 12), 
+        axis.title = element_text(size = 16),
+        legend.text = element_text(size = 12),
+        legend.title = element_text(size = 16)) +
+  scale_colour_manual("Country - Health", values = label_colours) 
+dev.off() 
 
 ########## Phages and ARGs ####
 # Read data
