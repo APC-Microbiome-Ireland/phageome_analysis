@@ -24,13 +24,18 @@ library(ggrepel)
 library(stringr)
 library(tidyr)
 library(gtable)
+library(igraph)
 set.seed(1)
 
-########## Read in metadata ####
+########## Read in metadata and define parameters ####
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
 rownames(metadata) = metadata$ID
 metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <- "rheumatoid arthritis"
 metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
+
+# Body site colours
+cols <- brewer.pal(11, "Spectral")[c(2, 4, 9, 10, 11)]
+names(cols) <- unique(metadata$sample_type)
 
 ########## Read in and process raw data######################
 #Contigs
@@ -166,7 +171,7 @@ trna_evalue_cutoff = 1E-10
 #crispr_hits1 =
 #  read.table(file = 'refseq89_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
 crispr_hits2 =
-  read.table(file = 'hmp_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
+  read.table(file = 'data/hmp_pilercr_blasthits_selected_contigs_taxa.txt', header = FALSE, sep = '\t', quote="", fill=FALSE)
 
 #crispr_hits = rbind(crispr_hits1, crispr_hits2)
 crispr_hits = crispr_hits2
@@ -181,12 +186,14 @@ crispr_hits$sname = gsub("^complete chromosome ", "", crispr_hits$sname)
 crispr_hits$genus =
   sapply(strsplit(as.character(crispr_hits$sname), split = " "), "[[", 2) #Check manually!
 
-contig_data$crispr_host = NA
-for(i in unique(as.character(crispr_hits$sseqid))) {
-  temp = crispr_hits[crispr_hits$sseqid == i,c("genus", "bitscore")]
-  temp = aggregate(bitscore ~ genus, data = temp, sum)
-  contig_data[i,"crispr_host"] = temp[which.max(temp$bitscore),"genus"]
-}
+crispr_summary <- crispr_hits %>% group_by(sseqid, genus) %>%
+  summarise(sum_bitscore = sum(bitscore)) %>%
+  group_by(sseqid) %>%
+  filter(sum_bitscore == max(sum_bitscore)) %>%
+  select(-sum_bitscore)
+
+contig_data <- left_join(contig_data, crispr_summary, by = c("name"="sseqid")) %>%
+  rename(crispr_host = genus)
 
 ########## Taxonomy from co-clustering with RefSeq######################
 clusters_tax = list()
@@ -201,7 +208,7 @@ print(clusters_tax)
 sink()
 
 #Dereplicate contigs according to the set used in read alignment step
-contig_data = contig_data[rownames(vir_counts_prop),]
+contig_data = contig_data[contig_data$name %in% rownames(vir_counts_prop),]
 
 #Cleanup
 rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
@@ -255,7 +262,6 @@ saveRDS(vir_counts_prop_melt_agg,  file = "data/vir_counts_prop_melt_agg.RDS")
 
 # Aggregate counts by CRISPR host
 vir_counts_prop_melt_agg2 = vir_counts_prop_melt[, sum(value), by=.(Var2, crispr_host, sample_type, Location)]
-vir_counts_prop_melt_agg2$crispr_host = as.factor(vir_counts_prop_melt_agg2$crispr_host)
 saveRDS(vir_counts_prop_melt_agg2, file = "data/vir_counts_prop_melt_agg2.RDS")
 
 barplot_demovir <- ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
@@ -332,7 +338,7 @@ tsne_plot2 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_c
 tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sample_type, shape = Location_Health)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7) +
   scale_shape_manual("Country - Health", values = c(21, 24, 22, 23)) +
-  scale_fill_brewer("Body Site", palette = "Set3",
+  scale_fill_manual("Body Site", values = cols,
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
@@ -341,14 +347,6 @@ cluster_res <- clusters_samples_tsne %>% group_by(cluster, Location_Health, samp
   group_by(cluster) %>%
   mutate(total_n = sum(n)) %>%
   mutate(prop_cluster = n/total_n*100, Location_Health_sampletype = paste(sample_type, "-", Location_Health))
-
-# Label by sample types
-cols <- c("grey", brewer.pal(9, "Blues")[c(3,5,7)], "yellowgreen", brewer.pal(9, "YlOrRd")[c(5,7,9)], brewer.pal(9, "RdPu")[c(3,5,7,9)])
-tsne_bar3 <- ggplot(cluster_res, aes(cluster, prop_cluster, fill=Location_Health_sampletype)) +
-  geom_bar(stat="identity") +
-  scale_fill_manual("Body Site - Geographical Location - Health", values = cols) +
-  xlab("Group") + ylab("Percentage") +
-  theme_classic()
 
 # Label by sex and age
 tsne_plot4 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = Age, shape = Gender)) +
@@ -363,17 +361,15 @@ tiff("figures/tsne_clusters.tiff", width = 700, height = 500, res = 150)
 tsne_plot1
 dev.off()
 
-tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
-tsne_bar3
-dev.off()
-
 # Set the same legend widths
 g2 <- ggplotGrob(tsne_plot2)
 g4 <- ggplotGrob(tsne_plot4)
+g3 <- ggplotGrob(tsne_plot3)
 g4$widths <- g2$widths
+g3$widths <- g2$widths
 
-tiff("figures/tsne_contigs_age_gender.tiff", width = 1600, height = 500, res = 130)
-grid.arrange(g2, g4, nrow = 1)
+tiff("figures/tsne_contigs_bodysite_age_gender.tiff", width = 2400, height = 500, res = 130)
+grid.arrange(g3, g2, g4, nrow = 1)
 dev.off()
 
 ########## GLM of variables###########
@@ -393,6 +389,47 @@ vir_counts_prop_agg_diff = vir_counts_prop_agg[names(which(clusters_samples_kw <
 viral_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg),
                                demovir = sapply(rownames(vir_counts_prop_agg), function(x) names(which.max(table(contig_data[which(contig_data$vcontact_cluster == x),"demovir"]))))
 )
+
+#Clusters heatmap
+vir_counts_prop_agg_diff_log = log10(vir_counts_prop_agg_diff)
+vir_counts_prop_agg_diff_log[is.infinite(vir_counts_prop_agg_diff_log)] = -8
+
+tiff(file = "figures/heatplot_clusters.tiff", width=1500, height=2000, res = 150)
+heatmap.2(vir_counts_prop_agg_diff_log,
+          margins = c(10,10),
+          trace = "none",
+          scale = "none",
+          density.info = "none",
+          hclustfun = function(x) {hclust(x, method = "ward.D2")},
+          dendrogram = "both",
+          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+          breaks = seq(min(vir_counts_prop_agg_diff_log), 0, length.out = 9),
+          symbreaks = FALSE,
+          keysize = 1,
+          lhei = c(1,8),
+          key.title = NA,
+          key.xlab = "log10(prop. reads mapped)",
+          key.ylab = NA,
+          RowSideColors = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)][as.numeric(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"])],
+          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
+          labRow = NA,
+          #labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
+          labCol = NA,
+          cexCol = 0.5,
+          cexRow = 0.5,
+          xlab = "Samples",
+          ylab = "Contig clusters",
+          main = NA
+)
+legend("topright", legend = levels(factor(metadata[colnames(vir_counts_prop_agg_diff), "sample_type"])),
+       col = cols, bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
+
+legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"]),
+       col = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)], bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
+
+dev.off()
 
 ########## Differentially abundant megaphages ####
 clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
@@ -445,7 +482,7 @@ heatmap.2(vir_counts_prop_agg_diff_log,
           key.title = NA,
           key.xlab = "log10(count)",
           RowSideColors = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)][as.numeric(megaphage_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"])],
-          ColSideColors = brewer.pal(8, "Set2")[as.numeric(metadata[colnames(vir_counts_prop_agg_diff), "sample_type"])],
+          ColSideColors = sapply(metadata[colnames(vir_counts_prop_agg_diff), "sample_type"], function(x) cols[names(cols) == x]),
           labRow = gsub("NULL", "", as.character(sapply(clusters_tax_megaphage[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
           labCol = NA,
           cexCol = 1,
@@ -466,8 +503,8 @@ dev.off()
 #Re-cast counts matrix by CRISPR hosts
 vir_counts_prop_agg2 = dcast.data.table(vir_counts_prop_melt_agg2, crispr_host ~ Var2, value.var = "V1", fun.aggregate = sum)
 vir_counts_prop_agg2 = as.data.frame(vir_counts_prop_agg2)
-vir_counts_prop_agg2 = vir_counts_prop_agg2[-which(is.na(vir_counts_prop_agg2[,1])),]
-rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2[,1]
+vir_counts_prop_agg2 = vir_counts_prop_agg2[!is.na(vir_counts_prop_agg2$crispr_host),]
+rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2$crispr_host
 vir_counts_prop_agg2 = vir_counts_prop_agg2[,-1]
 vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
 
@@ -475,9 +512,6 @@ vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
 vir_counts_prop_agg2_log = log10(vir_counts_prop_agg2)
 vir_counts_prop_agg2_log[is.infinite(vir_counts_prop_agg2_log)] = -8
 
-# pdf(file = "figures/heatplot_hosts.pdf", width=8.5, height=11, pointsize = 12)
-cols <- brewer.pal(length(unique(metadata$sample_type)), "Spectral")
-names(cols) <- unique(metadata$sample_type)
 tiff("figures/heatplot_hosts.tiff", width = 1000, height = 1500, res = 150)
 heatmap.2(vir_counts_prop_agg2_log,
           margins = c(10,10),
@@ -492,10 +526,10 @@ heatmap.2(vir_counts_prop_agg2_log,
           lhei = c(1,8),
           key.title = NA, key.xlab = "log10(prop. reads mapped)", key.ylab = NA,
           ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
-          labRow = rownames(vir_counts_prop_agg2_log),
+          #labRow = as.character(rownames(vir_counts_prop_agg2_log)),
           labCol = NA,
           cexCol = 0.5,
-          cexRow = 1,
+          #cexRow = 1,
           xlab = "Samples",
           ylab = "Predicted hosts",
           main = NA
@@ -507,55 +541,58 @@ dev.off()
 
 saveRDS(vir_counts_prop_agg2,  file = "data/vir_counts_prop_agg2.RDS")
 
-########## Saving output#######################################
-pdf(file="figures/contigs_scatter.pdf", paper="A4r", width=11, height=8.5)
-contig_scatter_demovir
-dev.off()
-
-pdf(file="figures/samples_barplot.pdf", paper="A4r", width=11, height=8.5)
-barplot_demovir
-dev.off()
-
-pdf(file="figures/samples_tsne.pdf", paper="A4r", width=11, height=8.5)
-grid.arrange(tsne_plot1, tsne_plot2, tsne_plot3, tsne_plot4, nrow = 2)
-dev.off()
-
-#Clusters heatmap
-vir_counts_prop_agg_diff_log = log10(vir_counts_prop_agg_diff+1)
-vir_counts_prop_agg_diff_log[is.infinite(vir_counts_prop_agg_diff_log)] = -8
-
-pdf(file = "figures/heatplot_clusters.pdf", width=8.5, height=11, pointsize = 12)
-heatmap.2(vir_counts_prop_agg_diff_log,
-          margins = c(10,10),
-          trace = "none",
-          scale = "none",
-          hclustfun = function(x) {hclust(x, method = "ward.D2")},
-          dendrogram = "both",
-          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
-          breaks = seq(-8, 0, length.out = 9),
-          symbreaks = FALSE,
-          keysize = 1,
-          lhei = c(1,8),
-          key.title = NA,
-          RowSideColors = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)][as.numeric(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"])],
-          ColSideColors = brewer.pal(9, "Set1")[as.numeric(metadata[colnames(vir_counts_prop_agg_diff), "sample_type"])],
-          labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
-          labCol = NA,
-          cexCol = 0.5,
-          cexRow = 0.5,
-          xlab = "Samples",
-          ylab = "Contig clusters",
-          main = NA
-)
-legend(x = 0.01, y = 0.8, legend = levels(metadata[colnames(vir_counts_prop_agg_diff), "sample_type"]),
-       col = brewer.pal(9, "Set1"), bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
-legend(x = 0.01, y = 0.2, legend = levels(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"]),
-       col = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)], bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
-dev.off()
-
-# save.image()
+#### Network connecting phage and phage hosts
+# contig_data <- readRDS("data/contig_data.RDS")
+# contig_data <- left_join(contig_data, metadata, by = c("sample"="ID"))
+# 
+# createHostNetwork <- function(contig_data, host_of_interest) {
+#   host_data <- contig_data[contig_data$crispr_host == host_of_interest,]
+#   adjacency_matrix <- matrix(0, nrow = nrow(host_data), ncol = nrow(host_data))
+#   rownames(adjacency_matrix) <- host_data$name  
+#   colnames(adjacency_matrix) <- host_data$name
+#   unique_vcontact_cluster <- unique(host_data$vcontact_cluster)
+#   for (i in 1:length(unique_vcontact_cluster)) {
+#     matrix_indices <- which(colnames(adjacency_matrix) %in% host_data$name[host_data$vcontact_cluster == unique_vcontact_cluster[i]])
+#     for (j in 1:length(matrix_indices)) {
+#       for (k in 1:length(matrix_indices)) {
+#         adjacency_matrix[matrix_indices[i], matrix_indices[k]] <- 1
+#       }
+#     }
+#   }
+#   
+#   net <- graph_from_incidence_matrix(adjacency_matrix)
+#   
+#   return(net)
+# }
+# 
+# nodes_phage <- edges_phage_host[!duplicated(edges_phage_host$name),] %>%
+#   select(name, from) %>%
+#   rename(id = from) %>%
+#   select(id, name) %>%
+#   mutate(type = "phage")
+# 
+# nodes_host <- edges_phage_host[!duplicated(edges_phage_host$crispr_host),] %>%
+#   select(crispr_host, to) %>%
+#   rename(id = to, name = crispr_host) %>%
+#   select(id, name) %>%
+#   mutate(type = "host")
+# 
+# nodes <- rbind(nodes_phage, nodes_host)
+# host_metadata <- host_data[!duplicated(host_data$name),] %>% select(name,sample_type)
+# nodes <- left_join(nodes, host_metadata, by = "name")
+# 
+# edges_phage_host <- edges_phage_host %>% select(-c("name", "crispr_host"))
+# net <- graph_from_data_frame(d=edges_phage_host, vertices = nodes, directed = F)
+# 
+# # Network attributes
+# net <- createHostNetwork(contig_data[!is.na(contig_data$crispr_host),], "Bacteroides")
+# V(net)$size <- 1
+# l <- layout_with_kk(net)
+# 
+# # Plot network
+# tiff("figures/phage_host_network.tiff", width = 1000, height = 1000)
+# plot(net, vertex.label = NA, layout = l)
+# dev.off()
 
 ########## Venn diagram showing overview of total phages for each group ##########
 unique_clusters <- unique(clusters_samples_tsne$cluster)
@@ -647,7 +684,7 @@ ggplot(contig_cum_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of contigs in at least x time points") +
   theme(strip.background = element_blank(), strip.text.x = element_blank()) +
-  scale_fill_manual("body site", values = brewer.pal(length(unique(metadata_us$sample_type)), "Spectral"))
+  scale_fill_manual("body site", values = cols)
 dev.off()
 
 # Proportion of reads mapped to contigs
@@ -673,7 +710,7 @@ ggplot(contig_cum_reads_summary, aes(x = as.factor(cum_tp), y = frac_reads, fill
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of reads mapped in at least x time points") +
   theme(strip.background = element_blank(), strip.text.x = element_blank()) +
-  scale_fill_manual("body site", values = brewer.pal(length(unique(metadata_us$sample_type)), "Spectral"))
+  scale_fill_manual("body site", values = cols)
 dev.off()
 
 # Select persistent contigs (3 at least, 2 doesnt converge)
@@ -693,14 +730,13 @@ df_nmds_persist$Location <- sapply(df_nmds_persist$ID, function(x) metadata$Loca
 df_nmds_persist$sample_type <- sapply(df_nmds_persist$ID, function(x) metadata$sample_type[metadata$ID == x])
 
 # Plot NMDS
-group_colours <- brewer.pal(length(unique(df_nmds_persist$sample_type)), "Spectral")
 tiff("figures/persistent_phages.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_persist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
   geom_point() +
   geom_density2d(alpha=0.3) +
   theme_classic() +
   guides(fill = FALSE) +
-  scale_colour_manual("body site", values = group_colours) +
+  scale_colour_manual("body site", values = cols) +
   scale_x_continuous(limits = c(-2,2), breaks = seq(-2,2,0.5)) + 
   scale_y_continuous(limits = c(-1.5,1.2), breaks = seq(-2,2,0.5))
 dev.off()
@@ -728,7 +764,7 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
   geom_density2d(alpha=0.2) +
   theme_classic() +
   guides(fill = FALSE) +
-  scale_colour_manual("body site", values = group_colours) +
+  scale_colour_manual("body site", values = cols) +
   scale_x_continuous(limits = c(-1.5,1), breaks = seq(-2,2,0.5)) + 
   scale_y_continuous(limits = c(-0.5,0.5), breaks = seq(-2,2,0.5))
 dev.off()
@@ -742,10 +778,25 @@ metaphlan_filter <- metaphlan[grepl("s__", row.names(metaphlan)) & !grepl("t__",
 metaphlan_dist = vegdist(t(metaphlan_filter), method = "bray")
 set.seed(1)
 metaphlan_tsne <- tsne(metaphlan_dist)
+metaphlan_tsne <- as.data.frame(metaphlan_tsne)
+rownames(metaphlan_tsne) = names(metaphlan)
+metaphlan_tsne$ID <- rownames(metaphlan_tsne)
+names(metaphlan_tsne) = c("tsne1", "tsne2", "ID")
+metaphlan_tsne <- left_join(metaphlan_tsne, metadata, by = "ID")
 
+# Plot microbiome t-sne
+tiff("figures/metaphlan_tsne.tiff", height= 500, width = 800, res = 150)
+ggplot(metaphlan_tsne, aes(x = tsne1, y = tsne2, fill = sample_type)) +
+  theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
+  scale_fill_manual("Body Site", values = cols,
+                    guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
+  xlab("Dim 1") + ylab("Dim 2")
+dev.off()
+
+# Plot procrustes
 protest_res <- protest(clusters_samples_tsne[,c(1:2)], metaphlan_tsne[,c(1:2)], scale = TRUE)
 
-tiff("figures/Figure1d.tiff")
+tiff("figures/procrustes.tiff")
 plot(protest_res)
 points(protest_res, display = "target", col = "red")
 dev.off()
@@ -834,7 +885,7 @@ correlationHeatmap <- function(cor_df, bottom_margin = 0, left_margin = 0, phyla
                                                                  labels_gp = gpar(fontsize = 16),
                                                                  grid_height = unit(8, "mm"))))
   
-  set.seed(42)
+  set.seed(1)
   ht <- Heatmap(t(sparse_matrix), top_annotation = ta, left_annotation = ha, name = "rho", show_row_names = TRUE, cluster_rows = TRUE, cluster_columns = TRUE, 
                 col = colorRamp2(c(-1,0,1),  c("blue", "white", "red")), column_names_max_height = unit(bottom_margin, "mm"),
                 row_title_rot = 0, row_title_gp = gpar(fontsize = 5), show_column_names = TRUE, row_names_max_width = unit(left_margin, "mm"),
@@ -938,13 +989,13 @@ runTtest <- function(df_paired){
 }
 
 plotRichnessGraph <- function(df_paired_richness_group, ttest_group, cols) {
+  set.seed(1) # for jitter
   g <- ggplot(df_paired_richness_group, aes(sample_type, richness, fill = sample_type)) +
     geom_boxplot(outlier.shape = NA) +
     geom_jitter(size = 0.8) +
     theme_classic() +
     ylab("Phage Cluster Richness") +
     xlab("") +
-    ylim(c(0, max(df_paired_richness_group$richness) + 20)) +
     ggtitle(paste(ttest_group$Location, sep = "\n")) +
     geom_text(data = ttest_group, aes(label=asterisk),
               x = 1.5, y = max(df_paired_richness_group$richness)+10, size = 7,
@@ -960,7 +1011,7 @@ plotMultipleRichnessGraphs <- function(ttest_groups, df_paired, cols){
   for(i in 1:nrow(ttest_groups)){
     df_paired_richness_group <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & df_paired_richness$group == ttest_groups$group[i],]
     g[[i]] <- plotRichnessGraph(df_paired_richness_group, ttest_groups[i,], cols) +
-      theme(legend.position = "none")
+      theme(legend.position = "none") + ylim(c(0, max(df_paired_richness$richness) + 20))
   }
   return(g)
 }
@@ -979,18 +1030,26 @@ vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_prop_melt <- left_join(metadata, vir_counts_prop_melt, by = c("ID"="Var2","sample_type","Location"))
 vir_counts_prop_melt <- vir_counts_prop_melt[vir_counts_prop_melt$Visit_Number == 1,]
 
-# Get phage cluster richness
-richness_summary <- vir_counts_prop_melt %>% 
-  group_by(ID, sample_type, Location, Sample.name) %>% 
-  summarise(richness = n_distinct(vcontact_cluster))
+# Sample - phage cluster matrix
+vir_cluster_counts <- dcast(vir_counts_prop_melt, ID ~ vcontact_cluster, length)
+rownames(vir_cluster_counts) <- vir_cluster_counts[,1]
+vir_cluster_counts <- vir_cluster_counts[,-1]
+
+# Remove samples with lower than 3 or fewer phage clusters (for subsampling)
+remove_ids <- rownames(vir_cluster_counts)[rowSums(vir_cluster_counts > 0) <= 3]
+vir_cluster_counts <- vir_cluster_counts[!rownames(vir_cluster_counts) %in% remove_ids,]
+metadata_richness <- metadata[!metadata$ID %in% remove_ids,]
 
 pair_list <- list(c("stool", "dental"), c("stool", "saliva"), c("dental", "saliva"),
                   c("stool", "dorsum of tongue"), c("stool", "buccal mucosa"),
                   c("dorsum of tongue", "buccal mucosa"), c("dorsum of tongue", "dental"), c("buccal mucosa", "dental"))
-richness_paired <- createPairedData(richness_summary, pair_list)
+paired_metadata <- createPairedData(metadata_richness[metadata_richness$Visit_Number == 1,], pair_list)
+
+# Get richness from matrix
+richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0)) %>%
+  right_join(paired_metadata, by = "ID")
+
 richness_ttest <- runTtest(richness_paired)
-cols <- brewer.pal(length(unique(metadata$sample_type)), "Spectral")
-names(cols) <- unique(metadata$sample_type)
 richness_graphs <- plotMultipleRichnessGraphs(richness_ttest, richness_paired, cols)
 richness_graphs[[length(richness_graphs)+1]] <- g_legend(plotRichnessGraph(richness_paired, richness_ttest, cols))
 
@@ -999,6 +1058,48 @@ lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
 tiff("figures/alpha_diversity.tiff", width = 2400, height = 1500, res = 220)
 grid.arrange(grobs = richness_graphs, layout_matrix = lay)
 dev.off()
+
+# # Subsample matrix and calculate richness
+# richness_paired_ss <- data.frame()
+# unique_groups <- unique(richness_paired$group)
+# for (i in 1:length(unique_groups)) {
+#   
+#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+#   min_clusters <- min(rowSums(vir_cluster_counts_tmp))
+#   max_clusters <- max(rowSums(vir_cluster_counts_tmp))
+#   
+#   for(j in 1:(max_clusters - min_clusters)) {
+#     vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+#       if (sum(x) > min_clusters) {
+#         ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+#         x[ss_index] <- x[ss_index] - 1
+#       }
+#       return(x)
+#     }))
+#   }
+#   
+#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+#     left_join(metadata_richness, by = "ID") %>%
+#     mutate(group = unique_groups[i]) 
+#   
+#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+# }
+# 
+# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+
+# T-test and graphs of subsampled data
+richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
+richness_ttest_ss <- runTtest(richness_paired_ss)
+richness_graphs_ss <- plotMultipleRichnessGraphs(richness_ttest_ss, richness_paired_ss, cols)
+richness_graphs_ss[[length(richness_graphs_ss)+1]] <- g_legend(plotRichnessGraph(richness_paired_ss, richness_ttest_ss, cols))
+
+# Plot graph
+lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
+tiff("figures/alpha_diversity_subsampled.tiff", width = 2400, height = 2000, res = 220)
+grid.arrange(grobs = richness_graphs_ss, layout_matrix = lay)
+dev.off()
+
 
 ########## Size of phages ####
 contig_data <- readRDS("data/contig_data.RDS")
@@ -1021,9 +1122,6 @@ sizes_lower <- c(0, 1e4, 5e4, 2e5, 3e5)
 sizes_upper <- c(sizes_lower[-1], Inf)
 size_summary <- map2_df(.x = sizes_lower, .y = sizes_upper, .f = function(.x, .y) countSizeCat(contig_data, .x, .y))
 size_summary$category <- gsub("\n<= Inf", "", size_summary$category)
-
-cols <- brewer.pal(length(unique(metadata$sample_type)), "Spectral")
-names(cols) <- unique(metadata$sample_type)
 
 tiff("figures/circular_phage_size.tiff", width = 800, height = 500, res = 150)
 ggplot(size_summary, aes(reorder(category, size_lower), n_per_sample, fill = sample_type)) +
@@ -1361,9 +1459,9 @@ ggplot(metabolic_cluster_summary, aes(crispr_host, per_cog, fill = functional_ca
 dev.off()
 
 # Group into metabolic profiles
-megaphage_cogs <- acast(megaphage_eggnog_cogs, name ~ eggnog_description)
+megaphage_cogs <- acast(megaphage_eggnog_cogs, name ~ seed_eggnog_ortholog)
 cogs_dist <- dist(megaphage_cogs, "binary")
-set.seed(42)
+set.seed(1)
 mds <- wcmdscale(cogs_dist, w=rep(1,nrow(megaphage_cogs)))
 mds <- as.data.frame(mds[,1:2])
 mds$name <- row.names(mds)
@@ -1490,3 +1588,6 @@ megaphages_proteins <- megaphages_proteins[!duplicated(megaphages_proteins$codin
 megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 megaphages_proteins$name <- sub("_[^_]+$", "", megaphages_proteins$coding_region)
 megaphages_proteins <- left_join(megaphages_proteins, megaphage_contigs, by = "name")
+
+# Largest megaphage
+largestphage_proteins <- megaphages_proteins[grep("SRS016200_NODE_2_length_551943_cov_20.3899", megaphages_proteins$coding_region),]
