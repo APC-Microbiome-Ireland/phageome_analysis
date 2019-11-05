@@ -42,11 +42,24 @@ names(cols) <- unique(metadata$sample_type)
 contig_ids = read.table("data/virsorter_positive.ids")
 contig_ids = unique(as.character(contig_ids$V1))
 
+# Remove jumbophages that are not viral
+jumbo_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+contig_ids <- contig_ids[contig_ids %in% jumbo_contigs$name | as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)) <= 2e5]
+
 #Read alignment counts
 vir_counts = read.table("data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
 #vir_counts = fread("data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
 vir_coverage = read.table("data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
 #vir_coverage = fread("data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
+
+#Remove unwanted samples
+vir_counts <- vir_counts[,names(vir_counts) %in%  metadata$ID]
+vir_coverage <- vir_coverage[,names(vir_coverage) %in% metadata$ID]
+
+#Remove unwanted contigs
+vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_ids),]
+vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_ids,]
+
 counts_total = vir_counts["Total_reads",]
 vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
 vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
@@ -62,14 +75,12 @@ vir_counts_prop = vir_counts_prop[-nrow(vir_counts_prop),]
 #Remove samples with missing total counts
 vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) any(is.na(x))))]
 
-#Remove samples with missing metadata
-vir_counts_prop = vir_counts_prop[,which(colnames(vir_counts_prop) %in% rownames(metadata))]
-
 #Remove rows with all zeroes
 vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
 
 saveRDS(vir_counts_prop, file ="data/vir_counts_prop.RDS")
 
+########## Process pVOGs
 ########## Read in and process contig annotations############
 
 contig_data = data.frame(
@@ -157,10 +168,6 @@ contig_data[is.na(contig_data$pvogs_count), "pvogs_count"] = 0
 #contig_data = contig_data[which(contig_data$ribo_prot_count <= 3),]
 #contig_data = contig_data[which(contig_data$pvogs_count/(contig_data$size/1000) >= 0.3),]
 
-# Remove megaphages that are not viral
-megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
-contig_data <- contig_data[contig_data$name %in% megaphage_contigs$name | contig_data$size <= 2e5,]
-
 ########## Host information from CRISPR and tRNA matches#################
 #Read in and process CRISPR BLAST data
 crispr_bitscore_cutoff = 45
@@ -208,7 +215,7 @@ print(clusters_tax)
 sink()
 
 #Dereplicate contigs according to the set used in read alignment step
-contig_data = contig_data[contig_data$name %in% rownames(vir_counts_prop),]
+contig_data <- contig_data[!duplicated(contig_data$name),]
 
 #Cleanup
 rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
@@ -243,7 +250,7 @@ vir_counts_prop <- readRDS("data/vir_counts_prop.RDS")
 contig_data <- readRDS("data/contig_data.RDS")
 vir_counts_prop_melt = melt(vir_counts_prop)
 rm(vir_counts_prop)
-vir_counts_prop_melt <- right_join(vir_counts_prop_melt, contig_data[,c("name", "demovir", "vcontact_cluster", "crispr_host", "integrase")], by = c("Var1"="name"))
+vir_counts_prop_melt <- left_join(vir_counts_prop_melt, contig_data[,c("name", "demovir", "vcontact_cluster", "crispr_host", "integrase")], by = c("Var1"="name"))
 
 # Aggregate counts by Demovir/vConTACT2
 vir_counts_prop_melt <- vir_counts_prop_melt %>% filter(value != 0)
@@ -264,15 +271,19 @@ saveRDS(vir_counts_prop_melt_agg,  file = "data/vir_counts_prop_melt_agg.RDS")
 vir_counts_prop_melt_agg2 = vir_counts_prop_melt[, sum(value), by=.(Var2, crispr_host, sample_type, Location)]
 saveRDS(vir_counts_prop_melt_agg2, file = "data/vir_counts_prop_melt_agg2.RDS")
 
-barplot_demovir <- ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
-  geom_bar(stat = "identity") +
-  scale_fill_manual("Viral Family",  values = c(brewer.pal(length(unique(vir_counts_prop_melt_agg$demovir)), "Set3"))) +
-  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
-  ylab("Proportion of mapped reads") + xlab("Sample")
+demovir_cols <- rev(c(brewer.pal(length(unique(vir_counts_prop_melt_agg$demovir)), "Set3")))
+names(demovir_cols) <- sort(as.character(unique(vir_counts_prop_melt_agg$demovir)))
+demovir_cols[names(demovir_cols) == "crAss-like"] <- "grey50"
+demovir_cols[names(demovir_cols) == "Unassigned"] <- "grey80"
+demovir_cols[demovir_cols == "#FFFFB3"] <- "#8DD3C7"
 
 tiff("figures/barplot_demovir.tiff", width = 5000, height = 2000, res = 400)
-barplot_demovir
+ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
+  geom_bar(stat = "identity") +
+  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg$V1, by=list(ID=vir_counts_prop_melt_agg$Var2), FUN=sum)$x))
 dev.off()
 
 ########## Virome beta-diversity###########################
@@ -410,8 +421,8 @@ heatmap.2(vir_counts_prop_agg_diff_log,
           key.title = NA,
           key.xlab = "log10(prop. reads mapped)",
           key.ylab = NA,
-          RowSideColors = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)][as.numeric(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"])],
-          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
+          RowSideColors = sapply(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"], function(x) demovir_cols[names(demovir_cols) == x]),
+          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg_diff_log), "sample_type"])],
           labRow = NA,
           #labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
           labCol = NA,
@@ -425,8 +436,8 @@ legend("topright", legend = levels(factor(metadata[colnames(vir_counts_prop_agg_
        col = cols, bg = "white", box.col = "black",
        lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
 
-legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"]),
-       col = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)], bg = "white", box.col = "black",
+legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(factor(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"], levels = names(demovir_cols))),
+       col = demovir_cols, bg = "white", box.col = "black",
        lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
 
 dev.off()
@@ -716,9 +727,76 @@ dev.off()
 # Select persistent contigs (3 at least, 2 doesnt converge)
 contig_persist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
   filter(no_tp >= 3)
+
+# Get phage taxonomy
+tiff("figures/barplot_demovir_persistent.tiff", width = 5000, height = 2000, res = 400)
+ggplot(contig_persist, aes(x = ID, y = value, fill = demovir)) + theme_classic() +
+  geom_bar(stat = "identity") +
+  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
+dev.off()
+
+# Cast for NMDS
 contig_persist <- dcast(contig_persist, ID ~ Var1, sum, value.var = "value") 
 rownames(contig_persist) <- contig_persist$ID
 contig_persist <- contig_persist[,names(contig_persist) != "ID"]
+
+# # Phage taxonomy of persistent phages
+# contig_persist_cast <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
+#   filter(no_tp < 3) %>%
+#   filter(!is.na(vcontact_cluster)) %>%
+#   group_by(ID, vcontact_cluster) %>%
+#   summarise(sum_prop = sum(value)) %>%
+#   dcast(vcontact_cluster ~ ID, sum)
+# rownames(contig_persist_cast) <- contig_persist_cast[,1]
+# contig_persist_cast <- contig_persist_cast[,-1]
+# 
+# # Plot heatmap
+# viral_clusters_df = data.frame(row.names = rownames(contig_persist_cast),
+#                                demovir = sapply(rownames(contig_persist_cast), function(x) names(which.max(table(contig_data[which(contig_data$vcontact_cluster == x),"demovir"]))))
+# )
+# 
+# contig_persist_cast_log = as.matrix(log10(contig_persist_cast))
+# contig_persist_cast_log[is.infinite(contig_persist_cast_log)] = -8
+# 
+# tiff(file = "figures/heatplot_persistent_longitudinal.tiff", width=1500, height=2000, res = 150)
+# heatmap.2(contig_persist_cast_log,
+#           margins = c(10,10),
+#           trace = "none",
+#           scale = "none",
+#           density.info = "none",
+#           hclustfun = function(x) {hclust(x, method = "ward.D2")},
+#           dendrogram = "both",
+#           col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+#           breaks = seq(min(contig_persist_cast_log), 0, length.out = 9),
+#           symbreaks = FALSE,
+#           keysize = 1,
+#           lhei = c(1,8),
+#           key.title = NA,
+#           key.xlab = "log10(prop. reads mapped)",
+#           key.ylab = NA,
+#           RowSideColors = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)][as.numeric(viral_clusters_df[rownames(contig_persist_cast_log),"demovir"])],
+#           ColSideColors = cols[as.factor(metadata[colnames(contig_persist_cast_log), "sample_type"])],
+#           labRow = NA,
+#           #labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
+#           labCol = NA,
+#           cexCol = 0.5,
+#           cexRow = 0.5,
+#           xlab = "Samples",
+#           ylab = "Contig clusters",
+#           main = NA
+# )
+# legend("topright", legend = levels(factor(metadata[colnames(contig_persist_cast_log), "sample_type"])),
+#        col = cols, bg = "white", box.col = "black",
+#        lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
+# 
+# legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(viral_clusters_df[rownames(contig_persist_cast_log),"demovir"]),
+#        col = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)], bg = "white", box.col = "black",
+#        lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
+# 
+# dev.off()
 
 # Run NMDS
 set.seed(1)
@@ -744,6 +822,18 @@ dev.off()
 # Select nonpersistent contigs
 contig_nonpersist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
   filter(no_tp < 3)
+
+# Get phage taxonomy
+tiff("figures/barplot_demovir_transient.tiff", width = 5000, height = 2000, res = 400)
+ggplot(contig_nonpersist, aes(x = ID, y = value, fill = demovir)) + theme_classic() +
+  geom_bar(stat = "identity") +
+  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
+dev.off()
+
+# Cast for NMDS
 contig_nonpersist <- dcast(contig_nonpersist, ID ~ Var1, sum, value.var = "value") 
 rownames(contig_nonpersist) <- contig_nonpersist$ID
 contig_nonpersist <- contig_nonpersist[,names(contig_nonpersist) != "ID"]
@@ -1059,34 +1149,34 @@ tiff("figures/alpha_diversity.tiff", width = 2400, height = 1500, res = 220)
 grid.arrange(grobs = richness_graphs, layout_matrix = lay)
 dev.off()
 
-# # Subsample matrix and calculate richness
-# richness_paired_ss <- data.frame()
-# unique_groups <- unique(richness_paired$group)
-# for (i in 1:length(unique_groups)) {
-#   
-#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
-#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
-#   min_clusters <- min(rowSums(vir_cluster_counts_tmp))
-#   max_clusters <- max(rowSums(vir_cluster_counts_tmp))
-#   
-#   for(j in 1:(max_clusters - min_clusters)) {
-#     vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
-#       if (sum(x) > min_clusters) {
-#         ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
-#         x[ss_index] <- x[ss_index] - 1
-#       }
-#       return(x)
-#     }))
-#   }
-#   
-#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
-#     left_join(metadata_richness, by = "ID") %>%
-#     mutate(group = unique_groups[i]) 
-#   
-#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
-# }
-# 
-# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+# Subsample matrix and calculate richness
+richness_paired_ss <- data.frame()
+unique_groups <- unique(richness_paired$group)
+for (i in 1:length(unique_groups)) {
+
+  group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+  vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+  min_clusters <- min(rowSums(vir_cluster_counts_tmp))
+  max_clusters <- max(rowSums(vir_cluster_counts_tmp))
+
+  for(j in 1:(max_clusters - min_clusters)) {
+    vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+      if (sum(x) > min_clusters) {
+        ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+        x[ss_index] <- x[ss_index] - 1
+      }
+      return(x)
+    }))
+  }
+
+  richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+    left_join(metadata_richness, by = "ID") %>%
+    mutate(group = unique_groups[i])
+
+  richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+}
+
+saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
 
 # T-test and graphs of subsampled data
 richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
