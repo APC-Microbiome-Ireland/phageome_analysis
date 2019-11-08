@@ -1586,62 +1586,15 @@ ggplot(mds, aes(V1, V2, fill = Age, shape = Gender)) +
   xlab("PCo 1") + ylab("PCo 2")
 dev.off()
 
-########## Protein Functional Annotation ####
-# Select non-annotated proteins
-proteins_nanno <- megaphage_eggnog$query_name[is.na(megaphage_eggnog$seed_eggnog_ortholog)]
-#write.table(proteins_nanno, "data/megaphage_proteins_no_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
+########## Functional Annotation ####
 
-# Selected annotated proteins for protein annotation
-megaphages_eggnog <- megaphage_eggnog %>% select(query_name, seed_eggnog_ortholog, eggnog_description)
-
-
-#### HMMER on Pfam (with no eggnog annotation)
-megaphages_pfam <- read.table(file="data/megaphage_proteins_no_eggannot_pfam.out", sep = "", stringsAsFactors = F, header = FALSE)
-column_headers <- c("target_name", "target_accession", "query_name", "query_accession", "evalue", "score", "bias", "evalue_bestdomain", "score_bestdomain", "bias_bestdomain", "exp", "reg", "clu", "ov", "env", "dom", "rep", "inc")
-names(megaphages_pfam) <- column_headers
-
-# Filter by smallest e-value
-megaphages_pfam <- megaphages_pfam %>% group_by(target_name) %>%
-  filter(evalue == min(evalue))
-
-pfam_metadata <- data.frame(ids = unique(megaphages_pfam$query_accession))
-description <- rep(NA, nrow(pfam_metadata))
-for(i in 1:nrow(pfam_metadata)) {
-  tmp <- system(paste0("grep -A2 ", pfam_metadata$ids[i], "$ db/PFAM/Pfam-A.hmm.dat"), intern = TRUE)
-  description[i] <- gsub("#=GF DE   ", "", tmp[grep("DE   ", tmp)])
-}
-pfam_metadata$description <- description
-megaphages_noneggnog_pfam <- left_join(megaphages_pfam, pfam_metadata, by = c("query_accession"="ids")) %>%
-  select(target_name, query_accession, description)
-
-#### HMMER on TIGRFAM (with no eggnog annotation)
-megaphages_tigrfams <- read.table(file="data/megaphage_proteins_no_eggannot_tigrfams.out", sep = "", stringsAsFactors = F, header = FALSE)
-names(megaphages_tigrfams) <- column_headers
-
-# Filter by smallest e-value
-megaphages_tigrfams <- megaphages_tigrfams %>% group_by(target_name) %>%
-  filter(evalue == min(evalue))
-
-tigrfams_metadata <- data.frame(ids = unique(megaphages_tigrfams$query_name))
-description <- rep(NA, nrow(tigrfams_metadata))
-for(i in 1:nrow(tigrfams_metadata)) {
-  tmp <- read.delim(file = paste0("db/TIGRFAMS/", tigrfams_metadata$ids[i], ".INFO"), stringsAsFactors = FALSE, header = FALSE)
-  description[i] <- gsub("DE  ", "", tmp$V1[grep("DE  ", tmp$V1)])
-}
-tigrfams_metadata$description <- description
-megaphages_noneggnog_tigrfams <- left_join(megaphages_tigrfams, tigrfams_metadata, by = c("query_name"="ids")) %>%
-  select(target_name, query_name, description)
-
-#### DIAMOND on NCBI NR (with no eggnog annotation)
-megaphages_ncbi <- read.table(file="data/megaphage_proteins_no_eggannot_diamond.out", sep = "\t", stringsAsFactors = FALSE)
+#### DIAMOND on NCBI NR
+megaphages_ncbi <- read.table(file="data/megaphage_proteins_diamond.out", sep = "\t", stringsAsFactors = FALSE)
 names(megaphages_ncbi) <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore") 
 
 # Filter by best e-value
 megaphages_ncbi <- megaphages_ncbi %>% group_by(qseqid) %>%
   filter(evalue == min(evalue))
-
-# Write accession number identifiers for uniprot querying
-#write.table(unique(megaphages_ncbi$sseqid), "data/megaphages_ncbi_acc.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
 
 # Read uniprotkb
 uniprot_metadata <- read.table(file="db/UNIPROTKB/uniprotkb_refseq.tab", sep = "\t", stringsAsFactors = FALSE, header = TRUE)
@@ -1652,25 +1605,76 @@ uniprot_metadata_char <- uniprot_metadata_char[!duplicated(uniprot_metadata_char
 uniprot_metadata_unchar <- uniprot_metadata[uniprot_metadata$Protein.names == "Uncharacterized protein",]
 uniprot_metadata_unchar <- uniprot_metadata_unchar[!uniprot_metadata_unchar$yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X %in% uniprot_metadata_char$yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X,]
 uniprot_metadata <- rbind(uniprot_metadata_char, uniprot_metadata_unchar)
-  
+
 megaphages_ncbi <- left_join(megaphages_ncbi, uniprot_metadata, by = c("sseqid" = "yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X"))
 megaphages_ncbi <- megaphages_ncbi[!is.na(megaphages_ncbi$Entry),]
-megaphages_noneggnog_ncbi <- megaphages_ncbi %>% select(qseqid, sseqid, Protein.names)
+megaphages_ncbi <- megaphages_ncbi %>% select(qseqid, sseqid, Protein.names)
 
 # Remove duplicates
-megaphages_noneggnog_ncbi <- megaphages_noneggnog_ncbi[!duplicated(megaphages_noneggnog_ncbi$qseqid),]
+megaphages_ncbi <- megaphages_ncbi[!duplicated(megaphages_ncbi$qseqid),]
 
-# Combine results (in order ncbi characterised, pfam, tigerfams, ncbi uncharacterised)
+#### HMMER on pVOGs
+filterBySmallestEvalue <- function(alignment_results) {
+  alignment_results_filtered <- alignment_results %>% 
+    group_by(query_name) %>%
+    filter(evalue == min(evalue))
+  return(alignment_results_filtered)
+}
+
+megaphage_pvogs <- read.table("data/megaphage_pvogs_hmm_tblout.txt", stringsAsFactors = FALSE)
+hmmer_names <- c("target_name", "target_accession", "query_name", "query_accession", "evalue", 
+                            "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
+                            "clu", "ov", "env", "dom", "rep", "inc", "description")
+
+names(megaphage_pvogs) <- hmmer_names
+megaphage_pvogs <- filterBySmallestEvalue(megaphage_pvogs)
+
+# Join descriptions
+pvogs_metadata <- read.table("db/AllvogHMMprofiles/VOGTable_singleprot.txt", stringsAsFactors = FALSE, sep = "\t", quote = "")
+megaphages_pvogs <- left_join(megaphages_pvogs, pvogs_metadata, by = c("target_name"="V1")) %>%
+  rename(description = V7) %>%
+  select(target_name, query_name, description)
+
+#### HMMER on Pfam
+megaphages_pfam <- read.table(file="data/megaphage_proteins_pfam.out", sep = "", stringsAsFactors = F, header = FALSE)
+names(megaphages_pfam) <- hmmer_names
+megaphages_pfam <- filterBySmallestEvalue(megaphages_pfam)
+
+# Join descriptions
+pfam_metadata <- data.frame(ids = unique(megaphages_pfam$query_accession))
+description <- rep(NA, nrow(pfam_metadata))
+for(i in 1:nrow(pfam_metadata)) {
+  tmp <- system(paste0("grep -A2 ", pfam_metadata$ids[i], "$ db/PFAM/Pfam-A.hmm.dat"), intern = TRUE)
+  description[i] <- gsub("#=GF DE   ", "", tmp[grep("DE   ", tmp)])
+}
+pfam_metadata$description <- description
+megaphages_pfam <- left_join(megaphages_pfam, pfam_metadata, by = c("query_accession"="ids")) %>%
+  select(target_name, query_accession, description)
+
+#### HMMER on TIGRFAM (with no eggnog annotation)
+megaphages_tigrfams <- read.table(file="data/megaphage_proteins_tigrfams.out", sep = "", stringsAsFactors = FALSE, header = FALSE)
+names(megaphages_tigrfams) <- hmmer_names
+megaphages_tigrfams <- filterBySmallestEvalue(megaphages_tigrfams)
+
+# Join descriptions
+tigrfams_metadata <- data.frame(ids = unique(megaphages_tigrfams$query_name))
+description <- rep(NA, nrow(tigrfams_metadata))
+for(i in 1:nrow(tigrfams_metadata)) {
+  tmp <- read.delim(file = paste0("db/TIGRFAMS/", tigrfams_metadata$ids[i], ".INFO"), stringsAsFactors = FALSE, header = FALSE)
+  description[i] <- gsub("DE  ", "", tmp$V1[grep("DE  ", tmp$V1)])
+}
+tigrfams_metadata$description <- description
+megaphages_tigrfams <- left_join(megaphages_tigrfams, tigrfams_metadata, by = c("query_name"="ids")) %>%
+  select(target_name, query_name, description)
+
+#### Combine results (in order ncbi, pvogs, pfam, tigrfam)
 header_names <- c("coding_region", "protein", "protein_description")
-names(megaphages_noneggnog_pfam) <- header_names
-names(megaphages_noneggnog_tigrfams) <- header_names
-names(megaphages_noneggnog_ncbi) <- header_names
-names(megaphages_eggnog) <- header_names
-megaphages_proteins <- rbind(as.data.frame(megaphages_eggnog[!is.na(megaphages_eggnog$protein_description),]),
-                             as.data.frame(megaphages_noneggnog_ncbi[megaphages_noneggnog_ncbi$protein_description != "Uncharacterized protein",]),
-                             as.data.frame(megaphages_noneggnog_pfam, megaphages_noneggnog_tigrfams),
-                             as.data.frame(megaphages_noneggnog_ncbi[megaphages_noneggnog_ncbi$protein_description == "Uncharacterized protein",]),
-                             as.data.frame(megaphages_eggnog[is.na(megaphages_eggnog$protein_description),]))
+names(megaphages_ncbi) <- header_names
+names(megaphages_pvogs) <- header_names
+names(megaphages_pfam) <- header_names
+names(megaphages_tigrfams) <- header_names
+megaphages_proteins <- rbind(as.data.frame(megaphages_ncbi[megaphages_ncbi$protein_description != "Uncharacterized protein",]),
+                             as.data.frame(megaphages_pvogs, megaphages_pfam, megaphages_tigrfams))
 # Check duplications sum(duplicated(megaphages_proteins$contig))
 megaphages_proteins <- megaphages_proteins[!duplicated(megaphages_proteins$coding_region),]
 
@@ -1678,6 +1682,3 @@ megaphages_proteins <- megaphages_proteins[!duplicated(megaphages_proteins$codin
 megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 megaphages_proteins$name <- sub("_[^_]+$", "", megaphages_proteins$coding_region)
 megaphages_proteins <- left_join(megaphages_proteins, megaphage_contigs, by = "name")
-
-# Largest megaphage
-largestphage_proteins <- megaphages_proteins[grep("SRS016200_NODE_2_length_551943_cov_20.3899", megaphages_proteins$coding_region),]
