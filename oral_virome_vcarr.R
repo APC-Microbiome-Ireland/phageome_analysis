@@ -1623,49 +1623,52 @@ filterBySmallestEvalue <- function(alignment_results) {
 }
 
 megaphages_pvogs <- read.table("data/megaphage_pvogs_hmm_tblout.txt", stringsAsFactors = FALSE)
-hmmer_names <- c("target_name", "target_accession", "query_name", "query_accession", "evalue", 
+
+names(megaphages_pvogs) <- c("target_name", "target_accession", "query_name", "query_accession", "evalue", 
                             "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
                             "clu", "ov", "env", "dom", "rep", "inc", "description")
-
-names(megaphages_pvogs) <- hmmer_names
 megaphages_pvogs <- filterBySmallestEvalue(megaphages_pvogs)
 
 # Join descriptions
 pvogs_metadata <- read.table("db/AllvogHMMprofiles/VOGTable_singleprot.txt", stringsAsFactors = FALSE, sep = "\t", quote = "")
 megaphages_pvogs <- left_join(megaphages_pvogs, pvogs_metadata, by = c("target_name"="V1")) %>%
-  select(target_name, query_name, description = V7)
+  select(query_name, target_name, description = V7)
 
 #### HMMER on Pfam
 megaphages_pfam <- read.table(file="data/megaphage_proteins_pfam.out", sep = "", stringsAsFactors = F, header = FALSE)
-names(megaphages_pfam) <- hmmer_names[c(1:length(hmmer_names)-1)]
+names(megaphages_pfam) <- c("query_name", "query_accession", "target_name", "target_accession", "evalue", 
+                            "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
+                            "clu", "ov", "env", "dom", "rep", "inc")
 megaphages_pfam <- filterBySmallestEvalue(megaphages_pfam)
 
 # Join descriptions
-pfam_metadata <- data.frame(ids = unique(megaphages_pfam$query_accession))
+pfam_metadata <- data.frame(ids = unique(megaphages_pfam$target_accession))
 description <- rep(NA, nrow(pfam_metadata))
 for(i in 1:nrow(pfam_metadata)) {
   tmp <- system(paste0("grep -A2 ", pfam_metadata$ids[i], "$ db/PFAM/Pfam-A.hmm.dat"), intern = TRUE)
   description[i] <- gsub("#=GF DE   ", "", tmp[grep("DE   ", tmp)])
 }
 pfam_metadata$description <- description
-megaphages_pfam <- left_join(megaphages_pfam, pfam_metadata, by = c("query_accession"="ids")) %>%
-  select(target_name, query_accession, description)
+megaphages_pfam <- left_join(megaphages_pfam, pfam_metadata, by = c("target_accession"="ids")) %>%
+  select(query_name, target_name, description)
 
 #### HMMER on TIGRFAM (with no eggnog annotation)
 megaphages_tigrfams <- read.table(file="data/megaphage_proteins_tigrfams.out", sep = "", stringsAsFactors = FALSE, header = FALSE)
-names(megaphages_tigrfams) <- hmmer_names[c(1:length(hmmer_names)-1)]
+names(megaphages_tigrfams) <- c("query_name", "query_accession", "target_name", "target_accession", "evalue", 
+                                "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
+                                "clu", "ov", "env", "dom", "rep", "inc")
 megaphages_tigrfams <- filterBySmallestEvalue(megaphages_tigrfams)
 
 # Join descriptions
-tigrfams_metadata <- data.frame(ids = unique(megaphages_tigrfams$query_name))
+tigrfams_metadata <- data.frame(ids = unique(megaphages_tigrfams$target_name))
 description <- rep(NA, nrow(tigrfams_metadata))
 for(i in 1:nrow(tigrfams_metadata)) {
   tmp <- read.table(file = paste0("db/TIGRFAMS/", tigrfams_metadata$ids[i], ".INFO"), sep = "\t", stringsAsFactors = FALSE, header = FALSE)
   description[i] <- gsub("DE  ", "", tmp$V1[grep("DE  ", tmp$V1)])
 }
 tigrfams_metadata$description <- description
-megaphages_tigrfams <- left_join(megaphages_tigrfams, tigrfams_metadata, by = c("query_name"="ids")) %>%
-  select(target_name, query_name, description)
+megaphages_tigrfams <- left_join(megaphages_tigrfams, tigrfams_metadata, by = c("target_name"="ids")) %>%
+  select(query_name, target_name, description)
 
 #### Combine results (in order ncbi, pvogs, pfam, tigrfam)
 header_names <- c("coding_region", "protein", "protein_description")
@@ -1687,8 +1690,9 @@ prodigal_gff <- read.table("data/megaphage_contigs_prodigal.gff", stringsAsFacto
 prodigal_gff$coding_region <- paste0(prodigal_gff$V1, "_", gsub(".*_", "", gsub(";.*", "", prodigal_gff$V9)))
 prodigal_gff <- left_join(prodigal_gff, megaphages_proteins, by = "coding_region")
 prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$protein_description),
-                          paste0(prodigal_gff$V9, "description= ;"),
-                          paste0(prodigal_gff$V9, "description=", prodigal_gff$protein_description, ";"))
+                          paste0(prodigal_gff$V9, "Name=hypothetical protein;"),
+                          paste0(prodigal_gff$V9, "Name=", gsub(" \\[.*", "", prodigal_gff$protein_description), ";"))
+# prodigal_gff$V9 <- paste0(prodigal_gff$V9, "Name=';")
 prodigal_gff <- prodigal_gff[,c(1:9)]
                           
 # Write GFF file for largest phage
