@@ -1689,15 +1689,32 @@ megaphages_proteins$contig <- sub("_[^_]+$", "", megaphages_proteins$coding_regi
 prodigal_gff <- read.table("data/megaphage_contigs_prodigal.gff", stringsAsFactors = FALSE)
 prodigal_gff$coding_region <- paste0(prodigal_gff$V1, "_", gsub(".*_", "", gsub(";.*", "", prodigal_gff$V9)))
 prodigal_gff <- left_join(prodigal_gff, megaphages_proteins, by = "coding_region")
-prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$protein_description),
+# Add Name to attributes
+prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$protein_description), 
                           paste0(prodigal_gff$V9, "Name=hypothetical protein;"),
                           paste0(prodigal_gff$V9, "Name=", gsub(" \\[.*", "", prodigal_gff$protein_description), ";"))
-# prodigal_gff$V9 <- paste0(prodigal_gff$V9, "Name=';")
 prodigal_gff <- prodigal_gff[,c(1:9)]
-                          
+names(prodigal_gff) <- c("seqid", "source", "type", "start", "end", "score", "strand", "phase", "attributes")
+
+# Add tRNA
+megaphages_trna <- read.table("data/megaphage_trna_clean.tab", stringsAsFactors = FALSE)
+megaphages_trna$strand <- ifelse(grepl("c", megaphages_trna$V3), "-", "+")
+megaphages_trna <- cbind(megaphages_trna, map_df(.x = gsub("c", "", gsub("\\]", "", gsub("\\[", "", megaphages_trna$V3))), 
+                                                 function(.x) {
+                                                   split <- strsplit(.x, ",")
+                                                   return(data.frame(start = as.numeric(split[[1]][1]), 
+                                                                     end = as.numeric(split[[1]][2])))
+                                                   }))
+megaphages_trna$attributes <- paste0("Name=", megaphages_trna$V2, ";")
+trna_gff <- megaphages_trna %>% mutate(source = "ARAGORN_v1.2.36", type = "tRNA", phase = 0, score = format(as.numeric(V4), nsmall=1)) %>%
+  select(seqid = V6, source, type, start, end, score, strand, phase, attributes)
+
+# Combine prodigal CDS and trna
+comb_gff <- rbind(prodigal_gff, trna_gff)
+
 # Write GFF file for largest phage
 largest_phage <- megaphage_contigs$name[megaphage_contigs$size == max(megaphage_contigs$size)]
-largest_phage_gff <- prodigal_gff[prodigal_gff$V1 == largest_phage,]                          
+largest_phage_gff <- comb_gff[comb_gff$seqid == largest_phage,]                          
 write.table(largest_phage_gff, paste0("data/", largest_phage, ".gff"), 
             quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")                          
                           
