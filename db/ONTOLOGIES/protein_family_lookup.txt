@@ -10,10 +10,10 @@ glutaredoxin	Auxilliary metabolic genes	Glutaredoxin
 integrase	Packaging and assembly	Integrase
 DNA polymerase	Replication and nucleic acid metabolism	DNA polymerase
 Sodium/hydrogen exchanger family protein	Auxilliary metabolic genes	Sodium/hydrogen exchanger family protein
-single stranded DNA-binding protein	Replication and nucleic acid metabolism	single stranded DNA-binding protein
+single stranded DNA-binding protein	Replication and nucleic acid metabolism	Single stranded DNA-binding protein
 serine/threonine kinase	Auxilliary metabolic genes	Serine/threonine kinase
 exonuclease	Replication and nucleic acid metabolism	Exonuclease
-transposase	Packaging and assembly	Transposase
+transposase	DNA-binding and transcription regulators	Transposase
 thymidylate synthase	DNA-binding and transcription regulators	Thymidylate synthase
 dCMP deaminase	DNA-binding and transcription regulators	dCMP deaminase
 SPFH/Band 7/PHB domain protein	Membrane-spanning proteins	SPFH/Band 7/PHB domain protein
@@ -22,7 +22,7 @@ Multifunctional CCA protein	Replication and nucleic acid metabolism	Multifunctio
 putative Fe-S oxidoreductase	Auxilliary metabolic genes	Fe-S oxidoreductase
 Tellurium resistance protein TerC	Regulate membrane-spanning proteins	Tellurium resistance protein TerC
 nicotinamide phosphoribosyltransferase	Auxilliary metabolic genes	Nicotinamide phosphoribosyltransferase
-Ser/Thr phosphatase family protein	Auxilliary metabolic genes	Ser/Thr phosphatase family protein
+Ser/Thr phosphatase family protein	Auxilliary metabolic genes	Serine/threonine phosphatase family protein
 protector from prophage-induced early lysis	Lysis	Protector from prophage-induced early lysis
 RNA ligase	Replication and nucleic acid metabolism	RNA ligase
 putative TROVE-like domain protein	Replication and nucleic acid metabolism	TROVE-like domain protein
@@ -37,5 +37,5 @@ AAA ATPase	DNA-binding and transcription regulators	AAA ATPase
 putative peptidase M23	Lysis	Peptidase M23
 DNA delivery	Packaging and assembly	Transglycosylase/DNA entry
 DNA double-strand break repair Rad50 ATPase	Replication and nucleic acid metabolism	DNA double-strand break repair Rad50 ATPase
-serine/threonine protein phosphatase	Auxilliary metabolic genes	Ser/Thr phosphatase family protein
+serine/threonine protein phosphatase	Auxilliary metabolic genes	Serine/threonine phosphatase family protein
 Rec A-like recombinase	DNA-binding and transcription regulators	Rec A-like recombinase
