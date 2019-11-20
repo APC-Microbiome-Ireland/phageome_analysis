@@ -5,7 +5,7 @@ library(reshape2)
 library(dplyr)
 
 ########## Read in metadata and define parameters ####
-metadata = read.csv("../../data/metadata_v2.csv", stringsAsFactors = FALSE)
+metadata = read.csv("../data/metadata_v2.csv", stringsAsFactors = FALSE)
 rownames(metadata) = metadata$ID
 metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <- "rheumatoid arthritis"
 metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
@@ -18,18 +18,18 @@ names(cols) <- unique(metadata$sample_type)
 
 ########## Read in and process raw data ####
 #Contigs
-contig_ids = read.table("../../data/virsorter_positive.ids")
+contig_ids = read.table("../data/virsorter_positive.ids")
 contig_ids = unique(as.character(contig_ids$V1))
 
 # Remove jumbophages that are not viral
-jumbo_contigs <- read.delim("../../data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+jumbo_contigs <- read.delim("../data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 contig_ids <- contig_ids[contig_ids %in% jumbo_contigs$name | as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)) <= 2e5]
 
 #Read alignment counts
-vir_counts = read.table("../../data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
-#vir_counts = fread("../../data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
-vir_coverage = read.table("../../data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
-#vir_coverage = fread("../../data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
+vir_counts = read.table("../data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
+#vir_counts = fread("../data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
+vir_coverage = read.table("../data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
+#vir_coverage = fread("../data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
 
 #Remove unwanted samples
 vir_counts <- vir_counts[,names(vir_counts) %in%  metadata$ID]
@@ -40,6 +40,8 @@ vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_ids),
 vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_ids,]
 
 counts_total = vir_counts["Total_reads",]
+saveRDS(counts_total, "../data/counts_total.RDS")
+
 vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
 vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
 vir_counts[vir_coverage < 0.75] = 0 #Apply breadth of coverage filter (<75% coverage are removed)
@@ -57,7 +59,7 @@ vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) 
 #Remove rows with all zeroes
 vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
 
-saveRDS(vir_counts_prop, file ="../../data/vir_counts_prop.RDS")
+saveRDS(vir_counts_prop, file ="../data/vir_counts_prop.RDS")
 
 
 
@@ -250,5 +252,24 @@ vir_counts_prop_melt <- vir_counts_prop_melt %>% filter(value != 0)
 
 # Add metadata
 vir_counts_prop_melt <- left_join(vir_counts_prop_melt, metadata[,c("ID", "sample_type", "Location")], by = c("Var2"="ID"))
-
 saveRDS(vir_counts_prop_melt, file = "../data/vir_counts_prop_melt.RDS")
+
+# Aggregate by ID
+vir_counts_prop_melt_agg <- vir_counts_prop_melt %>% group_by(Var2, demovir, vcontact_cluster, sample_type, Location) %>%
+  summarise(V1 = sum(value))
+vir_counts_prop_melt <- as.data.table(vir_counts_prop_melt)
+vir_counts_prop_melt_agg = vir_counts_prop_melt[, sum(value), by=.(Var2, demovir, vcontact_cluster, sample_type, Location)]
+saveRDS(vir_counts_prop_melt_agg,  file = "../data/vir_counts_prop_melt_agg.RDS")
+
+# Aggregate counts by CRISPR host
+vir_counts_prop_melt_agg2 = vir_counts_prop_melt[, sum(value), by=.(Var2, crispr_host, sample_type, Location)]
+saveRDS(vir_counts_prop_melt_agg2, file = "../data/vir_counts_prop_melt_agg2.RDS")
+
+# Re-cast counts matrix by vConTACT2 clusters
+vir_counts_prop_agg = dcast.data.table(vir_counts_prop_melt_agg, vcontact_cluster ~ Var2, value.var = "V1", fun.aggregate = sum)
+vir_counts_prop_agg = as.data.frame(vir_counts_prop_agg)
+vir_counts_prop_agg = vir_counts_prop_agg[-which(is.na(vir_counts_prop_agg[,1])),]
+rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
+vir_counts_prop_agg = vir_counts_prop_agg[,-1]
+vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
+saveRDS(vir_counts_prop_agg,  file = "../data/vir_counts_prop_agg.RDS")

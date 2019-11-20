@@ -27,7 +27,17 @@ library(gtable)
 library(igraph)
 set.seed(1)
 
-########## Read in metadata and define parameters ####
+########## Read data, metadata and define parameters ####
+# Data
+vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
+vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
+vir_counts_prop_melt_agg <- readRDS("data/vir_counts_prop_melt_agg.RDS")
+contig_data <- readRDS("data/contig_data.RDS")
+counts_total <- readRDS("data/counts_total.RDS")
+megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+prodigal_gff <- read.table("data/megaphage_contigs_prodigal.gff", stringsAsFactors = FALSE)
+
+# Metadata
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
 rownames(metadata) = metadata$ID
 metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <- "rheumatoid arthritis"
@@ -38,17 +48,6 @@ cols <- brewer.pal(11, "Spectral")[c(2, 4, 9, 10, 11)]
 names(cols) <- unique(metadata$sample_type)
 
 ########## Virome composition barplots ####
-vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
-vir_counts_prop_melt_agg <- vir_counts_prop_melt %>% group_by(Var2, demovir, vcontact_cluster, sample_type, Location) %>%
-  summarise(V1 = sum(value))
-vir_counts_prop_melt <- as.data.table(vir_counts_prop_melt)
-vir_counts_prop_melt_agg = vir_counts_prop_melt[, sum(value), by=.(Var2, demovir, vcontact_cluster, sample_type, Location)]
-saveRDS(vir_counts_prop_melt_agg,  file = "data/vir_counts_prop_melt_agg.RDS")
-
-# Aggregate counts by CRISPR host
-vir_counts_prop_melt_agg2 = vir_counts_prop_melt[, sum(value), by=.(Var2, crispr_host, sample_type, Location)]
-saveRDS(vir_counts_prop_melt_agg2, file = "data/vir_counts_prop_melt_agg2.RDS")
-
 demovir_cols <- rev(c(brewer.pal(length(unique(vir_counts_prop_melt_agg$demovir)), "Set3")))
 names(demovir_cols) <- sort(as.character(unique(vir_counts_prop_melt_agg$demovir)))
 demovir_cols[names(demovir_cols) == "crAss-like"] <- "grey50"
@@ -65,29 +64,18 @@ ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_
 dev.off()
 
 ########## Virome beta-diversity###########################
-#Re-cast counts matrix by vConTACT2 clusters
-vir_counts_prop_agg = dcast.data.table(vir_counts_prop_melt_agg, vcontact_cluster ~ Var2, value.var = "V1", fun.aggregate = sum)
-vir_counts_prop_agg = as.data.frame(vir_counts_prop_agg)
-vir_counts_prop_agg = vir_counts_prop_agg[-which(is.na(vir_counts_prop_agg[,1])),]
-rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
-vir_counts_prop_agg = vir_counts_prop_agg[,-1]
-vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
-
-saveRDS(vir_counts_prop_agg,  file = "data/vir_counts_prop_agg.RDS")
-
 # Compute distance matrix and run t-SNE
-vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
-vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID]
-vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID[metadata$Visit_Number == 1]]
+vir_counts_prop_agg_meta <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID]
+vir_counts_prop_agg_meta <- vir_counts_prop_agg_meta[,colnames(vir_counts_prop_agg_meta) %in% metadata$ID[metadata$Visit_Number == 1]]
 
 # T-sne
 set.seed(1)
-cluster_counts_dist = vegdist(t(vir_counts_prop_agg), method = "bray")
+cluster_counts_dist = vegdist(t(vir_counts_prop_agg_meta), method = "bray")
 clusters_samples_tsne = tsne(cluster_counts_dist)
 
 #Annotate t-SNE coordinates
 clusters_samples_tsne = as.data.frame(clusters_samples_tsne)
-rownames(clusters_samples_tsne) = colnames(vir_counts_prop_agg)
+rownames(clusters_samples_tsne) = colnames(vir_counts_prop_agg_meta)
 clusters_samples_tsne$ID <- rownames(clusters_samples_tsne)
 colnames(clusters_samples_tsne) = c("tsne1", "tsne2", "ID")
 clusters_samples_tsne <- left_join(clusters_samples_tsne, metadata, by = "ID")
@@ -108,8 +96,6 @@ clusters_samples_tsne$total_reads = as.numeric(counts_total[clusters_samples_tsn
 saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
 
 # Make t-SNE plots
-clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
-
 # Label by cluster
 tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
@@ -167,24 +153,20 @@ glm(cluster ~ Location + sample_type + Gender + Age + Health, family = "binomial
 # Difficult as variables colinear
 
 ########## Differentially abundant clusters#####################
-clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
-vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
-vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% clusters_samples_tsne$ID]
-contig_data <- readRDS("data/contig_data.RDS")
-clusters_samples_kw = apply(vir_counts_prop_agg, 1, function(x) kruskal.test(x, clusters_samples_tsne$cluster)$p.value)
+clusters_samples_kw = apply(vir_counts_prop_agg_meta, 1, function(x) kruskal.test(x, clusters_samples_tsne$cluster)$p.value)
 clusters_samples_kw = p.adjust(clusters_samples_kw, method = "bonferroni") #Correct p values
-vir_counts_prop_agg_diff = vir_counts_prop_agg[names(which(clusters_samples_kw < 0.001)),]
+vir_counts_prop_agg_meta_diff = vir_counts_prop_agg_meta[names(which(clusters_samples_kw < 0.001)),]
 
-viral_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg),
-                               demovir = sapply(rownames(vir_counts_prop_agg), function(x) names(which.max(table(contig_data[which(contig_data$vcontact_cluster == x),"demovir"]))))
+viral_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg_meta),
+                               demovir = sapply(rownames(vir_counts_prop_agg_meta), function(x) names(which.max(table(contig_data[which(contig_data$vcontact_cluster == x),"demovir"]))))
 )
 
 #Clusters heatmap
-vir_counts_prop_agg_diff_log = log10(vir_counts_prop_agg_diff)
-vir_counts_prop_agg_diff_log[is.infinite(vir_counts_prop_agg_diff_log)] = -8
+vir_counts_prop_agg_meta_diff_log = log10(vir_counts_prop_agg_meta_diff)
+vir_counts_prop_agg_meta_diff_log[is.infinite(vir_counts_prop_agg_meta_diff_log)] = -8
 
 tiff(file = "figures/heatplot_clusters.tiff", width=1500, height=2000, res = 150)
-heatmap.2(vir_counts_prop_agg_diff_log,
+heatmap.2(vir_counts_prop_agg_meta_diff_log,
           margins = c(10,10),
           trace = "none",
           scale = "none",
@@ -192,17 +174,17 @@ heatmap.2(vir_counts_prop_agg_diff_log,
           hclustfun = function(x) {hclust(x, method = "ward.D2")},
           dendrogram = "both",
           col =  c("white", brewer.pal(9, "PuRd")[3:9]),
-          breaks = seq(min(vir_counts_prop_agg_diff_log), 0, length.out = 9),
+          breaks = seq(min(vir_counts_prop_agg_meta_diff_log), 0, length.out = 9),
           symbreaks = FALSE,
           keysize = 1,
           lhei = c(1,8),
           key.title = NA,
           key.xlab = "log10(prop. reads mapped)",
           key.ylab = NA,
-          RowSideColors = sapply(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"], function(x) demovir_cols[names(demovir_cols) == x]),
-          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg_diff_log), "sample_type"])],
+          RowSideColors = sapply(viral_clusters_df[rownames(vir_counts_prop_agg_meta_diff),"demovir"], function(x) demovir_cols[names(demovir_cols) == x]),
+          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg_meta_diff_log), "sample_type"])],
           labRow = NA,
-          #labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
+          #labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_meta_diff)], "[[", 1))),
           labCol = NA,
           cexCol = 0.5,
           cexRow = 0.5,
@@ -210,40 +192,36 @@ heatmap.2(vir_counts_prop_agg_diff_log,
           ylab = "Contig clusters",
           main = NA
 )
-legend("topright", legend = levels(factor(metadata[colnames(vir_counts_prop_agg_diff), "sample_type"])),
+legend("topright", legend = levels(factor(metadata[colnames(vir_counts_prop_agg_meta_diff), "sample_type"])),
        col = cols, bg = "white", box.col = "black",
        lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
 
-legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(factor(viral_clusters_df[rownames(vir_counts_prop_agg_diff),"demovir"], levels = names(demovir_cols))),
+legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(factor(viral_clusters_df[rownames(vir_counts_prop_agg_meta_diff),"demovir"], levels = names(demovir_cols))),
        col = demovir_cols, bg = "white", box.col = "black",
        lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
 
 dev.off()
 
 ########## Differentially abundant megaphages ####
-clusters_samples_tsne <- readRDS("data/clusters_samples_tsne.RDS")
-vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
-megaphage_contigs <- read.table("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
-megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
-megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
-megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
-megaphage_contigs <- megaphage_contigs[megaphage_contigs$Visit_Number == 1,]
-megaphage_contigs <- megaphage_contigs[!is.na(megaphage_contigs$circular),]
-megaphage_contigs <- megaphage_contigs[megaphage_contigs$circular,]
-vir_counts_prop_agg <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% clusters_samples_tsne$ID]
-vir_counts_prop_agg <- vir_counts_prop_agg[row.names(vir_counts_prop_agg) %in% megaphage_contigs$vcontact_cluster,]
-clusters_samples_kw = apply(vir_counts_prop_agg, 1, function(x) kruskal.test(x, clusters_samples_tsne$cluster)$p.value)
+megaphage_contigs_meta <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
+megaphage_contigs_meta$Health <- as.character(megaphage_contigs_meta$Health)
+megaphage_contigs_meta$Health[megaphage_contigs_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
+megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$Visit_Number == 1,]
+megaphage_contigs_meta <- megaphage_contigs_meta[!is.na(megaphage_contigs_meta$circular),]
+megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$circular,]
+vir_counts_prop_agg_metaclust <- vir_counts_prop_agg_meta[row.names(vir_counts_prop_agg_meta) %in% megaphage_contigs_meta$vcontact_cluster,]
+clusters_samples_kw = apply(vir_counts_prop_agg_metaclust, 1, function(x) kruskal.test(x, clusters_samples_tsne$cluster)$p.value)
 clusters_samples_kw = p.adjust(clusters_samples_kw, method = "bonferroni") #Correct p values
-vir_counts_prop_agg_diff = vir_counts_prop_agg[names(which(clusters_samples_kw < 0.001)),]
+vir_counts_prop_agg_diff = vir_counts_prop_agg_metaclust[names(which(clusters_samples_kw < 0.001)),]
 
-megaphage_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg),
-                                   demovir = sapply(rownames(vir_counts_prop_agg), function(x) names(which.max(table(megaphage_contigs[which(megaphage_contigs$vcontact_cluster == x),"demovir"])))))
+megaphage_clusters_df = data.frame(row.names = rownames(vir_counts_prop_agg_metaclust),
+                                   demovir = sapply(rownames(vir_counts_prop_agg_metaclust), function(x) names(which.max(table(megaphage_contigs_meta[which(megaphage_contigs_meta$vcontact_cluster == x),"demovir"])))))
 
 # Taxa list
 vcontact = read.table("data/new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
 rownames(vcontact) = as.character(vcontact$contig_ID)
 clusters_tax_megaphage = list()
-for(i in unique(as.character(megaphage_contigs$vcontact_cluster))) {
+for(i in unique(as.character(megaphage_contigs_meta$vcontact_cluster))) {
   tax_string = as.character(vcontact[which(vcontact$Cluster_id == i),"Taxonomy"])
   if(length(tax_string[!is.na(tax_string)]) > 0) {
     clusters_tax_megaphage[[i]] = tax_string[!is.na(tax_string)]
@@ -328,14 +306,12 @@ legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames
        lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
 dev.off()
 
-saveRDS(vir_counts_prop_agg2,  file = "data/vir_counts_prop_agg2.RDS")
-
 #### Network connecting phage and phage hosts
 # contig_data <- readRDS("data/contig_data.RDS")
-# contig_data <- left_join(contig_data, metadata, by = c("sample"="ID"))
+# contig_data_meta <- left_join(contig_data, metadata, by = c("sample"="ID"))
 # 
-# createHostNetwork <- function(contig_data, host_of_interest) {
-#   host_data <- contig_data[contig_data$crispr_host == host_of_interest,]
+# createHostNetwork <- function(contig_data_meta, host_of_interest) {
+#   host_data <- contig_data_meta[contig_data_meta$crispr_host == host_of_interest,]
 #   adjacency_matrix <- matrix(0, nrow = nrow(host_data), ncol = nrow(host_data))
 #   rownames(adjacency_matrix) <- host_data$name  
 #   colnames(adjacency_matrix) <- host_data$name
@@ -374,7 +350,7 @@ saveRDS(vir_counts_prop_agg2,  file = "data/vir_counts_prop_agg2.RDS")
 # net <- graph_from_data_frame(d=edges_phage_host, vertices = nodes, directed = F)
 # 
 # # Network attributes
-# net <- createHostNetwork(contig_data[!is.na(contig_data$crispr_host),], "Bacteroides")
+# net <- createHostNetwork(contig_data_meta[!is.na(contig_data_meta$crispr_host),], "Bacteroides")
 # V(net)$size <- 1
 # l <- layout_with_kk(net)
 # 
@@ -413,7 +389,6 @@ metadata_us <- metadata[metadata$Location == "US",]
 metadata_longus <- metadata_us %>% group_by(Sample.name, sample_type) %>%
   filter(any(Visit_Number == 3))
 
-vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_longus <- left_join(metadata_longus[,c("ID", "Sample.name", "Visit_Number")], vir_counts_prop_melt, by = c("ID"="Var2"))
 vir_counts_longus <- vir_counts_longus[!is.na(vir_counts_longus$Var1),]
 
@@ -891,15 +866,12 @@ g_legend <- function(a.gplot){
   return(legend)
 }
 
-# Read data
-vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
-
 # Join with metadata
-vir_counts_prop_melt <- left_join(metadata, vir_counts_prop_melt, by = c("ID"="Var2","sample_type","Location"))
-vir_counts_prop_melt <- vir_counts_prop_melt[vir_counts_prop_melt$Visit_Number == 1,]
+vir_counts_prop_melt_meta <- left_join(metadata, vir_counts_prop_melt, by = c("ID"="Var2","sample_type","Location"))
+vir_counts_prop_melt_meta <- vir_counts_prop_melt_meta[vir_counts_prop_melt_meta$Visit_Number == 1,]
 
 # Sample - phage cluster matrix
-vir_cluster_counts <- dcast(vir_counts_prop_melt, ID ~ vcontact_cluster, length)
+vir_cluster_counts <- dcast(vir_counts_prop_melt_meta, ID ~ vcontact_cluster, length)
 rownames(vir_cluster_counts) <- vir_cluster_counts[,1]
 vir_cluster_counts <- vir_cluster_counts[,-1]
 
@@ -927,34 +899,34 @@ tiff("figures/alpha_diversity.tiff", width = 2400, height = 1500, res = 220)
 grid.arrange(grobs = richness_graphs, layout_matrix = lay)
 dev.off()
 
-# Subsample matrix and calculate richness
-richness_paired_ss <- data.frame()
-unique_groups <- unique(richness_paired$group)
-for (i in 1:length(unique_groups)) {
-
-  group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
-  vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
-  min_clusters <- min(rowSums(vir_cluster_counts_tmp))
-  max_clusters <- max(rowSums(vir_cluster_counts_tmp))
-
-  for(j in 1:(max_clusters - min_clusters)) {
-    vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
-      if (sum(x) > min_clusters) {
-        ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
-        x[ss_index] <- x[ss_index] - 1
-      }
-      return(x)
-    }))
-  }
-
-  richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
-    left_join(metadata_richness, by = "ID") %>%
-    mutate(group = unique_groups[i])
-
-  richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
-}
-
-saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+# # Subsample matrix and calculate richness
+# richness_paired_ss <- data.frame()
+# unique_groups <- unique(richness_paired$group)
+# for (i in 1:length(unique_groups)) {
+# 
+#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+#   min_clusters <- min(rowSums(vir_cluster_counts_tmp))
+#   max_clusters <- max(rowSums(vir_cluster_counts_tmp))
+# 
+#   for(j in 1:(max_clusters - min_clusters)) {
+#     vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+#       if (sum(x) > min_clusters) {
+#         ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+#         x[ss_index] <- x[ss_index] - 1
+#       }
+#       return(x)
+#     }))
+#   }
+# 
+#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+#     left_join(metadata_richness, by = "ID") %>%
+#     mutate(group = unique_groups[i])
+# 
+#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+# }
+# 
+# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
 
 # T-test and graphs of subsampled data
 richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
@@ -970,12 +942,11 @@ dev.off()
 
 
 ########## Size of phages ####
-contig_data <- readRDS("data/contig_data.RDS")
-contig_data <- left_join(contig_data, metadata, by = c("sample" = "ID"))
-contig_data <- contig_data[!is.na(contig_data$sample_type),]
+contig_data_meta <- left_join(contig_data, metadata, by = c("sample" = "ID"))
+contig_data_meta <- contig_data_meta[!is.na(contig_data_meta$sample_type),]
 
-countSizeCat <- function(contig_data, size_lower, size_upper) {
-  size_summary <- contig_data %>%
+countSizeCat <- function(contig_data_meta, size_lower, size_upper) {
+  size_summary <- contig_data_meta %>%
     group_by(sample_type) %>%
     mutate(n_samples = n_distinct(sample)) %>% ungroup() %>%
     filter(circular, size <= size_upper, size > size_lower) %>%
@@ -988,7 +959,7 @@ countSizeCat <- function(contig_data, size_lower, size_upper) {
 
 sizes_lower <- c(0, 1e4, 5e4, 2e5, 3e5)
 sizes_upper <- c(sizes_lower[-1], Inf)
-size_summary <- map2_df(.x = sizes_lower, .y = sizes_upper, .f = function(.x, .y) countSizeCat(contig_data, .x, .y))
+size_summary <- map2_df(.x = sizes_lower, .y = sizes_upper, .f = function(.x, .y) countSizeCat(contig_data_meta, .x, .y))
 size_summary$category <- gsub("\n<= Inf", "", size_summary$category)
 
 tiff("figures/circular_phage_size.tiff", width = 800, height = 500, res = 150)
@@ -999,24 +970,23 @@ ggplot(size_summary, aes(reorder(category, size_lower), n_per_sample, fill = sam
 dev.off()
 
 ########## Jumbo/mega circular phages ####
-megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
-megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
-megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
-megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
-megaphage_contigs <- megaphage_contigs[megaphage_contigs$Visit_Number == 1,]
-megaphage_contigs <- megaphage_contigs[!is.na(megaphage_contigs$circular),]
-megaphage_contigs <- megaphage_contigs[megaphage_contigs$circular,]
-megaphage_contigs$Location_Health <- paste(megaphage_contigs$Location, "-", megaphage_contigs$Health)
-megaphage_contigs$numeric_samplename <- as.numeric(factor(megaphage_contigs$Sample.name))
-megaphage_contigs$numeric_samplename[!megaphage_contigs$numeric_samplename %in% unique(megaphage_contigs$numeric_samplename[duplicated(megaphage_contigs$numeric_samplename)])] <- NA
-megaphage_contigs$numeric_samplename <- as.numeric(factor(megaphage_contigs$numeric_samplename))
-megaphage_contigs$numeric_samplename[is.na(megaphage_contigs$numeric_samplename)] <- c((max(megaphage_contigs$numeric_samplename, na.rm = TRUE)+1):(max(megaphage_contigs$numeric_samplename, na.rm = TRUE)+sum(is.na(megaphage_contigs$numeric_samplename))))
+megaphage_contigs_meta <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
+megaphage_contigs_meta$Health <- as.character(megaphage_contigs_meta$Health)
+megaphage_contigs_meta$Health[megaphage_contigs_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
+megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$Visit_Number == 1,]
+megaphage_contigs_meta <- megaphage_contigs_meta[!is.na(megaphage_contigs_meta$circular),]
+megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$circular,]
+megaphage_contigs_meta$Location_Health <- paste(megaphage_contigs_meta$Location, "-", megaphage_contigs_meta$Health)
+megaphage_contigs_meta$numeric_samplename <- as.numeric(factor(megaphage_contigs_meta$Sample.name))
+megaphage_contigs_meta$numeric_samplename[!megaphage_contigs_meta$numeric_samplename %in% unique(megaphage_contigs_meta$numeric_samplename[duplicated(megaphage_contigs_meta$numeric_samplename)])] <- NA
+megaphage_contigs_meta$numeric_samplename <- as.numeric(factor(megaphage_contigs_meta$numeric_samplename))
+megaphage_contigs_meta$numeric_samplename[is.na(megaphage_contigs_meta$numeric_samplename)] <- c((max(megaphage_contigs_meta$numeric_samplename, na.rm = TRUE)+1):(max(megaphage_contigs_meta$numeric_samplename, na.rm = TRUE)+sum(is.na(megaphage_contigs_meta$numeric_samplename))))
 
 label_colours <- c("blue", "orange", "turquoise", "darkgreen")
 pd <- position_dodge(0.8)
 h <- 200
 tiff("figures/jumbophage_individual.tiff", width = 2500, height = 1000, res = 200)
-ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, group = numeric_samplename)) +
+ggplot(megaphage_contigs_meta, aes(sample_type, size/1000, colour = Location_Health, group = numeric_samplename)) +
   geom_line(position=pd, colour="grey90", linetype = "dashed") +
   geom_point(position=pd, alpha = 0.6) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
@@ -1031,7 +1001,7 @@ ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, 
 dev.off()
 
 tiff("figures/jumbophage_cluster.tiff", width = 2500, height = 1000, res = 200)
-ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, group = vcontact_cluster)) +
+ggplot(megaphage_contigs_meta, aes(sample_type, size/1000, colour = Location_Health, group = vcontact_cluster)) +
   geom_line(position=pd, colour="grey90", linetype = "dashed") +
   geom_point(position = pd, alpha = 0.6) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
@@ -1046,7 +1016,7 @@ ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health, 
 dev.off() 
 
 tiff("figures/circular_jumbophages.tiff", width = 2500, height = 1000, res = 250)
-ggplot(megaphage_contigs, aes(sample_type, size/1000, colour = Location_Health)) +
+ggplot(megaphage_contigs_meta, aes(sample_type, size/1000, colour = Location_Health)) +
   geom_jitter(alpha = 0.6, size = 2) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
   theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
@@ -1061,21 +1031,20 @@ dev.off()
 
 ########## Phages and ARGs ####
 # Read data
-contig_data <- readRDS("data/contig_data.RDS")
-contig_data <- left_join(metadata, contig_data, by = c("ID"= "sample", "Location"="country"))
-contig_data <- contig_data[contig_data$Visit_Number == 1,]
-contig_data$Health <- as.character(contig_data$Health)
-contig_data <- contig_data[!is.na(contig_data$circular),]
-contig_data$Health[contig_data$Health == "unhealthy"] <- "rheumatoid arthritis"
-contig_data$Location_Health <- paste(contig_data$Location, "-", contig_data$Health)
-contig_data <- contig_data %>% group_by(Location, sample_type, Health) %>% mutate(num_samples = n_distinct(ID))
+contig_data_meta <- left_join(metadata, contig_data, by = c("ID"= "sample", "Location"="country"))
+contig_data_meta <- contig_data_meta[contig_data_meta$Visit_Number == 1,]
+contig_data_meta$Health <- as.character(contig_data_meta$Health)
+contig_data_meta <- contig_data_meta[!is.na(contig_data_meta$circular),]
+contig_data_meta$Health[contig_data_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
+contig_data_meta$Location_Health <- paste(contig_data_meta$Location, "-", contig_data_meta$Health)
+contig_data_meta <- contig_data_meta %>% group_by(Location, sample_type, Health) %>% mutate(num_samples = n_distinct(ID))
 
 args_data <- read.csv("data/all_assemblies_card_90.csv", stringsAsFactors = FALSE)
 args_data$ID <- gsub("_card.out", "", gsub(".*/", "", args_data$filename))
 args_data$name <- paste0(args_data$ID, "_", args_data$qseqid)
 
 # Combine phage and arg results where only phage does/doesnt contain ARG
-phages_args_yn <- left_join(contig_data, args_data, by = c("name", "ID"), suffix = c(".phage", ".arg"))
+phages_args_yn <- left_join(contig_data_meta, args_data, by = c("name", "ID"), suffix = c(".phage", ".arg"))
 phages_args_yn$ARG_Present <- NA
 phages_args_yn$ARG_Present[is.na(phages_args_yn$ARO.Name)] <- "NO" 
 phages_args_yn$ARG_Present[!is.na(phages_args_yn$ARO.Name)] <- "YES"
@@ -1109,8 +1078,8 @@ ggplot(phages_args_summary, aes(sample_type, prop_pol)) +
 dev.off()
 
 # Combine phage and arg results where only phage contains an ARG
-phages_args <- inner_join(contig_data, args_data, by = c("name", "ID"), suffix = c(".phage", ".arg"))
-nrow(phages_args)/nrow(contig_data)*100
+phages_args <- inner_join(contig_data_meta, args_data, by = c("name", "ID"), suffix = c(".phage", ".arg"))
+nrow(phages_args)/nrow(contig_data_meta)*100
 args <- phages_args %>% 
   select(Location, sample_type, Health, num_samples, ARO.Name, ID, vcontact_cluster) %>% 
   rename(arg_phage = ARO.Name)
@@ -1127,7 +1096,7 @@ args <- args %>% group_by(Location, sample_type, Health, num_samples, ID, vconta
   summarise(arg_phage = paste(unique(arg_phage), collapse="/"), Drug.Class = paste(unique(Drug.Class), collapse="/"))
 
 phage <- phages_args %>% ungroup() %>% select(Location, sample_type, Health, num_samples, vcontact_cluster) %>% 
-  distinct() %>% left_join(contig_data, by = c("Location", "sample_type", "Health", "num_samples", "vcontact_cluster")) %>%
+  distinct() %>% left_join(contig_data_meta, by = c("Location", "sample_type", "Health", "num_samples", "vcontact_cluster")) %>%
   select(Location, sample_type, Health, num_samples, ID, vcontact_cluster) %>%
   mutate(arg_phage = vcontact_cluster, Drug.Class = "Phage cluster (No ARG Class)") 
 phages_args <- bind_rows(args, phage)
@@ -1190,41 +1159,15 @@ ggplot(phages_args_pairs, aes(vcontact_cluster_arg, percentage, fill = arg_phage
   facet_grid(Location + Health + sample_type + vcontact_cluster~., scales = "free", space = "free", switch = "y")
 dev.off()
 
-########## Megaphages and ARGs ####
-# Read data
-metaphage_arg_blast <- read.table("data/megaphage_proteins_card.out", stringsAsFactors = FALSE)
-column_headers <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore")
-names(metaphage_arg_blast) <- column_headers
-
-# megaphage_contigs <- read.table("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
-# megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
-# megaphage_contigs <- megaphage_contigs[megaphage_contigs$Visit_Number == 1,]
-# megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
-# megaphage_contigs <- megaphage_contigs[!is.na(megaphage_contigs$circular),]
-# megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
-# megaphage_contigs$Location_Health <- paste(megaphage_contigs$Location, "-", megaphage_contigs$Health)
-# megaphage_contigs <- megaphage_contigs %>% group_by(Location, sample_type, Health) %>% mutate(num_samples = n_distinct(ID))
-# args_data <- read.csv("data/all_assemblies_card_90.csv", stringsAsFactors = FALSE)
-# args_data$ID <- gsub("_card.out", "", gsub(".*/", "", args_data$filename))
-# args_data$name <- paste0(args_data$ID, "_", args_data$qseqid)
-# 
-# # Combine phage and arg results where only phage contains an ARG
-# megaphages_args <- inner_join(megaphage_contigs, args_data, by = c("name", "ID"), suffix = c(".phage", ".arg"))
-# nrow(phages_args)/nrow(contig_data)*100
-# args <- phages_args %>% 
-#   select(Location, sample_type, Health, num_samples, ARO.Name, ID, vcontact_cluster) %>% 
-#   rename(arg_phage = ARO.Name)
-
 ########## Megaphages and CRISPR hosts ####
-megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
-megaphage_contigs <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
-megaphage_contigs$Health <- as.character(megaphage_contigs$Health)
-megaphage_contigs$Health[megaphage_contigs$Health == "unhealthy"] <- "rheumatoid arthritis"
-megaphage_contigs <- megaphage_contigs[megaphage_contigs$Visit_Number == 1,]
-megaphage_contigs <- megaphage_contigs[!is.na(megaphage_contigs$circular),]
-megaphage_contigs <- megaphage_contigs[megaphage_contigs$circular,]
+megaphage_contigs_meta <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
+megaphage_contigs_meta$Health <- as.character(megaphage_contigs_meta$Health)
+megaphage_contigs_meta$Health[megaphage_contigs_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
+megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$Visit_Number == 1,]
+megaphage_contigs_meta <- megaphage_contigs_meta[!is.na(megaphage_contigs_meta$circular),]
+megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$circular,]
 
-megaphages_crispr_summary <- megaphage_contigs %>%
+megaphages_crispr_summary <- megaphage_contigs_meta %>%
   group_by(sample_type, Location, Health, crispr_host) %>%
   summarise(no_crispr_hosts = n())
 
@@ -1254,7 +1197,6 @@ eggnog <- read.delim("data/megaphage_annot.emapper.annotations", stringsAsFactor
 names(eggnog) <- c("query_name", "seed_eggnog_ortholog", "seed_ortholog_evalue", "seed_ortholog_score", "predicted_taxonomic_group",
                    "predicted_protein_name", "gene_ontology_terms", "EC_number", "KEGG_ko", "KEGG_pathway", "KEGG_module", "KEGG_reaction",
                    "KEGG_rclass", "BRITE", "KEGG_TC", "CAZy", "BiGG_reaction", "tax_scope", "eggnog_ogs", "bestOG", "COG_functional_cat", "eggnog_description")
-megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 
 megaphage_eggnog <- left_join(megaphage_prots, eggnog, by = "query_name")
 megaphage_eggnog$name <- sub("_[^_]+$", "", megaphage_eggnog$query_name)
@@ -1464,7 +1406,6 @@ megaphages_proteins <- megaphages_proteins[!duplicated(megaphages_proteins$codin
 megaphages_proteins$contig <- sub("_[^_]+$", "", megaphages_proteins$coding_region)
 
 # Modify prodigal GFF to include protein descriptions
-prodigal_gff <- read.table("data/megaphage_contigs_prodigal.gff", stringsAsFactors = FALSE)
 prodigal_gff$coding_region <- paste0(prodigal_gff$V1, "_", gsub(".*_", "", gsub(";.*", "", prodigal_gff$V9)))
 prodigal_gff <- left_join(prodigal_gff, megaphages_proteins, by = "coding_region")
 
