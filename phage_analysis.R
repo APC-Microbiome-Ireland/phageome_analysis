@@ -136,6 +136,13 @@ tiff("figures/tsne_clusters.tiff", width = 700, height = 500, res = 150)
 tsne_plot1
 dev.off()
 
+cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(3,5,7)], "yellowgreen", brewer.pal(9, "YlOrRd")[c(5,7,9)], brewer.pal(9, "RdPu")[c(3,5,7)])
+tiff("figures/tsne_bodysite_location.tiff", width = 700, height = 500, res = 150)
+ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_Health_sampletype)) +
+  geom_bar(stat = "identity") +
+  theme_classic() + xlab("Group") + ylab("Percentage")
+dev.off()
+
 # Set the same legend widths
 g2 <- ggplotGrob(tsne_plot2)
 g4 <- ggplotGrob(tsne_plot4)
