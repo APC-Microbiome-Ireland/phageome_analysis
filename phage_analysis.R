@@ -32,10 +32,12 @@ set.seed(1)
 vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
 vir_counts_prop_melt_agg <- readRDS("data/vir_counts_prop_melt_agg.RDS")
+vir_counts_prop_melt_agg2 <- readRDS("data/vir_counts_prop_melt_agg2.RDS")
 contig_data <- readRDS("data/contig_data.RDS")
 counts_total <- readRDS("data/counts_total.RDS")
 megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 prodigal_gff <- read.table("data/megaphage_contigs_prodigal.gff", stringsAsFactors = FALSE)
+metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
 
 # Metadata
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
@@ -137,10 +139,11 @@ tsne_plot1
 dev.off()
 
 cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(3,5,7)], "yellowgreen", brewer.pal(9, "YlOrRd")[c(5,7,9)], brewer.pal(9, "RdPu")[c(3,5,7)])
-tiff("figures/tsne_bodysite_location.tiff", width = 700, height = 500, res = 150)
+tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_Health_sampletype)) +
   geom_bar(stat = "identity") +
-  theme_classic() + xlab("Group") + ylab("Percentage")
+  theme_classic() + xlab("Group") + ylab("Percentage") +
+  scale_fill_manual("Body Site - Geographical Location - Health", values = cohort_cols)
 dev.off()
 
 # Set the same legend widths
@@ -419,7 +422,7 @@ vir_counts_longus <- vir_counts_longus[!is.na(vir_counts_longus$Var1),]
 #   return(final_counts_df)
 # }
 
-# Count average consecutive time points of phages
+# Count average time points of phages
 contig_no_tp <- vir_counts_longus %>% group_by(sample_type, Sample.name, Var1) %>%
   summarise(no_tp = n_distinct(Visit_Number)) 
 
@@ -428,7 +431,7 @@ contig_all_summary <- vir_counts_longus %>% group_by(sample_type, Sample.name) %
   summarise(total_contig = n_distinct(Var1))
 
 # Count contigs in at least x number of time points
-contig_cum_tp <- map_df(.x = unique(contig_no_tp$no_tp), .f = function(.x) {
+contig_count_tp <- map_df(.x = unique(contig_no_tp$no_tp), .f = function(.x) {
   tmp <- data.frame(sample_type = rep(contig_no_tp$sample_type[contig_no_tp$no_tp == .x], .x),
                     Sample.name = rep(contig_no_tp$Sample.name[contig_no_tp$no_tp == .x], .x),
                     Var1 = rep(contig_no_tp$Var1[contig_no_tp$no_tp == .x]),
@@ -437,20 +440,20 @@ contig_cum_tp <- map_df(.x = unique(contig_no_tp$no_tp), .f = function(.x) {
   return(tmp)
 })
 
-contig_cum_tp_summary <- contig_cum_tp %>% group_by(sample_type, Sample.name, cum_tp) %>%
+contig_count_tp_summary <- contig_count_tp %>% group_by(sample_type, Sample.name, cum_tp) %>%
   summarise(total_contig_least = n_distinct(Var1))
 
-contig_one <- contig_cum_tp_summary %>%
+contig_one <- contig_count_tp_summary %>%
   filter(cum_tp == 1) %>%
   rename(total_contig = total_contig_least) %>%
   select(-cum_tp)
 
-contig_cum_tp_summary <- left_join(contig_cum_tp_summary, contig_one, by = c("sample_type", "Sample.name")) %>%
+contig_count_tp_summary <- left_join(contig_count_tp_summary, contig_one, by = c("sample_type", "Sample.name")) %>%
   mutate(contig_frac = total_contig_least/total_contig)
 
 # Plot
-tiff("figures/cumulative_contig_count.tiff", height = 400, width = 1100, res = 100)
-ggplot(contig_cum_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_type)) +
+tiff("figures/longitudinal_contig_count.tiff", height = 400, width = 1100, res = 100)
+ggplot(contig_count_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_type)) +
   geom_boxplot() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of contigs in at least x time points") +
@@ -459,24 +462,24 @@ ggplot(contig_cum_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_
 dev.off()
 
 # Proportion of reads mapped to contigs
-contig_cum_reads<- vir_counts_longus %>% 
+contig_count_reads<- vir_counts_longus %>% 
   group_by(sample_type, Sample.name, Var1) %>%
   arrange(desc(Visit_Number)) %>%
   mutate(cumsum_reads = cumsum(value)) %>%
   select(sample_type, Sample.name, Var1, cumsum_reads, Visit_Number)
 
-contig_cum_reads_tp1 <- contig_cum_reads %>%
+contig_count_reads_tp1 <- contig_count_reads %>%
   filter(Visit_Number == min(Visit_Number)) %>%
   rename(tp1 = cumsum_reads) %>%
   select(sample_type, Sample.name, Var1, tp1)
 
-contig_cum_reads_summary <- left_join(contig_cum_reads, contig_cum_reads_tp1, by = c("sample_type", "Var1", "Sample.name")) %>%
+contig_count_reads_summary <- left_join(contig_count_reads, contig_count_reads_tp1, by = c("sample_type", "Var1", "Sample.name")) %>%
   mutate(frac_reads = cumsum_reads/tp1) %>%
   group_by(sample_type, Sample.name, Var1) %>%
   mutate(cum_tp = order(Visit_Number))
 
-tiff("figures/cumulative_read_count.tiff", height = 400, width = 1100, res = 90)
-ggplot(contig_cum_reads_summary, aes(x = as.factor(cum_tp), y = frac_reads, fill = sample_type)) +
+tiff("figures/longitudinal_read_count.tiff", height = 400, width = 1100, res = 90)
+ggplot(contig_count_reads_summary, aes(x = as.factor(cum_tp), y = frac_reads, fill = sample_type)) +
   geom_boxplot() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of reads mapped in at least x time points") +
@@ -499,9 +502,9 @@ ggplot(contig_persist, aes(x = ID, y = value, fill = demovir)) + theme_classic()
 dev.off()
 
 # Cast for NMDS
-contig_persist <- dcast(contig_persist, ID ~ Var1, sum, value.var = "value") 
-rownames(contig_persist) <- contig_persist$ID
-contig_persist <- contig_persist[,names(contig_persist) != "ID"]
+contig_persist_cast <- dcast(contig_persist, ID ~ Var1, sum, value.var = "value") 
+rownames(contig_persist_cast) <- contig_persist_cast$ID
+contig_persist_cast <- contig_persist_cast[,names(contig_persist_cast) != "ID"]
 
 # # Phage taxonomy of persistent phages
 # contig_persist_cast <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
@@ -560,7 +563,7 @@ contig_persist <- contig_persist[,names(contig_persist) != "ID"]
 
 # Run NMDS
 set.seed(1)
-nmds_persist <- metaMDS(contig_persist, distance = "bray", k = 2, trymax = 20)
+nmds_persist <- metaMDS(contig_persist_cast, distance = "bray", k = 2, trymax = 20)
 df_nmds_persist <- as.data.frame(nmds_persist$points)
 df_nmds_persist$ID <- row.names(df_nmds_persist)
 df_nmds_persist$Sample.name <- as.character(sapply(df_nmds_persist$ID, function(x) metadata$Sample.name[metadata$ID == x]))
@@ -594,13 +597,13 @@ ggplot(contig_nonpersist, aes(x = ID, y = value, fill = demovir)) + theme_classi
 dev.off()
 
 # Cast for NMDS
-contig_nonpersist <- dcast(contig_nonpersist, ID ~ Var1, sum, value.var = "value") 
-rownames(contig_nonpersist) <- contig_nonpersist$ID
-contig_nonpersist <- contig_nonpersist[,names(contig_nonpersist) != "ID"]
+contig_nonpersist_cast <- dcast(contig_nonpersist, ID ~ Var1, sum, value.var = "value") 
+rownames(contig_nonpersist_cast) <- contig_nonpersist_cast$ID
+contig_nonpersist_cast <- contig_nonpersist_cast[,names(contig_nonpersist_cast) != "ID"]
 
 # Run NMDS
 set.seed(1)
-nmds_nonpersist <- metaMDS(contig_nonpersist, distance = "bray", k = 2, trymax = 20)
+nmds_nonpersist <- metaMDS(contig_nonpersist_cast, distance = "bray", k = 2, trymax = 20)
 df_nmds_nonpersist <- as.data.frame(nmds_nonpersist$points)
 df_nmds_nonpersist$ID <- row.names(df_nmds_nonpersist)
 df_nmds_nonpersist$Sample.name <- as.character(sapply(df_nmds_nonpersist$ID, function(x) metadata$Sample.name[metadata$ID == x]))
@@ -608,7 +611,7 @@ df_nmds_nonpersist$Location <- sapply(df_nmds_nonpersist$ID, function(x) metadat
 df_nmds_nonpersist$sample_type <- sapply(df_nmds_nonpersist$ID, function(x) metadata$sample_type[metadata$ID == x])
 
 # Plot NMDS
-tiff("figures/transient_phages.tiff", width = 2000, height = 700, res = 200)
+tiff("figures/transient_phages.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
   geom_point() +
   geom_density2d(alpha=0.2) +
@@ -620,10 +623,9 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
 dev.off()
 
 ########## Procrustes analysis #########
-metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
 row.names(metaphlan) <- metaphlan$X
 metaphlan <- metaphlan[,names(metaphlan) != "X"]
-metaphlan <- metaphlan[,names(metaphlan) %in% colnames(vir_counts_prop_agg)]
+metaphlan <- metaphlan[,names(metaphlan) %in% colnames(vir_counts_prop_agg_meta)]
 metaphlan_filter <- metaphlan[grepl("s__", row.names(metaphlan)) & !grepl("t__", row.names(metaphlan)),]
 metaphlan_dist = vegdist(t(metaphlan_filter), method = "bray")
 set.seed(1)
@@ -815,9 +817,13 @@ runTtest <- function(df_paired){
   
   # T-test
   p_values <- c()
-  ttest_groups <- df_paired_richness[!duplicated(paste0(df_paired_richness$Location, df_paired_richness$group)),]
+  ttest_groups <- df_paired_richness[!duplicated(paste0(df_paired_richness$Location, 
+                                                        df_paired_richness$Health,
+                                                        df_paired_richness$group)),]
   for(i in 1:nrow(ttest_groups)){
-    y <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & df_paired_richness$group == ttest_groups$group[i],]
+    y <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & 
+                              df_paired_richness$Health == ttest_groups$Health[i] &
+                              df_paired_richness$group == ttest_groups$group[i],]
     y <- y[order(y$Sample.name),]
     type1 <- strsplit(ttest_groups$group[i], " vs. ")[[1]][1]
     type2 <- strsplit(ttest_groups$group[i], " vs. ")[[1]][2]
@@ -833,8 +839,8 @@ runTtest <- function(df_paired){
   ttest_groups$asterisk <- asterisk
   
   # Order ttest_groups
-  ttest_groups <- ttest_groups[order(ttest_groups$Location, ttest_groups$group),]
-  ttest_groups <- ttest_groups[,c("Location", "group", "pvalue", "asterisk")]
+  ttest_groups <- ttest_groups[order(ttest_groups$Location, ttest_groups$Health, ttest_groups$group),]
+  ttest_groups <- ttest_groups[,c("Location", "Health", "group", "pvalue", "asterisk")]
   return(ttest_groups)
 }
 
@@ -846,11 +852,11 @@ plotRichnessGraph <- function(df_paired_richness_group, ttest_group, cols) {
     theme_classic() +
     ylab("Phage Cluster Richness") +
     xlab("") +
-    ggtitle(paste(ttest_group$Location, sep = "\n")) +
+    ggtitle(paste(ttest_group$Location, ttest_group$Health, sep = " - ")) +
     geom_text(data = ttest_group, aes(label=asterisk),
               x = 1.5, y = max(df_paired_richness_group$richness)+10, size = 7,
               inherit.aes = FALSE) +
-    scale_fill_manual("body site", values = cols[names(cols) %in% unique(df_paired_richness_group$sample_type)]) +
+    scale_fill_manual("Body Site", values = cols[names(cols) %in% unique(df_paired_richness_group$sample_type)]) +
     theme(legend.text = element_text(size = 14), legend.title = element_text(size = 16))
   return(g)
 }
@@ -859,7 +865,9 @@ plotMultipleRichnessGraphs <- function(ttest_groups, df_paired, cols){
   df_paired_richness <- df_paired[!duplicated(paste0(df_paired$ID, df_paired$group)),]
   g <- list()
   for(i in 1:nrow(ttest_groups)){
-    df_paired_richness_group <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & df_paired_richness$group == ttest_groups$group[i],]
+    df_paired_richness_group <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & 
+                                                     df_paired_richness$Health == ttest_groups$Health[i] &
+                                                     df_paired_richness$group == ttest_groups$group[i],]
     g[[i]] <- plotRichnessGraph(df_paired_richness_group, ttest_groups[i,], cols) +
       theme(legend.position = "none") + ylim(c(0, max(df_paired_richness$richness) + 20))
   }
@@ -901,8 +909,8 @@ richness_graphs <- plotMultipleRichnessGraphs(richness_ttest, richness_paired, c
 richness_graphs[[length(richness_graphs)+1]] <- g_legend(plotRichnessGraph(richness_paired, richness_ttest, cols))
 
 # Plot graph
-lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
-tiff("figures/alpha_diversity.tiff", width = 2400, height = 1500, res = 220)
+lay <- rbind(c(1,2,3,13), c(4,5,6,13), c(7,8,9,13), c(10,11,12,13))
+tiff("figures/alpha_diversity.tiff", width = 2400, height = 2000, res = 220)
 grid.arrange(grobs = richness_graphs, layout_matrix = lay)
 dev.off()
 
@@ -942,8 +950,8 @@ richness_graphs_ss <- plotMultipleRichnessGraphs(richness_ttest_ss, richness_pai
 richness_graphs_ss[[length(richness_graphs_ss)+1]] <- g_legend(plotRichnessGraph(richness_paired_ss, richness_ttest_ss, cols))
 
 # Plot graph
-lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
-tiff("figures/alpha_diversity_subsampled.tiff", width = 2400, height = 2000, res = 220)
+lay <- rbind(c(1,2,3,13), c(4,5,6,13), c(7,8,9,13), c(10,11,12,13))
+tiff("figures/alpha_diversity_subsampled.tiff", width = 2400, height = 3000, res = 220)
 grid.arrange(grobs = richness_graphs_ss, layout_matrix = lay)
 dev.off()
 
@@ -988,6 +996,23 @@ megaphage_contigs_meta$numeric_samplename <- as.numeric(factor(megaphage_contigs
 megaphage_contigs_meta$numeric_samplename[!megaphage_contigs_meta$numeric_samplename %in% unique(megaphage_contigs_meta$numeric_samplename[duplicated(megaphage_contigs_meta$numeric_samplename)])] <- NA
 megaphage_contigs_meta$numeric_samplename <- as.numeric(factor(megaphage_contigs_meta$numeric_samplename))
 megaphage_contigs_meta$numeric_samplename[is.na(megaphage_contigs_meta$numeric_samplename)] <- c((max(megaphage_contigs_meta$numeric_samplename, na.rm = TRUE)+1):(max(megaphage_contigs_meta$numeric_samplename, na.rm = TRUE)+sum(is.na(megaphage_contigs_meta$numeric_samplename))))
+
+# Percentage of cohorts containing a jumbophage
+megaphage_summary <- megaphage_contigs_meta %>%
+  group_by(Location, sample_type, Health) %>%
+  summarise(n_samples_megaphage = n_distinct(ID))
+metadata_summary <- metadata %>%
+  group_by(Location, sample_type, Health) %>%
+  summarise(n_samples = n_distinct(ID))
+megaphage_summary <- full_join(megaphage_summary, metadata_summary, by = c("Location", "sample_type","Health")) %>%
+  mutate(perc_samples = 100*n_samples_megaphage/n_samples, Location_Health_sampletype = paste(sample_type, Location, Health, sep = "\n"))
+
+tiff("figures/jumbophage_percentage_samples.tiff", width = 1000, height = 500, res = 100)
+ggplot(megaphage_summary, aes(Location_Health_sampletype, perc_samples)) +
+  geom_bar(stat = "identity") +
+  theme_classic() +
+  xlab("Cohort") + ylab("% samples") + ylim(c(0,100))
+dev.off()
 
 label_colours <- c("blue", "orange", "turquoise", "darkgreen")
 pd <- position_dodge(0.8)
