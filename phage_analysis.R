@@ -108,7 +108,7 @@ tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = clu
 # Label by contig size
 tsne_plot2 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_contigs, size = log10(total_reads))) +
   theme_classic() + geom_point(alpha = 0.7, pch = 21) +
-  scale_fill_continuous("No. contigs") + scale_size_continuous("Log10(Reads mapped)") +
+  scale_fill_continuous("No. contigs") + scale_size_continuous("Log10(No. reads)") +
   xlab("Dim 1") + ylab("Dim 2")
 
 # Label by body sites, geographical location and health
