@@ -1443,6 +1443,7 @@ prodigal_gff <- left_join(prodigal_gff, megaphages_proteins, by = "coding_region
 
 # Read protein family lookup
 prot_lookup <- read.table("db/ONTOLOGIES/protein_family_lookup.txt", sep = "\t", stringsAsFactors = FALSE, header = TRUE)
+prot_lookup <- prot_lookup[order(prot_lookup$description_contains),] # Order so more unique lookups get selected
 
 prodigal_gff$Name <- rep(NA, nrow(prodigal_gff))
 prodigal_gff$Parent <- rep(NA, nrow(prodigal_gff))
@@ -1478,9 +1479,11 @@ trna_gff <- megaphages_trna %>% mutate(source = "ARAGORN_v1.2.36", type = "tRNA"
 # Combine prodigal CDS and trna
 comb_gff <- rbind(prodigal_gff, trna_gff)
 
-# Write GFF file for largest phage
-largest_phage <- megaphage_contigs$name[megaphage_contigs$size == max(megaphage_contigs$size)]
-largest_phage_gff <- comb_gff[comb_gff$seqid == largest_phage,]    
-write.table(largest_phage_gff, paste0("data/", largest_phage, ".gff"), 
-            quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")                          
+# Write GFF file for largest phages
+largest_phages <- megaphage_contigs_meta$name[order(megaphage_contigs_meta$size, decreasing = TRUE)][c(1:3)]
+for (i in 1:length(largest_phages)) {
+  largest_phage_gff <- comb_gff[comb_gff$seqid == largest_phages[i],]
+  write.table(largest_phage_gff, paste0("data/", largest_phages[i], ".gff"), 
+              quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")                          
+}
                           
