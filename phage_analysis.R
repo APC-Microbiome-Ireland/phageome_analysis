@@ -1453,6 +1453,14 @@ for (i in 1:nrow(prot_lookup)) {
   prodigal_gff$Parent[tmp_inds] <- prot_lookup$parent[i]
 }
 
+# Check all jumbo phages have structural proteins
+struct_prot_count <- prodigal_gff %>% group_by(V1, Parent) %>%
+  summarise(n = n()) %>%
+  filter(Parent == "Structural proteins") # All jumbophages have structural proteins making them putative phages
+
+struct_prot_list <- prodigal_gff %>%
+  filter(Parent == "Structural proteins")
+
 # Add Name and Parent to attributes
 prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$Name), 
                           paste0(prodigal_gff$V9, "Name=hypothetical protein;"),
