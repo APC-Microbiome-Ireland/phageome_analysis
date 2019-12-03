@@ -45,6 +45,9 @@ rownames(metadata) = metadata$ID
 metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <- "rheumatoid arthritis"
 metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
 
+# n summary of metadata excluding longitudinal samples
+metadata_summary <- metadata %>% filter(Visit_Number == 1) %>% group_by(Location, sample_type, Health) %>% summarise(n())
+
 # Body site colours
 cols <- brewer.pal(11, "Spectral")[c(2, 4, 9, 10, 11)]
 names(cols) <- unique(metadata$sample_type)
@@ -491,6 +494,9 @@ dev.off()
 contig_persist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
   filter(no_tp >= 3)
 
+# Summarise n
+persist_summary <- metadata %>% filter(ID %in% unique(contig_persist$ID)) %>% group_by(sample_type, Visit_Number) %>% summarise(n())
+
 # Get phage taxonomy
 tiff("figures/barplot_demovir_persistent.tiff", width = 5000, height = 2000, res = 400)
 ggplot(contig_persist, aes(x = ID, y = value, fill = demovir)) + theme_classic() +
@@ -585,6 +591,9 @@ dev.off()
 # Select nonpersistent contigs
 contig_nonpersist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
   filter(no_tp < 3)
+
+# Summarise n
+nonpersist_summary <- metadata %>% filter(ID %in% unique(contig_nonpersist$ID)) %>% group_by(sample_type, Visit_Number) %>% summarise(n())
 
 # Get phage taxonomy
 tiff("figures/barplot_demovir_transient.tiff", width = 5000, height = 2000, res = 400)
