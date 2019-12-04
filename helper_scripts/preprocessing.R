@@ -3,6 +3,7 @@ library(ggplot2)
 library(RColorBrewer)
 library(reshape2)
 library(dplyr)
+library(igraph)
 
 ########## Read in metadata and define parameters ####
 metadata = read.csv("../data/metadata_v2.csv", stringsAsFactors = FALSE)
@@ -14,53 +15,10 @@ metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
 cols <- brewer.pal(11, "Spectral")[c(2, 4, 9, 10, 11)]
 names(cols) <- unique(metadata$sample_type)
 
-
-
 ########## Read in and process raw data ####
 #Contigs
 contig_ids = read.table("../data/virsorter_positive.ids")
 contig_ids = unique(as.character(contig_ids$V1))
-
-# Remove jumbophages that are not viral
-jumbo_contigs <- read.delim("../data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
-contig_ids <- contig_ids[contig_ids %in% jumbo_contigs$name | as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)) <= 2e5]
-
-#Read alignment counts
-vir_counts = read.table("../data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
-#vir_counts = fread("../data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
-vir_coverage = read.table("../data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
-#vir_coverage = fread("../data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
-
-#Remove unwanted samples
-vir_counts <- vir_counts[,names(vir_counts) %in%  metadata$ID]
-vir_coverage <- vir_coverage[,names(vir_coverage) %in% metadata$ID]
-
-#Remove unwanted contigs
-vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_ids),]
-vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_ids,]
-
-counts_total = vir_counts["Total_reads",]
-saveRDS(counts_total, "../data/counts_total.RDS")
-
-vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
-vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
-vir_counts[vir_coverage < 0.75] = 0 #Apply breadth of coverage filter (<75% coverage are removed)
-rm(vir_coverage)
-
-vir_counts_unaligned = counts_total - apply(vir_counts, 2, sum)
-vir_counts = rbind(vir_counts, vir_counts_unaligned)
-vir_counts_prop = apply(vir_counts, 2, function(x) x/sum(x))
-rm(vir_counts)
-vir_counts_prop = vir_counts_prop[-nrow(vir_counts_prop),]
-
-#Remove samples with missing total counts
-vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) any(is.na(x))))]
-
-#Remove rows with all zeroes
-vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
-
-saveRDS(vir_counts_prop, file ="../data/vir_counts_prop.RDS")
-
 
 
 
@@ -210,6 +168,48 @@ contig_data <- contig_data[!duplicated(contig_data$name),]
 rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
    pvogs_count,vcontact,crispr_hits2)
 contig_data <- data.table(contig_data)
+
+########## Remove spurious jumbophages ####
+#Contigs over 200kb
+megaphage_contigs = contig_data[which(contig_data$size >= 200000),]
+#Circular genomes
+megaphage_contigs_circ = megaphage_contigs[which(megaphage_contigs$circular),]
+#Extract sub-graph
+vcontact_sig = fread("../data/cc_sig1.0_mcl1.5.ntw")
+vcontact_sig_megaph = vcontact_sig[V1 %in% megaphage_contigs$name & V2 %in% megaphage_contigs$name]
+#Only contigs connected with a circular genome
+vcontact_sig_megaph = vcontact_sig_megaph[V1 %in% megaphage_contigs_circ$name | V2 %in% megaphage_contigs_circ$name]
+#Remove vertices connected with < 2 edges
+vcontact_sig_megaph = vcontact_sig_megaph[V1 %in% names(which(table(vcontact_sig_megaph$V1)>1)) & V2 %in% names(which(table(vcontact_sig_megaph$V1)>1))]
+#Update megaphage contigs dataframe
+megaphage_contigs = megaphage_contigs[megaphage_contigs$name %in% unique(vcontact_sig_megaph$V1),]
+rm(megaphage_contigs_circ)
+vcontact_igraph = igraph::graph.data.frame(vcontact_sig_megaph, directed = FALSE, vertices = megaphage_contigs)
+#E(vcontact_igraph)$weight = E(vcontact_igraph)$V3
+#E(vcontact_igraph)$width = E(vcontact_igraph)$V3/10
+vcontact_igraph = simplify(vcontact_igraph)
+#graph_layout = layout_with_kk(vcontact_igraph)
+graph_layout = layout_with_fr(vcontact_igraph)
+
+nclusters = length(levels(as.factor(V(vcontact_igraph)$vcontact_cluster)))
+rand_colours =
+  colorRampPalette(c(brewer.pal(8, "Spectral"),brewer.pal(8, "RdBu"), brewer.pal(8, "Dark2")))(nclusters)
+rand_colours = rand_colours[sample(1:nclusters, nclusters)]
+rand_colours = rand_colours[as.numeric(as.factor(V(vcontact_igraph)$vcontact_cluster))]
+
+labels_clusters = paste(as.character(sapply(clusters_tax[V(vcontact_igraph)$vcontact_cluster], "[[", 1)),
+                        V(vcontact_igraph)$crispr_host)
+labels_clusters = gsub("NULL", "", labels_clusters)
+labels_clusters = gsub("NA", "", labels_clusters)
+labels_clusters[labels_clusters != " "] = paste(V(vcontact_igraph)$vcontact_cluster[labels_clusters != " "], labels_clusters[labels_clusters != " "])
+labels_clusters = gsub("  ", " ", labels_clusters)
+
+write.table(megaphage_contigs, file = "../data/megaphage_contigs.txt")
+
+# Remove jumbophages that are not viral from contig data
+contig_ids <- contig_ids[contig_ids %in% megaphage_contigs$name | as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)) <= 2e5]
+contig_data <- contig_data[contig_data$name %in% megaphage_contigs$name | contig_data$size < 200000,]
+
 saveRDS(contig_data,  file = "../data/contig_data.RDS")
 write.table(contig_data, file = "../data/contig_data.txt")
 
@@ -236,6 +236,43 @@ contig_scatter_demovir = ggplot(contig_data, aes(x = size, y = coverage, fill = 
   xlab("Size, bp") + ylab("Coverage, x") +
   facet_wrap(~integrase, nrow = 2)
 
+
+########## Create read data ####
+#Read alignment counts
+vir_counts = read.table("../data/bowtie2_read_counts.txt", header=TRUE, row.names = 1, sep = "\t", check.names = FALSE)
+#vir_counts = fread("../data/bowtie2_read_counts.txt", header=TRUE, sep = "\t", check.names = FALSE)
+vir_coverage = read.table("../data/breadth_cov_collated.tbl", header=TRUE, row.names = 1, check.names = FALSE)
+#vir_coverage = fread("../data/breadth_cov_collated.tbl", header=TRUE, sep = "\t", check.names = FALSE)
+
+#Remove unwanted samples
+vir_counts <- vir_counts[,names(vir_counts) %in%  metadata$ID]
+vir_coverage <- vir_coverage[,names(vir_coverage) %in% metadata$ID]
+
+#Remove unwanted contigs
+vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_ids),]
+vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_ids,]
+
+counts_total = vir_counts["Total_reads",]
+saveRDS(counts_total, "../data/counts_total.RDS")
+
+vir_counts = vir_counts[-c(nrow(vir_counts), nrow(vir_counts)-1),]
+vir_coverage = vir_coverage[rownames(vir_counts), colnames(vir_counts)]
+vir_counts[vir_coverage < 0.75] = 0 #Apply breadth of coverage filter (<75% coverage are removed)
+rm(vir_coverage)
+
+vir_counts_unaligned = counts_total - apply(vir_counts, 2, sum)
+vir_counts = rbind(vir_counts, vir_counts_unaligned)
+vir_counts_prop = apply(vir_counts, 2, function(x) x/sum(x))
+rm(vir_counts)
+vir_counts_prop = vir_counts_prop[-nrow(vir_counts_prop),]
+
+#Remove samples with missing total counts
+vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) any(is.na(x))))]
+
+#Remove rows with all zeroes
+vir_counts_prop = vir_counts_prop[-which(apply(vir_counts_prop, 1, function(x) all(x == 0))),]
+
+saveRDS(vir_counts_prop, file ="../data/vir_counts_prop.RDS")
 
 
 
