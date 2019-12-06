@@ -25,6 +25,7 @@ library(stringr)
 library(tidyr)
 library(gtable)
 library(igraph)
+library(ComplexHeatmap)
 set.seed(1)
 
 ########## Read data, metadata and define parameters ####
@@ -631,11 +632,20 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
   scale_y_continuous(limits = c(-0.5,0.5), breaks = seq(-2,2,0.5))
 dev.off()
 
-########## Procrustes analysis #########
+########## Microbial composition #########
 row.names(metaphlan) <- metaphlan$X
 metaphlan <- metaphlan[,names(metaphlan) != "X"]
 metaphlan <- metaphlan[,names(metaphlan) %in% colnames(vir_counts_prop_agg_meta)]
 metaphlan_filter <- metaphlan[grepl("s__", row.names(metaphlan)) & !grepl("t__", row.names(metaphlan)),]
+metaphlan_filter <- metaphlan_filter[grepl("k__Bacteria", row.names(metaphlan_filter)) | 
+                                       grepl("k__Archaea", row.names(metaphlan_filter)),]
+metaphlan_filter <- metaphlan_filter[,colSums(metaphlan_filter) != 0]
+metaphlan_meta <- data.frame(ID = colnames(metaphlan_filter)) %>%
+  left_join(metadata, by = "ID")
+metaphlan_summary <- metaphlan_meta %>%
+  group_by(Location, Health, sample_type) %>%
+  summarise(n = n_distinct(ID))
+
 metaphlan_dist = vegdist(t(metaphlan_filter), method = "bray")
 set.seed(1)
 metaphlan_tsne <- tsne(metaphlan_dist)
@@ -654,7 +664,38 @@ ggplot(metaphlan_tsne, aes(x = tsne1, y = tsne2, fill = sample_type)) +
   xlab("Dim 1") + ylab("Dim 2")
 dev.off()
 
-# Plot procrustes
+# Heatmap of microbiome t-sne
+
+# TODO
+clade <- unique(gsub("\\]", "", gsub("\\[", "", rownames(vir_counts_prop_agg2_log))))
+metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_filter)))
+match_ind <- c()
+genera_split <- rep(NA, length(metaphlan_genera))
+for (i in 1:length(clade)) {
+  tmp_match_ind <- grep(genera[i], metaphlan_genera)
+  match_ind <- c(match_ind, tmp_match_ind)
+  genera_split[tmp_match_ind] <- genera[i]
+}
+genera_split <- genera_split[!is.na(genera_split)]
+metaphlan_host <- as.matrix(metaphlan_filter[match_ind,])
+metaphlan_host_log <- log10(metaphlan_host)
+metaphlan_host_log[is.infinite(metaphlan_host_log)] <- -6
+
+# Microbe heatmap
+ha = HeatmapAnnotation(type = metaphlan_meta$sample_type,
+                       col = list(type = cols),
+                       annotation_legend_param = list(type = list(title = "Body Site")),
+                       show_annotation_name = FALSE)
+
+tiff("figures/heatplot_microbes.tiff", width = 2000, height = 3000, res = 300)
+Heatmap(metaphlan_host_log, na_col = "white", top_annotation = ha, name = "log10(rel. abundance)", show_row_names = FALSE, cluster_rows = FALSE,
+        col = colorRamp2(c(min(metaphlan_host_log, na.rm = TRUE), max(metaphlan_host_log, na.rm = TRUE)),  c("#f2f2f2", "red4")),
+        split = genera_split, row_title_rot = 0, row_title_gp = gpar(fontsize = 5), show_column_names = FALSE,
+        heatmap_legend_param = list(color_bar = "continuous"))
+dev.off()
+
+
+# Procrustes analysis
 protest_res <- protest(clusters_samples_tsne[,c(1:2)], metaphlan_tsne[,c(1:2)], scale = TRUE)
 
 tiff("figures/procrustes.tiff")
