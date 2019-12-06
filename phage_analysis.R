@@ -280,46 +280,6 @@ legend("bottomright", legend = levels(megaphage_clusters_df[rownames(vir_counts_
        lty = 1, lwd = 5, cex = 0.8, title = "Predicted Taxonomy")
 dev.off()
 
-########## Host range############################
-#Re-cast counts matrix by CRISPR hosts
-vir_counts_prop_agg2 = dcast.data.table(vir_counts_prop_melt_agg2, crispr_host ~ Var2, value.var = "V1", fun.aggregate = sum)
-vir_counts_prop_agg2 = as.data.frame(vir_counts_prop_agg2)
-vir_counts_prop_agg2 = vir_counts_prop_agg2[!is.na(vir_counts_prop_agg2$crispr_host),]
-rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2$crispr_host
-vir_counts_prop_agg2 = vir_counts_prop_agg2[,-1]
-vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
-
-#Hosts heatmap
-vir_counts_prop_agg2_log = log10(vir_counts_prop_agg2)
-vir_counts_prop_agg2_log[is.infinite(vir_counts_prop_agg2_log)] = -8
-
-tiff("figures/heatplot_hosts.tiff", width = 1000, height = 1500, res = 150)
-heatmap.2(vir_counts_prop_agg2_log,
-          margins = c(10,10),
-          trace = "none",
-          scale = "none",
-          hclustfun = function(x) {hclust(x, method = "ward.D2")},
-          dendrogram = "both",
-          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
-          breaks = seq(-8, 0, length.out = 9),
-          symbreaks = FALSE,
-          keysize = 1,
-          lhei = c(1,8),
-          key.title = NA, key.xlab = "log10(prop. reads mapped)", key.ylab = NA,
-          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
-          #labRow = as.character(rownames(vir_counts_prop_agg2_log)),
-          labCol = NA,
-          cexCol = 0.5,
-          #cexRow = 1,
-          xlab = "Samples",
-          ylab = "Predicted hosts",
-          main = NA
-)
-legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])),
-       col = cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
-dev.off()
-
 #### Network connecting phage and phage hosts
 # contig_data <- readRDS("data/contig_data.RDS")
 # contig_data_meta <- left_join(contig_data, metadata, by = c("sample"="ID"))
@@ -513,61 +473,6 @@ contig_persist_cast <- dcast(contig_persist, ID ~ Var1, sum, value.var = "value"
 rownames(contig_persist_cast) <- contig_persist_cast$ID
 contig_persist_cast <- contig_persist_cast[,names(contig_persist_cast) != "ID"]
 
-# # Phage taxonomy of persistent phages
-# contig_persist_cast <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
-#   filter(no_tp < 3) %>%
-#   filter(!is.na(vcontact_cluster)) %>%
-#   group_by(ID, vcontact_cluster) %>%
-#   summarise(sum_prop = sum(value)) %>%
-#   dcast(vcontact_cluster ~ ID, sum)
-# rownames(contig_persist_cast) <- contig_persist_cast[,1]
-# contig_persist_cast <- contig_persist_cast[,-1]
-# 
-# # Plot heatmap
-# viral_clusters_df = data.frame(row.names = rownames(contig_persist_cast),
-#                                demovir = sapply(rownames(contig_persist_cast), function(x) names(which.max(table(contig_data[which(contig_data$vcontact_cluster == x),"demovir"]))))
-# )
-# 
-# contig_persist_cast_log = as.matrix(log10(contig_persist_cast))
-# contig_persist_cast_log[is.infinite(contig_persist_cast_log)] = -8
-# 
-# tiff(file = "figures/heatplot_persistent_longitudinal.tiff", width=1500, height=2000, res = 150)
-# heatmap.2(contig_persist_cast_log,
-#           margins = c(10,10),
-#           trace = "none",
-#           scale = "none",
-#           density.info = "none",
-#           hclustfun = function(x) {hclust(x, method = "ward.D2")},
-#           dendrogram = "both",
-#           col =  c("white", brewer.pal(9, "PuRd")[3:9]),
-#           breaks = seq(min(contig_persist_cast_log), 0, length.out = 9),
-#           symbreaks = FALSE,
-#           keysize = 1,
-#           lhei = c(1,8),
-#           key.title = NA,
-#           key.xlab = "log10(prop. reads mapped)",
-#           key.ylab = NA,
-#           RowSideColors = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)][as.numeric(viral_clusters_df[rownames(contig_persist_cast_log),"demovir"])],
-#           ColSideColors = cols[as.factor(metadata[colnames(contig_persist_cast_log), "sample_type"])],
-#           labRow = NA,
-#           #labRow = gsub("NULL", "", as.character(sapply(clusters_tax[rownames(vir_counts_prop_agg_diff)], "[[", 1))),
-#           labCol = NA,
-#           cexCol = 0.5,
-#           cexRow = 0.5,
-#           xlab = "Samples",
-#           ylab = "Contig clusters",
-#           main = NA
-# )
-# legend("topright", legend = levels(factor(metadata[colnames(contig_persist_cast_log), "sample_type"])),
-#        col = cols, bg = "white", box.col = "black",
-#        lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
-# 
-# legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(viral_clusters_df[rownames(contig_persist_cast_log),"demovir"]),
-#        col = c(brewer.pal(12, "Paired"), "lightgrey")[c(10,4,5,8,12,9,7,2,13)], bg = "white", box.col = "black",
-#        lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
-# 
-# dev.off()
-
 # Run NMDS
 set.seed(1)
 nmds_persist <- metaMDS(contig_persist_cast, distance = "bray", k = 2, trymax = 20)
@@ -632,10 +537,76 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
   scale_y_continuous(limits = c(-0.5,0.5), breaks = seq(-2,2,0.5))
 dev.off()
 
+########## Host range############################
+#Re-cast counts matrix by CRISPR hosts
+vir_counts_prop_agg2 = dcast.data.table(vir_counts_prop_melt_agg2[vir_counts_prop_melt_agg2$Var2 %in% metadata$ID[metadata$Visit_Number == 1]], genus ~ Var2, value.var = "V1", fun.aggregate = sum)
+vir_counts_prop_agg2 = as.data.frame(vir_counts_prop_agg2)
+vir_counts_prop_agg2 = vir_counts_prop_agg2[!is.na(vir_counts_prop_agg2$genus),]
+rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2$genus
+vir_counts_prop_agg2 = vir_counts_prop_agg2[,-1]
+vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
+
+#Hosts heatmap
+vir_counts_prop_agg2_log = log10(vir_counts_prop_agg2)
+vir_counts_prop_agg2_log[is.infinite(vir_counts_prop_agg2_log)] = -8
+
+tiff("figures/heatplot_hosts_genus.tiff", width = 1000, height = 1500, res = 150)
+heatmap.2(vir_counts_prop_agg2_log,
+          margins = c(10,10),
+          trace = "none",
+          scale = "none",
+          hclustfun = function(x) {hclust(x, method = "ward.D2")},
+          dendrogram = "both",
+          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+          breaks = seq(-8, 0, length.out = 9),
+          symbreaks = FALSE,
+          keysize = 1,
+          lhei = c(1,8),
+          key.title = NA, key.xlab = "log10(prop. reads mapped)", key.ylab = NA,
+          ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
+          #labRow = as.character(rownames(vir_counts_prop_agg2_log)),
+          labCol = NA,
+          cexCol = 0.5,
+          #cexRow = 1,
+          xlab = "Samples",
+          ylab = "Predicted host genera",
+          main = NA
+)
+legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])),
+       col = cols, bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+dev.off()
+
+# # Recast by CRISPR species
+# vir_counts_prop_agg_sp = dcast.data.table(vir_counts_prop_melt_agg2[vir_counts_prop_melt_agg2$Var2 %in% metadata$ID[metadata$Visit_Number == 1]], species ~ Var2, value.var = "V1", fun.aggregate = sum)
+# vir_counts_prop_agg_sp = as.data.frame(vir_counts_prop_agg_sp)
+# vir_counts_prop_agg_sp = vir_counts_prop_agg_sp[!is.na(vir_counts_prop_agg_sp$species),]
+# rownames(vir_counts_prop_agg_sp) = vir_counts_prop_agg_sp$species
+# vir_counts_prop_agg_sp = vir_counts_prop_agg_sp[,-1]
+# vir_counts_prop_agg_sp = as.matrix(vir_counts_prop_agg_sp)
+# vir_counts_prop_agg_sp_meta <- data.frame(ID = colnames(vir_counts_prop_agg_sp)) %>%
+#   left_join(metadata, by = "ID")
+# 
+# #Hosts heatmap
+# vir_counts_prop_agg_sp_log = log10(vir_counts_prop_agg_sp)
+# vir_counts_prop_agg_sp_log[is.infinite(vir_counts_prop_agg_sp_log)] = -8
+# 
+# ha = HeatmapAnnotation(type = vir_counts_prop_agg_sp_meta$sample_type,
+#                        col = list(type = cols),
+#                        annotation_legend_param = list(type = list(title = "Body Site")),
+#                        show_annotation_name = FALSE)
+# 
+# tiff("figures/heatplot_hosts_species.tiff", width = 2000, height = 3000, res = 300)
+# Heatmap(vir_counts_prop_agg_sp_log, na_col = "white", top_annotation = ha, name = "log10(prop. mapped reads)", show_row_names = FALSE, cluster_rows = FALSE,
+#         col = colorRamp2(c(min(vir_counts_prop_agg_sp_log, na.rm = TRUE), max(vir_counts_prop_agg_sp_log, na.rm = TRUE)),  c("#f2f2f2", "red4")),
+#         split = gsub("\\ .*", "", rownames(vir_counts_prop_agg_sp)), row_title_rot = 0, row_title_gp = gpar(fontsize = 5), show_column_names = FALSE,
+#         heatmap_legend_param = list(color_bar = "continuous"))
+# dev.off()
+
 ########## Microbial composition #########
 row.names(metaphlan) <- metaphlan$X
 metaphlan <- metaphlan[,names(metaphlan) != "X"]
-metaphlan <- metaphlan[,names(metaphlan) %in% colnames(vir_counts_prop_agg_meta)]
+metaphlan <- metaphlan[,names(metaphlan) %in% metadata$ID[metadata$Visit_Number == 1]]
 metaphlan_filter <- metaphlan[grepl("s__", row.names(metaphlan)) & !grepl("t__", row.names(metaphlan)),]
 metaphlan_filter <- metaphlan_filter[grepl("k__Bacteria", row.names(metaphlan_filter)) | 
                                        grepl("k__Archaea", row.names(metaphlan_filter)),]
@@ -664,14 +635,26 @@ ggplot(metaphlan_tsne, aes(x = tsne1, y = tsne2, fill = sample_type)) +
   xlab("Dim 1") + ylab("Dim 2")
 dev.off()
 
-# Heatmap of microbiome t-sne
+# Heatmap of microbe abundance of crispr host species
+# uniq_crispr_host_species <- unique(contig_data$species)
+# uniq_crispr_host_species <- gsub("sp. ", "sp ", uniq_crispr_host_species)
+# uniq_crispr_host_species <- gsub("_", " ", uniq_crispr_host_species)
+# uniq_crispr_host_species[uniq_crispr_host_species %in% c("Streptococcus mitis", "Streptococcus oralis", "Streptococcus pneumoniae")] <- "Streptococcus mitis oralis pneumoniae"
+# 
+# metaphlan_species <- gsub("_", " ", gsub("\\|.*", "", gsub(".*\\|s__", "", row.names(metaphlan_filter))))
+# 
+# match_ind <- c()
+# for (i in 1:length(metaphlan_species)) {
+#   if (any(grepl(metaphlan_species[i], uniq_crispr_host_species))) {
+#     match_ind <- c(match_ind, i)
+#   }
+# }
 
-# TODO
-clade <- unique(gsub("\\]", "", gsub("\\[", "", rownames(vir_counts_prop_agg2_log))))
+genera <- unique(contig_data$genus[!is.na(contig_data$genus)])
 metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_filter)))
 match_ind <- c()
 genera_split <- rep(NA, length(metaphlan_genera))
-for (i in 1:length(clade)) {
+for (i in 1:length(genera)) {
   tmp_match_ind <- grep(genera[i], metaphlan_genera)
   match_ind <- c(match_ind, tmp_match_ind)
   genera_split[tmp_match_ind] <- genera[i]
@@ -681,18 +664,41 @@ metaphlan_host <- as.matrix(metaphlan_filter[match_ind,])
 metaphlan_host_log <- log10(metaphlan_host)
 metaphlan_host_log[is.infinite(metaphlan_host_log)] <- -6
 
-# Microbe heatmap
 ha = HeatmapAnnotation(type = metaphlan_meta$sample_type,
                        col = list(type = cols),
                        annotation_legend_param = list(type = list(title = "Body Site")),
                        show_annotation_name = FALSE)
 
-tiff("figures/heatplot_microbes.tiff", width = 2000, height = 3000, res = 300)
+# metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_host)))
+tiff("figures/heatplot_metaphlan.tiff", width = 2000, height = 3000, res = 300)
 Heatmap(metaphlan_host_log, na_col = "white", top_annotation = ha, name = "log10(rel. abundance)", show_row_names = FALSE, cluster_rows = FALSE,
         col = colorRamp2(c(min(metaphlan_host_log, na.rm = TRUE), max(metaphlan_host_log, na.rm = TRUE)),  c("#f2f2f2", "red4")),
         split = genera_split, row_title_rot = 0, row_title_gp = gpar(fontsize = 5), show_column_names = FALSE,
         heatmap_legend_param = list(color_bar = "continuous"))
 dev.off()
+
+# # Heatmap of host with matching microbe
+# sp_names <- gsub("sp. ", "sp ", row.names(vir_counts_prop_agg_sp))
+# sp_names <- gsub("_", " ", sp_names)
+# sp_names[sp_names %in% c("Streptococcus mitis", "Streptococcus oralis", "Streptococcus pneumoniae")] <- "Streptococcus mitis oralis pneumoniae"
+# 
+# match_ind2 <- c()
+# for (i in 1:length(metaphlan_species)) {
+#   match_ind2 <- c(match_ind2, grep(metaphlan_species[i], sp_names))
+# }
+# vir_counts_prop_agg_sp_log_filt <- vir_counts_prop_agg_sp_log[match_ind2,]
+# 
+# ha = HeatmapAnnotation(type = vir_counts_prop_agg_sp_meta$sample_type,
+#                        col = list(type = cols),
+#                        annotation_legend_param = list(type = list(title = "Body Site")),
+#                        show_annotation_name = FALSE)
+# 
+# tiff("figures/heatplot_hosts_species.tiff", width = 2000, height = 3000, res = 300)
+# Heatmap(vir_counts_prop_agg_sp_log_filt, na_col = "white", top_annotation = ha, name = "log10(prop. mapped reads)", show_row_names = FALSE, cluster_rows = FALSE,
+#         col = colorRamp2(c(min(vir_counts_prop_agg_sp_log_filt, na.rm = TRUE), max(vir_counts_prop_agg_sp_log_filt, na.rm = TRUE)),  c("#f2f2f2", "red4")),
+#         split = gsub("\\ .*", "", rownames(vir_counts_prop_agg_sp_log_filt)), row_title_rot = 0, row_title_gp = gpar(fontsize = 5), show_column_names = FALSE,
+#         heatmap_legend_param = list(color_bar = "continuous"))
+# dev.off()
 
 
 # Procrustes analysis
@@ -1250,12 +1256,12 @@ megaphage_contigs_meta <- megaphage_contigs_meta[!is.na(megaphage_contigs_meta$c
 megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$circular,]
 
 megaphages_crispr_summary <- megaphage_contigs_meta %>%
-  group_by(sample_type, Location, Health, crispr_host) %>%
+  group_by(sample_type, Location, Health, genus) %>%
   summarise(no_crispr_hosts = n())
 
-megaphages_crispr_summary$crispr_host[is.na(megaphages_crispr_summary$crispr_host)] <- "unclassified"
+megaphages_crispr_summary$genus[is.na(megaphages_crispr_summary$genus)] <- "unclassified"
 
-crispr_names <- unique(megaphages_crispr_summary$crispr_host[megaphages_crispr_summary$crispr_host != "unclassified"])
+crispr_names <- unique(megaphages_crispr_summary$genus[megaphages_crispr_summary$genus != "unclassified"])
 qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
 crispr_colours = c(rev(unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))))
 crispr_colours <- crispr_colours[c(1:length(crispr_names))]
@@ -1263,7 +1269,7 @@ crispr_colours <- c(crispr_colours, "white")
 names(crispr_colours) <- c(crispr_names, "unclassified")
 
 tiff("figures/megaphages_crispr_host.tiff", width = 2200, height = 2000, res = 200)
-ggplot(megaphages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = crispr_host)) +
+ggplot(megaphages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = genus)) +
   geom_bar(stat = "identity", colour = "black", size = 0.1) +
   facet_grid(~ Location + Health, space = "free", scale = "free") +
   theme_classic() +
@@ -1335,16 +1341,16 @@ ggplot(metabolic_summary, aes(sample_type, per_cog, fill = functional_cats)) +
 dev.off()
 
 # Summarise functional groups for each cluster
-metabolic_cluster_summary <- megaphage_eggnog_cogs %>% group_by(crispr_host, functional_cats) %>%
+metabolic_cluster_summary <- megaphage_eggnog_cogs %>% group_by(genus, functional_cats) %>%
   summarise(n_cog = n()) %>%
-  group_by(crispr_host) %>%
+  group_by(genus) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
   mutate(per_cog = n_cog/sum_n_cog * 100)
 
 # Plot functional groups for each cluster
-metabolic_cluster_summary$crispr_host <- factor(metabolic_cluster_summary$crispr_host, levels=c("Neisseria", "Veillonella", "Centipeda", "Lachnoanaerobaculum", "Streptococcus", "Rothia", "Atopobium", "Selenomonas", NA))
+metabolic_cluster_summary$genus <- factor(metabolic_cluster_summary$genus, levels=c("Neisseria", "Veillonella", "Centipeda", "Lachnoanaerobaculum", "Streptococcus", "Rothia", "Atopobium", "Selenomonas", NA))
 tiff("figures/functional_categories_host.tiff", width = 2600, height = 1000, res = 150)
-ggplot(metabolic_cluster_summary, aes(crispr_host, per_cog, fill = functional_cats)) +
+ggplot(metabolic_cluster_summary, aes(genus, per_cog, fill = functional_cats)) +
   geom_bar(stat = "identity", colour = "black", size = 0.1) +
   scale_fill_manual("Functional Categories", values = functional_colours) +
   xlab("Predicted host") + ylab("Percentage") + theme_classic()
@@ -1362,7 +1368,7 @@ mds <- left_join(mds, megaphage_contigs, by = "name") %>%
 
 # Plot contig size and crispr host
 tiff("figures/pcoa_eggnog_crisprhost_size.tiff", width = 1000, height = 750, res = 150)
-ggplot(mds, aes(V1, V2, size = size, fill = crispr_host)) +
+ggplot(mds, aes(V1, V2, size = size, fill = genus)) +
   theme_classic() + geom_point(pch = 21, alpha = 0.7) +
   scale_fill_brewer("Predicted host", palette = "Set2",
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
