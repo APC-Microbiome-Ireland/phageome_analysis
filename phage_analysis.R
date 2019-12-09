@@ -649,7 +649,7 @@ dev.off()
 #   }
 # }
 
-genera <- unique(contig_data$genus[!is.na(contig_data$genus)])
+genera <- unique(contig_data$crispr_host[!is.na(contig_data$crispr_host)])
 metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_filter)))
 match_ind <- c()
 genera_split <- rep(NA, length(metaphlan_genera))
