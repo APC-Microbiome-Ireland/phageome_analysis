@@ -134,17 +134,16 @@ crispr_hits$sname = gsub("UNVERIFIED: ", "", crispr_hits$sname)
 crispr_hits$sname = gsub("TPA: ", "", crispr_hits$sname)
 crispr_hits$sname = gsub("Candidatus ", "", crispr_hits$sname)
 crispr_hits$sname = gsub("^complete chromosome ", "", crispr_hits$sname)
-crispr_hits$genus =
-  sapply(strsplit(as.character(crispr_hits$sname), split = " "), "[[", 2) #Check manually!
+crispr_host_species <- gsub("\\]", "", gsub(".*\\[", "", crispr_hits$sname))
+crispr_hits$crispr_host <- gsub(" .*", "", crispr_host_species)
 
-crispr_summary <- crispr_hits %>% group_by(sseqid, genus) %>%
+crispr_summary <- crispr_hits %>% group_by(sseqid, crispr_host) %>%
   summarise(sum_bitscore = sum(bitscore)) %>%
   group_by(sseqid) %>%
   filter(sum_bitscore == max(sum_bitscore)) %>%
   select(-sum_bitscore)
 
-contig_data <- left_join(contig_data, crispr_summary, by = c("name"="sseqid")) %>%
-  rename(crispr_host = genus)
+contig_data <- left_join(contig_data, crispr_summary, by = c("name"="sseqid"))
 
 
 
