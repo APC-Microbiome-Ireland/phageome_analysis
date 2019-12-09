@@ -538,10 +538,15 @@ dev.off()
 
 ########## Host range############################
 #Re-cast counts matrix by CRISPR hosts
-vir_counts_prop_agg2 = dcast.data.table(vir_counts_prop_melt_agg2[vir_counts_prop_melt_agg2$Var2 %in% metadata$ID[metadata$Visit_Number == 1]], genus ~ Var2, value.var = "V1", fun.aggregate = sum)
+perc_crispr_host <- sum(!is.na(contig_data$crispr_host))/nrow(contig_data) * 100
+unique(vir_counts_prop_melt_agg2$crispr_host)
+not_genera <- c(NA, "Lachnospiraceae", "Bacteroidetes")
+vir_counts_prop_agg2 = dcast.data.table(vir_counts_prop_melt_agg2[vir_counts_prop_melt_agg2$Var2 %in% metadata$ID[metadata$Visit_Number == 1] & 
+                                                                                                                    !(vir_counts_prop_melt_agg2$crispr_host %in% not_genera),], 
+                                        crispr_host ~ Var2, value.var = "V1", fun.aggregate = sum)
 vir_counts_prop_agg2 = as.data.frame(vir_counts_prop_agg2)
-vir_counts_prop_agg2 = vir_counts_prop_agg2[!is.na(vir_counts_prop_agg2$genus),]
-rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2$genus
+vir_counts_prop_agg2 = vir_counts_prop_agg2[!is.na(vir_counts_prop_agg2$crispr_host),]
+rownames(vir_counts_prop_agg2) = vir_counts_prop_agg2$crispr_host
 vir_counts_prop_agg2 = vir_counts_prop_agg2[,-1]
 vir_counts_prop_agg2 = as.matrix(vir_counts_prop_agg2)
 
@@ -650,6 +655,7 @@ dev.off()
 # }
 
 genera <- unique(contig_data$crispr_host[!is.na(contig_data$crispr_host)])
+genera <- genera[!genera %in% c(NA, "Lachnospiraceae", "Bacteroidetes")]
 metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_filter)))
 match_ind <- c()
 genera_split <- rep(NA, length(metaphlan_genera))
