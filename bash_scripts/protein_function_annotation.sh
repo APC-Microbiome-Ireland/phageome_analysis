@@ -4,7 +4,7 @@
 prodigal -i ../data/megaphage_contigs.fasta -f gff -o ../data/megaphage_contigs_prodigal.gff -a ../data/megaphage_contigs_translations.faa -d ../data/megaphage_contigs_genes.fna -p meta
 
 # remove trailing white space
-sed 's/\ .*//g' megaphage_contigs_genes.fna > megaphage_contigs_genes2.fna
+sed 's/\ .*//g' ../data/megaphage_contigs_translations.fna | sed 's/\*//g' > ../data/megaphage_contigs_translations2.faa
 
 # DIAMOND (v0.38.5) against RefSeq (downloaded 3rd September 2019)
 diamond makedb --in nr.gz -d nr
