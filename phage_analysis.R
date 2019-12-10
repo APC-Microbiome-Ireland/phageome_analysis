@@ -416,8 +416,10 @@ contig_count_tp_summary <- left_join(contig_count_tp_summary, contig_one, by = c
 
 # Plot
 tiff("figures/longitudinal_contig_count.tiff", height = 400, width = 1100, res = 100)
+set.seed(1)
 ggplot(contig_count_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_type)) +
   geom_boxplot() +
+  geom_jitter() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of contigs in at least x time points") +
   theme(strip.background = element_blank(), strip.text.x = element_blank()) +
