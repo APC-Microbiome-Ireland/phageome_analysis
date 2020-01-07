@@ -6,10 +6,8 @@ library(dplyr)
 library(igraph)
 
 ########## Read in metadata and define parameters ####
+metadata_contigs <- read.csv("../data/metadata_andrey.csv", stringsAsFactors = FALSE)
 metadata = read.csv("../data/metadata_v2.csv", stringsAsFactors = FALSE)
-rownames(metadata) = metadata$ID
-metadata$Health[metadata$Health == "unhealthy" & metadata$Location == "China"] <- "rheumatoid arthritis"
-metadata$Location_Health <- paste(metadata$Location, "-", metadata$Health)
 
 # Body site colours
 cols <- brewer.pal(11, "Spectral")[c(2, 4, 9, 10, 11)]
@@ -39,7 +37,6 @@ contig_data = data.frame(
   ribo_prot_count = 0,
   pvogs_count = 0,
   integrase = FALSE,
-  vcontact_cluster = NA,
   sample = NA,
   country = NA
 )
@@ -53,8 +50,7 @@ ribo_prot_count = read.table("../data/ribosomal_prot_counts.txt", header=FALSE)
 rownames(ribo_prot_count) = as.character(ribo_prot_count$V2)
 pvogs_count = read.table("../data/pvogs_counts_per_contig.txt", header=FALSE)
 rownames(pvogs_count) = as.character(pvogs_count$V2)
-vcontact = read.table("../data/new_clusters_vcontact_w_taxa.txt", header=TRUE, sep = "\t")
-rownames(vcontact) = as.character(vcontact$contig_ID)
+vcontact = read.csv("../data/genome_by_genome_overview.csv")
 integrase = read.table("../data/integrase_contigs.ids", header=FALSE)
 contig_data[rownames(contig_data) %in% circular$V1,"circular"] = TRUE
 contig_data[rownames(contig_data) %in% integrase$V1,"integrase"] = TRUE
@@ -89,7 +85,9 @@ contig_data$crasslike = as.factor(contig_data$crasslike)
 
 contig_data$ribo_prot_count = ribo_prot_count[rownames(contig_data), "V1"]
 contig_data$pvogs_count = pvogs_count[rownames(contig_data), "V1"]
-contig_data$vcontact_cluster = vcontact[rownames(contig_data), "Cluster_id"]
+
+contig_data <- left_join(contig_data, vcontact[,c("Genome", "VC.Subcluster")], by = c("name"="Genome")) %>%
+  rename(vcontact_cluster = VC.Subcluster)
 
 country = read.table("../data/sample_countries.txt")
 rownames(country) = country$V2
@@ -99,11 +97,7 @@ contig_data$sample = sapply(strsplit(as.character(contig_data$name), split = "_"
 #  as.character(sapply(contig_data[contig_data$sample %in% unlist(merged_samples), "sample"],
 #                      function(x) merged_samples[[grep(x, merged_samples)]][1]))
 
-contig_data$country = metadata[contig_data$sample,"Location"]
-contig_data[which((is.na(contig_data$country))),"country"] =
-  country[contig_data[which((is.na(contig_data$country))),"sample"],"V1"]
-
-#Filter contigs based on number of ribosomal protein hits and pVOGs
+contig_data$country = country[contig_data$sample,"V1"]
 contig_data[is.na(contig_data$ribo_prot_count), "ribo_prot_count"] = 0
 contig_data[is.na(contig_data$pvogs_count), "pvogs_count"] = 0
 #contig_data = contig_data[which(contig_data$ribo_prot_count <= 3),]
@@ -149,16 +143,16 @@ contig_data <- left_join(contig_data, crispr_summary, by = c("name"="sseqid"))
 
 
 ########## Taxonomy from co-clustering with RefSeq ####
-clusters_tax = list()
-for(i in unique(as.character(contig_data$vcontact_cluster))) {
-  tax_string = as.character(vcontact[which(vcontact$Cluster_id == i),"Taxonomy"])
-  if(length(tax_string[!is.na(tax_string)]) > 0) {
-    clusters_tax[[i]] = tax_string[!is.na(tax_string)]
-  }
-}
-sink("clusters_taxonomy.txt")
-print(clusters_tax)
-sink()
+# clusters_tax = list()
+# for(i in unique(as.character(contig_data$vcontact_cluster))) {
+#   tax_string = as.character(vcontact[which(vcontact$VC.Subcluster == i),"Taxonomy"])
+#   if(length(tax_string[!is.na(tax_string)]) > 0) {
+#     clusters_tax[[i]] = tax_string[!is.na(tax_string)]
+#   }
+# }
+# sink("clusters_taxonomy.txt")
+# print(clusters_tax)
+# sink()
 
 #Dereplicate contigs according to the set used in read alignment step
 contig_data <- contig_data[!duplicated(contig_data$name),]
@@ -168,72 +162,28 @@ rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
    pvogs_count,vcontact,crispr_hits2)
 contig_data <- data.table(contig_data)
 
-########## Remove spurious jumbophages ####
-#Contigs over 200kb
-megaphage_contigs = contig_data[which(contig_data$size >= 200000),]
-#Circular genomes
-megaphage_contigs_circ = megaphage_contigs[which(megaphage_contigs$circular),]
-#Extract sub-graph
-vcontact_sig = fread("../data/cc_sig1.0_mcl1.5.ntw")
-vcontact_sig_megaph = vcontact_sig[V1 %in% megaphage_contigs$name & V2 %in% megaphage_contigs$name]
-#Only contigs connected with a circular genome
-vcontact_sig_megaph = vcontact_sig_megaph[V1 %in% megaphage_contigs_circ$name | V2 %in% megaphage_contigs_circ$name]
-#Remove vertices connected with < 2 edges
-vcontact_sig_megaph = vcontact_sig_megaph[V1 %in% names(which(table(vcontact_sig_megaph$V1)>1)) & V2 %in% names(which(table(vcontact_sig_megaph$V1)>1))]
-#Update megaphage contigs dataframe
-megaphage_contigs = megaphage_contigs[megaphage_contigs$name %in% unique(vcontact_sig_megaph$V1),]
-rm(megaphage_contigs_circ)
-vcontact_igraph = igraph::graph.data.frame(vcontact_sig_megaph, directed = FALSE, vertices = megaphage_contigs)
-#E(vcontact_igraph)$weight = E(vcontact_igraph)$V3
-#E(vcontact_igraph)$width = E(vcontact_igraph)$V3/10
-vcontact_igraph = simplify(vcontact_igraph)
-#graph_layout = layout_with_kk(vcontact_igraph)
-graph_layout = layout_with_fr(vcontact_igraph)
-
-nclusters = length(levels(as.factor(V(vcontact_igraph)$vcontact_cluster)))
-rand_colours =
-  colorRampPalette(c(brewer.pal(8, "Spectral"),brewer.pal(8, "RdBu"), brewer.pal(8, "Dark2")))(nclusters)
-rand_colours = rand_colours[sample(1:nclusters, nclusters)]
-rand_colours = rand_colours[as.numeric(as.factor(V(vcontact_igraph)$vcontact_cluster))]
-
-labels_clusters = paste(as.character(sapply(clusters_tax[V(vcontact_igraph)$vcontact_cluster], "[[", 1)),
-                        V(vcontact_igraph)$crispr_host)
-labels_clusters = gsub("NULL", "", labels_clusters)
-labels_clusters = gsub("NA", "", labels_clusters)
-labels_clusters[labels_clusters != " "] = paste(V(vcontact_igraph)$vcontact_cluster[labels_clusters != " "], labels_clusters[labels_clusters != " "])
-labels_clusters = gsub("  ", " ", labels_clusters)
-
-write.table(megaphage_contigs, file = "../data/megaphage_contigs.txt")
-
-# Remove jumbophages that are not viral from contig data
-contig_ids <- contig_ids[contig_ids %in% megaphage_contigs$name | as.numeric(sapply(strsplit(contig_ids, split = "_"), "[[", 5)) <= 2e5]
-contig_data <- contig_data[contig_data$name %in% megaphage_contigs$name | contig_data$size < 200000,]
-
 saveRDS(contig_data,  file = "../data/contig_data.RDS")
 write.table(contig_data, file = "../data/contig_data.txt")
 
-
-
-
-########## Contig scatterplot ####
-contig_scatter_demovir = ggplot(contig_data, aes(x = size, y = coverage, fill = demovir, shape = circular, size = circular)) +
-  theme_classic() +
-  geom_point(alpha = 0.7) +
-  scale_x_log10(
-    breaks = scales::trans_breaks("log10", function(x) 10^x),
-    labels = scales::trans_format("log10", scales::math_format(10^.x))
-  ) +
-  scale_y_log10(
-    breaks = scales::trans_breaks("log10", function(x) 10^x),
-    labels = scales::trans_format("log10", scales::math_format(10^.x))
-  ) + annotation_logticks() +
-  scale_fill_manual(values = c(brewer.pal(12, "Paired")[c(1,2,4,5,7,8,9,10,12)], "lightgray"),
-                    guide = guide_legend(override.aes = list(shape = 21, size = 3),
-                                         keyheight = 0.3, default.unit = "cm", ncol = 2)) +
-  scale_size_manual(values = c(1,3)) + scale_shape_manual(values = c(22,21)) +
-  theme(legend.position = "bottom") +
-  xlab("Size, bp") + ylab("Coverage, x") +
-  facet_wrap(~integrase, nrow = 2)
+# ########## Contig scatterplot
+# contig_scatter_demovir = ggplot(contig_data, aes(x = size, y = coverage, fill = demovir, shape = circular, size = circular)) +
+#   theme_classic() +
+#   geom_point(alpha = 0.7) +
+#   scale_x_log10(
+#     breaks = scales::trans_breaks("log10", function(x) 10^x),
+#     labels = scales::trans_format("log10", scales::math_format(10^.x))
+#   ) +
+#   scale_y_log10(
+#     breaks = scales::trans_breaks("log10", function(x) 10^x),
+#     labels = scales::trans_format("log10", scales::math_format(10^.x))
+#   ) + annotation_logticks() +
+#   scale_fill_manual(values = c(brewer.pal(12, "Paired")[c(1,2,4,5,7,8,9,10,12)], "lightgray"),
+#                     guide = guide_legend(override.aes = list(shape = 21, size = 3),
+#                                          keyheight = 0.3, default.unit = "cm", ncol = 2)) +
+#   scale_size_manual(values = c(1,3)) + scale_shape_manual(values = c(22,21)) +
+#   theme(legend.position = "bottom") +
+#   xlab("Size, bp") + ylab("Coverage, x") +
+#   facet_wrap(~integrase, nrow = 2)
 
 
 ########## Create read data ####
@@ -251,6 +201,44 @@ vir_coverage <- vir_coverage[,names(vir_coverage) %in% metadata$ID]
 vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_ids),]
 vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_ids,]
 
+# Remove spurious jumbophages
+#Contigs over 200kb
+megaphage_contigs = contig_data[which(contig_data$size >= 200000),]
+#Circular genomes
+megaphage_contigs_circ = megaphage_contigs[which(megaphage_contigs$circular),]
+#Extract sub-graph
+vcontact_sig = fread("../data/cc_sig1.0_mcl1.5.ntw")
+vcontact_sig_megaph = vcontact_sig[V1 %in% megaphage_contigs$name & V2 %in% megaphage_contigs$name]
+#Only contigs connected with a circular genome
+vcontact_sig_megaph = vcontact_sig_megaph[V1 %in% megaphage_contigs_circ$name | V2 %in% megaphage_contigs_circ$name]
+#Remove vertices connected with < 2 edges
+vcontact_sig_megaph = vcontact_sig_megaph[V1 %in% names(which(table(vcontact_sig_megaph$V1)>1)) & V2 %in% names(which(table(vcontact_sig_megaph$V1)>1))]
+#Update megaphage contigs dataframe
+megaphage_contigs = megaphage_contigs[megaphage_contigs$name %in% unique(vcontact_sig_megaph$V1),]
+rm(megaphage_contigs_circ)
+# vcontact_igraph = igraph::graph.data.frame(vcontact_sig_megaph, directed = FALSE, vertices = megaphage_contigs)
+# vcontact_igraph = simplify(vcontact_igraph)
+# graph_layout = layout_with_fr(vcontact_igraph)
+# 
+# nclusters = length(levels(as.factor(V(vcontact_igraph)$vcontact_cluster)))
+# rand_colours =
+#   colorRampPalette(c(brewer.pal(8, "Spectral"),brewer.pal(8, "RdBu"), brewer.pal(8, "Dark2")))(nclusters)
+# rand_colours = rand_colours[sample(1:nclusters, nclusters)]
+# rand_colours = rand_colours[as.numeric(as.factor(V(vcontact_igraph)$vcontact_cluster))]
+# 
+# labels_clusters = paste(as.character(sapply(clusters_tax[V(vcontact_igraph)$vcontact_cluster], "[[", 1)),
+#                         V(vcontact_igraph)$crispr_host)
+# labels_clusters = gsub("NULL", "", labels_clusters)
+# labels_clusters = gsub("NA", "", labels_clusters)
+# labels_clusters[labels_clusters != " "] = paste(V(vcontact_igraph)$vcontact_cluster[labels_clusters != " "], labels_clusters[labels_clusters != " "])
+# labels_clusters = gsub("  ", " ", labels_clusters)
+
+write.table(megaphage_contigs, file = "../data/megaphage_contigs.txt")
+
+# Remove jumbophages that are not viral from vir_counts and vir_coverage
+vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", megaphage_contigs$name, contig_data$name[contig_data$size < 200000]),]
+vir_coverage <- vir_coverage[rownames(vir_coverage) %in% c(megaphage_contigs$name, contig_data$name[contig_data$size < 200000]),]
+
 counts_total = vir_counts["Total_reads",]
 saveRDS(counts_total, "../data/counts_total.RDS")
 
@@ -261,9 +249,9 @@ rm(vir_coverage)
 
 vir_counts_unaligned = counts_total - apply(vir_counts, 2, sum)
 vir_counts = rbind(vir_counts, vir_counts_unaligned)
+vir_counts = vir_counts[-nrow(vir_counts),]
 vir_counts_prop = apply(vir_counts, 2, function(x) x/sum(x))
 rm(vir_counts)
-vir_counts_prop = vir_counts_prop[-nrow(vir_counts_prop),]
 
 #Remove samples with missing total counts
 vir_counts_prop = vir_counts_prop[,-which(apply(vir_counts_prop, 2, function(x) any(is.na(x))))]
