@@ -532,28 +532,29 @@ dev.off()
 
 ########## Alpha-diversity and phage richness ####
 ## Functions ##
-createPairedData <- function(df_map, pair_list){
+createPairedData <- function(df_meta, pair_list){
   
   # Create groups e.g. stool vs dental
-  df_map_pairs <- data.frame()
+  df_meta_pairs <- data.frame()
   for(i in 1:length(pair_list)){
-    samples_one <- unique(df_map$Sample.name[df_map$sample_type == pair_list[[i]][1]])
-    samples_two <- unique(df_map$Sample.name[df_map$sample_type == pair_list[[i]][2]])
-    df_map_pair <- df_map[(df_map$Sample.name %in% Reduce(intersect,list(samples_one, samples_two))) & (df_map$sample_type %in% pair_list[[i]]),]
     
-    df_map_pair$group <- paste(pair_list[[i]][1], "vs.", pair_list[[i]][2])
-    if(nrow(df_map_pairs) == 0) {
-      df_map_pairs <- df_map_pair
+    samples_one <- unique(df_meta$Sample.name[df_meta$sample_type == pair_list[[i]][1]])
+    samples_two <- unique(df_meta$Sample.name[df_meta$sample_type == pair_list[[i]][2]])
+    df_meta_pair <- df_meta[(df_meta$Sample.name %in% Reduce(intersect,list(samples_one, samples_two))) & (df_meta$sample_type %in% pair_list[[i]]),]
+    
+    df_meta_pair$group <- paste(pair_list[[i]][1], "vs.", pair_list[[i]][2])
+    if(nrow(df_meta_pairs) == 0) {
+      df_meta_pairs <- df_meta_pair
     } else {
-      df_map_pairs <- rbind(df_map_pairs, df_map_pair)
+      df_meta_pairs <- rbind(df_meta_pairs, df_meta_pair)
     }
   }
   
   # Order by Location and change characters in group
-  df_map_pairs <- df_map_pairs[order(df_map_pairs$Location),]
-  df_map_pairs$group <- as.character(df_map_pairs$group)
+  df_meta_pairs <- df_meta_pairs[order(df_meta_pairs$Location),]
+  df_meta_pairs$group <- as.character(df_meta_pairs$group)
   
-  return(df_map_pairs)
+  return(df_meta_pairs)
 }
 
 runTtest <- function(df_paired){
@@ -562,12 +563,10 @@ runTtest <- function(df_paired){
   
   # T-test
   p_values <- c()
-  ttest_groups <- df_paired_richness[!duplicated(paste0(df_paired_richness$Location, 
-                                                        df_paired_richness$Health,
+  ttest_groups <- df_paired_richness[!duplicated(paste0(df_paired_richness$Location,
                                                         df_paired_richness$group)),]
   for(i in 1:nrow(ttest_groups)){
     y <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & 
-                              df_paired_richness$Health == ttest_groups$Health[i] &
                               df_paired_richness$group == ttest_groups$group[i],]
     y <- y[order(y$Sample.name),]
     type1 <- strsplit(ttest_groups$group[i], " vs. ")[[1]][1]
@@ -584,8 +583,8 @@ runTtest <- function(df_paired){
   ttest_groups$asterisk <- asterisk
   
   # Order ttest_groups
-  ttest_groups <- ttest_groups[order(ttest_groups$Location, ttest_groups$Health, ttest_groups$group),]
-  ttest_groups <- ttest_groups[,c("Location", "Health", "group", "pvalue", "asterisk")]
+  ttest_groups <- ttest_groups[order(ttest_groups$Location, ttest_groups$group),]
+  ttest_groups <- ttest_groups[,c("Location", "group", "pvalue", "asterisk")]
   return(ttest_groups)
 }
 
@@ -597,7 +596,7 @@ plotRichnessGraph <- function(df_paired_richness_group, ttest_group, cols) {
     theme_classic() +
     ylab("Phage Cluster Richness") +
     xlab("") +
-    ggtitle(paste(ttest_group$Location, ttest_group$Health, sep = " - ")) +
+    ggtitle(ttest_group$Location) +
     geom_text(data = ttest_group, aes(label=asterisk),
               x = 1.5, y = max(df_paired_richness_group$richness)+10, size = 7,
               inherit.aes = FALSE) +
@@ -611,10 +610,9 @@ plotMultipleRichnessGraphs <- function(ttest_groups, df_paired, cols){
   g <- list()
   for(i in 1:nrow(ttest_groups)){
     df_paired_richness_group <- df_paired_richness[df_paired_richness$Location == ttest_groups$Location[i] & 
-                                                     df_paired_richness$Health == ttest_groups$Health[i] &
                                                      df_paired_richness$group == ttest_groups$group[i],]
     g[[i]] <- plotRichnessGraph(df_paired_richness_group, ttest_groups[i,], cols) +
-      theme(legend.position = "none") + ylim(c(0, max(df_paired_richness$richness) + 20))
+      theme(legend.position = "none") + ylim(c(0, max(df_paired_richness$richness) + 50))
   }
   return(g)
 }
@@ -627,7 +625,7 @@ g_legend <- function(a.gplot){
 }
 
 # Join with metadata
-vir_counts_prop_melt_meta <- left_join(metadata, vir_counts_prop_melt, by = c("ID"="Var2","sample_type","Location"))
+vir_counts_prop_melt_meta <- left_join(vir_counts_prop_melt, metadata, by = c("Var2"="ID","sample_type","Location")) %>% rename(ID = Var2)
 vir_counts_prop_melt_meta <- vir_counts_prop_melt_meta[vir_counts_prop_melt_meta$Visit_Number == 1,]
 
 # Sample - phage cluster matrix
@@ -635,29 +633,26 @@ vir_cluster_counts <- dcast(vir_counts_prop_melt_meta, ID ~ vcontact_cluster, le
 rownames(vir_cluster_counts) <- vir_cluster_counts[,1]
 vir_cluster_counts <- vir_cluster_counts[,-1]
 
-# Remove samples with lower than 3 or fewer phage clusters (for subsampling)
-remove_ids <- rownames(vir_cluster_counts)[rowSums(vir_cluster_counts > 0) <= 3]
-vir_cluster_counts <- vir_cluster_counts[!rownames(vir_cluster_counts) %in% remove_ids,]
-metadata_richness <- metadata[!metadata$ID %in% remove_ids,]
+# # Remove samples with lower than quartile for
+# remove_ids <- rownames(vir_cluster_counts)[rowSums(vir_cluster_counts > 0) <= 3]
+# vir_cluster_counts <- vir_cluster_counts[!rownames(vir_cluster_counts) %in% remove_ids,]
+# metadata_richness <- metadata[!metadata$ID %in% unique(c(remove_ids, metadata$ID[!metadata$ID %in% vir_counts_prop_melt_meta$ID])),]
 
 pair_list <- list(c("stool", "dental"), c("stool", "saliva"), c("dental", "saliva"),
                   c("stool", "dorsum of tongue"), c("stool", "buccal mucosa"),
                   c("dorsum of tongue", "buccal mucosa"), c("dorsum of tongue", "dental"), c("buccal mucosa", "dental"))
-paired_metadata <- createPairedData(metadata_richness[metadata_richness$Visit_Number == 1,], pair_list)
+paired_metadata <- createPairedData(metadata[metadata$ID %in% vir_counts_prop_melt_meta$ID,], pair_list)
 
 # Get richness from matrix
-richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0)) %>%
+richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0), no_phages = rowSums(vir_cluster_counts)) %>%
   right_join(paired_metadata, by = "ID")
 
-richness_ttest <- runTtest(richness_paired)
-richness_graphs <- plotMultipleRichnessGraphs(richness_ttest, richness_paired, cols)
-richness_graphs[[length(richness_graphs)+1]] <- g_legend(plotRichnessGraph(richness_paired, richness_ttest, cols))
-
-# Plot graph
-lay <- rbind(c(1,2,3,13), c(4,5,6,13), c(7,8,9,13), c(10,11,12,13))
-tiff("figures/alpha_diversity.tiff", width = 2400, height = 2000, res = 220)
-grid.arrange(grobs = richness_graphs, layout_matrix = lay)
-dev.off()
+# For each group, remove samples with less than or equal to 100 phage contigs
+unique_groups <- unique(richness_paired$group)
+for (i in 1:length(unique_groups)) {
+  remove_samples <- richness_paired$Sample.name[(richness_paired$no_phages <= 100 & richness_paired$group %in% unique_groups[i])]
+  richness_paired <- richness_paired[!(richness_paired$Sample.name %in% remove_samples & richness_paired$group %in% unique_groups[i]),]
+}
 
 # # Subsample matrix and calculate richness
 # richness_paired_ss <- data.frame()
@@ -695,8 +690,8 @@ richness_graphs_ss <- plotMultipleRichnessGraphs(richness_ttest_ss, richness_pai
 richness_graphs_ss[[length(richness_graphs_ss)+1]] <- g_legend(plotRichnessGraph(richness_paired_ss, richness_ttest_ss, cols))
 
 # Plot graph
-lay <- rbind(c(1,2,3,13), c(4,5,6,13), c(7,8,9,13), c(10,11,12,13))
-tiff("figures/alpha_diversity_subsampled.tiff", width = 2400, height = 3000, res = 220)
+lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
+tiff("figures/alpha_diversity_subsampled.tiff", width = 2400, height = 2400, res = 220)
 grid.arrange(grobs = richness_graphs_ss, layout_matrix = lay)
 dev.off()
 
