@@ -36,12 +36,13 @@ vir_counts_prop_melt_agg <- readRDS("data/vir_counts_prop_melt_agg.RDS")
 vir_counts_prop_melt_agg2 <- readRDS("data/vir_counts_prop_melt_agg2.RDS")
 contig_data <- readRDS("data/contig_data.RDS")
 counts_total <- readRDS("data/counts_total.RDS")
-megaphage_contigs <- read.delim("data/megaphage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+jumbophage_contigs <- read.delim("data/jumbophage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
 
 # Metadata
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
 rownames(metadata) = metadata$ID
+metadata <- metadata[metadata$ID %in% unique(vir_counts_prop_melt$Var2),]
 metadata$Location_sampletype <- paste(metadata$Location, "-", metadata$sample_type)
 
 # n summary of metadata excluding longitudinal samples
@@ -141,6 +142,7 @@ tsne_plot1
 dev.off()
 
 cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(5,7)], "yellowgreen", brewer.pal(9, "YlOrRd")[c(5,7)], brewer.pal(9, "RdPu")[c(3,5)])
+names(cohort_cols) <- sort(unique(cluster_res$Location_sampletype)) 
 tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
   geom_bar(stat = "identity") +
@@ -697,13 +699,13 @@ dev.off()
 
 
 ########## Size of phages ####
-contig_data_meta <- left_join(contig_data, metadata, by = c("sample" = "ID"))
-contig_data_meta <- contig_data_meta[!is.na(contig_data_meta$sample_type),]
+contig_data_meta <- left_join(vir_counts_prop_melt, metadata, by = c("Var2"="ID","sample_type","Location")) %>% rename(ID = Var2) %>%
+  left_join(contig_data[,c("name", "circular", "size")], by = c("Var1"="name"))
 
 countSizeCat <- function(contig_data_meta, size_lower, size_upper) {
   size_summary <- contig_data_meta %>%
     group_by(sample_type) %>%
-    mutate(n_samples = n_distinct(sample)) %>% ungroup() %>%
+    mutate(n_samples = n_distinct(ID)) %>% ungroup() %>%
     filter(circular, size <= size_upper, size > size_lower) %>%
     group_by(sample_type, n_samples) %>%
     summarise(n = n_distinct(vcontact_cluster)) %>%
@@ -712,7 +714,7 @@ countSizeCat <- function(contig_data_meta, size_lower, size_upper) {
   return(size_summary)
 }
 
-sizes_lower <- c(0, 1e4, 5e4, 2e5, 3e5)
+sizes_lower <- c(0, 1e4, 5e4, 2e5)
 sizes_upper <- c(sizes_lower[-1], Inf)
 size_summary <- map2_df(.x = sizes_lower, .y = sizes_upper, .f = function(.x, .y) countSizeCat(contig_data_meta, .x, .y))
 size_summary$category <- gsub("\n<= Inf", "", size_summary$category)
@@ -725,297 +727,138 @@ ggplot(size_summary, aes(reorder(category, size_lower), n_per_sample, fill = sam
 dev.off()
 
 ########## Jumbo/mega circular phages ####
-megaphage_contigs_meta <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
-megaphage_contigs_meta$Health <- as.character(megaphage_contigs_meta$Health)
-megaphage_contigs_meta$Health[megaphage_contigs_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
-megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$Visit_Number == 1,]
-megaphage_contigs_meta <- megaphage_contigs_meta[!is.na(megaphage_contigs_meta$circular),]
-megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$circular,]
-megaphage_contigs_meta$Location_Health <- paste(megaphage_contigs_meta$Location, "-", megaphage_contigs_meta$Health)
-megaphage_contigs_meta$numeric_samplename <- as.numeric(factor(megaphage_contigs_meta$Sample.name))
-megaphage_contigs_meta$numeric_samplename[!megaphage_contigs_meta$numeric_samplename %in% unique(megaphage_contigs_meta$numeric_samplename[duplicated(megaphage_contigs_meta$numeric_samplename)])] <- NA
-megaphage_contigs_meta$numeric_samplename <- as.numeric(factor(megaphage_contigs_meta$numeric_samplename))
-megaphage_contigs_meta$numeric_samplename[is.na(megaphage_contigs_meta$numeric_samplename)] <- c((max(megaphage_contigs_meta$numeric_samplename, na.rm = TRUE)+1):(max(megaphage_contigs_meta$numeric_samplename, na.rm = TRUE)+sum(is.na(megaphage_contigs_meta$numeric_samplename))))
+jumbophage_contigs_meta <- left_join(vir_counts_prop_melt, metadata, by = c("Var2"="ID","sample_type","Location")) %>% rename(ID = Var2) %>%
+  left_join(jumbophage_contigs[,c("name", "circular", "size")], by = c("Var1"="name"))
+jumbophage_contigs_meta <- jumbophage_contigs_meta[!is.na(jumbophage_contigs_meta$circular),]
+jumbophage_contigs_meta <- jumbophage_contigs_meta[jumbophage_contigs_meta$circular,]
+jumbophage_contigs_meta$numeric_samplename <- as.numeric(factor(jumbophage_contigs_meta$Sample.name))
+jumbophage_contigs_meta$numeric_samplename[!jumbophage_contigs_meta$numeric_samplename %in% unique(jumbophage_contigs_meta$numeric_samplename[duplicated(jumbophage_contigs_meta$numeric_samplename)])] <- NA
+jumbophage_contigs_meta$numeric_samplename <- as.numeric(factor(jumbophage_contigs_meta$numeric_samplename))
+jumbophage_contigs_meta$numeric_samplename[is.na(jumbophage_contigs_meta$numeric_samplename)] <- c((max(jumbophage_contigs_meta$numeric_samplename, na.rm = TRUE)+1):(max(jumbophage_contigs_meta$numeric_samplename, na.rm = TRUE)+sum(is.na(jumbophage_contigs_meta$numeric_samplename))))
 
 # Percentage of cohorts containing a jumbophage
-megaphage_summary <- megaphage_contigs_meta %>%
-  group_by(Location, sample_type, Health) %>%
-  summarise(n_samples_megaphage = n_distinct(ID))
+jumbophage_summary <- jumbophage_contigs_meta %>%
+  filter(Visit_Number == 1) %>%
+  group_by(Location, sample_type) %>%
+  summarise(n_samples_jumbophage = n_distinct(ID))
 metadata_summary <- metadata %>%
-  group_by(Location, sample_type, Health) %>%
+  filter(Visit_Number == 1) %>%
+  group_by(Location, sample_type) %>%
   summarise(n_samples = n_distinct(ID))
-megaphage_summary <- full_join(megaphage_summary, metadata_summary, by = c("Location", "sample_type","Health")) %>%
-  mutate(perc_samples = 100*n_samples_megaphage/n_samples, Location_Health_sampletype = paste(sample_type, Location, Health, sep = "\n"))
+jumbophage_summary <- full_join(jumbophage_summary, metadata_summary, by = c("Location", "sample_type")) %>%
+  mutate(perc_samples = 100*n_samples_jumbophage/n_samples, Location_sampletype = paste(sample_type, Location, sep = "\n"))
 
 tiff("figures/jumbophage_percentage_samples.tiff", width = 1000, height = 500, res = 100)
-ggplot(megaphage_summary, aes(Location_Health_sampletype, perc_samples)) +
+ggplot(jumbophage_summary, aes(Location_sampletype, perc_samples)) +
   geom_bar(stat = "identity") +
   theme_classic() +
   xlab("Cohort") + ylab("% samples") + ylim(c(0,100))
 dev.off()
 
-label_colours <- c("blue", "orange", "turquoise", "darkgreen")
-pd <- position_dodge(0.8)
-h <- 200
-tiff("figures/jumbophage_individual.tiff", width = 2500, height = 1000, res = 200)
-ggplot(megaphage_contigs_meta, aes(sample_type, size/1000, colour = Location_Health, group = numeric_samplename)) +
-  geom_line(position=pd, colour="grey90", linetype = "dashed") +
-  geom_point(position=pd, alpha = 0.6) +
-  geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
-  theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
-  scale_y_continuous(breaks = seq(200, 800, 50)) +
-  theme(panel.grid.major.y = element_line(colour = "grey90"), 
-        axis.text.x = element_text(size = 12), 
-        axis.title = element_text(size = 16),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 16)) +
-  scale_colour_manual("Country - Health", values = label_colours) 
-dev.off()
+# Remove phage duplicates from longitudinal samples
+jumbophage_contigs_meta <- jumbophage_contigs_meta[!duplicated(paste(jumbophage_contigs_meta$Var1, jumbophage_contigs_meta$sample_type)),]
 
-tiff("figures/jumbophage_cluster.tiff", width = 2500, height = 1000, res = 200)
-ggplot(megaphage_contigs_meta, aes(sample_type, size/1000, colour = Location_Health, group = vcontact_cluster)) +
-  geom_line(position=pd, colour="grey90", linetype = "dashed") +
-  geom_point(position = pd, alpha = 0.6) +
-  geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
-  theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
-  scale_y_continuous(breaks = seq(200, 800, 50)) +
-  theme(panel.grid.major.y = element_line(colour = "grey90"), 
-        axis.text.x = element_text(size = 12), 
-        axis.title = element_text(size = 16),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 16)) +
-  scale_colour_manual("Country - Health", values = label_colours) 
-dev.off() 
+# label_colours <- c("turquoise", "darkgreen")
+# pd <- position_dodge(0.8)
+# h <- 200
+# tiff("figures/jumbophage_individual.tiff", width = 2500, height = 1000, res = 200)
+# ggplot(jumbophage_contigs_meta, aes(sample_type, size/1000, colour = Location, group = numeric_samplename)) +
+#   geom_line(position=pd, colour="grey90", linetype = "dashed") +
+#   geom_point(position=pd, alpha = 0.6) +
+#   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
+#   theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
+#   scale_y_continuous(breaks = seq(200, 800, 50)) +
+#   theme(panel.grid.major.y = element_line(colour = "grey90"), 
+#         axis.text.x = element_text(size = 12), 
+#         axis.title = element_text(size = 16),
+#         legend.text = element_text(size = 12),
+#         legend.title = element_text(size = 16)) +
+#   scale_colour_manual("Country", values = label_colours) 
+# dev.off()
+# 
+# tiff("figures/jumbophage_cluster.tiff", width = 2500, height = 1000, res = 200)
+# ggplot(jumbophage_contigs_meta, aes(sample_type, size/1000, colour = Location, group = vcontact_cluster)) +
+#   geom_line(position=pd, colour="grey90", linetype = "dashed") +
+#   geom_point(position = pd, alpha = 0.6) +
+#   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
+#   theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
+#   scale_y_continuous(breaks = seq(200, 800, 50)) +
+#   theme(panel.grid.major.y = element_line(colour = "grey90"), 
+#         axis.text.x = element_text(size = 12), 
+#         axis.title = element_text(size = 16),
+#         legend.text = element_text(size = 12),
+#         legend.title = element_text(size = 16)) +
+#   scale_colour_manual("Country", values = label_colours) 
+# dev.off()
 
-tiff("figures/circular_jumbophages.tiff", width = 2500, height = 1000, res = 250)
-ggplot(megaphage_contigs_meta, aes(sample_type, size/1000, colour = Location_Health)) +
+jumbophage_contigs_meta$sampletype_Location <- paste(jumbophage_contigs_meta$sample_type, "-", jumbophage_contigs_meta$Location)
+tiff("figures/circular_jumbophages.tiff", width = 2000, height = 1000, res = 250)
+ggplot(jumbophage_contigs_meta, aes(x = "Contigs", y = size/1000, colour = sampletype_Location)) +
   geom_jitter(alpha = 0.6, size = 2) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
-  theme_classic() + xlab("Body Site") + ylab("Circular contig size (kb)") +
+  theme_classic() + ylab("Circular contig size (kb)") + xlab("") +
   scale_y_continuous(breaks = seq(200, 800, 50)) +
   theme(panel.grid.major.y = element_line(colour = "grey90"), 
         axis.text.x = element_text(size = 12), 
         axis.title = element_text(size = 16),
         legend.text = element_text(size = 12),
         legend.title = element_text(size = 16)) +
-  scale_colour_manual("Country - Health", values = label_colours) 
-dev.off() 
+  scale_colour_manual("Body Site - Geographical Location", values = cohort_cols)
+dev.off()
 
-########## Megaphages and CRISPR hosts ####
-megaphage_contigs_meta <- left_join(metadata, megaphage_contigs, by = c("ID"= "sample", "Location"="country"))
-megaphage_contigs_meta$Health <- as.character(megaphage_contigs_meta$Health)
-megaphage_contigs_meta$Health[megaphage_contigs_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
-megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$Visit_Number == 1,]
-megaphage_contigs_meta <- megaphage_contigs_meta[!is.na(megaphage_contigs_meta$circular),]
-megaphage_contigs_meta <- megaphage_contigs_meta[megaphage_contigs_meta$circular,]
+# Jumbophage table
+jumbophage_table_cl <- jumbophage_contigs_meta %>%
+  filter(!is.na(vcontact_cluster)) %>%
+  filter(vcontact_cluster != "") %>%
+  select(size, demovir, crispr_host, Location_sampletype, vcontact_cluster) %>%
+  arrange(vcontact_cluster) %>%
+  group_by(vcontact_cluster) %>%
+  summarise_each(funs(paste(unique(.), collapse = "; ")))
+jumbophage_table_cl$crispr_host <- gsub("NA; ", "", jumbophage_table_cl$crispr_host)
+jumbophage_table_cl$crispr_host <- gsub("NA", "", jumbophage_table_cl$crispr_host)
 
-megaphages_crispr_summary <- megaphage_contigs_meta %>%
+jumbophage_table_nocl <- jumbophage_contigs_meta %>%
+  filter(is.na(vcontact_cluster) | vcontact_cluster == "") %>%
+  mutate(vcontact_cluster = "No Phage Cluster") %>%
+  select(vcontact_cluster, size, demovir, crispr_host, Location_sampletype) %>%
+  arrange(desc(size))
+jumbophage_table_nocl$crispr_host[is.na(jumbophage_table_nocl$crispr_host)] <- ""
+
+jumbophage_table <- rbind(jumbophage_table_cl, jumbophage_table_nocl)
+names(jumbophage_table) <- c("Phage Cluster", "Average Size (nt)", "Phage Family", "Predicted Host Genus", "Found in")
+
+write.csv(jumbophage_table, "data/circular_jumbophage_summary_table.csv")
+
+########## jumbophages and CRISPR hosts ####
+jumbophage_contigs_meta <- left_join(metadata, jumbophage_contigs, by = c("ID"= "sample", "Location"="country"))
+jumbophage_contigs_meta <- jumbophage_contigs_meta[jumbophage_contigs_meta$Visit_Number == 1,]
+jumbophage_contigs_meta <- jumbophage_contigs_meta[!is.na(jumbophage_contigs_meta$circular),]
+jumbophage_contigs_meta <- jumbophage_contigs_meta[jumbophage_contigs_meta$circular,]
+
+jumbophages_crispr_summary <- jumbophage_contigs_meta %>%
   group_by(sample_type, Location, Health, genus) %>%
   summarise(no_crispr_hosts = n())
 
-megaphages_crispr_summary$genus[is.na(megaphages_crispr_summary$genus)] <- "unclassified"
+jumbophages_crispr_summary$genus[is.na(jumbophages_crispr_summary$genus)] <- "unclassified"
 
-crispr_names <- unique(megaphages_crispr_summary$genus[megaphages_crispr_summary$genus != "unclassified"])
+crispr_names <- unique(jumbophages_crispr_summary$genus[jumbophages_crispr_summary$genus != "unclassified"])
 qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
 crispr_colours = c(rev(unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))))
 crispr_colours <- crispr_colours[c(1:length(crispr_names))]
 crispr_colours <- c(crispr_colours, "white")
 names(crispr_colours) <- c(crispr_names, "unclassified")
 
-tiff("figures/megaphages_crispr_host.tiff", width = 2200, height = 2000, res = 200)
-ggplot(megaphages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = genus)) +
+tiff("figures/jumbophages_crispr_host.tiff", width = 2200, height = 2000, res = 200)
+ggplot(jumbophages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = genus)) +
   geom_bar(stat = "identity", colour = "black", size = 0.1) +
   facet_grid(~ Location + Health, space = "free", scale = "free") +
   theme_classic() +
-  ylab("Number of megaphages") + xlab("Body Site") +
+  ylab("Number of jumbophages") + xlab("Body Site") +
   scale_fill_manual("Predicted host", values = crispr_colours)
 dev.off()
 
 
-########## Functional Annotation ####
 
-#### DIAMOND on NCBI NR
-megaphages_ncbi <- read.table(file="data/megaphage_proteins_diamond.out", sep = "\t", stringsAsFactors = FALSE)
-names(megaphages_ncbi) <- c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore") 
-
-# Filter by best e-value
-megaphages_ncbi <- megaphages_ncbi %>% group_by(qseqid) %>%
-  filter(evalue == min(evalue))
-
-# Read uniprotkb
-uniprot_metadata <- read.table(file="db/UNIPROTKB/uniprotkb_refseq.tab", sep = "\t", stringsAsFactors = FALSE, header = TRUE)
-
-# Remove duplicates
-uniprot_metadata_char <- uniprot_metadata[uniprot_metadata$Protein.names != "Uncharacterized protein",]
-uniprot_metadata_char <- uniprot_metadata_char[!duplicated(uniprot_metadata_char$yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X),]
-uniprot_metadata_unchar <- uniprot_metadata[uniprot_metadata$Protein.names == "Uncharacterized protein",]
-uniprot_metadata_unchar <- uniprot_metadata_unchar[!uniprot_metadata_unchar$yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X %in% uniprot_metadata_char$yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X,]
-uniprot_metadata <- rbind(uniprot_metadata_char, uniprot_metadata_unchar)
-
-megaphages_ncbi <- left_join(megaphages_ncbi, uniprot_metadata, by = c("sseqid" = "yourlist.M201909045C475328CEF75220C360D524E9D456CE3FF4D7X"))
-megaphages_ncbi <- megaphages_ncbi[!is.na(megaphages_ncbi$Entry),]
-megaphages_ncbi <- megaphages_ncbi %>% select(qseqid, sseqid, Protein.names)
-
-# Remove duplicates
-megaphages_ncbi <- megaphages_ncbi[!duplicated(megaphages_ncbi$qseqid),]
-
-#### HMMER on pVOGs
-filterBySmallestEvalue <- function(alignment_results) {
-  alignment_results_filtered <- alignment_results %>% 
-    group_by(query_name) %>%
-    filter(evalue == min(evalue)) %>%
-    ungroup()
-  return(alignment_results_filtered)
-}
-
-megaphages_pvogs <- read.table("data/megaphage_pvogs_hmm_tblout.txt", stringsAsFactors = FALSE)
-
-names(megaphages_pvogs) <- c("target_name", "target_accession", "query_name", "query_accession", "evalue", 
-                            "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
-                            "clu", "ov", "env", "dom", "rep", "inc", "description")
-megaphages_pvogs <- filterBySmallestEvalue(megaphages_pvogs)
-
-# Join descriptions
-pvogs_metadata <- read.table("db/AllvogHMMprofiles/VOGTable_singleprot.txt", stringsAsFactors = FALSE, sep = "\t", quote = "")
-megaphages_pvogs <- left_join(megaphages_pvogs, pvogs_metadata, by = c("target_name"="V1")) %>%
-  select(query_name, target_name, description = V7)
-
-#### HMMER on Pfam
-megaphages_pfam <- read.table(file="data/megaphage_proteins_pfam.out", sep = "", stringsAsFactors = F, header = FALSE, skip = 3)
-names(megaphages_pfam) <- c("query_name", "query_accession", "target_name", "target_accession", "evalue", 
-                            "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
-                            "clu", "ov", "env", "dom", "rep", "inc")
-megaphages_pfam <- filterBySmallestEvalue(megaphages_pfam)
-
-# Join descriptions
-pfam_metadata <- data.frame(ids = unique(megaphages_pfam$target_accession))
-description <- rep(NA, nrow(pfam_metadata))
-for(i in 1:nrow(pfam_metadata)) {
-  tmp <- system(paste0("grep -A2 ", pfam_metadata$ids[i], "$ db/PFAM/Pfam-A.hmm.dat"), intern = TRUE)
-  description[i] <- gsub("#=GF DE   ", "", tmp[grep("DE   ", tmp)])
-}
-pfam_metadata$description <- description
-megaphages_pfam <- left_join(megaphages_pfam, pfam_metadata, by = c("target_accession"="ids")) %>%
-  select(query_name, target_accession, description)
-
-#### HMMER on TIGRFAM (with no eggnog annotation)
-megaphages_tigrfams <- read.table(file="data/megaphage_proteins_tigrfams.out", sep = "", stringsAsFactors = FALSE, header = FALSE)
-names(megaphages_tigrfams) <- c("query_name", "query_accession", "target_name", "target_accession", "evalue", 
-                                "score", "bias", "evalue_domain", "score_domain", "bias_domain", "exp", "reg", 
-                                "clu", "ov", "env", "dom", "rep", "inc")
-megaphages_tigrfams <- filterBySmallestEvalue(megaphages_tigrfams)
-
-# Join descriptions
-tigrfams_metadata <- data.frame(ids = unique(megaphages_tigrfams$target_name))
-description <- rep(NA, nrow(tigrfams_metadata))
-for(i in 1:nrow(tigrfams_metadata)) {
-  tmp <- read.table(file = paste0("db/TIGRFAMS/", tigrfams_metadata$ids[i], ".INFO"), sep = "\t", stringsAsFactors = FALSE, header = FALSE)
-  description[i] <- gsub("DE  ", "", tmp$V1[grep("DE  ", tmp$V1)])
-}
-tigrfams_metadata$description <- description
-megaphages_tigrfams <- left_join(megaphages_tigrfams, tigrfams_metadata, by = c("target_name"="ids")) %>%
-  select(query_name, target_name, description)
-
-#### HHBLIT on largest phages
-hhblit_result <- data.frame()
-for (i in 1:length(largest_phages)) {
-  hhblit_result_tmp <- read.table(paste0("data/proteins/", largest_phages[i], ".1E-5.tab"), stringsAsFactors = FALSE)
-  hhblit_result <- rbind(hhblit_result, hhblit_result_tmp)
-}
-names(hhblit_result) <- c("query", "target", "match", "tlen", "mismatch", "gap_open", "qstart", "qend", "tstart", "tend", "eval", "score")
-hhblit_result_filter <- hhblit_result %>% group_by(query) %>%
-  filter(eval == min(eval))
-
-# uni_lookup <- fread("db/UNICLUST30/uniclust_uniprot_mapping.tsv", stringsAsFactors = FALSE)
-# uniprot_id <- rep(NA, nrow(hhblit_result_filter))
-# for (i in 1:length(uniprot_id)) {
-#   uniprot_id[i] <- uni_lookup$V2[hhblit_result_filter$target[i] + 1]
-# }
-# write.table(uniprot_id, "data/largest_phages_uniprot_ids.txt", col.names = FALSE, row.names = FALSE, quote = FALSE)
-
-uniprot_id <- read.delim("data/largest_phages_uniprot_ids.txt", stringsAsFactors = FALSE, header = FALSE)
-uniprot_lookup <- read.delim("db/UNIPROTKB/uniprot_uniclust_largest_phages_lookup.tab", stringsAsFactors = FALSE, header = TRUE, row.names = 1)
-hhblit_result_filter$Entry <- uniprot_id$V1
-megaphages_hhblit <- left_join(hhblit_result_filter, uniprot_lookup, by = "Entry") %>%
-  select(query, Entry, Protein.names)
-
-#### Combine results (in order ncbi, pvogs, pfam, tigrfam)
-header_names <- c("coding_region", "protein", "protein_description")
-names(megaphages_ncbi) <- header_names
-names(megaphages_pvogs) <- header_names
-names(megaphages_pfam) <- header_names
-names(megaphages_tigrfams) <- header_names
-names(megaphages_hhblit) <- header_names
-megaphages_proteins <- rbind(as.data.frame(megaphages_ncbi[megaphages_ncbi$protein_description != "Uncharacterized protein",]),
-                             as.data.frame(megaphages_pvogs), as.data.frame(megaphages_pfam), as.data.frame(megaphages_tigrfams),
-                             as.data.frame(megaphages_hhblit))
-
-# Check duplications sum(duplicated(megaphages_proteins$contig))
-megaphages_proteins <- megaphages_proteins[!duplicated(megaphages_proteins$coding_region),]
-
-# Extract contig id
-megaphages_proteins$contig <- sub("_[^_]+$", "", megaphages_proteins$coding_region)
-
-# Modify prodigal GFF to include protein descriptions
-prodigal_gff <- read.table("data/megaphage_contigs_prodigal.gff", stringsAsFactors = FALSE)
-prodigal_gff$coding_region <- paste0(prodigal_gff$V1, "_", gsub(".*_", "", gsub(";.*", "", prodigal_gff$V9)))
-prodigal_gff <- left_join(prodigal_gff, megaphages_proteins, by = "coding_region")
-
-# Read protein family lookup
-prot_lookup <- read.table("db/ONTOLOGIES/protein_family_lookup.txt", sep = "\t", stringsAsFactors = FALSE, header = TRUE)
-prot_lookup <- prot_lookup[order(prot_lookup$description_contains),] # Order so more unique lookups get selected
-
-prodigal_gff$Name <- rep(NA, nrow(prodigal_gff))
-prodigal_gff$Parent <- rep(NA, nrow(prodigal_gff))
-for (i in 1:nrow(prot_lookup)) {
-  tmp_inds <- grep(prot_lookup$description_contains[i], prodigal_gff$protein_description)
-  prodigal_gff$Name[tmp_inds] <- prot_lookup$name[i]
-  prodigal_gff$Parent[tmp_inds] <- prot_lookup$parent[i]
-}
-
-# Check all jumbo phages have structural proteins
-struct_prots <- prodigal_gff %>% filter(Parent == "Structural proteins")
-
-struct_prot_count <- prodigal_gff %>% group_by(V1, Parent) %>%
-  summarise(n = n()) %>%
-  filter(Parent == "Structural proteins") # All jumbophages have structural proteins making them putative phages
-
-struct_prot_list <- prodigal_gff %>%
-  filter(Parent == "Structural proteins")
-
-# Add Name and Parent to attributes
-prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$Name), 
-                          paste0(prodigal_gff$V9, "Name=hypothetical protein;"),
-                          paste0(prodigal_gff$V9, "Name=", gsub(" \\[.*", "", prodigal_gff$Name), ";"))
-prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$Parent), 
-                          paste0(prodigal_gff$V9, "Parent=None;"),
-                          paste0(prodigal_gff$V9, "Parent=", prodigal_gff$Parent, ";"))
-prodigal_gff <- prodigal_gff[,c(1:9)]
-names(prodigal_gff) <- c("seqid", "source", "type", "start", "end", "score", "strand", "phase", "attributes")
-
-# Add tRNA
-megaphages_trna <- read.table("data/megaphage_trna_clean.tab", stringsAsFactors = FALSE)
-megaphages_trna$strand <- ifelse(grepl("c", megaphages_trna$V3), "-", "+")
-megaphages_trna <- cbind(megaphages_trna, map_df(.x = gsub("c", "", gsub("\\]", "", gsub("\\[", "", megaphages_trna$V3))), 
-                                                 function(.x) {
-                                                   split <- strsplit(.x, ",")
-                                                   return(data.frame(start = as.numeric(split[[1]][1]), 
-                                                                     end = as.numeric(split[[1]][2])))
-                                                   }))
-megaphages_trna$attributes <- paste0("Name=", megaphages_trna$V2, ";")
-trna_gff <- megaphages_trna %>% mutate(source = "ARAGORN_v1.2.36", type = "tRNA", phase = 0, score = format(as.numeric(V4), nsmall=1)) %>%
-  select(seqid = V6, source, type, start, end, score, strand, phase, attributes)
-
-# Combine prodigal CDS and trna
-comb_gff <- rbind(prodigal_gff, trna_gff)
-
-# Write GFF file for largest phages
-largest_phages <- megaphage_contigs_meta$name[order(megaphage_contigs_meta$size, decreasing = TRUE)][c(1:3)]
-for (i in 1:length(largest_phages)) {
-  largest_phage_gff <- comb_gff[comb_gff$seqid == largest_phages[i],]
-  write.table(largest_phage_gff, paste0("data/", largest_phages[i], ".gff"), 
-              quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")                          
-}
 
 ######## EXTRA #########
 ########## Phages and ARGs 
@@ -1151,33 +994,33 @@ dev.off()
 
 ########## Auxilliary Metabolic Genes 
 #### EGGNOG
-megaphage_prots <- read.delim("data/megaphage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
-names(megaphage_prots) <- "query_name"
-eggnog <- read.delim("data/megaphage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
+jumbophage_prots <- read.delim("data/jumbophage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
+names(jumbophage_prots) <- "query_name"
+eggnog <- read.delim("data/jumbophage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
 names(eggnog) <- c("query_name", "seed_eggnog_ortholog", "seed_ortholog_evalue", "seed_ortholog_score", "predicted_taxonomic_group",
                    "predicted_protein_name", "gene_ontology_terms", "EC_number", "KEGG_ko", "KEGG_pathway", "KEGG_module", "KEGG_reaction",
                    "KEGG_rclass", "BRITE", "KEGG_TC", "CAZy", "BiGG_reaction", "tax_scope", "eggnog_ogs", "bestOG", "COG_functional_cat", "eggnog_description")
 
-megaphage_eggnog <- left_join(megaphage_prots, eggnog, by = "query_name")
-megaphage_eggnog$name <- sub("_[^_]+$", "", megaphage_eggnog$query_name)
-megaphage_eggnog <- left_join(megaphage_eggnog, megaphage_contigs, by = "name")
-megaphage_eggnog <- left_join(megaphage_eggnog, metadata, by = c("sample"="ID"))
+jumbophage_eggnog <- left_join(jumbophage_prots, eggnog, by = "query_name")
+jumbophage_eggnog$name <- sub("_[^_]+$", "", jumbophage_eggnog$query_name)
+jumbophage_eggnog <- left_join(jumbophage_eggnog, jumbophage_contigs, by = "name")
+jumbophage_eggnog <- left_join(jumbophage_eggnog, metadata, by = c("sample"="ID"))
 
 # Remove linear contigs
-megaphage_eggnog <- megaphage_eggnog[megaphage_eggnog$circular,]
+jumbophage_eggnog <- jumbophage_eggnog[jumbophage_eggnog$circular,]
 
 # Summarise proportion of bacterial/viral proteins
-megaphage_egng_summary <- megaphage_eggnog %>% group_by(name, tax_scope, size, Location, sample_type, Health) %>%
+jumbophage_egng_summary <- jumbophage_eggnog %>% group_by(name, tax_scope, size, Location, sample_type, Health) %>%
   summarise(tax_n = n()) %>% group_by(name, size, Location, sample_type, Health) %>%
   mutate(total_n = sum(tax_n)) %>%
   mutate(tax_perc = tax_n/total_n * 100)
-megaphage_func <- megaphage_egng_summary[!is.na(megaphage_egng_summary$tax_scope),]
-megaphage_nonviral <- megaphage_func[megaphage_func$tax_scope != "Viruses",]
+jumbophage_func <- jumbophage_egng_summary[!is.na(jumbophage_egng_summary$tax_scope),]
+jumbophage_nonviral <- jumbophage_func[jumbophage_func$tax_scope != "Viruses",]
 
 # Summarise functional groups for each cohort
-megaphage_eggnog_annot <- megaphage_eggnog[!is.na(megaphage_eggnog$seed_eggnog_ortholog),]
-megaphage_eggnog_annot <- megaphage_eggnog_annot[megaphage_eggnog_annot$COG_functional_cat != "",]
-megaphage_eggnog_cogs <- megaphage_eggnog_annot %>%
+jumbophage_eggnog_annot <- jumbophage_eggnog[!is.na(jumbophage_eggnog$seed_eggnog_ortholog),]
+jumbophage_eggnog_annot <- jumbophage_eggnog_annot[jumbophage_eggnog_annot$COG_functional_cat != "",]
+jumbophage_eggnog_cogs <- jumbophage_eggnog_annot %>%
   mutate(COG_functional_cat = strsplit(as.character(COG_functional_cat), "")) %>%
   unnest(COG_functional_cat)
 functional_cats <- c("Translation, ribosomal structure and biogenesis", "RNA processing and modification", 
@@ -1190,8 +1033,8 @@ functional_cats <- c("Translation, ribosomal structure and biogenesis", "RNA pro
                      "Coenzyme transport and metabolism", "Lipid transport and metabolism", "Inorganic ion transport and metabolism", 
                      "Secondary metabolites biosynthesis, transport and catabolism", "General function prediction only", "Function unknown")
 names(functional_cats) <- c("J", "A", "K", "L", "B", "D", "Y", "V", "T", "M", "N", "Z", "W", "U", "O", "C", "G", "E", "F", "H", "I", "P", "Q", "R", "S")
-megaphage_eggnog_cogs$functional_cats <- sapply(megaphage_eggnog_cogs$COG_functional_cat, function(x) functional_cats[names(functional_cats) == x])
-metabolic_summary <- megaphage_eggnog_cogs %>% group_by(Location, Health, sample_type, functional_cats) %>%
+jumbophage_eggnog_cogs$functional_cats <- sapply(jumbophage_eggnog_cogs$COG_functional_cat, function(x) functional_cats[names(functional_cats) == x])
+metabolic_summary <- jumbophage_eggnog_cogs %>% group_by(Location, Health, sample_type, functional_cats) %>%
   summarise(n_cog = n()) %>%
   group_by(Location, Health, sample_type) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
@@ -1213,7 +1056,7 @@ ggplot(metabolic_summary, aes(sample_type, per_cog, fill = functional_cats)) +
 dev.off()
 
 # Summarise functional groups for each cluster
-metabolic_cluster_summary <- megaphage_eggnog_cogs %>% group_by(genus, functional_cats) %>%
+metabolic_cluster_summary <- jumbophage_eggnog_cogs %>% group_by(genus, functional_cats) %>%
   summarise(n_cog = n()) %>%
   group_by(genus) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
@@ -1229,13 +1072,13 @@ ggplot(metabolic_cluster_summary, aes(genus, per_cog, fill = functional_cats)) +
 dev.off()
 
 # Group into metabolic profiles
-megaphage_cogs <- acast(megaphage_eggnog_cogs, name ~ seed_eggnog_ortholog)
-cogs_dist <- dist(megaphage_cogs, "binary")
+jumbophage_cogs <- acast(jumbophage_eggnog_cogs, name ~ seed_eggnog_ortholog)
+cogs_dist <- dist(jumbophage_cogs, "binary")
 set.seed(1)
-mds <- wcmdscale(cogs_dist, w=rep(1,nrow(megaphage_cogs)))
+mds <- wcmdscale(cogs_dist, w=rep(1,nrow(jumbophage_cogs)))
 mds <- as.data.frame(mds[,1:2])
 mds$name <- row.names(mds)
-mds <- left_join(mds, megaphage_contigs, by = "name") %>%
+mds <- left_join(mds, jumbophage_contigs, by = "name") %>%
   left_join(metadata, by = c("sample"="ID"))
 
 # Plot contig size and crispr host
