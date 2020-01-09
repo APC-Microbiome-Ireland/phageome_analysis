@@ -26,6 +26,8 @@ library(tidyr)
 library(gtable)
 library(igraph)
 library(ComplexHeatmap)
+library(viridis)
+library(ggalt)
 set.seed(1)
 
 ########## Read data, metadata and define parameters ####
@@ -49,7 +51,7 @@ metadata$Location_sampletype <- paste(metadata$Location, "-", metadata$sample_ty
 metadata_summary <- metadata %>% filter(Visit_Number == 1) %>% group_by(Location, sample_type) %>% summarise(n())
 
 # Body site colours
-cols <- brewer.pal(11, "Spectral")[c(2, 4, 9, 10, 11)]
+cols <- plasma(length(unique(metadata$sample_type)), end = 0.8)
 names(cols) <- unique(metadata$sample_type)
 
 ########## Virome composition barplots ####
@@ -101,10 +103,12 @@ clusters_samples_tsne$total_reads = as.numeric(counts_total[clusters_samples_tsn
 saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
 
 # Make t-SNE plots
+group_cols <- viridis(length(unique(clusters_samples_tsne$cluster)))
+
 # Label by cluster
 tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
-  scale_fill_manual("Group", values = brewer.pal(8, "Set2"),
+  scale_fill_manual("Group", values = group_cols,
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
@@ -141,7 +145,7 @@ tiff("figures/tsne_clusters.tiff", width = 700, height = 500, res = 150)
 tsne_plot1
 dev.off()
 
-cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(5,7)], "yellowgreen", brewer.pal(9, "YlOrRd")[c(5,7)], brewer.pal(9, "RdPu")[c(3,5)])
+cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(5,7)], "gold", brewer.pal(9, "YlOrRd")[c(5,7)], brewer.pal(9, "RdPu")[c(3,5)])
 names(cohort_cols) <- sort(unique(cluster_res$Location_sampletype)) 
 tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
@@ -203,17 +207,17 @@ heatmap.2(vir_counts_prop_agg_meta_diff_log,
           labCol = NA,
           cexCol = 0.5,
           cexRow = 0.5,
-          xlab = "Samples",
-          ylab = "Contig clusters",
+          xlab = "",
+          ylab = "Phage Clusters",
           main = NA
 )
-legend("topright", legend = levels(factor(metadata[colnames(vir_counts_prop_agg_meta_diff), "sample_type"])),
+legend(x = 0.8, y = 0.35, legend = levels(factor(metadata[colnames(vir_counts_prop_agg_meta_diff), "sample_type"])),
        col = cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Sample clusters:")
+       lty = 1, lwd = 5, cex = 0.8, title = "Sample clusters:")
 
-legend(x = -0.05, y = 0.95, xpd=TRUE, legend = levels(factor(viral_clusters_df[rownames(viral_clusters_df) %in% rownames(vir_counts_prop_agg_meta_diff),"demovir"], levels = names(demovir_cols))),
+legend(x = 0.8, y = 0.2, xpd=TRUE, legend = levels(factor(viral_clusters_df[rownames(viral_clusters_df) %in% rownames(vir_counts_prop_agg_meta_diff),"demovir"], levels = names(demovir_cols))),
        col = demovir_cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.4, title = "Taxonomy by Demovir")
+       lty = 1, lwd = 5, cex = 0.8, title = "Viral Family")
 
 dev.off()
 
@@ -233,7 +237,7 @@ vir_group_list <- lapply(vir_group_list, function(x) c(x, rep(NA, max_group_leng
 vir_group_all <- do.call(cbind, vir_group_list)
 
 tiff("figures/venn_diagram.tiff", width = 600, height = 600)
-suma2Venn(vir_group_all, zcolor = brewer.pal(length(unique_clusters), "Set2"), cexil = 1.5, cexsn = 1.4)
+suma2Venn(vir_group_all, zcolor = group_cols, cexil = 1.5, cexsn = 1.4)
 dev.off()
 
 ########## Longitudinal analysis and core phageome #########
@@ -364,13 +368,15 @@ df_nmds_persist$Location <- sapply(df_nmds_persist$ID, function(x) metadata$Loca
 df_nmds_persist$sample_type <- sapply(df_nmds_persist$ID, function(x) metadata$sample_type[metadata$ID == x])
 
 # Plot NMDS
+df_nmds_persist$Sample.name_sampletype <- paste0(df_nmds_persist$Sample.name, df_nmds_persist$sample_type)
 tiff("figures/persistent_phages.tiff", width = 2000, height = 1000, res = 200)
-ggplot(df_nmds_persist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
-  geom_point() +
-  geom_density2d(alpha=0.3) +
+ggplot(df_nmds_persist, aes(MDS1, MDS2, colour = sample_type)) +
+  geom_point(shape = 4) +
+  geom_encircle(aes(fill = Sample.name_sampletype), alpha=0.3, expand = 0) +
   theme_classic() +
   guides(fill = FALSE) +
   scale_colour_manual("body site", values = cols) +
+  scale_fill_manual(values = cols[df_nmds_persist$sample_type]) +
   scale_x_continuous(limits = c(-2,2), breaks = seq(-2,2,0.5)) + 
   scale_y_continuous(limits = c(-1.5,1.2), breaks = seq(-2,2,0.5))
 dev.off()
@@ -407,13 +413,15 @@ df_nmds_nonpersist$Location <- sapply(df_nmds_nonpersist$ID, function(x) metadat
 df_nmds_nonpersist$sample_type <- sapply(df_nmds_nonpersist$ID, function(x) metadata$sample_type[metadata$ID == x])
 
 # Plot NMDS
+df_nmds_nonpersist$Sample.name_sampletype <- paste0(df_nmds_nonpersist$Sample.name, df_nmds_nonpersist$sample_type)
 tiff("figures/transient_phages.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
   geom_point() +
-  geom_density2d(alpha=0.2) +
+  geom_encircle(aes(fill = Sample.name_sampletype), alpha=0.3, expand = 0) +
   theme_classic() +
   guides(fill = FALSE) +
   scale_colour_manual("body site", values = cols) +
+  scale_fill_manual(values = cols[df_nmds_nonpersist$sample_type]) +
   scale_x_continuous(limits = c(-1.5,1), breaks = seq(-2,2,0.5)) + 
   scale_y_continuous(limits = c(-0.5,0.5), breaks = seq(-2,2,0.5))
 dev.off()
@@ -644,6 +652,7 @@ pair_list <- list(c("stool", "dental"), c("stool", "saliva"), c("dental", "saliv
                   c("stool", "dorsum of tongue"), c("stool", "buccal mucosa"),
                   c("dorsum of tongue", "buccal mucosa"), c("dorsum of tongue", "dental"), c("buccal mucosa", "dental"))
 paired_metadata <- createPairedData(metadata[metadata$ID %in% vir_counts_prop_melt_meta$ID,], pair_list)
+paired_metadata_summary <- paired_metadata %>% group_by(Location, group, sample_type) %>% summarise(n())
 
 # Get richness from matrix
 richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0), no_phages = rowSums(vir_cluster_counts)) %>%
@@ -692,8 +701,8 @@ richness_graphs_ss <- plotMultipleRichnessGraphs(richness_ttest_ss, richness_pai
 richness_graphs_ss[[length(richness_graphs_ss)+1]] <- g_legend(plotRichnessGraph(richness_paired_ss, richness_ttest_ss, cols))
 
 # Plot graph
-lay <- rbind(c(1,2,3,10), c(4,5,6,10), c(7,8,9,10))
-tiff("figures/alpha_diversity_subsampled.tiff", width = 2400, height = 2400, res = 220)
+lay <- rbind(c(4,5,6,1,2,3), c(7,8,9,10,10,10))
+tiff("figures/alpha_diversity_subsampled.tiff", width = 4000, height = 2000, res = 220)
 grid.arrange(grobs = richness_graphs_ss, layout_matrix = lay)
 dev.off()
 
