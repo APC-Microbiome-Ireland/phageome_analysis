@@ -801,6 +801,7 @@ jumbophage_contigs_meta <- jumbophage_contigs_meta[!duplicated(paste(jumbophage_
 # dev.off()
 
 jumbophage_contigs_meta$sampletype_Location <- paste(jumbophage_contigs_meta$sample_type, "-", jumbophage_contigs_meta$Location)
+h = 200
 tiff("figures/circular_jumbophages.tiff", width = 2000, height = 1000, res = 250)
 ggplot(jumbophage_contigs_meta, aes(x = "Contigs", y = size/1000, colour = sampletype_Location)) +
   geom_jitter(alpha = 0.6, size = 2) +
@@ -834,7 +835,7 @@ jumbophage_table_nocl <- jumbophage_contigs_meta %>%
 jumbophage_table_nocl$crispr_host[is.na(jumbophage_table_nocl$crispr_host)] <- ""
 
 jumbophage_table <- rbind(jumbophage_table_cl, jumbophage_table_nocl)
-names(jumbophage_table) <- c("Phage Cluster", "Average Size (nt)", "Phage Family", "Predicted Host Genus", "Found in")
+names(jumbophage_table) <- c("Phage Cluster", "Size (nt)", "Phage Family", "Predicted Host Genus", "Found in")
 
 write.csv(jumbophage_table, "data/circular_jumbophage_summary_table.csv")
 

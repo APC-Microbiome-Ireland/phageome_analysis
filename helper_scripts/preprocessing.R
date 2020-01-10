@@ -482,3 +482,10 @@ rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
 vir_counts_prop_agg = vir_counts_prop_agg[,-1]
 vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
 saveRDS(vir_counts_prop_agg,  file = "../data/vir_counts_prop_agg.RDS")
+
+# Re-cast counts matrix by phages
+vir_counts_prop_agg_phage <- dcast.data.table(vir_counts_prop_melt, Var1 ~ Var2, value.var = "value", fun.aggregate = sum)
+rownames(vir_counts_prop_agg_phage) <- unlist(vir_counts_prop_agg_phage[,1])
+vir_counts_prop_agg_phage <- vir_counts_prop_agg_phage[,-1]
+vir_counts_prop_agg_phage <- as.matrix(vir_counts_prop_agg_phage)
+saveRDS(vir_counts_prop_agg_phage, file = "../data/vir_counts_prop_agg_phage.RDS")
