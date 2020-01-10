@@ -690,8 +690,16 @@ richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowS
   right_join(paired_metadata, by = "ID")
 
 # Alpha-diversity vs. number of contigs
-richness_paired$n_contigs <- sapply(richness_paired$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
+richness <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0), no_phages = rowSums(vir_cluster_counts)) %>%
+  right_join(metadata[metadata$ID %in% unique(paired_metadata$ID),], by = "ID")
+richness$n_contigs <- sapply(richness$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
 
+linear_mod <- lm(richness ~ n_contigs, richness)
+summary(linear_mod)
+tiff("figures/richness_ncontigs.tiff")
+plot(richness ~ n_contigs, richness, pch = 16, xlab = "No. contigs", ylab = "Phage Cluster Richness")
+abline(linear_mod, col = "red")
+dev.off()
 
 # For each group, remove samples with less than or equal to 100 phage contigs
 unique_groups <- unique(richness_paired$group)
