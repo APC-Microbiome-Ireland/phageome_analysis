@@ -34,6 +34,7 @@ set.seed(1)
 # Data
 vir_counts_prop_melt <- readRDS("data/vir_counts_prop_melt.RDS")
 vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
+vir_counts_prop_agg_phage <- readRDS("data/vir_counts_prop_agg_phage.RDS")
 vir_counts_prop_melt_agg <- readRDS("data/vir_counts_prop_melt_agg.RDS")
 vir_counts_prop_melt_agg2 <- readRDS("data/vir_counts_prop_melt_agg2.RDS")
 contig_data <- readRDS("data/contig_data.RDS")
@@ -71,12 +72,39 @@ ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_
 dev.off()
 
 ########## Virome beta-diversity###########################
-# Compute distance matrix and run t-SNE
-vir_counts_prop_agg_meta <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID]
-vir_counts_prop_agg_meta <- vir_counts_prop_agg_meta[,colnames(vir_counts_prop_agg_meta) %in% metadata$ID[metadata$Visit_Number == 1]]
+samples_with_n_phage <- vir_counts_prop_melt %>% 
+  group_by(Var1) %>%
+  summarise(n = n_distinct(Var2)) %>%
+  group_by(n) %>%
+  summarise(num_samples = n()) %>%
+  mutate(perc_samples = num_samples/sum(num_samples)*100)
 
-# T-sne
-set.seed(1)
+samples_with_n_clusters <- vir_counts_prop_melt %>% 
+  filter(vcontact_cluster != "" | !is.na(vcontact_cluster)) %>%
+  group_by(vcontact_cluster) %>%
+  summarise(n = n_distinct(Var2)) %>%
+  group_by(n) %>%
+  summarise(num_samples = n()) %>%
+  mutate(perc_samples = num_samples/sum(num_samples)*100)
+
+tiff("figures/unique_phages.tiff", width= 500, height = 500, res = 100)
+ggplot(samples_with_n_phage, aes(n, perc_samples)) +
+  geom_bar(stat="identity") + theme_classic() +
+  xlab("No. unique phages") + ylab("% samples") +
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 25)) +
+  ylim(c(0, c(max(samples_with_n_phage$perc_samples, samples_with_n_clusters$perc_samples))))
+dev.off()
+
+tiff("figures/unique_clusters.tiff", width= 500, height = 500, res = 100)
+ggplot(samples_with_n_clusters, aes(n, perc_samples)) +
+  geom_bar(stat="identity") + theme_classic() +
+  xlab("No. unique phage clusters") + ylab("% samples") + 
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 25)) +
+  ylim(c(0, c(max(samples_with_n_phage$perc_samples, samples_with_n_clusters$perc_samples))))
+dev.off()
+
+# Compute distance matrix and run t-SNE on phage clusters
+vir_counts_prop_agg_meta <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID[metadata$Visit_Number == 1]]
 cluster_counts_dist = vegdist(t(vir_counts_prop_agg_meta), method = "bray")
 clusters_samples_tsne = tsne(cluster_counts_dist)
 
@@ -86,6 +114,7 @@ rownames(clusters_samples_tsne) = colnames(vir_counts_prop_agg_meta)
 clusters_samples_tsne$ID <- rownames(clusters_samples_tsne)
 colnames(clusters_samples_tsne) = c("tsne1", "tsne2", "ID")
 clusters_samples_tsne <- left_join(clusters_samples_tsne, metadata, by = "ID")
+rownames(clusters_samples_tsne) <- clusters_samples_tsne$ID
 
 # Silhoette analysis of PAM (k-medoids)
 avg_sil <- numeric(20)
@@ -94,7 +123,7 @@ for(k in 2:(length(avg_sil)+1)) {
   avg_sil[k-1] <- mean(tmp[,3])
 }
 # Group by silhouette width
-samples_clust <- pam(cluster_counts_dist, which.max(avg_sil)+1)
+samples_clust <- pam(clusters_samples_tsne[,c("tsne1", "tsne2")], which.max(avg_sil)+1)
 
 clusters_samples_tsne$cluster = as.factor(samples_clust$cluster[clusters_samples_tsne$ID])
 clusters_samples_tsne$n_contigs <- sapply(clusters_samples_tsne$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
@@ -152,6 +181,10 @@ ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
   geom_bar(stat = "identity") +
   theme_classic() + xlab("Group") + ylab("Percentage") +
   scale_fill_manual("Body Site - Geographical Location", values = cohort_cols)
+dev.off()
+
+tiff("figures/tsne_bodysite.tiff", width = 800, height = 500, res = 150)
+tsne_plot3
 dev.off()
 
 # Set the same legend widths
@@ -538,8 +571,6 @@ plot(protest_res)
 points(protest_res, display = "target", col = "red")
 dev.off()
 
-
-
 ########## Alpha-diversity and phage richness ####
 ## Functions ##
 createPairedData <- function(df_meta, pair_list){
@@ -657,6 +688,10 @@ paired_metadata_summary <- paired_metadata %>% group_by(Location, group, sample_
 # Get richness from matrix
 richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0), no_phages = rowSums(vir_cluster_counts)) %>%
   right_join(paired_metadata, by = "ID")
+
+# Alpha-diversity vs. number of contigs
+richness_paired$n_contigs <- sapply(richness_paired$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
+
 
 # For each group, remove samples with less than or equal to 100 phage contigs
 unique_groups <- unique(richness_paired$group)
