@@ -67,11 +67,12 @@ ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
   ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg$V1, by=list(ID=vir_counts_prop_melt_agg$Var2), FUN=sum)$x))
 dev.off()
 
 ########## Virome beta-diversity###########################
+# Calculate number of samples with number of unique phages and vcontact clusters
 samples_with_n_phage <- vir_counts_prop_melt %>% 
   group_by(Var1) %>%
   summarise(n = n_distinct(Var2)) %>%
@@ -382,7 +383,7 @@ ggplot(contig_persist, aes(x = ID, y = value, fill = demovir)) + theme_classic()
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
   ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
@@ -427,7 +428,7 @@ ggplot(contig_nonpersist, aes(x = ID, y = value, fill = demovir)) + theme_classi
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
   ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
@@ -460,6 +461,9 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
 dev.off()
 
 ########## Host range############################
+# Percentage of contigs that have CRISPR hosts
+sum(!is.na(vir_counts_prop_melt$crispr_host))/nrow(vir_counts_prop_melt) * 100
+
 #Re-cast counts matrix by CRISPR hosts
 not_genera <- c(NA, "Lachnospiraceae", "Bacteroidetes")
 vir_counts_prop_agg2 = dcast.data.table(vir_counts_prop_melt_agg2[vir_counts_prop_melt_agg2$Var2 %in% metadata$ID[metadata$Visit_Number == 1] & 
@@ -489,7 +493,7 @@ heatmap.2(vir_counts_prop_agg2_log,
           lhei = c(1,8),
           key.title = NA, key.xlab = "log10(prop. reads mapped)", key.ylab = NA,
           ColSideColors = cols[as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])],
-          #labRow = as.character(rownames(vir_counts_prop_agg2_log)),
+          labRow = as.expression(lapply(rownames(vir_counts_prop_agg2_log), function(a) bquote(italic(.(a))))),
           labCol = NA,
           cexCol = 0.5,
           #cexRow = 1,
@@ -503,14 +507,18 @@ legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames
 dev.off()
 
 ########## Microbial composition #########
+metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
 row.names(metaphlan) <- metaphlan$X
 metaphlan <- metaphlan[,names(metaphlan) != "X"]
 metaphlan <- metaphlan[,names(metaphlan) %in% clusters_samples_tsne$ID]
 metaphlan <- metaphlan[,names(metaphlan) %in% metadata$ID[metadata$Visit_Number == 1]]
-metaphlan_filter <- metaphlan[grepl("s__", row.names(metaphlan)) & !grepl("t__", row.names(metaphlan)),]
+metaphlan_filter <- metaphlan[grepl("g__", row.names(metaphlan)) & !grepl("s__", row.names(metaphlan)),]
 metaphlan_filter <- metaphlan_filter[grepl("k__Bacteria", row.names(metaphlan_filter)) | 
                                        grepl("k__Archaea", row.names(metaphlan_filter)),]
+metaphlan_filter <- metaphlan_filter[!grepl("unclassified", row.names(metaphlan_filter)),]
+metaphlan_filter <- metaphlan_filter[!grepl("noname", row.names(metaphlan_filter)),]
 metaphlan_filter <- metaphlan_filter[,colSums(metaphlan_filter) != 0]
+
 metaphlan_meta <- data.frame(ID = colnames(metaphlan_filter)) %>%
   left_join(metadata, by = "ID")
 metaphlan_summary <- metaphlan_meta %>%
@@ -535,34 +543,6 @@ ggplot(metaphlan_tsne, aes(x = tsne1, y = tsne2, fill = sample_type)) +
   xlab("Dim 1") + ylab("Dim 2")
 dev.off()
 
-genera <- unique(contig_data$crispr_host[!is.na(contig_data$crispr_host)])
-genera <- genera[!genera %in% c(NA, "Lachnospiraceae", "Bacteroidetes")]
-metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_filter)))
-match_ind <- c()
-genera_split <- rep(NA, length(metaphlan_genera))
-for (i in 1:length(genera)) {
-  tmp_match_ind <- grep(genera[i], metaphlan_genera)
-  match_ind <- c(match_ind, tmp_match_ind)
-  genera_split[tmp_match_ind] <- genera[i]
-}
-genera_split <- genera_split[!is.na(genera_split)]
-metaphlan_host <- as.matrix(metaphlan_filter[match_ind,])
-metaphlan_host_log <- log10(metaphlan_host)
-metaphlan_host_log[is.infinite(metaphlan_host_log)] <- -6
-
-ha = HeatmapAnnotation(type = metaphlan_meta$sample_type,
-                       col = list(type = cols),
-                       annotation_legend_param = list(type = list(title = "Body Site")),
-                       show_annotation_name = FALSE)
-
-# metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_host)))
-tiff("figures/heatplot_metaphlan.tiff", width = 2000, height = 3000, res = 300)
-Heatmap(metaphlan_host_log, na_col = "white", top_annotation = ha, name = "log10(rel. abundance)", show_row_names = FALSE, cluster_rows = FALSE,
-        col = colorRamp2(c(min(metaphlan_host_log, na.rm = TRUE), max(metaphlan_host_log, na.rm = TRUE)),  c("#f2f2f2", "red4")),
-        split = genera_split, row_title_rot = 0, row_title_gp = gpar(fontsize = 5), show_column_names = FALSE,
-        heatmap_legend_param = list(color_bar = "continuous"))
-dev.off()
-
 # Procrustes analysis
 protest_res <- protest(clusters_samples_tsne[,c(1:2)], metaphlan_tsne[,c(1:2)], scale = TRUE)
 
@@ -570,6 +550,99 @@ tiff("figures/procrustes.tiff")
 plot(protest_res)
 points(protest_res, display = "target", col = "red")
 dev.off()
+
+# Heatmap of metaphlan
+genera <- unique(contig_data$crispr_host[!is.na(contig_data$crispr_host)])
+genera <- genera[!genera %in% c(NA, "Lachnospiraceae", "Bacteroidetes")]
+metaphlan_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_filter)))
+match_ind <- c()
+for (i in 1:length(genera)) {
+  tmp_match_ind <- grep(paste0(genera[i], "$"), metaphlan_genera)
+  match_ind <- c(match_ind, tmp_match_ind)
+}
+metaphlan_host <- as.matrix(metaphlan_filter[match_ind,])
+metaphlan_host_log <- log10(metaphlan_host)
+metaphlan_host_log[is.infinite(metaphlan_host_log)] <- -6
+rownames(metaphlan_host_log) <- gsub("\\|.*", "", gsub(".*\\|g__", "", rownames(metaphlan_host_log)))
+
+tiff("figures/heatplot_metaphlan.tiff", width = 2000, height = 3000, res = 300)
+heatmap.2(metaphlan_host_log,
+          margins = c(10,10),
+          trace = "none",
+          scale = "none",
+          hclustfun = function(x) {hclust(x, method = "ward.D2")},
+          dendrogram = "both",
+          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+          breaks = seq(-6, 2, length.out = 9),
+          symbreaks = FALSE,
+          keysize = 1,
+          lhei = c(1,8),
+          key.title = NA, key.xlab = "log10(rel. abundance)", key.ylab = NA,
+          ColSideColors = cols[as.factor(metadata[colnames(metaphlan_host_log), "sample_type"])],
+          labRow = as.expression(lapply(rownames(metaphlan_host_log), function(a) bquote(italic(.(a))))),
+          labCol = NA,
+          cexCol = 0.5,
+          #cexRow = 1,
+          xlab = "Samples",
+          ylab = "Predicted host genera",
+          main = NA
+)
+legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(metaphlan_host_log), "sample_type"])),
+       col = cols, bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+dev.off()
+
+# Plot species of genera that are abundant in all sites but only found in certain sites as phage hosts
+metaphlan_abund <- metaphlan[grepl("s__", row.names(metaphlan)) & !grepl("t__", row.names(metaphlan)),]
+metaphlan_abund <- metaphlan_abund[grepl("k__Bacteria", row.names(metaphlan_abund)) | 
+                                       grepl("k__Archaea", row.names(metaphlan_abund)),]
+metaphlan_abund <- metaphlan_abund[!grepl("unclassified", row.names(metaphlan_abund)),]
+metaphlan_abund <- metaphlan_abund[!grepl("noname", row.names(metaphlan_abund)),]
+metaphlan_abund_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_abund)))
+abund_genera <- c("Eubacterium", "Haemophilus", "Prevotella", "Streptococcus", "Veillonella")
+abund_int <- c()
+for (i in 1:length(abund_genera)) {
+  abund_ind <- unique(c(abund_ind, grep(paste0(abund_genera[i], "$"), metaphlan_abund_genera)))
+}
+metaphlan_abund <- as.matrix(metaphlan_abund[abund_ind,])
+metaphlan_abund_log <- log10(metaphlan_abund)
+metaphlan_abund_log[is.infinite(metaphlan_abund_log)] <- -6
+rownames(metaphlan_abund_log) <- gsub("_", " ", gsub(".*\\|s__", "", rownames(metaphlan_abund_log)))
+rownames(metaphlan_abund_log) <- gsub("Candidatus Prevotella conceptionensis", "Prevotella conceptionensis", rownames(metaphlan_abund_log))
+metaphlan_abund_log <- metaphlan_abund_log[order(rownames(metaphlan_abund_log)),]
+
+tiff("figures/heatplot_metaphlan_species.tiff", width = 2000, height = 4000, res = 300)
+heatmap.2(metaphlan_abund_log,
+          margins = c(10,10),
+          trace = "none",
+          scale = "none",
+          hclustfun = function(x) {hclust(x, method = "ward.D2")},
+          # reorderfun = function(d, w=order(d)) reorder(d, w),
+          Rowv = FALSE,
+          dendrogram = "column",
+          col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+          breaks = seq(-6, 2, length.out = 9),
+          symbreaks = FALSE,
+          keysize = 1,
+          lhei = c(1,8),
+          key.title = NA, key.xlab = "log10(rel. abundance)", key.ylab = NA,
+          ColSideColors = cols[as.factor(metadata[colnames(metaphlan_abund_log), "sample_type"])],
+          labRow=as.expression(lapply(rownames(metaphlan_abund_log), function(a) bquote(italic(.(a))))),
+          labCol = NA,
+          cexCol = 0.5,
+          #cexRow = 1,
+          xlab = "Samples",
+          ylab = "Predicted host species",
+          main = NA
+)
+legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(metaphlan_abund_log), "sample_type"])),
+       col = cols, bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+dev.off()
+
+# metaphlan_abund <- metaphlan_abund[!grepl("unclassified", row.names(metaphlan_abund)),]
+# metaphlan_abund <- metaphlan_abund[!grepl("noname", row.names(metaphlan_abund)),]
+metaphlan_abund <- metaphlan_abund[,colSums(metaphlan_abund) != 0]
 
 ########## Alpha-diversity and phage richness ####
 ## Functions ##
