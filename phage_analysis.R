@@ -28,6 +28,7 @@ library(igraph)
 library(ComplexHeatmap)
 library(viridis)
 library(ggalt)
+library(VennDiagram)
 set.seed(1)
 
 ########## Read data, metadata and define parameters ####
@@ -53,7 +54,7 @@ metadata_summary <- metadata %>% filter(Visit_Number == 1) %>% group_by(Location
 
 # Body site colours
 cols <- plasma(length(unique(metadata$sample_type)), end = 0.8)
-names(cols) <- unique(metadata$sample_type)
+names(cols) <- sort(unique(metadata$sample_type))
 
 ########## Virome composition barplots ####
 demovir_cols <- rev(c(brewer.pal(length(unique(vir_counts_prop_melt_agg$demovir)), "Set3")))
@@ -68,7 +69,7 @@ ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
-  ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg$V1, by=list(ID=vir_counts_prop_melt_agg$Var2), FUN=sum)$x))
+  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg$V1, by=list(ID=vir_counts_prop_melt_agg$Var2), FUN=sum)$x))
 dev.off()
 
 ########## Virome beta-diversity###########################
@@ -335,7 +336,7 @@ contig_count_tp_summary <- left_join(contig_count_tp_summary, contig_one, by = c
 # Plot
 tiff("figures/longitudinal_contig_count.tiff", height = 400, width = 1100, res = 100)
 set.seed(1)
-ggplot(contig_count_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = sample_type)) +
+ggplot(contig_count_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = as.factor(sample_type))) +
   geom_boxplot() +
   geom_jitter() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
@@ -384,7 +385,7 @@ ggplot(contig_persist, aes(x = ID, y = value, fill = demovir)) + theme_classic()
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
-  ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
+  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
 # Cast for NMDS
@@ -415,6 +416,25 @@ ggplot(df_nmds_persist, aes(MDS1, MDS2, colour = sample_type)) +
   scale_y_continuous(limits = c(-1.5,1.2), breaks = seq(-2,2,0.5))
 dev.off()
 
+# Venn diagram of shared persistent phages
+vir_pers_group_list <- sapply(unique(metadata_us$sample_type), function(x) {
+  vir_group <- unique(contig_persist$Var1[contig_persist$sample_type == x])
+  return(vir_group)
+})
+names(vir_pers_group_list) <- unique(metadata_us$sample_type)
+vir_pers_group_list <- lapply(vir_pers_group_list, function(x) c(x, rep(NA, max(sapply(vir_pers_group_list, function(y) length(y))) - length(x))))
+total_pers <- length(unique(contig_persist$Var1))
+vir_pers_overlap <- lapply(calculate.overlap(vir_pers_group_list), function(x) signif(100*length(x)/total_pers, 2))
+tiff("figures/venn_persistent.tiff")
+draw.quad.venn(area.vector = c(vir_pers_overlap$a1, vir_pers_overlap$a2, vir_pers_overlap$a3, vir_pers_overlap$a4, 
+                               vir_pers_overlap$a5, vir_pers_overlap$a6, vir_pers_overlap$a7, vir_pers_overlap$a8, 
+                               vir_pers_overlap$a9, vir_pers_overlap$a10, vir_pers_overlap$a11, vir_pers_overlap$a12, 
+                               vir_pers_overlap$a13, vir_pers_overlap$a14, vir_pers_overlap$a15), 
+               direct.area = T, category = unique(metadata_us$sample_type), 
+               fill = cols[unique(metadata_us$sample_type)],
+               alpha = rep(0.3, 4), cex = 1.2, margin = 0.1)
+dev.off()
+
 # Select nonpersistent contigs
 contig_nonpersist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
   filter(no_tp < 3)
@@ -429,7 +449,7 @@ ggplot(contig_nonpersist, aes(x = ID, y = value, fill = demovir)) + theme_classi
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
-  ylab("Proportion of mapped reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
+  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
 # Cast for NMDS
@@ -458,6 +478,25 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
   scale_fill_manual(values = cols[df_nmds_nonpersist$sample_type]) +
   scale_x_continuous(limits = c(-1.5,1), breaks = seq(-2,2,0.5)) + 
   scale_y_continuous(limits = c(-0.5,0.5), breaks = seq(-2,2,0.5))
+dev.off()
+
+# Venn diagram of shared transient phages
+vir_trans_group_list <- sapply(unique(metadata_us$sample_type), function(x) {
+  vir_group <- unique(contig_nonpersist$Var1[contig_nonpersist$sample_type == x])
+  return(vir_group)
+})
+names(vir_trans_group_list) <- unique(metadata_us$sample_type)
+vir_trans_group_list <- lapply(vir_trans_group_list, function(x) c(x, rep(NA, max(sapply(vir_trans_group_list, function(y) length(y))) - length(x))))
+total_trans <- length(unique(contig_nonpersist$Var1))
+vir_trans_overlap <- lapply(calculate.overlap(vir_trans_group_list), function(x) signif(100*length(x)/total_trans, 2))
+tiff("figures/venn_transient.tiff")
+draw.quad.venn(area.vector = c(vir_trans_overlap$a1, vir_trans_overlap$a2, vir_trans_overlap$a3, vir_trans_overlap$a4, 
+                               vir_trans_overlap$a5, vir_trans_overlap$a6, vir_trans_overlap$a7, vir_trans_overlap$a8, 
+                               vir_trans_overlap$a9, vir_trans_overlap$a10, vir_trans_overlap$a11, vir_trans_overlap$a12, 
+                               vir_trans_overlap$a13, vir_trans_overlap$a14, vir_trans_overlap$a15), 
+               direct.area = T, category = unique(metadata_us$sample_type), 
+               fill = cols[unique(metadata_us$sample_type)],
+               alpha = rep(0.3, 4), cex = 1.2, margin = 0.1)
 dev.off()
 
 ########## Host range############################
