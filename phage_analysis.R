@@ -42,6 +42,7 @@ contig_data <- readRDS("data/contig_data.RDS")
 counts_total <- readRDS("data/counts_total.RDS")
 jumbophage_contigs <- read.delim("data/jumbophage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
+jumbophage_gff <- read.csv("data/jumbophage_prodigal.gff", stringsAsFactors = FALSE)
 
 # Metadata
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
@@ -199,11 +200,6 @@ g3$widths <- g2$widths
 tiff("figures/tsne_contigs_bodysite_age_gender.tiff", width = 2400, height = 500, res = 130)
 grid.arrange(g3, g2, g4, nrow = 1)
 dev.off()
-
-########## GLM of variables###########
-glm_samples <- clusters_samples_tsne[!is.na(clusters_samples_tsne$Age),]
-glm(cluster ~ Location + sample_type + Gender + Age, family = "binomial", data = glm_samples)
-# Difficult as variables colinear
 
 ########## Differentially abundant clusters#####################
 clusters_samples_kw = apply(vir_counts_prop_agg_meta, 1, function(x) kruskal.test(x, clusters_samples_tsne$cluster)$p.value)
@@ -639,7 +635,7 @@ metaphlan_abund <- metaphlan_abund[!grepl("unclassified", row.names(metaphlan_ab
 metaphlan_abund <- metaphlan_abund[!grepl("noname", row.names(metaphlan_abund)),]
 metaphlan_abund_genera <- gsub("\\|.*", "", gsub(".*\\|g__", "", row.names(metaphlan_abund)))
 abund_genera <- c("Eubacterium", "Haemophilus", "Prevotella", "Streptococcus", "Veillonella")
-abund_int <- c()
+abund_ind <- c()
 for (i in 1:length(abund_genera)) {
   abund_ind <- unique(c(abund_ind, grep(paste0(abund_genera[i], "$"), metaphlan_abund_genera)))
 }
@@ -899,6 +895,7 @@ jumbophage_contigs_meta$numeric_samplename <- as.numeric(factor(jumbophage_conti
 jumbophage_contigs_meta$numeric_samplename[!jumbophage_contigs_meta$numeric_samplename %in% unique(jumbophage_contigs_meta$numeric_samplename[duplicated(jumbophage_contigs_meta$numeric_samplename)])] <- NA
 jumbophage_contigs_meta$numeric_samplename <- as.numeric(factor(jumbophage_contigs_meta$numeric_samplename))
 jumbophage_contigs_meta$numeric_samplename[is.na(jumbophage_contigs_meta$numeric_samplename)] <- c((max(jumbophage_contigs_meta$numeric_samplename, na.rm = TRUE)+1):(max(jumbophage_contigs_meta$numeric_samplename, na.rm = TRUE)+sum(is.na(jumbophage_contigs_meta$numeric_samplename))))
+jumbophage_contigs_meta$vcontact_cluster[jumbophage_contigs_meta$vcontact_cluster %in% ""] <- NA
 
 # Percentage of cohorts containing a jumbophage
 jumbophage_summary <- jumbophage_contigs_meta %>%
@@ -974,16 +971,15 @@ dev.off()
 # Jumbophage table
 jumbophage_table_cl <- jumbophage_contigs_meta %>%
   filter(!is.na(vcontact_cluster)) %>%
-  filter(vcontact_cluster != "") %>%
   select(size, demovir, crispr_host, Location_sampletype, vcontact_cluster) %>%
   arrange(vcontact_cluster) %>%
   group_by(vcontact_cluster) %>%
-  summarise_each(funs(paste(unique(.), collapse = "; ")))
+  summarise_each(funs(paste(unique(.), collapse = "\n")))
 jumbophage_table_cl$crispr_host <- gsub("NA; ", "", jumbophage_table_cl$crispr_host)
 jumbophage_table_cl$crispr_host <- gsub("NA", "", jumbophage_table_cl$crispr_host)
 
 jumbophage_table_nocl <- jumbophage_contigs_meta %>%
-  filter(is.na(vcontact_cluster) | vcontact_cluster == "") %>%
+  filter(is.na(vcontact_cluster)) %>%
   mutate(vcontact_cluster = "No Phage Cluster") %>%
   select(vcontact_cluster, size, demovir, crispr_host, Location_sampletype) %>%
   arrange(desc(size))
@@ -994,36 +990,39 @@ names(jumbophage_table) <- c("Phage Cluster", "Size (nt)", "Phage Family", "Pred
 
 write.csv(jumbophage_table, "data/circular_jumbophage_summary_table.csv")
 
-########## jumbophages and CRISPR hosts ####
-jumbophage_contigs_meta <- left_join(metadata, jumbophage_contigs, by = c("ID"= "sample", "Location"="country"))
-jumbophage_contigs_meta <- jumbophage_contigs_meta[jumbophage_contigs_meta$Visit_Number == 1,]
-jumbophage_contigs_meta <- jumbophage_contigs_meta[!is.na(jumbophage_contigs_meta$circular),]
-jumbophage_contigs_meta <- jumbophage_contigs_meta[jumbophage_contigs_meta$circular,]
+######### GFF for Gview ####
+# Add Name and Parent to attributes
+jumbophage_gff$V9 <- ifelse(is.na(jumbophage_gff$Name),
+                          paste0(jumbophage_gff$V9, "Name=hypothetical protein;"),
+                          paste0(jumbophage_gff$V9, "Name=", gsub(" \\[.*", "", jumbophage_gff$Name), ";"))
+jumbophage_gff$V9 <- ifelse(is.na(jumbophage_gff$Parent),
+                          paste0(jumbophage_gff$V9, "Parent=None;"),
+                          paste0(jumbophage_gff$V9, "Parent=", jumbophage_gff$Parent, ";"))
+jumbophage_gff <- jumbophage_gff[,c(1:9)]
+names(jumbophage_gff) <- c("seqid", "source", "type", "start", "end", "score", "strand", "phase", "attributes")
 
-jumbophages_crispr_summary <- jumbophage_contigs_meta %>%
-  group_by(sample_type, Location, Health, genus) %>%
-  summarise(no_crispr_hosts = n())
+# Add tRNA
+jumbophages_trna <- read.table("data/megaphage_trna_clean.tab", stringsAsFactors = FALSE)
+jumbophages_trna$strand <- ifelse(grepl("c", jumbophages_trna$V3), "-", "+")
+jumbophages_trna <- cbind(jumbophages_trna, map_df(.x = gsub("c", "", gsub("\\]", "", gsub("\\[", "", jumbophages_trna$V3))),
+                                                 function(.x) {
+                                                   split <- strsplit(.x, ",")
+                                                   return(data.frame(start = as.numeric(split[[1]][1]),
+                                                                     end = as.numeric(split[[1]][2])))
+                                                 }))
+jumbophages_trna$attributes <- paste0("Name=", jumbophages_trna$V2, ";")
+trna_gff <- jumbophages_trna %>% mutate(source = "ARAGORN_v1.2.36", type = "tRNA", phase = 0, score = format(as.numeric(V4), nsmall=1)) %>%
+  select(seqid = V6, source, type, start, end, score, strand, phase, attributes)
 
-jumbophages_crispr_summary$genus[is.na(jumbophages_crispr_summary$genus)] <- "unclassified"
+# Combine prodigal CDS and trna
+comb_gff <- rbind(jumbophage_gff, trna_gff)
 
-crispr_names <- unique(jumbophages_crispr_summary$genus[jumbophages_crispr_summary$genus != "unclassified"])
-qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual',]
-crispr_colours = c(rev(unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))))
-crispr_colours <- crispr_colours[c(1:length(crispr_names))]
-crispr_colours <- c(crispr_colours, "white")
-names(crispr_colours) <- c(crispr_names, "unclassified")
-
-tiff("figures/jumbophages_crispr_host.tiff", width = 2200, height = 2000, res = 200)
-ggplot(jumbophages_crispr_summary, aes(sample_type, no_crispr_hosts, fill = genus)) +
-  geom_bar(stat = "identity", colour = "black", size = 0.1) +
-  facet_grid(~ Location + Health, space = "free", scale = "free") +
-  theme_classic() +
-  ylab("Number of jumbophages") + xlab("Body Site") +
-  scale_fill_manual("Predicted host", values = crispr_colours)
-dev.off()
-
-
-
+# Write GFF file for largest two circular phages
+circular_jumbophages <- unique(jumbophage_contigs_meta$Var1[order(jumbophage_contigs_meta$size, decreasing = TRUE)])[c(1,2)]
+for (i in 1:length(circular_jumbophages)) {
+  write.table(comb_gff[comb_gff$seqid == circular_jumbophages[i],], paste0("data/", circular_jumbophages[i], ".gff"),
+              quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")
+}
 
 ######## EXTRA #########
 ########## Phages and ARGs 
@@ -1159,31 +1158,27 @@ dev.off()
 
 ########## Auxilliary Metabolic Genes 
 #### EGGNOG
-jumbophage_prots <- read.delim("data/jumbophage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
+jumbophage_prots <- read.delim("data/megaphage_proteins_headers.txt", stringsAsFactors = FALSE, header = FALSE)
 names(jumbophage_prots) <- "query_name"
-eggnog <- read.delim("data/jumbophage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
+eggnog <- read.delim("data/megaphage_annot.emapper.annotations", stringsAsFactors = FALSE, header = FALSE)
 names(eggnog) <- c("query_name", "seed_eggnog_ortholog", "seed_ortholog_evalue", "seed_ortholog_score", "predicted_taxonomic_group",
                    "predicted_protein_name", "gene_ontology_terms", "EC_number", "KEGG_ko", "KEGG_pathway", "KEGG_module", "KEGG_reaction",
                    "KEGG_rclass", "BRITE", "KEGG_TC", "CAZy", "BiGG_reaction", "tax_scope", "eggnog_ogs", "bestOG", "COG_functional_cat", "eggnog_description")
 
 jumbophage_eggnog <- left_join(jumbophage_prots, eggnog, by = "query_name")
 jumbophage_eggnog$name <- sub("_[^_]+$", "", jumbophage_eggnog$query_name)
-jumbophage_eggnog <- left_join(jumbophage_eggnog, jumbophage_contigs, by = "name")
-jumbophage_eggnog <- left_join(jumbophage_eggnog, metadata, by = c("sample"="ID"))
+jumbophage_eggnog_meta <- left_join(jumbophage_contigs_meta, jumbophage_eggnog, by = c("Var1"="name"))
 
-# Remove linear contigs
-jumbophage_eggnog <- jumbophage_eggnog[jumbophage_eggnog$circular,]
-
-# Summarise proportion of bacterial/viral proteins
-jumbophage_egng_summary <- jumbophage_eggnog %>% group_by(name, tax_scope, size, Location, sample_type, Health) %>%
-  summarise(tax_n = n()) %>% group_by(name, size, Location, sample_type, Health) %>%
-  mutate(total_n = sum(tax_n)) %>%
-  mutate(tax_perc = tax_n/total_n * 100)
-jumbophage_func <- jumbophage_egng_summary[!is.na(jumbophage_egng_summary$tax_scope),]
-jumbophage_nonviral <- jumbophage_func[jumbophage_func$tax_scope != "Viruses",]
+# # Summarise proportion of bacterial/viral proteins
+# jumbophage_egng_summary <- jumbophage_eggnog_meta %>% group_by(Var1, tax_scope, size, Location, sample_type) %>%
+#   summarise(tax_n = n()) %>% group_by(Var1, size, Location, sample_type) %>%
+#   mutate(total_n = sum(tax_n)) %>%
+#   mutate(tax_perc = tax_n/total_n * 100)
+# jumbophage_func <- jumbophage_egng_summary[!is.na(jumbophage_egng_summary$tax_scope),]
+# jumbophage_nonviral <- jumbophage_func[jumbophage_func$tax_scope != "Viruses",]
 
 # Summarise functional groups for each cohort
-jumbophage_eggnog_annot <- jumbophage_eggnog[!is.na(jumbophage_eggnog$seed_eggnog_ortholog),]
+jumbophage_eggnog_annot <- jumbophage_eggnog_meta[!is.na(jumbophage_eggnog_meta$seed_eggnog_ortholog),]
 jumbophage_eggnog_annot <- jumbophage_eggnog_annot[jumbophage_eggnog_annot$COG_functional_cat != "",]
 jumbophage_eggnog_cogs <- jumbophage_eggnog_annot %>%
   mutate(COG_functional_cat = strsplit(as.character(COG_functional_cat), "")) %>%
@@ -1199,9 +1194,9 @@ functional_cats <- c("Translation, ribosomal structure and biogenesis", "RNA pro
                      "Secondary metabolites biosynthesis, transport and catabolism", "General function prediction only", "Function unknown")
 names(functional_cats) <- c("J", "A", "K", "L", "B", "D", "Y", "V", "T", "M", "N", "Z", "W", "U", "O", "C", "G", "E", "F", "H", "I", "P", "Q", "R", "S")
 jumbophage_eggnog_cogs$functional_cats <- sapply(jumbophage_eggnog_cogs$COG_functional_cat, function(x) functional_cats[names(functional_cats) == x])
-metabolic_summary <- jumbophage_eggnog_cogs %>% group_by(Location, Health, sample_type, functional_cats) %>%
+metabolic_summary <- jumbophage_eggnog_cogs %>% group_by(Var1, Location, sample_type, functional_cats) %>%
   summarise(n_cog = n()) %>%
-  group_by(Location, Health, sample_type) %>%
+  group_by(Var1, Location, sample_type) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
   mutate(per_cog = n_cog/sum_n_cog * 100)
 
@@ -1213,9 +1208,9 @@ functional_colours <- functional_colours[!is.na(names(functional_colours))]
 functional_colours[names(functional_colours) == "Function unknown"] <- "white"
 
 tiff("figures/functional_categories_bodysite.tiff", width = 2500, height = 1000, res = 150)
-ggplot(metabolic_summary, aes(sample_type, per_cog, fill = functional_cats)) +
+ggplot(metabolic_summary, aes(Var1, per_cog, fill = functional_cats)) +
   geom_bar(stat = "identity", colour = "black", size = 0.1) +
-  facet_grid(~ Location + Health, space = "free", scale = "free") +
+  facet_grid(~ Location + sample_type, space = "free", scale = "free") +
   scale_fill_manual("Functional Categories", values = functional_colours) +
   xlab("Body Site") + ylab("Percentage") + theme_classic()
 dev.off()

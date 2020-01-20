@@ -1,20 +1,67 @@
 "","Phage Cluster","Size (nt)","Phage Family","Predicted Host Genus","Found in"
 "1","VC_1419_0","254595","Myoviridae","","China - saliva"
-"2","VC_1419_6","256964; 256959; 258288; 258293","Myoviridae","Neisseria","US - dental; US - dorsum of tongue; US - buccal mucosa"
-"3","VC_1655_3","253437; 249678; 254822; 248802","Myoviridae","","US - dorsum of tongue; US - buccal mucosa"
+"2","VC_1419_6","256964
+256959
+258288
+258293","Myoviridae","Neisseria","US - dental
+US - dorsum of tongue
+US - buccal mucosa"
+"3","VC_1655_3","253437
+249678
+254822
+248802","Myoviridae","","US - dorsum of tongue
+US - buccal mucosa"
 "4","VC_172_4","234839","Myoviridae","Veillonella","US - dorsum of tongue"
 "5","VC_1769_9","235695","Myoviridae","","US - dorsum of tongue"
-"6","VC_1774_10","213047; 210989; 210991","Myoviridae","","US - dorsum of tongue"
-"7","VC_1774_11","228781; 231249; 232905; 228522; 229773","Myoviridae","Veillonella","US - dorsum of tongue"
-"8","VC_2385_0","220432","Myoviridae","","US - buccal mucosa; US - dental"
-"9","VC_2385_1","228010; 228442; 228445; 228444; 225008; 228149; 227716; 227714; 229051; 227958","Myoviridae","","US - dorsum of tongue; US - buccal mucosa; US - dental"
-"10","VC_240_2","207354; 208248","Myoviridae","","US - dorsum of tongue"
-"11","VC_240_20","214576; 213596","Myoviridae","","US - buccal mucosa"
+"6","VC_1774_10","213047
+210989
+210991","Myoviridae","","US - dorsum of tongue"
+"7","VC_1774_11","228781
+231249
+232905
+228522
+229773","Myoviridae","
+Veillonella","US - dorsum of tongue"
+"8","VC_2385_0","220432","Myoviridae","","US - buccal mucosa
+US - dental"
+"9","VC_2385_1","228010
+228442
+228445
+228444
+225008
+228149
+227716
+227714
+229051
+227958","Myoviridae","","US - dorsum of tongue
+US - buccal mucosa
+US - dental"
+"10","VC_240_2","207354
+208248","Myoviridae","","US - dorsum of tongue"
+"11","VC_240_20","214576
+213596","Myoviridae","","US - buccal mucosa"
 "12","VC_240_3","203503","Myoviridae","","China - saliva"
-"13","VC_3069_2","269911; 263796; 267299","Myoviridae","","US - dorsum of tongue; US - dental"
-"14","VC_3541_1","235074; 241528; 241494; 239763; 236619; 240432; 242324; 242314; 204796; 204838","Myoviridae","","China - saliva; US - buccal mucosa; US - dorsum of tongue"
+"13","VC_3069_2","269911
+263796
+267299","Myoviridae","","US - dorsum of tongue
+US - dental"
+"14","VC_3541_1","235074
+241528
+241494
+239763
+236619
+240432
+242324
+242314
+204796
+204838","Myoviridae","","China - saliva
+US - buccal mucosa
+US - dorsum of tongue"
 "15","VC_703_1","283077","Myoviridae","","US - buccal mucosa"
-"16","VC_8794_2","244976; 243417; 245864; 245871","Myoviridae","","US - dorsum of tongue"
+"16","VC_8794_2","244976
+243417
+245864
+245871","Myoviridae","","US - dorsum of tongue"
 "17","VC_8803_5","263381","Myoviridae","","US - dental"
 "18","VC_8803_6","253246","Myoviridae","","US - dorsum of tongue"
 "19","No Phage Cluster","389119","Myoviridae","","US - dorsum of tongue"
