@@ -42,7 +42,6 @@ contig_data <- readRDS("data/contig_data.RDS")
 counts_total <- readRDS("data/counts_total.RDS")
 jumbophage_contigs <- read.delim("data/jumbophage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
-jumbophage_gff <- read.csv("data/jumbophage_prodigal.gff", stringsAsFactors = FALSE)
 
 # Metadata
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
@@ -402,7 +401,7 @@ df_nmds_persist$sample_type <- sapply(df_nmds_persist$ID, function(x) metadata$s
 df_nmds_persist$Sample.name_sampletype <- paste0(df_nmds_persist$Sample.name, df_nmds_persist$sample_type)
 tiff("figures/persistent_phages.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_persist, aes(MDS1, MDS2, colour = sample_type)) +
-  geom_point(shape = 4) +
+  geom_point(alpha = 0.5) +
   geom_encircle(aes(fill = Sample.name_sampletype), alpha=0.3, expand = 0) +
   theme_classic() +
   guides(fill = FALSE) +
@@ -466,7 +465,7 @@ df_nmds_nonpersist$sample_type <- sapply(df_nmds_nonpersist$ID, function(x) meta
 df_nmds_nonpersist$Sample.name_sampletype <- paste0(df_nmds_nonpersist$Sample.name, df_nmds_nonpersist$sample_type)
 tiff("figures/transient_phages.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
-  geom_point() +
+  geom_point(alpha = 0.5) +
   geom_encircle(aes(fill = Sample.name_sampletype), alpha=0.3, expand = 0) +
   theme_classic() +
   guides(fill = FALSE) +
@@ -990,8 +989,36 @@ names(jumbophage_table) <- c("Phage Cluster", "Size (nt)", "Phage Family", "Pred
 
 write.csv(jumbophage_table, "data/circular_jumbophage_summary_table.csv")
 
-######### GFF for Gview ####
-# Add Name and Parent to attributes
+######### Function of genes ####
+
+# Summary of functional categories
+jumbophage_gff <- read.csv("data/jumbophage_prodigal.gff", stringsAsFactors = FALSE)
+jumbophage_gff_meta <- inner_join(jumbophage_gff, jumbophage_contigs_meta, by = c("V1" = "Var1"))
+jumbophage_gff_meta$vcontact_cluster <- as.character(jumbophage_gff_meta$vcontact_cluster)
+jumbophage_gff_meta$vcontact_cluster[is.na(jumbophage_gff_meta$vcontact_cluster)] <- "No Phage Cluster"
+jumbophage_gff_meta$Parent[is.na(jumbophage_gff_meta$Parent)] <- "Hypothetical protein"
+jumbophage_gff_meta$size <- as.character(jumbophage_gff_meta$size)
+
+cat_summary <- jumbophage_gff_meta %>% group_by(size, vcontact_cluster, Parent) %>%
+  summarise(n_cog = n()) %>%
+  group_by(size, vcontact_cluster) %>%
+  mutate(sum_n_cog = sum(n_cog)) %>%
+  mutate(per_cog = n_cog/sum_n_cog * 100)
+
+unique_cat <- unique(cat_summary$Parent)
+cat_summary$Parent <- factor(cat_summary$Parent, levels = c("Hypothetical protein", sort(unique_cat[unique_cat != "Hypothetical protein"])))
+cat_cols <- c("white", "#e0a8e0", "#d6a738", "#4d4cd4", "#6ed4c0", "#f2514c", "#b64ed9")
+names(cat_cols) <- c("Hypothetical protein", sort(unique_cat[unique_cat != "Hypothetical protein"]))
+
+tiff("figures/functional_categories_cluster.tiff", width = 6500, height = 1000, res = 150)
+ggplot(cat_summary, aes(size, per_cog, fill = Parent)) +
+  geom_bar(stat = "identity", colour = "black", size = 0.1) +
+  facet_grid(~ vcontact_cluster, space = "free", scale = "free") +
+  scale_fill_manual("Functional Categories", values = cat_cols, labels = names(cat_cols)) +
+  xlab("Size (kb)") + ylab("Percentage") + theme_classic()
+dev.off()
+
+# GFF for Gview
 jumbophage_gff$V9 <- ifelse(is.na(jumbophage_gff$Name),
                           paste0(jumbophage_gff$V9, "Name=hypothetical protein;"),
                           paste0(jumbophage_gff$V9, "Name=", gsub(" \\[.*", "", jumbophage_gff$Name), ";"))
@@ -1178,9 +1205,9 @@ jumbophage_eggnog_meta <- left_join(jumbophage_contigs_meta, jumbophage_eggnog, 
 # jumbophage_nonviral <- jumbophage_func[jumbophage_func$tax_scope != "Viruses",]
 
 # Summarise functional groups for each cohort
-jumbophage_eggnog_annot <- jumbophage_eggnog_meta[!is.na(jumbophage_eggnog_meta$seed_eggnog_ortholog),]
-jumbophage_eggnog_annot <- jumbophage_eggnog_annot[jumbophage_eggnog_annot$COG_functional_cat != "",]
-jumbophage_eggnog_cogs <- jumbophage_eggnog_annot %>%
+jumbophage_eggnog_meta <- jumbophage_eggnog_meta[!is.na(jumbophage_eggnog_meta$seed_eggnog_ortholog),]
+jumbophage_eggnog_meta$COG_functional_cat[jumbophage_eggnog_meta$COG_functional_cat == ""] <- "S"
+jumbophage_eggnog_cogs <- jumbophage_eggnog_meta %>%
   mutate(COG_functional_cat = strsplit(as.character(COG_functional_cat), "")) %>%
   unnest(COG_functional_cat)
 functional_cats <- c("Translation, ribosomal structure and biogenesis", "RNA processing and modification", 
@@ -1194,9 +1221,13 @@ functional_cats <- c("Translation, ribosomal structure and biogenesis", "RNA pro
                      "Secondary metabolites biosynthesis, transport and catabolism", "General function prediction only", "Function unknown")
 names(functional_cats) <- c("J", "A", "K", "L", "B", "D", "Y", "V", "T", "M", "N", "Z", "W", "U", "O", "C", "G", "E", "F", "H", "I", "P", "Q", "R", "S")
 jumbophage_eggnog_cogs$functional_cats <- sapply(jumbophage_eggnog_cogs$COG_functional_cat, function(x) functional_cats[names(functional_cats) == x])
-metabolic_summary <- jumbophage_eggnog_cogs %>% group_by(Var1, Location, sample_type, functional_cats) %>%
+jumbophage_eggnog_cogs$vcontact_cluster <- as.character(jumbophage_eggnog_cogs$vcontact_cluster)
+jumbophage_eggnog_cogs$vcontact_cluster[is.na(jumbophage_eggnog_cogs$vcontact_cluster)] <- "No Phage Cluster"
+jumbophage_eggnog_cogs$size <- as.character(jumbophage_eggnog_cogs$size)
+
+metabolic_summary <- jumbophage_eggnog_cogs %>% group_by(size, vcontact_cluster, functional_cats) %>%
   summarise(n_cog = n()) %>%
-  group_by(Var1, Location, sample_type) %>%
+  group_by(size, vcontact_cluster) %>%
   mutate(sum_n_cog = sum(n_cog)) %>%
   mutate(per_cog = n_cog/sum_n_cog * 100)
 
@@ -1207,12 +1238,12 @@ names(functional_colours) <- functional_cats
 functional_colours <- functional_colours[!is.na(names(functional_colours))]
 functional_colours[names(functional_colours) == "Function unknown"] <- "white"
 
-tiff("figures/functional_categories_bodysite.tiff", width = 2500, height = 1000, res = 150)
-ggplot(metabolic_summary, aes(Var1, per_cog, fill = functional_cats)) +
+tiff("figures/functional_categories_bodysite.tiff", width = 2600, height = 1000, res = 150)
+ggplot(metabolic_summary, aes(size, per_cog, fill = functional_cats)) +
   geom_bar(stat = "identity", colour = "black", size = 0.1) +
-  facet_grid(~ Location + sample_type, space = "free", scale = "free") +
+  facet_grid(~ vcontact_cluster, space = "free", scale = "free") +
   scale_fill_manual("Functional Categories", values = functional_colours) +
-  xlab("Body Site") + ylab("Percentage") + theme_classic()
+  xlab("Size (kb)") + ylab("Percentage") + theme_classic()
 dev.off()
 
 # Summarise functional groups for each cluster
