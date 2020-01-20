@@ -358,6 +358,7 @@ for (i in 1:nrow(prot_lookup)) {
   prodigal_gff$Name[tmp_inds] <- prot_lookup$name[i]
   prodigal_gff$Parent[tmp_inds] <- prot_lookup$parent[i]
 }
+write.csv(prodigal_gff, "../data/jumbophage_prodigal.gff", row.names = FALSE)
 
 # Count how many structural proteins in each phage
 struct_prot_count <- prodigal_gff %>% group_by(V1, Parent) %>%
@@ -371,42 +372,12 @@ struct_prot_prev <- prodigal_gff %>%
   summarise(n = n())
 
 # Remove jumbophages without major capsid protein
-jumbophage_contigs <- jumbophage_contigs[jumbophage_contigs$name %in% unique(prodigal_gff$V1[prodigal_gff$Name == "Major capsid protein"]),]
-write.table(jumbophage_contigs, file = "../data/jumbophage_contigs.txt")
+phages_w_cp <- unique(prodigal_gff$V1[prodigal_gff$Name %in% "Major capsid protein"])
+linear_phages <- jumbophage_contigs$name[!jumbophage_contigs$circular]
+jumbophage_contigs <- jumbophage_contigs[jumbophage_contigs$name %in% unique(c(phages_w_cp, linear_phages)),]
 
-# # Add Name and Parent to attributes
-# prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$Name), 
-#                           paste0(prodigal_gff$V9, "Name=hypothetical protein;"),
-#                           paste0(prodigal_gff$V9, "Name=", gsub(" \\[.*", "", prodigal_gff$Name), ";"))
-# prodigal_gff$V9 <- ifelse(is.na(prodigal_gff$Parent), 
-#                           paste0(prodigal_gff$V9, "Parent=None;"),
-#                           paste0(prodigal_gff$V9, "Parent=", prodigal_gff$Parent, ";"))
-# prodigal_gff <- prodigal_gff[,c(1:9)]
-# names(prodigal_gff) <- c("seqid", "source", "type", "start", "end", "score", "strand", "phase", "attributes")
-# 
-# # Add tRNA
-# jumbophages_trna <- read.table("../data/jumbophage_trna_clean.tab", stringsAsFactors = FALSE)
-# jumbophages_trna$strand <- ifelse(grepl("c", jumbophages_trna$V3), "-", "+")
-# jumbophages_trna <- cbind(jumbophages_trna, map_df(.x = gsub("c", "", gsub("\\]", "", gsub("\\[", "", jumbophages_trna$V3))), 
-#                                                  function(.x) {
-#                                                    split <- strsplit(.x, ",")
-#                                                    return(data.frame(start = as.numeric(split[[1]][1]), 
-#                                                                      end = as.numeric(split[[1]][2])))
-#                                                  }))
-# jumbophages_trna$attributes <- paste0("Name=", jumbophages_trna$V2, ";")
-# trna_gff <- jumbophages_trna %>% mutate(source = "ARAGORN_v1.2.36", type = "tRNA", phase = 0, score = format(as.numeric(V4), nsmall=1)) %>%
-#   select(seqid = V6, source, type, start, end, score, strand, phase, attributes)
-# 
-# # Combine prodigal CDS and trna
-# comb_gff <- rbind(prodigal_gff, trna_gff)
-# 
-# # Write GFF file for largest phages
-# largest_phages <- jumbophage_contigs_meta$name[order(jumbophage_contigs_meta$size, decreasing = TRUE)][c(1:3)]
-# for (i in 1:length(largest_phages)) {
-#   largest_phage_gff <- comb_gff[comb_gff$seqid == largest_phages[i],]
-#   write.table(largest_phage_gff, paste0("../data/", largest_phages[i], ".gff"), 
-#               quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")                          
-# }
+
+write.table(jumbophage_contigs, file = "../data/jumbophage_contigs.txt")
 
 
 ########## Create read data ####
@@ -481,6 +452,8 @@ vir_counts_prop_agg = vir_counts_prop_agg[-which(is.na(vir_counts_prop_agg[,1]))
 rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
 vir_counts_prop_agg = vir_counts_prop_agg[,-1]
 vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
+vir_counts_prop_agg <- vir_counts_prop_agg[rownames(vir_counts_prop_agg) != "",]
+vir_counts_prop_agg <- vir_counts_prop_agg[,colSums(vir_counts_prop_agg) != 0]
 saveRDS(vir_counts_prop_agg,  file = "../data/vir_counts_prop_agg.RDS")
 
 # Re-cast counts matrix by phages
