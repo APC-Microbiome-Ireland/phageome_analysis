@@ -106,31 +106,13 @@ legend#0 legenditem#3
 legend#0 legenditem#4
 {
 	show-swatch : "true";
-	swatch-color : color(255,172,130,255);
-	text-color : color("black");
-	text-font : font("SansSerif","plain",12);
-	legend-text : "Membrane proteins";
-}
-
-legend#0 legenditem#5
-{
-	show-swatch : "true";
 	swatch-color : color(110,212,192,255);
 	text-color : color("black");
 	text-font : font("SansSerif","plain",12);
 	legend-text : "Packaging and assembly";
 }
 
-legend#0 legenditem#6
-{
-	show-swatch : "true";
-	swatch-color : color(207,224,99,255);
-	text-color : color("black");
-	text-font : font("SansSerif","plain",12);
-	legend-text : "Regulate membrane-spanning proteins";
-}
-
-legend#0 legenditem#7
+legend#0 legenditem#5
 {
 	show-swatch : "true";
 	swatch-color : color(242,81,76,255);
@@ -139,7 +121,7 @@ legend#0 legenditem#7
 	legend-text : "Replication and nucleic acid metabolism";
 }
 
-legend#0 legenditem#8
+legend#0 legenditem#6
 {
 	show-swatch : "true";
 	swatch-color : color(182,78,217,255);
