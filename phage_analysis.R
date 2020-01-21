@@ -49,6 +49,11 @@ rownames(metadata) = metadata$ID
 metadata <- metadata[metadata$ID %in% unique(vir_counts_prop_melt$Var2),]
 metadata$Location_sampletype <- paste(metadata$Location, "-", metadata$sample_type)
 
+# Create Supplementary Table of metadata
+metadata$n_contigs <- sapply(metadata$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
+metadata$total_reads <- as.numeric(counts_total[metadata$ID])
+write.csv(metadata, "data/Supplementary_Table1.csv", row.names = FALSE)
+
 # n summary of metadata excluding longitudinal samples
 metadata_summary <- metadata %>% filter(Visit_Number == 1) %>% group_by(Location, sample_type) %>% summarise(n())
 
