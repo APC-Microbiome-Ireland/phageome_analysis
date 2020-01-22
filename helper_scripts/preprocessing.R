@@ -439,6 +439,8 @@ saveRDS(vir_counts_prop_melt, file = "../data/vir_counts_prop_melt.RDS")
 # Aggregate counts by Demovir/vConTACT2
 vir_counts_prop_melt <- as.data.table(vir_counts_prop_melt)
 vir_counts_prop_melt_agg = vir_counts_prop_melt[, sum(value), by=.(Var2, demovir, vcontact_cluster, sample_type, Location)]
+vir_counts_prop_melt_agg <- vir_counts_prop_melt_agg[!is.na(vir_counts_prop_melt_agg$vcontact_cluster),]
+vir_counts_prop_melt_agg <- vir_counts_prop_melt_agg[vir_counts_prop_melt_agg$vcontact_cluster != "",]
 saveRDS(vir_counts_prop_melt_agg,  file = "../data/vir_counts_prop_melt_agg.RDS")
 
 # Aggregate counts by CRISPR host
@@ -448,11 +450,9 @@ saveRDS(vir_counts_prop_melt_agg2, file = "../data/vir_counts_prop_melt_agg2.RDS
 # Re-cast counts matrix by vConTACT2 clusters
 vir_counts_prop_agg = dcast.data.table(vir_counts_prop_melt_agg, vcontact_cluster ~ Var2, value.var = "V1", fun.aggregate = sum)
 vir_counts_prop_agg = as.data.frame(vir_counts_prop_agg)
-vir_counts_prop_agg = vir_counts_prop_agg[-which(is.na(vir_counts_prop_agg[,1])),]
 rownames(vir_counts_prop_agg) = vir_counts_prop_agg[,1]
 vir_counts_prop_agg = vir_counts_prop_agg[,-1]
 vir_counts_prop_agg = as.matrix(vir_counts_prop_agg)
-vir_counts_prop_agg <- vir_counts_prop_agg[rownames(vir_counts_prop_agg) != "",]
 vir_counts_prop_agg <- vir_counts_prop_agg[,colSums(vir_counts_prop_agg) != 0]
 saveRDS(vir_counts_prop_agg,  file = "../data/vir_counts_prop_agg.RDS")
 
