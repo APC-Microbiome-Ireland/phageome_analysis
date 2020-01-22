@@ -69,9 +69,9 @@ demovir_cols[names(demovir_cols) == "Unassigned"] <- "grey80"
 demovir_cols[demovir_cols == "#FFFFB3"] <- "#8DD3C7"
 
 tiff("figures/barplot_demovir.tiff", width = 5000, height = 2000, res = 400)
-ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = demovir)) + theme_classic() +
+ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = as.factor(demovir))) + theme_classic() +
   geom_bar(stat = "identity") +
-  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  scale_fill_manual("Viral Family",  values = demovir_cols[sort(names(demovir_cols))]) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
   ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg$V1, by=list(ID=vir_counts_prop_melt_agg$Var2), FUN=sum)$x))
@@ -281,8 +281,10 @@ metadata_us <- metadata[metadata$Location == "US",]
 metadata_longus <- metadata_us %>% group_by(Sample.name, sample_type) %>%
   filter(any(Visit_Number == 3))
 
-vir_counts_longus <- left_join(metadata_longus[,c("ID", "Sample.name", "Visit_Number")], vir_counts_prop_melt, by = c("ID"="Var2"))
-vir_counts_longus <- vir_counts_longus[!is.na(vir_counts_longus$Var1),]
+# Remove demovir predictions
+vir_counts_prop_melt_agg3 = vir_counts_prop_melt_agg[, sum(V1), by=.(Var2, vcontact_cluster, sample_type, Location)]
+
+vir_counts_longus <- left_join(metadata_longus[,c("ID", "Sample.name", "Visit_Number")], vir_counts_prop_melt_agg3, by = c("ID"="Var2"))
 
 # countConsecutive <- function(dt) {
 #   min_timepoint <- min(dt$Visit_Number)
@@ -305,25 +307,25 @@ vir_counts_longus <- vir_counts_longus[!is.na(vir_counts_longus$Var1),]
 # }
 
 # Count average time points of phages
-contig_no_tp <- vir_counts_longus %>% group_by(sample_type, Sample.name, Var1) %>%
+contig_no_tp <- vir_counts_longus %>% group_by(sample_type, Sample.name, vcontact_cluster) %>%
   summarise(no_tp = n_distinct(Visit_Number)) 
 
-# Count all distinct contigs
+# Count all distinct clusters
 contig_all_summary <- vir_counts_longus %>% group_by(sample_type, Sample.name) %>%
-  summarise(total_contig = n_distinct(Var1))
+  summarise(total_contig = n_distinct(vcontact_cluster))
 
-# Count contigs in at least x number of time points
+# Count clusters in at least x number of time points
 contig_count_tp <- map_df(.x = unique(contig_no_tp$no_tp), .f = function(.x) {
   tmp <- data.frame(sample_type = rep(contig_no_tp$sample_type[contig_no_tp$no_tp == .x], .x),
                     Sample.name = rep(contig_no_tp$Sample.name[contig_no_tp$no_tp == .x], .x),
-                    Var1 = rep(contig_no_tp$Var1[contig_no_tp$no_tp == .x]),
+                    vcontact_cluster = rep(contig_no_tp$vcontact_cluster[contig_no_tp$no_tp == .x]),
                     no_tp = rep(contig_no_tp$no_tp[contig_no_tp$no_tp == .x], .x))
   tmp$cum_tp <- c(1:.x)
   return(tmp)
 })
 
 contig_count_tp_summary <- contig_count_tp %>% group_by(sample_type, Sample.name, cum_tp) %>%
-  summarise(total_contig_least = n_distinct(Var1))
+  summarise(total_contig_least = n_distinct(vcontact_cluster))
 
 contig_one <- contig_count_tp_summary %>%
   filter(cum_tp == 1) %>%
@@ -334,32 +336,32 @@ contig_count_tp_summary <- left_join(contig_count_tp_summary, contig_one, by = c
   mutate(contig_frac = total_contig_least/total_contig)
 
 # Plot
-tiff("figures/longitudinal_contig_count.tiff", height = 400, width = 1100, res = 100)
+tiff("figures/longitudinal_cluster_count.tiff", height = 400, width = 1100, res = 100)
 set.seed(1)
 ggplot(contig_count_tp_summary, aes(as.factor(cum_tp), contig_frac, fill = as.factor(sample_type))) +
   geom_boxplot() +
   geom_jitter() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
-  theme_classic() + xlab("No. of time points") + ylab("Proportion of contigs in at least x time points") +
+  theme_classic() + xlab("No. of time points") + ylab("Proportion of phage clusters in at least x time points") +
   theme(strip.background = element_blank(), strip.text.x = element_blank()) +
   scale_fill_manual("body site", values = cols)
 dev.off()
 
-# Proportion of reads mapped to contigs
+# Proportion of reads mapped to clusters
 contig_count_reads<- vir_counts_longus %>% 
-  group_by(sample_type, Sample.name, Var1) %>%
+  group_by(sample_type, Sample.name, vcontact_cluster) %>%
   arrange(desc(Visit_Number)) %>%
-  mutate(cumsum_reads = cumsum(value)) %>%
-  select(sample_type, Sample.name, Var1, cumsum_reads, Visit_Number)
+  mutate(cumsum_reads = cumsum(V1)) %>%
+  select(sample_type, Sample.name, vcontact_cluster, cumsum_reads, Visit_Number)
 
 contig_count_reads_tp1 <- contig_count_reads %>%
   filter(Visit_Number == min(Visit_Number)) %>%
   rename(tp1 = cumsum_reads) %>%
-  select(sample_type, Sample.name, Var1, tp1)
+  select(sample_type, Sample.name, vcontact_cluster, tp1)
 
-contig_count_reads_summary <- left_join(contig_count_reads, contig_count_reads_tp1, by = c("sample_type", "Var1", "Sample.name")) %>%
+contig_count_reads_summary <- left_join(contig_count_reads, contig_count_reads_tp1, by = c("sample_type", "vcontact_cluster", "Sample.name")) %>%
   mutate(frac_reads = cumsum_reads/tp1) %>%
-  group_by(sample_type, Sample.name, Var1) %>%
+  group_by(sample_type, Sample.name, vcontact_cluster) %>%
   mutate(cum_tp = order(Visit_Number))
 
 tiff("figures/longitudinal_read_count.tiff", height = 400, width = 1100, res = 90)
@@ -372,7 +374,8 @@ ggplot(contig_count_reads_summary, aes(x = as.factor(cum_tp), y = frac_reads, fi
 dev.off()
 
 # Select persistent contigs (3 at least, 2 doesnt converge)
-contig_persist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
+vir_counts_longus_demovir <- left_join(metadata_longus[,c("ID", "Sample.name", "Visit_Number")], vir_counts_prop_melt_agg, by = c("ID"="Var2"))
+contig_persist <- left_join(vir_counts_longus_demovir, contig_no_tp, by = c("sample_type", "Sample.name", "vcontact_cluster")) %>%
   filter(no_tp >= 3)
 
 # Summarise n
@@ -380,16 +383,16 @@ persist_summary <- metadata %>% filter(ID %in% unique(contig_persist$ID)) %>% gr
 
 # Get phage taxonomy
 tiff("figures/barplot_demovir_persistent.tiff", width = 5000, height = 2000, res = 400)
-ggplot(contig_persist, aes(x = ID, y = value, fill = demovir)) + theme_classic() +
+ggplot(contig_persist, aes(x = ID, y = V1, fill = demovir)) + theme_classic() +
   geom_bar(stat = "identity") +
-  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  scale_fill_manual("Viral Family",  values = demovir_cols[sort(names(demovir_cols))]) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
-  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
+  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$V1, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
 # Cast for NMDS
-contig_persist_cast <- dcast(contig_persist, ID ~ Var1, sum, value.var = "value") 
+contig_persist_cast <- dcast(contig_persist, ID ~ vcontact_cluster, sum, value.var = "V1") 
 rownames(contig_persist_cast) <- contig_persist_cast$ID
 contig_persist_cast <- contig_persist_cast[,names(contig_persist_cast) != "ID"]
 
@@ -404,7 +407,7 @@ df_nmds_persist$sample_type <- sapply(df_nmds_persist$ID, function(x) metadata$s
 
 # Plot NMDS
 df_nmds_persist$Sample.name_sampletype <- paste0(df_nmds_persist$Sample.name, df_nmds_persist$sample_type)
-tiff("figures/persistent_phages.tiff", width = 2000, height = 1000, res = 200)
+tiff("figures/persistent_phage_clusters.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_persist, aes(MDS1, MDS2, colour = sample_type)) +
   geom_point(alpha = 0.5) +
   geom_encircle(aes(fill = Sample.name_sampletype), alpha=0.3, expand = 0) +
@@ -418,12 +421,12 @@ dev.off()
 
 # Venn diagram of shared persistent phages
 vir_pers_group_list <- sapply(unique(metadata_us$sample_type), function(x) {
-  vir_group <- unique(contig_persist$Var1[contig_persist$sample_type == x])
+  vir_group <- unique(contig_persist$vcontact_cluster[contig_persist$sample_type == x])
   return(vir_group)
 })
 names(vir_pers_group_list) <- unique(metadata_us$sample_type)
 vir_pers_group_list <- lapply(vir_pers_group_list, function(x) c(x, rep(NA, max(sapply(vir_pers_group_list, function(y) length(y))) - length(x))))
-total_pers <- length(unique(contig_persist$Var1))
+total_pers <- length(unique(contig_persist$vcontact_cluster))
 vir_pers_overlap <- lapply(calculate.overlap(vir_pers_group_list), function(x) signif(100*length(x)/total_pers, 2))
 tiff("figures/venn_persistent.tiff")
 draw.quad.venn(area.vector = c(vir_pers_overlap$a1, vir_pers_overlap$a2, vir_pers_overlap$a3, vir_pers_overlap$a4, 
@@ -436,7 +439,7 @@ draw.quad.venn(area.vector = c(vir_pers_overlap$a1, vir_pers_overlap$a2, vir_per
 dev.off()
 
 # Select nonpersistent contigs
-contig_nonpersist <- left_join(vir_counts_longus, contig_no_tp, by = c("sample_type", "Sample.name", "Var1")) %>%
+contig_nonpersist <- left_join(vir_counts_longus_demovir, contig_no_tp, by = c("sample_type", "Sample.name", "vcontact_cluster")) %>%
   filter(no_tp < 3)
 
 # Summarise n
@@ -444,16 +447,16 @@ nonpersist_summary <- metadata %>% filter(ID %in% unique(contig_nonpersist$ID)) 
 
 # Get phage taxonomy
 tiff("figures/barplot_demovir_transient.tiff", width = 5000, height = 2000, res = 400)
-ggplot(contig_nonpersist, aes(x = ID, y = value, fill = demovir)) + theme_classic() +
+ggplot(contig_nonpersist, aes(x = ID, y = V1, fill = demovir)) + theme_classic() +
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
-  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$value, by=list(ID=contig_persist$ID), FUN=sum)$x))
+  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$V1, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
 # Cast for NMDS
-contig_nonpersist_cast <- dcast(contig_nonpersist, ID ~ Var1, sum, value.var = "value") 
+contig_nonpersist_cast <- dcast(contig_nonpersist, ID ~ vcontact_cluster, sum, value.var = "V1") 
 rownames(contig_nonpersist_cast) <- contig_nonpersist_cast$ID
 contig_nonpersist_cast <- contig_nonpersist_cast[,names(contig_nonpersist_cast) != "ID"]
 
@@ -468,7 +471,7 @@ df_nmds_nonpersist$sample_type <- sapply(df_nmds_nonpersist$ID, function(x) meta
 
 # Plot NMDS
 df_nmds_nonpersist$Sample.name_sampletype <- paste0(df_nmds_nonpersist$Sample.name, df_nmds_nonpersist$sample_type)
-tiff("figures/transient_phages.tiff", width = 2000, height = 1000, res = 200)
+tiff("figures/transient_phage_clusters.tiff", width = 2000, height = 1000, res = 200)
 ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_type)) +
   geom_point(alpha = 0.5) +
   geom_encircle(aes(fill = Sample.name_sampletype), alpha=0.3, expand = 0) +
@@ -476,18 +479,18 @@ ggplot(df_nmds_nonpersist, aes(MDS1, MDS2, fill = Sample.name, colour = sample_t
   guides(fill = FALSE) +
   scale_colour_manual("body site", values = cols) +
   scale_fill_manual(values = cols[df_nmds_nonpersist$sample_type]) +
-  scale_x_continuous(limits = c(-1.5,1), breaks = seq(-2,2,0.5)) + 
-  scale_y_continuous(limits = c(-0.5,0.5), breaks = seq(-2,2,0.5))
+  scale_x_continuous(limits = c(-0.75,0.5), breaks = seq(-2,2,0.5)) + 
+  scale_y_continuous(limits = c(-0.25,0.25), breaks = seq(-2,2,0.25))
 dev.off()
 
 # Venn diagram of shared transient phages
 vir_trans_group_list <- sapply(unique(metadata_us$sample_type), function(x) {
-  vir_group <- unique(contig_nonpersist$Var1[contig_nonpersist$sample_type == x])
+  vir_group <- unique(contig_nonpersist$vcontact_cluster[contig_nonpersist$sample_type == x])
   return(vir_group)
 })
 names(vir_trans_group_list) <- unique(metadata_us$sample_type)
 vir_trans_group_list <- lapply(vir_trans_group_list, function(x) c(x, rep(NA, max(sapply(vir_trans_group_list, function(y) length(y))) - length(x))))
-total_trans <- length(unique(contig_nonpersist$Var1))
+total_trans <- length(unique(contig_nonpersist$vcontact_cluster))
 vir_trans_overlap <- lapply(calculate.overlap(vir_trans_group_list), function(x) signif(100*length(x)/total_trans, 2))
 tiff("figures/venn_transient.tiff")
 draw.quad.venn(area.vector = c(vir_trans_overlap$a1, vir_trans_overlap$a2, vir_trans_overlap$a3, vir_trans_overlap$a4, 
