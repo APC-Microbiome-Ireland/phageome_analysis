@@ -141,10 +141,26 @@ saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
 # Make t-SNE plots
 group_cols <- viridis(length(unique(clusters_samples_tsne$cluster)))
 
+# Calculate proportion of samples
+cluster_res <- clusters_samples_tsne %>% group_by(cluster, Location, sample_type) %>% summarise(n = n()) %>%
+  group_by(cluster) %>%
+  mutate(total_n = sum(n)) %>%
+  mutate(prop_cluster = n/total_n*100, Location_sampletype = paste(sample_type, "-", Location))
+
+# Calculate proportion of body sites
+cluster_site <- cluster_res %>% 
+  group_by(cluster, sample_type) %>%
+  summarise(prop_cluster = signif(sum(prop_cluster), 3)) %>%
+  mutate(summary = paste(sample_type, ": ", prop_cluster, "%")) %>%
+  group_by(cluster) %>%
+  summarise(summary = paste(summary, collapse = "; ")) %>%
+  mutate(summary = paste0("Group ", cluster, " (", summary, ")"))
+
 # Label by cluster
-tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = cluster)) +
-  theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
-  scale_fill_manual("Group", values = group_cols,
+tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, colour = sample_type, shape = cluster)) +
+  theme_classic() + 
+  geom_text(aes(label=cluster)) +
+  scale_colour_manual("Body Site", values = cols, 
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
@@ -162,12 +178,6 @@ tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sam
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("Dim 1") + ylab("Dim 2")
 
-# Calculate proportion of samples
-cluster_res <- clusters_samples_tsne %>% group_by(cluster, Location, sample_type) %>% summarise(n = n()) %>%
-  group_by(cluster) %>%
-  mutate(total_n = sum(n)) %>%
-  mutate(prop_cluster = n/total_n*100, Location_sampletype = paste(sample_type, "-", Location))
-
 # Label by sex and age
 tsne_plot4 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = Age, shape = Gender)) +
   theme_classic() + geom_point(size = 2.5, alpha = 0.7) +
@@ -177,7 +187,7 @@ tsne_plot4 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = Age,
   xlab("Dim 1") + ylab("Dim 2")
 
 # Save plots
-tiff("figures/tsne_clusters.tiff", width = 700, height = 500, res = 150)
+tiff("figures/tsne_clusters.tiff", width = 800, height = 500, res = 150)
 tsne_plot1
 dev.off()
 
@@ -923,8 +933,32 @@ ggplot(jumbophage_summary, aes(Location_sampletype, perc_samples)) +
   xlab("Cohort") + ylab("% samples") + ylim(c(0,100))
 dev.off()
 
-# Remove phage duplicates from longitudinal samples
-jumbophage_contigs_meta <- jumbophage_contigs_meta[!duplicated(paste(jumbophage_contigs_meta$Var1, jumbophage_contigs_meta$sample_type)),]
+# Transient/Persistent jumbophages
+jumbophage_contigs_meta$vcontact_cluster <- as.character(jumbophage_contigs_meta$vcontact_cluster)
+jumbophage_contigs_meta$vcontact_cluster_Var1 <- jumbophage_contigs_meta$vcontact_cluster
+jumbophage_contigs_meta$vcontact_cluster_Var1[is.na(jumbophage_contigs_meta$vcontact_cluster)] <- jumbophage_contigs_meta$Var1[is.na(jumbophage_contigs_meta$vcontact_cluster)]
+
+jumbophages_long <- jumbophage_contigs_meta %>% 
+  group_by(vcontact_cluster_Var1, Location_sampletype, Sample.name) %>%
+  summarise(Timepoints = n_distinct(Visit_Number)) %>%
+  ungroup() %>% group_by(vcontact_cluster_Var1, Location_sampletype) %>%
+  select(-Sample.name) %>%
+  arrange(Timepoints) %>%
+  summarise_each(funs(paste(Timepoints, collapse = ", "))) 
+  
+jumbophage_persistent <- jumbophage_contigs_meta %>% 
+  group_by(vcontact_cluster_Var1, Location_sampletype, Sample.name) %>%
+  summarise(Timepoints = n_distinct(Visit_Number)) %>%
+  ungroup() %>% group_by(vcontact_cluster_Var1, Location_sampletype) %>%
+  select(-Sample.name) %>%
+  filter(Timepoints > 2)
+
+jumbophage_us <- jumbophage_contigs_meta %>%
+  filter(Location == "US") %>%
+  summarise(n = n_distinct(Sample.name))
+
+# Remove phage duplicates
+jumbophage_contigs_meta_nodup <- jumbophage_contigs_meta[!duplicated(paste(jumbophage_contigs_meta$Var1, jumbophage_contigs_meta$sample_type)),]
 
 # label_colours <- c("turquoise", "darkgreen")
 # pd <- position_dodge(0.8)
@@ -959,10 +993,10 @@ jumbophage_contigs_meta <- jumbophage_contigs_meta[!duplicated(paste(jumbophage_
 #   scale_colour_manual("Country", values = label_colours) 
 # dev.off()
 
-jumbophage_contigs_meta$sampletype_Location <- paste(jumbophage_contigs_meta$sample_type, "-", jumbophage_contigs_meta$Location)
+jumbophage_contigs_meta_nodup$sampletype_Location <- paste(jumbophage_contigs_meta_nodup$sample_type, "-", jumbophage_contigs_meta_nodup$Location)
 h = 200
 tiff("figures/circular_jumbophages.tiff", width = 2000, height = 1000, res = 250)
-ggplot(jumbophage_contigs_meta, aes(x = "Contigs", y = size/1000, colour = sampletype_Location)) +
+ggplot(jumbophage_contigs_meta_nodup, aes(x = "Contigs", y = size/1000, colour = sampletype_Location)) +
   geom_jitter(alpha = 0.6, size = 2) +
   geom_hline(aes(yintercept = h), colour = "red", linetype = "dotted") +
   theme_classic() + ylab("Circular contig size (kb)") + xlab("") +
@@ -975,25 +1009,28 @@ ggplot(jumbophage_contigs_meta, aes(x = "Contigs", y = size/1000, colour = sampl
   scale_colour_manual("Body Site - Geographical Location", values = cohort_cols)
 dev.off()
 
+# Number of samples
+jumbophage_samples <- jumbophage_contigs_meta %>%
+  select(size, demovir, crispr_host, Location_sampletype, vcontact_cluster_Var1, Sample.name) %>%
+  group_by(Location_sampletype, vcontact_cluster_Var1) %>%
+  summarise(num_samples = n_distinct(Sample.name)) %>% ungroup() 
+  
 # Jumbophage table
-jumbophage_table_cl <- jumbophage_contigs_meta %>%
-  filter(!is.na(vcontact_cluster)) %>%
-  select(size, demovir, crispr_host, Location_sampletype, vcontact_cluster) %>%
-  arrange(vcontact_cluster) %>%
-  group_by(vcontact_cluster) %>%
-  summarise_each(funs(paste(unique(.), collapse = "\n")))
-jumbophage_table_cl$crispr_host <- gsub("NA; ", "", jumbophage_table_cl$crispr_host)
-jumbophage_table_cl$crispr_host <- gsub("NA", "", jumbophage_table_cl$crispr_host)
+jumbophage_table <- jumbophage_contigs_meta %>%
+  select(size, demovir, crispr_host, Location_sampletype, vcontact_cluster_Var1) %>%
+  group_by(demovir, crispr_host, Location_sampletype, vcontact_cluster_Var1) %>%
+  summarise_each(funs(paste(unique(size), collapse = "\n"))) %>%
+  left_join(jumbophage_samples, by = c("Location_sampletype", "vcontact_cluster_Var1")) %>%
+  left_join(jumbophages_long, by = c("Location_sampletype", "vcontact_cluster_Var1")) %>%
+  mutate(num_Location_sampletype = paste0(num_samples, " ", Location_sampletype, " (", Timepoints, ")")) %>%
+  ungroup() %>%
+  select(-num_samples, -Location_sampletype) %>%
+  group_by(vcontact_cluster_Var1) %>%
+  summarise_each(funs(paste(unique(.), collapse = "\n")))  %>%
+  select(vcontact_cluster_Var1, size, demovir, crispr_host, num_Location_sampletype) 
 
-jumbophage_table_nocl <- jumbophage_contigs_meta %>%
-  filter(is.na(vcontact_cluster)) %>%
-  mutate(vcontact_cluster = "No Phage Cluster") %>%
-  select(vcontact_cluster, size, demovir, crispr_host, Location_sampletype) %>%
-  arrange(desc(size))
-jumbophage_table_nocl$crispr_host[is.na(jumbophage_table_nocl$crispr_host)] <- ""
-
-jumbophage_table <- rbind(jumbophage_table_cl, jumbophage_table_nocl)
-names(jumbophage_table) <- c("Phage Cluster", "Size (nt)", "Phage Family", "Predicted Host Genus", "Found in")
+jumbophage_table$vcontact_cluster_Var1[!grepl("VC", jumbophage_table$vcontact_cluster_Var1)] <- "No Phage Cluster"
+names(jumbophage_table) <- c("Phage Cluster", "Size (nt)", "Phage Family", "Predicted Host Genus", "No. sites (Timepoints)")
 
 write.csv(jumbophage_table, "data/circular_jumbophage_summary_table.csv")
 
@@ -1059,28 +1096,20 @@ for (i in 1:length(circular_jumbophages)) {
               quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")
 }
 
-######## EXTRA #########
 ########## Phages and ARGs 
 # Read data
-contig_data_meta <- left_join(metadata, contig_data, by = c("ID"= "sample", "Location"="country"))
-contig_data_meta <- contig_data_meta[contig_data_meta$Visit_Number == 1,]
-contig_data_meta$Health <- as.character(contig_data_meta$Health)
-contig_data_meta <- contig_data_meta[!is.na(contig_data_meta$circular),]
-contig_data_meta$Health[contig_data_meta$Health == "unhealthy"] <- "rheumatoid arthritis"
-contig_data_meta$Location_Health <- paste(contig_data_meta$Location, "-", contig_data_meta$Health)
-contig_data_meta <- contig_data_meta %>% group_by(Location, sample_type, Health) %>% mutate(num_samples = n_distinct(ID))
-
 args_data <- read.csv("data/all_assemblies_card_90.csv", stringsAsFactors = FALSE)
 args_data$ID <- gsub("_card.out", "", gsub(".*/", "", args_data$filename))
 args_data$name <- paste0(args_data$ID, "_", args_data$qseqid)
 
 # Combine phage and arg results where only phage does/doesnt contain ARG
-phages_args_yn <- left_join(contig_data_meta, args_data, by = c("name", "ID"), suffix = c(".phage", ".arg"))
-phages_args_yn$ARG_Present <- NA
-phages_args_yn$ARG_Present[is.na(phages_args_yn$ARO.Name)] <- "NO" 
-phages_args_yn$ARG_Present[!is.na(phages_args_yn$ARO.Name)] <- "YES"
-phages_args_yn <- phages_args_yn[!duplicated(paste(phages_args_yn$ID, phages_args_yn$name)),]
+jumbophages_args <- left_join(jumbophage_contigs_meta, args_data, by = c("Var1"="name", "ID"), suffix = c(".phage", ".arg"))
+jumbophages_args <- jumbophages_args[!duplicated(jumbophages_args$Var1),]
 
+# Percentage jumbophages containing ARG
+length(phages_args_yn$Var1[!is.na(phages_args_yn$ARO.Name)])*100/length(phages_args_yn$Var1[is.na(phages_args_yn$ARO.Name)])
+
+######## EXTRA #########
 # Proportion that are circular
 sum(phages_args_yn$circular)/nrow(phages_args_yn)*100
 
