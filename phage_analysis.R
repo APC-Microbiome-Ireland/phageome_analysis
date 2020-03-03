@@ -401,6 +401,20 @@ ggplot(contig_persist, aes(x = ID, y = V1, fill = demovir)) + theme_classic() +
   ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$V1, by=list(ID=contig_persist$ID), FUN=sum)$x))
 dev.off()
 
+# Relative abundance of mapped reads
+contig_persist_rel <- contig_persist %>%
+  group_by(ID) %>%
+  mutate(V1_prop = V1/sum(V1)) 
+
+tiff("figures/barplot_demovir_persistent_rel.tiff", width = 5000, height = 2000, res = 400)
+ggplot(contig_persist_rel, aes(x = ID, y = V1_prop, fill = demovir)) + theme_classic() +
+  geom_bar(stat = "identity") +
+  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
+  ylab("Proportion of mapped reads") + xlab("Sample")
+dev.off()
+
 # Cast for NMDS
 contig_persist_cast <- dcast(contig_persist, ID ~ vcontact_cluster, sum, value.var = "V1") 
 rownames(contig_persist_cast) <- contig_persist_cast$ID
@@ -455,7 +469,7 @@ contig_nonpersist <- left_join(vir_counts_longus_demovir, contig_no_tp, by = c("
 # Summarise n
 nonpersist_summary <- metadata %>% filter(ID %in% unique(contig_nonpersist$ID)) %>% group_by(sample_type, Visit_Number) %>% summarise(n())
 
-# Get phage taxonomy
+# Relative abundance of total reads
 tiff("figures/barplot_demovir_transient.tiff", width = 5000, height = 2000, res = 400)
 ggplot(contig_nonpersist, aes(x = ID, y = V1, fill = demovir)) + theme_classic() +
   geom_bar(stat = "identity") +
@@ -463,6 +477,20 @@ ggplot(contig_nonpersist, aes(x = ID, y = V1, fill = demovir)) + theme_classic()
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
   ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(contig_persist$V1, by=list(ID=contig_persist$ID), FUN=sum)$x))
+dev.off()
+
+# Relative abundance of mapped reads
+contig_nonpersist_rel <- contig_nonpersist %>%
+  group_by(ID) %>%
+  mutate(V1_prop = V1/sum(V1)) 
+  
+tiff("figures/barplot_demovir_transient_rel.tiff", width = 5000, height = 2000, res = 400)
+ggplot(contig_nonpersist_rel, aes(x = ID, y = V1_prop, fill = demovir)) + theme_classic() +
+  geom_bar(stat = "identity") +
+  scale_fill_manual("Viral Family",  values = demovir_cols) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
+  ylab("Proportion of mapped reads") + xlab("Sample")
 dev.off()
 
 # Cast for NMDS
@@ -1054,6 +1082,16 @@ unique_cat <- unique(cat_summary$Parent)
 cat_summary$Parent <- factor(cat_summary$Parent, levels = c("Hypothetical protein", sort(unique_cat[unique_cat != "Hypothetical protein"])))
 cat_cols <- c("white", "#e0a8e0", "#d6a738", "#4d4cd4", "#6ed4c0", "#f2514c", "#b64ed9")
 names(cat_cols) <- c("Hypothetical protein", sort(unique_cat[unique_cat != "Hypothetical protein"]))
+
+# Functional genes of persistent phage clusters
+unique_persistent_function <- unique(jumbophage_gff_meta$protein_description[jumbophage_gff_meta$vcontact_cluster_Var1 %in% jumbophage_persistent$vcontact_cluster_Var1])
+unique_transient_function <- unique(jumbophage_gff_meta$protein_description[!jumbophage_gff_meta$vcontact_cluster_Var1 %in% jumbophage_persistent$vcontact_cluster_Var1])
+exclusive_pers_func <- unique_persistent_function[!unique_persistent_function %in% unique_transient_function]
+excl_pers_func_summary <- jumbophage_gff_meta %>% 
+  filter(vcontact_cluster_Var1 %in% jumbophage_persistent$vcontact_cluster_Var1) %>%
+  filter(protein_description %in% exclusive_pers_func) %>%
+  group_by(protein_description) %>%
+  summarise(n = n_distinct(vcontact_cluster_Var1))
 
 tiff("figures/functional_categories_cluster.tiff", width = 6500, height = 1000, res = 150)
 ggplot(cat_summary, aes(size, per_cog, fill = Parent)) +
