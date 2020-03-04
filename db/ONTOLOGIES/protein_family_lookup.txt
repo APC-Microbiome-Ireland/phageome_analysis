@@ -94,14 +94,14 @@ capsid decoration protein 	Structural proteins	Capsid decoration protein
 DarB	Structural proteins	Capsid protein
 distal long tail fiber assembly catalyst 	Structural proteins	Distal long tail fiber assembly catalyst
 head completion protein 	Structural proteins	Head completion protein
-head morphogeneis protein 	Auxilliary metabolic genes	Head morphogenesis protein
+head morphogeneis protein 	Structural proteins	Head morphogenesis protein
 internal (core) protein	Structural proteins	Internal core protein
 internal (core) protein 	Structural proteins	Internal core protein
 major capsid protein 	Structural proteins	Major capsid protein
 minor capsid protein 	Structural proteins	Minor capsid protein
 minor structural protein gp58 	Structural proteins	Minor structural protein gp58
 minor tail protein 	Structural proteins	Minor tail protein
-morphogenesis protein 	Auxilliary metabolic genes	Morphogenesis protein
+morphogenesis protein 	Structural proteins	Morphogenesis protein
 neck protein 	Structural proteins	Neck protein
 PfWMP3_27 	Structural proteins	PfWMP3_27 phage internal protein with peptidase_M37 domain
 portal protein 	Structural proteins	Portal protein
