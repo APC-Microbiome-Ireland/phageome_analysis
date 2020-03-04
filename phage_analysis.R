@@ -1083,6 +1083,14 @@ cat_summary$Parent <- factor(cat_summary$Parent, levels = c("Hypothetical protei
 cat_cols <- c("white", "#e0a8e0", "#d6a738", "#4d4cd4", "#6ed4c0", "#f2514c", "#b64ed9")
 names(cat_cols) <- c("Hypothetical protein", sort(unique_cat[unique_cat != "Hypothetical protein"]))
 
+# Summary of functional genes
+jumbophages_func_summary <- jumbophage_gff_meta %>%
+  filter(Parent != "Hypothetical protein") %>%
+  group_by(size, Parent, Name) %>%
+  summarise(No_genes = n()) 
+names(jumbophages_func_summary) <- c("Size (nt)", "Category", "Protein", "No. Genes")
+write.csv(jumbophages_func_summary, "data/circular_jumbophage_functional_summary.csv")
+
 # Functional genes of persistent phage clusters
 unique_persistent_function <- unique(jumbophage_gff_meta$protein_description[jumbophage_gff_meta$vcontact_cluster_Var1 %in% jumbophage_persistent$vcontact_cluster_Var1])
 unique_transient_function <- unique(jumbophage_gff_meta$protein_description[!jumbophage_gff_meta$vcontact_cluster_Var1 %in% jumbophage_persistent$vcontact_cluster_Var1])

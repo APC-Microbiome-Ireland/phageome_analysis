@@ -1,0 +1,879 @@
+"","Size (nt)","Category","Protein","No. Genes"
+"1","203503","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"2","203503","DNA-binding and transcription regulators","Rec A-like recombinase",1
+"3","203503","DNA-binding and transcription regulators","Transposase",2
+"4","203503","Lysis","Lysozyme",1
+"5","203503","Packaging and assembly","Adhesin",1
+"6","203503","Packaging and assembly","Terminase large subunit protein",1
+"7","203503","Replication and nucleic acid metabolism","DNA helicase",2
+"8","203503","Replication and nucleic acid metabolism","DNA ligase",1
+"9","203503","Replication and nucleic acid metabolism","DNA polymerase",2
+"10","203503","Replication and nucleic acid metabolism","Exonuclease",1
+"11","203503","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"12","203503","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"13","203503","Structural proteins","Baseplate hub subunit",1
+"14","203503","Structural proteins","Baseplate wedge subunit",1
+"15","203503","Structural proteins","Major capsid protein",2
+"16","203503","Structural proteins","Neck protein",1
+"17","203503","Structural proteins","Portal vertex protein",1
+"18","203503","Structural proteins","Prohead core scaffolding protein and protease ",1
+"19","203503","Structural proteins","Tail sheath protein ",1
+"20","203503","Structural proteins","Tail tube protein",1
+"21","204796","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"22","204796","Lysis","LysC protein",2
+"23","204796","Packaging and assembly","Adhesin",2
+"24","204796","Replication and nucleic acid metabolism","DNA helicase",6
+"25","204796","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"26","204796","Replication and nucleic acid metabolism","Ribonuclease H",2
+"27","204796","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"28","204796","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"29","204796","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"30","204796","Structural proteins","Major capsid protein",2
+"31","204796","Structural proteins","Tail sheath protein ",2
+"32","204796","Structural proteins","Virion structural protein",14
+"33","204838","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"34","204838","Lysis","LysC protein",2
+"35","204838","Packaging and assembly","Adhesin",2
+"36","204838","Replication and nucleic acid metabolism","DNA helicase",6
+"37","204838","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"38","204838","Replication and nucleic acid metabolism","Ribonuclease H",2
+"39","204838","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"40","204838","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"41","204838","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"42","204838","Structural proteins","Major capsid protein",2
+"43","204838","Structural proteins","Tail sheath protein ",2
+"44","204838","Structural proteins","Virion structural protein",14
+"45","207354","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"46","207354","DNA-binding and transcription regulators","Rec A-like recombinase",1
+"47","207354","DNA-binding and transcription regulators","Transposase",6
+"48","207354","Lysis","Lysozyme",1
+"49","207354","Packaging and assembly","Adhesin",1
+"50","207354","Packaging and assembly","Terminase large subunit protein",1
+"51","207354","Replication and nucleic acid metabolism","DNA helicase",2
+"52","207354","Replication and nucleic acid metabolism","DNA ligase",1
+"53","207354","Replication and nucleic acid metabolism","DNA polymerase",2
+"54","207354","Replication and nucleic acid metabolism","Exonuclease",1
+"55","207354","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"56","207354","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"57","207354","Structural proteins","Baseplate hub subunit",1
+"58","207354","Structural proteins","Baseplate wedge subunit",1
+"59","207354","Structural proteins","Major capsid protein",2
+"60","207354","Structural proteins","Neck protein",1
+"61","207354","Structural proteins","Portal vertex protein",1
+"62","207354","Structural proteins","Prohead core scaffolding protein and protease ",1
+"63","207354","Structural proteins","Tail sheath protein ",1
+"64","207354","Structural proteins","Tail tube protein",1
+"65","208248","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"66","208248","DNA-binding and transcription regulators","Rec A-like recombinase",1
+"67","208248","DNA-binding and transcription regulators","Transposase",5
+"68","208248","Lysis","Lysozyme",1
+"69","208248","Packaging and assembly","Adhesin",1
+"70","208248","Packaging and assembly","Terminase large subunit protein",1
+"71","208248","Replication and nucleic acid metabolism","DNA helicase",2
+"72","208248","Replication and nucleic acid metabolism","DNA ligase",1
+"73","208248","Replication and nucleic acid metabolism","DNA polymerase",1
+"74","208248","Replication and nucleic acid metabolism","Exonuclease",1
+"75","208248","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"76","208248","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"77","208248","Structural proteins","Baseplate hub subunit",1
+"78","208248","Structural proteins","Baseplate wedge subunit",1
+"79","208248","Structural proteins","Major capsid protein",2
+"80","208248","Structural proteins","Neck protein",1
+"81","208248","Structural proteins","Portal vertex protein",1
+"82","208248","Structural proteins","Prohead core scaffolding protein and protease ",1
+"83","208248","Structural proteins","Tail sheath protein ",1
+"84","208248","Structural proteins","Tail tube protein",1
+"85","210989","DNA-binding and transcription regulators","AAA ATPase",8
+"86","210989","DNA-binding and transcription regulators","RNA polymerase sigma factor",8
+"87","210989","DNA-binding and transcription regulators","Transposase",48
+"88","210989","Lysis","Peptidase M23",8
+"89","210989","Packaging and assembly","Adhesin",8
+"90","210989","Replication and nucleic acid metabolism","DNA helicase",32
+"91","210989","Replication and nucleic acid metabolism","DNA polymerase",24
+"92","210989","Replication and nucleic acid metabolism","Thymidylate kinase",8
+"93","210989","Structural proteins","Major capsid protein",8
+"94","210989","Structural proteins","Portal protein",8
+"95","210989","Structural proteins","Tail sheath protein ",8
+"96","210991","DNA-binding and transcription regulators","AAA ATPase",4
+"97","210991","DNA-binding and transcription regulators","RNA polymerase sigma factor",4
+"98","210991","DNA-binding and transcription regulators","Transposase",24
+"99","210991","Lysis","Peptidase M23",4
+"100","210991","Packaging and assembly","Adhesin",4
+"101","210991","Replication and nucleic acid metabolism","DNA helicase",16
+"102","210991","Replication and nucleic acid metabolism","DNA polymerase",12
+"103","210991","Replication and nucleic acid metabolism","Thymidylate kinase",4
+"104","210991","Structural proteins","Major capsid protein",4
+"105","210991","Structural proteins","Portal protein",4
+"106","210991","Structural proteins","Tail sheath protein ",4
+"107","211049","Lysis","Endolysin",2
+"108","211049","Replication and nucleic acid metabolism","DHH phosphoesterase",2
+"109","211049","Replication and nucleic acid metabolism","DNA helicase",4
+"110","211049","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",2
+"111","211049","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"112","211049","Replication and nucleic acid metabolism","Ribonuclease H",2
+"113","211049","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"114","211049","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"115","211049","Structural proteins","Major capsid protein",2
+"116","211049","Structural proteins","Tail sheath protein ",2
+"117","211049","Structural proteins","Virion structural protein",18
+"118","213047","DNA-binding and transcription regulators","AAA ATPase",4
+"119","213047","DNA-binding and transcription regulators","RNA polymerase sigma factor",4
+"120","213047","DNA-binding and transcription regulators","Transposase",24
+"121","213047","Lysis","Peptidase M23",4
+"122","213047","Packaging and assembly","Adhesin",4
+"123","213047","Replication and nucleic acid metabolism","DNA helicase",16
+"124","213047","Replication and nucleic acid metabolism","DNA polymerase",12
+"125","213047","Replication and nucleic acid metabolism","Thymidylate kinase",4
+"126","213047","Structural proteins","Major capsid protein",4
+"127","213047","Structural proteins","Portal protein",4
+"128","213047","Structural proteins","Tail sheath protein ",4
+"129","213596","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"130","213596","DNA-binding and transcription regulators","Rec A-like recombinase",2
+"131","213596","DNA-binding and transcription regulators","Transposase",18
+"132","213596","Lysis","Lysozyme",2
+"133","213596","Packaging and assembly","Adhesin",2
+"134","213596","Packaging and assembly","Terminase large subunit protein",2
+"135","213596","Replication and nucleic acid metabolism","DNA helicase",4
+"136","213596","Replication and nucleic acid metabolism","DNA ligase",2
+"137","213596","Replication and nucleic acid metabolism","DNA polymerase",2
+"138","213596","Replication and nucleic acid metabolism","Exonuclease",4
+"139","213596","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"140","213596","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"141","213596","Structural proteins","Baseplate hub subunit",2
+"142","213596","Structural proteins","Baseplate wedge subunit",2
+"143","213596","Structural proteins","Major capsid protein",2
+"144","213596","Structural proteins","Neck protein",2
+"145","213596","Structural proteins","Portal vertex protein",2
+"146","213596","Structural proteins","Prohead core scaffolding protein and protease ",2
+"147","213596","Structural proteins","Tail sheath protein ",2
+"148","213596","Structural proteins","Tail tube protein",2
+"149","214576","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"150","214576","DNA-binding and transcription regulators","Rec A-like recombinase",2
+"151","214576","DNA-binding and transcription regulators","Transposase",18
+"152","214576","Lysis","Lysozyme",2
+"153","214576","Packaging and assembly","Adhesin",2
+"154","214576","Packaging and assembly","Terminase large subunit protein",2
+"155","214576","Replication and nucleic acid metabolism","DNA helicase",4
+"156","214576","Replication and nucleic acid metabolism","DNA ligase",2
+"157","214576","Replication and nucleic acid metabolism","DNA polymerase",2
+"158","214576","Replication and nucleic acid metabolism","Exonuclease",4
+"159","214576","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"160","214576","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"161","214576","Structural proteins","Baseplate hub subunit",2
+"162","214576","Structural proteins","Baseplate wedge subunit",2
+"163","214576","Structural proteins","Major capsid protein",2
+"164","214576","Structural proteins","Neck protein",2
+"165","214576","Structural proteins","Portal vertex protein",2
+"166","214576","Structural proteins","Prohead core scaffolding protein and protease ",2
+"167","214576","Structural proteins","Tail sheath protein ",2
+"168","214576","Structural proteins","Tail tube protein",2
+"169","220432","Lysis","Endolysin",2
+"170","220432","Replication and nucleic acid metabolism","DNA helicase",4
+"171","220432","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"172","220432","Replication and nucleic acid metabolism","Ribonuclease H",2
+"173","220432","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"174","220432","Structural proteins","Major capsid protein",2
+"175","220432","Structural proteins","Tail sheath protein ",2
+"176","220432","Structural proteins","Virion structural protein",16
+"177","225008","Lysis","Endolysin",2
+"178","225008","Packaging and assembly","Adhesin",2
+"179","225008","Replication and nucleic acid metabolism","DNA helicase",2
+"180","225008","Replication and nucleic acid metabolism","HNH endonuclease domain protein",2
+"181","225008","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"182","225008","Replication and nucleic acid metabolism","Ribonuclease H",2
+"183","225008","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"184","225008","Structural proteins","Major capsid protein",2
+"185","225008","Structural proteins","Tail sheath protein ",2
+"186","225008","Structural proteins","Virion structural protein",18
+"187","226085","DNA-binding and transcription regulators","AAA ATPase",8
+"188","226085","DNA-binding and transcription regulators","Transposase",8
+"189","226085","Lysis","Cell wall hydrolase protein",4
+"190","226085","Lysis","Peptidase M23",4
+"191","226085","Replication and nucleic acid metabolism","DNA helicase",20
+"192","226085","Replication and nucleic acid metabolism","DNA ligase",4
+"193","226085","Replication and nucleic acid metabolism","DNA polymerase",8
+"194","226085","Replication and nucleic acid metabolism","Thymidylate synthase",4
+"195","226085","Structural proteins","Major capsid protein",4
+"196","226085","Structural proteins","Portal protein",4
+"197","226085","Structural proteins","Tail sheath protein ",4
+"198","226085","Structural proteins","Tape measure protein",4
+"199","227714","Lysis","Endolysin",3
+"200","227714","Packaging and assembly","Adhesin",3
+"201","227714","Replication and nucleic acid metabolism","DNA helicase",3
+"202","227714","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"203","227714","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"204","227714","Replication and nucleic acid metabolism","Ribonuclease H",3
+"205","227714","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"206","227714","Structural proteins","Major capsid protein",3
+"207","227714","Structural proteins","Tail sheath protein ",3
+"208","227714","Structural proteins","Virion structural protein",27
+"209","227716","Lysis","Endolysin",3
+"210","227716","Packaging and assembly","Adhesin",3
+"211","227716","Replication and nucleic acid metabolism","DNA helicase",3
+"212","227716","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"213","227716","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"214","227716","Replication and nucleic acid metabolism","Ribonuclease H",3
+"215","227716","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"216","227716","Structural proteins","Major capsid protein",3
+"217","227716","Structural proteins","Tail sheath protein ",3
+"218","227716","Structural proteins","Virion structural protein",27
+"219","227958","Lysis","Endolysin",1
+"220","227958","Packaging and assembly","Adhesin",1
+"221","227958","Replication and nucleic acid metabolism","DNA helicase",1
+"222","227958","Replication and nucleic acid metabolism","HNH endonuclease domain protein",1
+"223","227958","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"224","227958","Replication and nucleic acid metabolism","Ribonuclease H",1
+"225","227958","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"226","227958","Structural proteins","Major capsid protein",1
+"227","227958","Structural proteins","Tail sheath protein ",1
+"228","227958","Structural proteins","Virion structural protein",9
+"229","228010","Lysis","Endolysin",3
+"230","228010","Packaging and assembly","Adhesin",3
+"231","228010","Replication and nucleic acid metabolism","DNA helicase",3
+"232","228010","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"233","228010","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"234","228010","Replication and nucleic acid metabolism","Ribonuclease H",3
+"235","228010","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"236","228010","Structural proteins","Major capsid protein",3
+"237","228010","Structural proteins","Tail sheath protein ",3
+"238","228010","Structural proteins","Virion structural protein",30
+"239","228149","Lysis","Endolysin",2
+"240","228149","Packaging and assembly","Adhesin",2
+"241","228149","Replication and nucleic acid metabolism","DNA helicase",2
+"242","228149","Replication and nucleic acid metabolism","HNH endonuclease domain protein",2
+"243","228149","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"244","228149","Replication and nucleic acid metabolism","Ribonuclease H",2
+"245","228149","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"246","228149","Structural proteins","Baseplate wedge initiator",2
+"247","228149","Structural proteins","Major capsid protein",2
+"248","228149","Structural proteins","Tail sheath protein ",2
+"249","228149","Structural proteins","Virion structural protein",18
+"250","228442","Lysis","Endolysin",3
+"251","228442","Packaging and assembly","Adhesin",3
+"252","228442","Replication and nucleic acid metabolism","DNA helicase",3
+"253","228442","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"254","228442","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"255","228442","Replication and nucleic acid metabolism","Ribonuclease H",3
+"256","228442","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"257","228442","Structural proteins","Major capsid protein",3
+"258","228442","Structural proteins","Tail sheath protein ",3
+"259","228442","Structural proteins","Virion structural protein",27
+"260","228444","Lysis","Endolysin",3
+"261","228444","Packaging and assembly","Adhesin",3
+"262","228444","Replication and nucleic acid metabolism","DNA helicase",3
+"263","228444","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"264","228444","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"265","228444","Replication and nucleic acid metabolism","Ribonuclease H",3
+"266","228444","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"267","228444","Structural proteins","Major capsid protein",3
+"268","228444","Structural proteins","Tail sheath protein ",3
+"269","228444","Structural proteins","Virion structural protein",27
+"270","228445","Lysis","Endolysin",3
+"271","228445","Packaging and assembly","Adhesin",3
+"272","228445","Replication and nucleic acid metabolism","DNA helicase",3
+"273","228445","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"274","228445","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"275","228445","Replication and nucleic acid metabolism","Ribonuclease H",3
+"276","228445","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"277","228445","Structural proteins","Major capsid protein",3
+"278","228445","Structural proteins","Tail sheath protein ",3
+"279","228445","Structural proteins","Virion structural protein",27
+"280","228522","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"281","228522","DNA-binding and transcription regulators","AAA ATPase",2
+"282","228522","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"283","228522","DNA-binding and transcription regulators","Transposase",6
+"284","228522","Lysis","Peptidase M23",2
+"285","228522","Packaging and assembly","Adhesin",4
+"286","228522","Replication and nucleic acid metabolism","DNA helicase",12
+"287","228522","Replication and nucleic acid metabolism","DNA polymerase",4
+"288","228522","Replication and nucleic acid metabolism","DNA topisomerase subunit",6
+"289","228522","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"290","228522","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"291","228522","Structural proteins","Major capsid protein",2
+"292","228522","Structural proteins","Portal protein",2
+"293","228522","Structural proteins","Tail sheath protein ",2
+"294","228781","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"295","228781","DNA-binding and transcription regulators","AAA ATPase",2
+"296","228781","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"297","228781","DNA-binding and transcription regulators","Transposase",6
+"298","228781","Packaging and assembly","Adhesin",2
+"299","228781","Replication and nucleic acid metabolism","DNA helicase",10
+"300","228781","Replication and nucleic acid metabolism","DNA polymerase",4
+"301","228781","Replication and nucleic acid metabolism","DNA topisomerase subunit",6
+"302","228781","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"303","228781","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"304","228781","Structural proteins","Major capsid protein",2
+"305","228781","Structural proteins","Morphogenesis protein",2
+"306","228781","Structural proteins","Portal protein",2
+"307","228781","Structural proteins","Tail sheath protein ",2
+"308","229051","Lysis","Endolysin",3
+"309","229051","Packaging and assembly","Adhesin",3
+"310","229051","Replication and nucleic acid metabolism","DNA helicase",3
+"311","229051","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"312","229051","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"313","229051","Replication and nucleic acid metabolism","Ribonuclease H",3
+"314","229051","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"315","229051","Structural proteins","Major capsid protein",3
+"316","229051","Structural proteins","Tail sheath protein ",3
+"317","229051","Structural proteins","Virion structural protein",30
+"318","229773","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"319","229773","DNA-binding and transcription regulators","AAA ATPase",2
+"320","229773","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"321","229773","DNA-binding and transcription regulators","Transposase",6
+"322","229773","Lysis","Peptidase M23",2
+"323","229773","Packaging and assembly","Adhesin",4
+"324","229773","Replication and nucleic acid metabolism","DNA helicase",10
+"325","229773","Replication and nucleic acid metabolism","DNA polymerase",4
+"326","229773","Replication and nucleic acid metabolism","DNA topisomerase subunit",6
+"327","229773","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"328","229773","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"329","229773","Structural proteins","Major capsid protein",2
+"330","229773","Structural proteins","Portal protein",2
+"331","229773","Structural proteins","Tail sheath protein ",2
+"332","229992","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"333","229992","DNA-binding and transcription regulators","AAA ATPase",2
+"334","229992","DNA-binding and transcription regulators","RNA polymerase sigma factor",1
+"335","229992","DNA-binding and transcription regulators","Transposase",1
+"336","229992","Lysis","Peptidase M23",1
+"337","229992","Packaging and assembly","Adhesin",1
+"338","229992","Replication and nucleic acid metabolism","DNA helicase",4
+"339","229992","Replication and nucleic acid metabolism","DNA polymerase",3
+"340","229992","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"341","229992","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"342","229992","Structural proteins","Major capsid protein",1
+"343","229992","Structural proteins","Portal protein",1
+"344","229992","Structural proteins","Tail sheath protein ",1
+"345","231249","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"346","231249","DNA-binding and transcription regulators","AAA ATPase",4
+"347","231249","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"348","231249","DNA-binding and transcription regulators","Transposase",4
+"349","231249","Lysis","Peptidase M23",2
+"350","231249","Packaging and assembly","Adhesin",2
+"351","231249","Replication and nucleic acid metabolism","DNA helicase",10
+"352","231249","Replication and nucleic acid metabolism","DNA polymerase",4
+"353","231249","Replication and nucleic acid metabolism","DNA topisomerase subunit",8
+"354","231249","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"355","231249","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"356","231249","Structural proteins","Major capsid protein",2
+"357","231249","Structural proteins","Portal protein",2
+"358","231249","Structural proteins","Tail sheath protein ",2
+"359","232905","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"360","232905","DNA-binding and transcription regulators","AAA ATPase",2
+"361","232905","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"362","232905","DNA-binding and transcription regulators","Transposase",10
+"363","232905","Lysis","Peptidase M23",2
+"364","232905","Packaging and assembly","Adhesin",2
+"365","232905","Replication and nucleic acid metabolism","DNA helicase",8
+"366","232905","Replication and nucleic acid metabolism","DNA polymerase",6
+"367","232905","Replication and nucleic acid metabolism","DNA topisomerase subunit",6
+"368","232905","Replication and nucleic acid metabolism","HNH endonuclease",2
+"369","232905","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"370","232905","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"371","232905","Structural proteins","Major capsid protein",2
+"372","232905","Structural proteins","Tail sheath protein ",2
+"373","232979","Lysis","LysC protein",3
+"374","232979","Packaging and assembly","Terminase large subunit protein",3
+"375","232979","Replication and nucleic acid metabolism","DNA helicase",9
+"376","232979","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",3
+"377","232979","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"378","232979","Replication and nucleic acid metabolism","Ribonuclease H",3
+"379","232979","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"380","232979","Structural proteins","Major capsid protein",3
+"381","232979","Structural proteins","Tail sheath protein ",3
+"382","232979","Structural proteins","Virion structural protein",27
+"383","234839","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"384","234839","DNA-binding and transcription regulators","AAA ATPase",2
+"385","234839","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"386","234839","DNA-binding and transcription regulators","Transposase",6
+"387","234839","Lysis","Peptidase M23",2
+"388","234839","Packaging and assembly","Adhesin",2
+"389","234839","Packaging and assembly","Terminase large subunit protein",2
+"390","234839","Replication and nucleic acid metabolism","DNA helicase",8
+"391","234839","Replication and nucleic acid metabolism","DNA polymerase",4
+"392","234839","Replication and nucleic acid metabolism","DNA topisomerase subunit",12
+"393","234839","Replication and nucleic acid metabolism","HNH endonuclease domain protein",2
+"394","234839","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"395","234839","Structural proteins","Major capsid protein",2
+"396","234839","Structural proteins","Portal protein",2
+"397","234839","Structural proteins","Tail sheath protein ",2
+"398","235074","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"399","235074","Packaging and assembly","Adhesin",1
+"400","235074","Replication and nucleic acid metabolism","DNA helicase",3
+"401","235074","Replication and nucleic acid metabolism","HNH endonuclease domain protein",1
+"402","235074","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"403","235074","Replication and nucleic acid metabolism","Ribonuclease H",1
+"404","235074","Replication and nucleic acid metabolism","Ribonucleotide reductase",1
+"405","235074","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"406","235074","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"407","235074","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"408","235074","Structural proteins","Major capsid protein",1
+"409","235074","Structural proteins","Tail sheath protein ",1
+"410","235074","Structural proteins","Virion structural protein",10
+"411","235552","Lysis","LysC protein",2
+"412","235552","Packaging and assembly","Terminase large subunit protein",2
+"413","235552","Replication and nucleic acid metabolism","DNA helicase",6
+"414","235552","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",2
+"415","235552","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"416","235552","Replication and nucleic acid metabolism","Ribonuclease H",2
+"417","235552","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"418","235552","Structural proteins","Major capsid protein",2
+"419","235552","Structural proteins","Tail sheath protein ",2
+"420","235552","Structural proteins","Virion structural protein",16
+"421","235695","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"422","235695","DNA-binding and transcription regulators","AAA ATPase",4
+"423","235695","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"424","235695","DNA-binding and transcription regulators","Transposase",8
+"425","235695","Lysis","Peptidase M23",2
+"426","235695","Packaging and assembly","Adhesin",2
+"427","235695","Replication and nucleic acid metabolism","DNA helicase",12
+"428","235695","Replication and nucleic acid metabolism","DNA polymerase",4
+"429","235695","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"430","235695","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"431","235695","Structural proteins","Major capsid protein",2
+"432","235695","Structural proteins","Portal protein",2
+"433","235695","Structural proteins","Tail sheath protein ",2
+"434","236619","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"435","236619","Packaging and assembly","Adhesin",1
+"436","236619","Replication and nucleic acid metabolism","DNA helicase",3
+"437","236619","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"438","236619","Replication and nucleic acid metabolism","Ribonuclease H",1
+"439","236619","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"440","236619","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"441","236619","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"442","236619","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"443","236619","Structural proteins","Major capsid protein",1
+"444","236619","Structural proteins","Tail sheath protein ",1
+"445","236619","Structural proteins","Virion structural protein",10
+"446","237850","Lysis","LysC protein",1
+"447","237850","Packaging and assembly","Terminase large subunit protein",1
+"448","237850","Replication and nucleic acid metabolism","DNA helicase",3
+"449","237850","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",1
+"450","237850","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"451","237850","Replication and nucleic acid metabolism","Ribonuclease H",1
+"452","237850","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"453","237850","Structural proteins","Major capsid protein",1
+"454","237850","Structural proteins","Tail sheath protein ",1
+"455","237850","Structural proteins","Virion structural protein",8
+"456","239560","Lysis","LysC protein",3
+"457","239560","Packaging and assembly","Terminase large subunit protein",3
+"458","239560","Replication and nucleic acid metabolism","DNA helicase",9
+"459","239560","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",3
+"460","239560","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"461","239560","Replication and nucleic acid metabolism","Ribonuclease H",3
+"462","239560","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"463","239560","Structural proteins","Major capsid protein",3
+"464","239560","Structural proteins","Tail sheath protein ",3
+"465","239560","Structural proteins","Virion structural protein",27
+"466","239763","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"467","239763","Lysis","LysC protein",1
+"468","239763","Packaging and assembly","Adhesin",1
+"469","239763","Replication and nucleic acid metabolism","DNA helicase",3
+"470","239763","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"471","239763","Replication and nucleic acid metabolism","Ribonuclease H",1
+"472","239763","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"473","239763","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",1
+"474","239763","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"475","239763","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"476","239763","Structural proteins","Major capsid protein",1
+"477","239763","Structural proteins","Tail sheath protein ",1
+"478","239763","Structural proteins","Virion structural protein",9
+"479","240432","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"480","240432","Lysis","LysC protein",1
+"481","240432","Packaging and assembly","Adhesin",1
+"482","240432","Replication and nucleic acid metabolism","DNA helicase",3
+"483","240432","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"484","240432","Replication and nucleic acid metabolism","Ribonuclease H",1
+"485","240432","Replication and nucleic acid metabolism","Ribonucleotide reductase",1
+"486","240432","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",1
+"487","240432","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"488","240432","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"489","240432","Structural proteins","Major capsid protein",1
+"490","240432","Structural proteins","Tail sheath protein ",1
+"491","240432","Structural proteins","Virion structural protein",10
+"492","241494","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"493","241494","Lysis","LysC protein",3
+"494","241494","Packaging and assembly","Adhesin",3
+"495","241494","Replication and nucleic acid metabolism","DNA helicase",9
+"496","241494","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"497","241494","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"498","241494","Replication and nucleic acid metabolism","Ribonuclease H",3
+"499","241494","Replication and nucleic acid metabolism","Ribonucleotide reductase",3
+"500","241494","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"501","241494","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"502","241494","Structural proteins","Major capsid protein",3
+"503","241494","Structural proteins","Tail sheath protein ",3
+"504","241494","Structural proteins","Virion structural protein",27
+"505","241528","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"506","241528","Lysis","LysC protein",3
+"507","241528","Packaging and assembly","Adhesin",3
+"508","241528","Replication and nucleic acid metabolism","DNA helicase",9
+"509","241528","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"510","241528","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"511","241528","Replication and nucleic acid metabolism","Ribonuclease H",3
+"512","241528","Replication and nucleic acid metabolism","Ribonucleotide reductase",3
+"513","241528","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"514","241528","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"515","241528","Structural proteins","Major capsid protein",3
+"516","241528","Structural proteins","Tail sheath protein ",3
+"517","241528","Structural proteins","Virion structural protein",27
+"518","242314","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"519","242314","Packaging and assembly","Adhesin",3
+"520","242314","Replication and nucleic acid metabolism","DNA helicase",9
+"521","242314","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"522","242314","Replication and nucleic acid metabolism","Ribonuclease H",3
+"523","242314","Replication and nucleic acid metabolism","Ribonucleotide reductase",3
+"524","242314","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",3
+"525","242314","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"526","242314","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"527","242314","Structural proteins","Major capsid protein",3
+"528","242314","Structural proteins","Tail sheath protein ",3
+"529","242314","Structural proteins","Virion structural protein",27
+"530","242324","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"531","242324","Packaging and assembly","Adhesin",3
+"532","242324","Replication and nucleic acid metabolism","DNA helicase",9
+"533","242324","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"534","242324","Replication and nucleic acid metabolism","Ribonuclease H",3
+"535","242324","Replication and nucleic acid metabolism","Ribonucleotide reductase",3
+"536","242324","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",3
+"537","242324","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"538","242324","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"539","242324","Structural proteins","Major capsid protein",3
+"540","242324","Structural proteins","Tail sheath protein ",3
+"541","242324","Structural proteins","Virion structural protein",27
+"542","243417","Replication and nucleic acid metabolism","DNA helicase",8
+"543","243417","Replication and nucleic acid metabolism","HNH endonuclease domain protein",4
+"544","243417","Replication and nucleic acid metabolism","Recombination endonuclease subunit",4
+"545","243417","Replication and nucleic acid metabolism","Ribonuclease H",4
+"546","243417","Replication and nucleic acid metabolism","Ribonucleotide reductase",8
+"547","243417","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",8
+"548","243417","Replication and nucleic acid metabolism","Thymidylate kinase",4
+"549","243417","Structural proteins","Major capsid protein",4
+"550","243417","Structural proteins","Tail fiber protein",4
+"551","243417","Structural proteins","Tail sheath protein ",4
+"552","243417","Structural proteins","Virion structural protein",16
+"553","244976","Replication and nucleic acid metabolism","DNA helicase",4
+"554","244976","Replication and nucleic acid metabolism","HNH endonuclease domain protein",4
+"555","244976","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"556","244976","Replication and nucleic acid metabolism","Ribonuclease H",2
+"557","244976","Replication and nucleic acid metabolism","Ribonucleotide reductase",4
+"558","244976","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",4
+"559","244976","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"560","244976","Structural proteins","Major capsid protein",2
+"561","244976","Structural proteins","Tail sheath protein ",2
+"562","244976","Structural proteins","Virion structural protein",8
+"563","245864","DNA-binding and transcription regulators","Transposase",2
+"564","245864","Replication and nucleic acid metabolism","DNA helicase",6
+"565","245864","Replication and nucleic acid metabolism","HNH endonuclease domain protein",4
+"566","245864","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"567","245864","Replication and nucleic acid metabolism","Ribonuclease H",2
+"568","245864","Replication and nucleic acid metabolism","Ribonucleotide reductase",4
+"569","245864","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",4
+"570","245864","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"571","245864","Structural proteins","Major capsid protein",2
+"572","245864","Structural proteins","Tail fiber protein",2
+"573","245864","Structural proteins","Tail sheath protein ",2
+"574","245864","Structural proteins","Virion structural protein",8
+"575","245871","DNA-binding and transcription regulators","Transposase",2
+"576","245871","Replication and nucleic acid metabolism","DNA helicase",6
+"577","245871","Replication and nucleic acid metabolism","HNH endonuclease domain protein",4
+"578","245871","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"579","245871","Replication and nucleic acid metabolism","Ribonuclease H",2
+"580","245871","Replication and nucleic acid metabolism","Ribonucleotide reductase",4
+"581","245871","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",4
+"582","245871","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"583","245871","Structural proteins","Major capsid protein",2
+"584","245871","Structural proteins","Tail fiber protein",2
+"585","245871","Structural proteins","Tail sheath protein ",2
+"586","245871","Structural proteins","Virion structural protein",8
+"587","248802","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"588","248802","Auxilliary metabolic genes","Serine/threonine phosphatase family protein",3
+"589","248802","DNA-binding and transcription regulators","DNA methylase",6
+"590","248802","DNA-binding and transcription regulators","RNA polymerase sigma factor",3
+"591","248802","DNA-binding and transcription regulators","Transposase",18
+"592","248802","Lysis","Lysozyme",3
+"593","248802","Replication and nucleic acid metabolism","DNA helicase",9
+"594","248802","Replication and nucleic acid metabolism","DNA polymerase",12
+"595","248802","Replication and nucleic acid metabolism","Exonuclease",3
+"596","248802","Replication and nucleic acid metabolism","Recombination endonuclease subunit",6
+"597","248802","Replication and nucleic acid metabolism","Ribonucleotide reductase",3
+"598","248802","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"599","248802","Structural proteins","Baseplate wedge subunit",3
+"600","248802","Structural proteins","Head completion protein",3
+"601","248802","Structural proteins","Major capsid protein",3
+"602","248802","Structural proteins","Neck protein",3
+"603","248802","Structural proteins","Portal vertex protein",3
+"604","248802","Structural proteins","Prohead core scaffolding protein and protease ",3
+"605","248802","Structural proteins","Tail sheath protein ",3
+"606","248802","Structural proteins","Tail tube protein",3
+"607","249678","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"608","249678","Auxilliary metabolic genes","Serine/threonine phosphatase family protein",2
+"609","249678","DNA-binding and transcription regulators","DNA methylase",4
+"610","249678","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"611","249678","DNA-binding and transcription regulators","Transposase",4
+"612","249678","Lysis","Lysozyme",2
+"613","249678","Replication and nucleic acid metabolism","DNA helicase",6
+"614","249678","Replication and nucleic acid metabolism","DNA polymerase",8
+"615","249678","Replication and nucleic acid metabolism","Exonuclease",2
+"616","249678","Replication and nucleic acid metabolism","Recombination endonuclease subunit",4
+"617","249678","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"618","249678","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"619","249678","Structural proteins","Baseplate wedge subunit",2
+"620","249678","Structural proteins","Head completion protein",2
+"621","249678","Structural proteins","Major capsid protein",2
+"622","249678","Structural proteins","Neck protein",2
+"623","249678","Structural proteins","Portal vertex protein",2
+"624","249678","Structural proteins","Prohead core scaffolding protein and protease ",2
+"625","249678","Structural proteins","Tail sheath protein ",2
+"626","249678","Structural proteins","Tail tube protein",2
+"627","250771","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"628","250771","Replication and nucleic acid metabolism","DNA helicase",6
+"629","250771","Replication and nucleic acid metabolism","Exonuclease",2
+"630","250771","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",2
+"631","250771","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"632","250771","Replication and nucleic acid metabolism","Ribonuclease H",2
+"633","250771","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"634","250771","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"635","250771","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"636","250771","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"637","250771","Structural proteins","Major capsid protein",2
+"638","250771","Structural proteins","Tail sheath protein ",2
+"639","250771","Structural proteins","Virion structural protein",18
+"640","253246","Replication and nucleic acid metabolism","DNA helicase",2
+"641","253246","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",2
+"642","253246","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"643","253246","Replication and nucleic acid metabolism","Ribonuclease H",1
+"644","253246","Replication and nucleic acid metabolism","Ribonucleotide reductase",1
+"645","253246","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",1
+"646","253246","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"647","253246","Structural proteins","Major capsid protein",1
+"648","253246","Structural proteins","Prohead peptidase gp175 protein",1
+"649","253246","Structural proteins","Tail fiber protein",1
+"650","253246","Structural proteins","Tail sheath protein ",1
+"651","253246","Structural proteins","Virion structural protein",4
+"652","253437","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"653","253437","Auxilliary metabolic genes","Serine/threonine phosphatase family protein",2
+"654","253437","DNA-binding and transcription regulators","DNA methylase",4
+"655","253437","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"656","253437","DNA-binding and transcription regulators","Transposase",6
+"657","253437","Lysis","Lysozyme",2
+"658","253437","Replication and nucleic acid metabolism","DNA helicase",6
+"659","253437","Replication and nucleic acid metabolism","DNA polymerase",8
+"660","253437","Replication and nucleic acid metabolism","Exonuclease",2
+"661","253437","Replication and nucleic acid metabolism","Recombination endonuclease subunit",4
+"662","253437","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"663","253437","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"664","253437","Structural proteins","Baseplate wedge subunit",2
+"665","253437","Structural proteins","Head completion protein",2
+"666","253437","Structural proteins","Major capsid protein",2
+"667","253437","Structural proteins","Neck protein",2
+"668","253437","Structural proteins","Portal vertex protein",2
+"669","253437","Structural proteins","Prohead core scaffolding protein and protease ",2
+"670","253437","Structural proteins","Tail sheath protein ",2
+"671","253437","Structural proteins","Tail tube protein",2
+"672","254595","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"673","254595","Lysis","Lysin A",1
+"674","254595","Packaging and assembly","Adhesin",1
+"675","254595","Replication and nucleic acid metabolism","DNA helicase",2
+"676","254595","Replication and nucleic acid metabolism","HNH endonuclease domain protein",1
+"677","254595","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",1
+"678","254595","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"679","254595","Replication and nucleic acid metabolism","Ribonuclease H",1
+"680","254595","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"681","254595","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",1
+"682","254595","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"683","254595","Structural proteins","Major capsid protein",1
+"684","254595","Structural proteins","Tail sheath protein ",1
+"685","254595","Structural proteins","Virion structural protein",8
+"686","254822","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"687","254822","Auxilliary metabolic genes","Serine/threonine phosphatase family protein",2
+"688","254822","DNA-binding and transcription regulators","DNA methylase",4
+"689","254822","DNA-binding and transcription regulators","RNA polymerase sigma factor",2
+"690","254822","DNA-binding and transcription regulators","Transposase",16
+"691","254822","Lysis","Lysozyme",2
+"692","254822","Replication and nucleic acid metabolism","DNA helicase",6
+"693","254822","Replication and nucleic acid metabolism","DNA polymerase",8
+"694","254822","Replication and nucleic acid metabolism","Exonuclease",2
+"695","254822","Replication and nucleic acid metabolism","Recombination endonuclease subunit",4
+"696","254822","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"697","254822","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"698","254822","Structural proteins","Baseplate wedge subunit",2
+"699","254822","Structural proteins","Head completion protein",2
+"700","254822","Structural proteins","Major capsid protein",2
+"701","254822","Structural proteins","Neck protein",2
+"702","254822","Structural proteins","Portal vertex protein",2
+"703","254822","Structural proteins","Prohead core scaffolding protein and protease ",2
+"704","254822","Structural proteins","Tail sheath protein ",2
+"705","254822","Structural proteins","Tail tube protein",2
+"706","256959","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"707","256959","Packaging and assembly","Adhesin",2
+"708","256959","Replication and nucleic acid metabolism","DNA helicase",6
+"709","256959","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"710","256959","Replication and nucleic acid metabolism","Ribonuclease H",2
+"711","256959","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"712","256959","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"713","256959","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"714","256959","Structural proteins","Major capsid protein",2
+"715","256959","Structural proteins","Tail sheath protein ",2
+"716","256959","Structural proteins","Virion structural protein",16
+"717","256964","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"718","256964","Packaging and assembly","Adhesin",3
+"719","256964","Replication and nucleic acid metabolism","DNA helicase",9
+"720","256964","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"721","256964","Replication and nucleic acid metabolism","Ribonuclease H",3
+"722","256964","Replication and nucleic acid metabolism","Ribonucleotide reductase",3
+"723","256964","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",3
+"724","256964","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"725","256964","Structural proteins","Major capsid protein",3
+"726","256964","Structural proteins","Tail sheath protein ",3
+"727","256964","Structural proteins","Virion structural protein",24
+"728","258288","Auxilliary metabolic genes","Dihydrofolate reductase",5
+"729","258288","Packaging and assembly","Adhesin",5
+"730","258288","Replication and nucleic acid metabolism","DNA helicase",15
+"731","258288","Replication and nucleic acid metabolism","Recombination endonuclease subunit",5
+"732","258288","Replication and nucleic acid metabolism","Ribonuclease H",5
+"733","258288","Replication and nucleic acid metabolism","Ribonucleotide reductase",5
+"734","258288","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",5
+"735","258288","Replication and nucleic acid metabolism","Thymidylate synthase",5
+"736","258288","Structural proteins","Major capsid protein",5
+"737","258288","Structural proteins","Tail sheath protein ",5
+"738","258288","Structural proteins","Virion structural protein",40
+"739","258293","Auxilliary metabolic genes","Dihydrofolate reductase",5
+"740","258293","Packaging and assembly","Adhesin",5
+"741","258293","Replication and nucleic acid metabolism","DNA helicase",15
+"742","258293","Replication and nucleic acid metabolism","Recombination endonuclease subunit",5
+"743","258293","Replication and nucleic acid metabolism","Ribonuclease H",5
+"744","258293","Replication and nucleic acid metabolism","Ribonucleotide reductase",5
+"745","258293","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",5
+"746","258293","Replication and nucleic acid metabolism","Thymidylate synthase",5
+"747","258293","Structural proteins","Major capsid protein",5
+"748","258293","Structural proteins","Tail sheath protein ",5
+"749","258293","Structural proteins","Virion structural protein",40
+"750","260368","Lysis","Endolysin",2
+"751","260368","Replication and nucleic acid metabolism","DNA helicase",6
+"752","260368","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",8
+"753","260368","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"754","260368","Replication and nucleic acid metabolism","Ribonuclease H",2
+"755","260368","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"756","260368","Structural proteins","Major capsid protein",2
+"757","260368","Structural proteins","Tail sheath protein ",2
+"758","260368","Structural proteins","Tape measure protein",2
+"759","260368","Structural proteins","Virion structural protein",12
+"760","260460","Auxilliary metabolic genes","Dihydrofolate reductase",2
+"761","260460","Lysis","Endolysin",2
+"762","260460","Packaging and assembly","Adhesin",2
+"763","260460","Packaging and assembly","Terminase large subunit protein",2
+"764","260460","Replication and nucleic acid metabolism","DHH phosphoesterase",2
+"765","260460","Replication and nucleic acid metabolism","DNA helicase",4
+"766","260460","Replication and nucleic acid metabolism","HNH endonuclease domain protein",2
+"767","260460","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",2
+"768","260460","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"769","260460","Replication and nucleic acid metabolism","Ribonuclease H",2
+"770","260460","Replication and nucleic acid metabolism","Ribonucleotide reductase",2
+"771","260460","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",2
+"772","260460","Replication and nucleic acid metabolism","RNA ligase",2
+"773","260460","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"774","260460","Replication and nucleic acid metabolism","Thymidylate synthase",4
+"775","260460","Structural proteins","Major capsid protein",2
+"776","260460","Structural proteins","Tail sheath protein ",2
+"777","260460","Structural proteins","Virion structural protein",18
+"778","263381","Replication and nucleic acid metabolism","DNA helicase",12
+"779","263381","Replication and nucleic acid metabolism","HNH endonuclease domain protein",6
+"780","263381","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",6
+"781","263381","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"782","263381","Replication and nucleic acid metabolism","Ribonuclease H",3
+"783","263381","Replication and nucleic acid metabolism","Ribonucleotide reductase",6
+"784","263381","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",6
+"785","263381","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"786","263381","Structural proteins","Major capsid protein",3
+"787","263381","Structural proteins","Tail sheath protein ",3
+"788","263381","Structural proteins","Virion structural protein",12
+"789","263796","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"790","263796","Replication and nucleic acid metabolism","DNA helicase",9
+"791","263796","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",3
+"792","263796","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"793","263796","Replication and nucleic acid metabolism","Ribonuclease H",3
+"794","263796","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",3
+"795","263796","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"796","263796","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"797","263796","Structural proteins","Major capsid protein",3
+"798","263796","Structural proteins","Tail sheath protein ",3
+"799","263796","Structural proteins","Virion structural protein",30
+"800","267299","Replication and nucleic acid metabolism","DNA helicase",6
+"801","267299","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",2
+"802","267299","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"803","267299","Replication and nucleic acid metabolism","Ribonuclease H",2
+"804","267299","Replication and nucleic acid metabolism","Thymidylate kinase",2
+"805","267299","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"806","267299","Structural proteins","Major capsid protein",2
+"807","267299","Structural proteins","Tail sheath protein ",2
+"808","267299","Structural proteins","Virion structural protein",20
+"809","269911","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"810","269911","Replication and nucleic acid metabolism","DNA helicase",9
+"811","269911","Replication and nucleic acid metabolism","DNA ligase",3
+"812","269911","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",3
+"813","269911","Replication and nucleic acid metabolism","Recombination endonuclease subunit",3
+"814","269911","Replication and nucleic acid metabolism","Ribonuclease H",3
+"815","269911","Replication and nucleic acid metabolism","Ribonucleotide reductase subunit",3
+"816","269911","Replication and nucleic acid metabolism","Thymidylate kinase",3
+"817","269911","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"818","269911","Structural proteins","Major capsid protein",3
+"819","269911","Structural proteins","Tail sheath protein ",3
+"820","269911","Structural proteins","Virion structural protein",30
+"821","283077","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"822","283077","Lysis","Endolysin",1
+"823","283077","Packaging and assembly","Terminase large subunit protein",2
+"824","283077","Replication and nucleic acid metabolism","DHH phosphoesterase",1
+"825","283077","Replication and nucleic acid metabolism","DNA helicase",3
+"826","283077","Replication and nucleic acid metabolism","NAD-dependent DNA ligase subunit A",1
+"827","283077","Replication and nucleic acid metabolism","Recombination endonuclease subunit",1
+"828","283077","Replication and nucleic acid metabolism","Ribonuclease H",1
+"829","283077","Replication and nucleic acid metabolism","Ribonucleotide reductase",1
+"830","283077","Replication and nucleic acid metabolism","Thymidylate kinase",1
+"831","283077","Replication and nucleic acid metabolism","Thymidylate synthase",1
+"832","283077","Structural proteins","Baseplate wedge initiator",1
+"833","283077","Structural proteins","Major capsid protein",1
+"834","283077","Structural proteins","Tail sheath protein ",1
+"835","283077","Structural proteins","Virion structural protein",9
+"836","315556","Auxilliary metabolic genes","Dihydrofolate reductase",3
+"837","315556","Auxilliary metabolic genes","Glutaredoxin",3
+"838","315556","Auxilliary metabolic genes","Serine/threonine phosphatase family protein",3
+"839","315556","DNA-binding and transcription regulators","DNA methylase",3
+"840","315556","DNA-binding and transcription regulators","RNA polymerase sigma factor",6
+"841","315556","DNA-binding and transcription regulators","Transposase",27
+"842","315556","Lysis","Endolysin",3
+"843","315556","Lysis","Lysozyme",3
+"844","315556","Packaging and assembly","Terminase large subunit protein",3
+"845","315556","Replication and nucleic acid metabolism","DNA helicase",9
+"846","315556","Replication and nucleic acid metabolism","DNA polymerase",3
+"847","315556","Replication and nucleic acid metabolism","Exonuclease",3
+"848","315556","Replication and nucleic acid metabolism","HNH endonuclease domain protein",3
+"849","315556","Replication and nucleic acid metabolism","Recombination endonuclease subunit",6
+"850","315556","Replication and nucleic acid metabolism","Thymidylate synthase",3
+"851","315556","Structural proteins","Baseplate hub subunit",3
+"852","315556","Structural proteins","Baseplate wedge initiator",3
+"853","315556","Structural proteins","Baseplate wedge subunit",3
+"854","315556","Structural proteins","Major capsid protein",3
+"855","315556","Structural proteins","Neck protein",3
+"856","315556","Structural proteins","Portal vertex protein",3
+"857","315556","Structural proteins","Prohead core scaffolding protein and protease ",3
+"858","315556","Structural proteins","Tail sheath protein ",3
+"859","389119","Auxilliary metabolic genes","Dihydrofolate reductase",1
+"860","389119","Auxilliary metabolic genes","Serine/threonine phosphatase family protein",1
+"861","389119","DNA-binding and transcription regulators","dCMP deaminase",1
+"862","389119","DNA-binding and transcription regulators","RNA polymerase sigma factor",1
+"863","389119","DNA-binding and transcription regulators","Transposase",17
+"864","389119","Lysis","Endolysin",2
+"865","389119","Lysis","Lysozyme",3
+"866","389119","Replication and nucleic acid metabolism","DNA helicase",3
+"867","389119","Replication and nucleic acid metabolism","DNA polymerase",4
+"868","389119","Replication and nucleic acid metabolism","DNA topisomerase subunit",2
+"869","389119","Replication and nucleic acid metabolism","Recombination endonuclease subunit",2
+"870","389119","Replication and nucleic acid metabolism","RNA ligase",1
+"871","389119","Replication and nucleic acid metabolism","Thymidylate synthase",2
+"872","389119","Structural proteins","Baseplate wedge subunit",1
+"873","389119","Structural proteins","Major capsid protein",1
+"874","389119","Structural proteins","Neck protein",1
+"875","389119","Structural proteins","Portal vertex protein",1
+"876","389119","Structural proteins","Prohead core scaffolding protein and protease ",2
+"877","389119","Structural proteins","Tail sheath protein ",1
+"878","389119","Structural proteins","Tail tube protein",1
