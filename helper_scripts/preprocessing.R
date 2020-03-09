@@ -462,3 +462,14 @@ rownames(vir_counts_prop_agg_phage) <- unlist(vir_counts_prop_agg_phage[,1])
 vir_counts_prop_agg_phage <- vir_counts_prop_agg_phage[,-1]
 vir_counts_prop_agg_phage <- as.matrix(vir_counts_prop_agg_phage)
 saveRDS(vir_counts_prop_agg_phage, file = "../data/vir_counts_prop_agg_phage.RDS")
+
+# Size of all contigs
+scaf_len_files <- list.files("../data/SCAFFOLD_LENGTHS", pattern = "*txt", full.names = TRUE)
+scaf_len <- data.frame()
+for (i in 1:length(scaf_len_files)) {
+  tmp <- read.delim(scaf_len_files[i], header = FALSE)
+  tmp$ID <- gsub(".*_LENGTHS/", "", gsub("_scaffolds.*", "", scaf_len_files[i]))
+  scaf_len <- rbind(scaf_len, tmp)
+}
+names(scaf_len) <- c("size", "ID")
+saveRDS(scaf_len, file = "../data/scaffold_lengths.RDS")
