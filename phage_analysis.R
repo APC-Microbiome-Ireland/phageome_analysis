@@ -61,6 +61,11 @@ metadata_summary <- metadata %>% filter(Visit_Number == 1) %>% group_by(Location
 cols <- plasma(length(unique(metadata$sample_type)), end = 0.8)
 names(cols) <- sort(unique(metadata$sample_type))
 
+# Cohort colours
+metadata$Location_sampletype <- paste(metadata$sample_type, "-", metadata$Location)
+cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(5,7)], "gold", brewer.pal(9, "YlOrRd")[c(5,7)], brewer.pal(9, "RdPu")[c(3,5)])
+names(cohort_cols) <- sort(unique(metadata$Location_sampletype)) 
+
 ########## Virome composition barplots ####
 demovir_cols <- rev(c(brewer.pal(length(unique(vir_counts_prop_melt_agg$demovir)), "Set3")))
 names(demovir_cols) <- sort(as.character(unique(vir_counts_prop_melt_agg$demovir)))
@@ -68,13 +73,109 @@ demovir_cols[names(demovir_cols) == "crAss-like"] <- "grey50"
 demovir_cols[names(demovir_cols) == "Unassigned"] <- "grey80"
 demovir_cols[demovir_cols == "#FFFFB3"] <- "#8DD3C7"
 
+vir_counts_prop_melt_agg_exus <- vir_counts_prop_melt_agg %>%
+  filter(Var2 %in% metadata$ID[metadata$Visit_Number == 1])
+
 tiff("figures/barplot_demovir.tiff", width = 5000, height = 2000, res = 400)
-ggplot(vir_counts_prop_melt_agg, aes(x = Var2, y = V1, fill = as.factor(demovir))) + theme_classic() +
+ggplot(vir_counts_prop_melt_agg_exus, aes(x = Var2, y = V1, fill = as.factor(demovir))) + theme_classic() +
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols[sort(names(demovir_cols))]) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
-  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg$V1, by=list(ID=vir_counts_prop_melt_agg$Var2), FUN=sum)$x))
+  ylab("Proportion of reads") + xlab("Sample") + ylim(0, max(aggregate(vir_counts_prop_melt_agg_exus$V1, by=list(ID=vir_counts_prop_melt_agg_exus$Var2), FUN=sum)$x))
+dev.off()
+
+vir_counts_prop_melt_agg_rel <- vir_counts_prop_melt_agg_exus %>%
+  group_by(Var2) %>%
+  mutate(V1_prop = V1/sum(V1))
+  
+tiff("figures/barplot_demovir_rel.tiff", width = 5000, height = 2000, res = 400)
+ggplot(vir_counts_prop_melt_agg_rel, aes(x = Var2, y = V1_prop, fill = as.factor(demovir))) + theme_classic() +
+  geom_bar(stat = "identity") +
+  scale_fill_manual("Viral Family",  values = demovir_cols[sort(names(demovir_cols))]) +
+  facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
+  ylab("Proportion of reads") + xlab("Sample")
+dev.off()
+
+plotFamilyHeatmap <- function(family_matrix, title, cols = cohort_cols) {
+  heatmap.2(family_matrix,
+            trace = "none",
+            scale = "none",
+            density.info = "none",
+            hclustfun = function(x) {hclust(x, method = "ward.D2")},
+            dendrogram = "both",
+            col =  c("white", brewer.pal(9, "PuRd")[3:9]),
+            breaks = seq(min(family_matrix), 0, length.out = 9),
+            symbreaks = FALSE,
+            keysize = 1,
+            lhei = c(1,8),
+            key.title = NA,
+            key.xlab = "log10(prop. reads mapped)",
+            key.ylab = NA,
+            ColSideColors = cols[metadata[colnames(family_matrix), "Location_sampletype"]],
+            labRow = NA,
+            labCol = NA,
+            cexCol = 0.5,
+            cexRow = 0.5,
+            xlab = "",
+            ylab = "Phage Clusters",
+            main = title)
+}
+
+unique_demovir <- sort(unique(vir_counts_prop_melt_agg$demovir))
+unique_demovir <- as.character(unique_demovir[!unique_demovir %in% c("Other", "Unassigned")])
+num_clusters <- rep(NA, length(unique_demovir))
+list_family_mat <- list()
+
+for (i in 1:length(unique_demovir)) {
+  family_prop <- vir_counts_prop_melt_agg %>%
+    filter(Var2 %in% metadata$ID[metadata$Visit_Number == 1]) %>%
+    filter(demovir == unique_demovir[i]) %>%
+    dcast(vcontact_cluster ~ Var2, sum)
+  
+  row.names(family_prop) <- family_prop$vcontact_cluster
+  family_prop <- as.matrix(family_prop[,-1])
+  num_clusters[i] <- dim(family_prop)[1]
+  family_prop_log = log10(as.matrix(family_prop))
+  family_prop_log[is.infinite(family_prop_log)] = -8
+  list_family_mat[[i]] <- family_prop_log
+}
+names(list_family_mat) <- unique_demovir
+names(num_clusters) <- unique_demovir
+
+tiff("figures/Inoviridae.tiff", width = 2000, height = 1400, res = 150)
+plotFamilyHeatmap(list_family_mat[["Inoviridae"]], "Inoviridae")
+dev.off()
+
+tiff("figures/Microviridae.tiff", width = 2000, height = 1400, res = 150)
+plotFamilyHeatmap(list_family_mat[["Microviridae"]], "Microviridae")
+dev.off()
+
+tiff("figures/Siphoviridae.tiff", width = 2000, height = 1400, res = 150)
+plotFamilyHeatmap(list_family_mat[["Siphoviridae"]], "Siphoviridae")
+dev.off()
+
+tiff("figures/Myoviridae.tiff", width = 2000, height = 1400, res = 150)
+plotFamilyHeatmap(list_family_mat[["Myoviridae"]], "Myoviridae")
+dev.off()
+
+tiff("figures/Podoviridae.tiff", width = 2000, height = 1400, res = 150)
+plotFamilyHeatmap(list_family_mat[["Podoviridae"]], "Podoviridae")
+dev.off()
+
+tiff("figures/crAss-like.tiff", width = 2000, height = 1400, res = 150)
+plotFamilyHeatmap(list_family_mat[["crAss-like"]], "crAss-like")
+dev.off()
+
+# Bicaudaviridae
+metadata[colnames(list_family_mat[["Bicaudaviridae"]]), "Location_sampletype"]
+
+tiff("figures/cohort_legend.tiff")
+plot.new()
+legend("bottomleft", legend = levels(factor(metadata[, "Location_sampletype"])),
+       col = cohort_cols, bg = "white", box.col = "black",
+       lty = 1, lwd = 5, cex = 1, title = "Cohort:")
 dev.off()
 
 ########## Virome beta-diversity###########################
@@ -191,8 +292,6 @@ tiff("figures/tsne_clusters.tiff", width = 800, height = 500, res = 150)
 tsne_plot1
 dev.off()
 
-cohort_cols <- c("grey", brewer.pal(9, "Blues")[c(5,7)], "gold", brewer.pal(9, "YlOrRd")[c(5,7)], brewer.pal(9, "RdPu")[c(3,5)])
-names(cohort_cols) <- sort(unique(cluster_res$Location_sampletype)) 
 tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
   geom_bar(stat = "identity") +
