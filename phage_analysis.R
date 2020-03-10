@@ -722,6 +722,38 @@ legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames
        lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
 dev.off()
 
+# Phage host for each phage family
+vir_fam_host <- left_join(vir_counts_prop_melt_agg[vir_counts_prop_melt_agg$Var2 %in% metadata$ID[metadata$Visit_Number == 1],-c("V1")], vir_counts_prop_melt_agg2[,-c("V1")], by = c("Var2", "sample_type", "Location"))
+vir_fam_host <- vir_fam_host[!vir_fam_host$demovir %in% c("Other", "Unassigned"),]
+vir_fam_host_summary <- vir_fam_host %>% 
+  mutate(crispr_host = replace(crispr_host, is.na(crispr_host), "Unassigned")) %>%
+  group_by(sample_type, demovir) %>%
+  mutate(n = length(crispr_host)) %>%
+  group_by(sample_type, demovir, crispr_host, n) %>%
+  summarise(num_host = n()) %>%
+  mutate(prop = num_host/n) %>%
+  ungroup() 
+
+vir_fam_host_top <- vir_fam_host_summary %>%
+  group_by(crispr_host) %>%
+  summarise(sum_prop = sum(prop)) %>%
+  arrange(desc(sum_prop))
+
+vir_fam_host_summary <- vir_fam_host_summary %>%
+  mutate(crispr_host_alt = replace(crispr_host, !crispr_host %in% vir_fam_host_top$crispr_host[c(1:12)], "Other"))
+
+crispr_cols <- brewer.pal(12, "Set3")
+crispr_cols <- c(crispr_cols, "grey")
+names(crispr_cols) <- c(unique(vir_fam_host_summary$crispr_host_alt[vir_fam_host_summary$crispr_host_alt != "Unassigned"]), "Unassigned")
+
+tiff("figures/vir_family_host.tiff", width = 2000)
+ggplot(vir_fam_host_summary, aes(demovir, prop, fill = factor(crispr_host_alt))) +
+  geom_bar(stat = "identity") +
+  facet_grid(~sample_type, scales = "free", space = "free") +
+  theme_classic() + xlab("Phage Family") + ylab("Proportion of Phage Clusters") +
+  scale_fill_manual("Predicted Phage Host", values = crispr_cols[names(crispr_cols) %in% unique(vir_fam_host_summary$crispr_host_alt)])
+dev.off()
+
 ########## Microbial composition #########
 metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
 row.names(metaphlan) <- metaphlan$X
