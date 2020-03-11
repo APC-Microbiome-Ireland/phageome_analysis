@@ -1234,7 +1234,7 @@ jumbophage_samples <- jumbophage_contigs_meta %>%
 jumbophage_table <- jumbophage_contigs_meta %>%
   select(size, demovir, crispr_host, Location_sampletype, vcontact_cluster_Var1) %>%
   group_by(demovir, crispr_host, Location_sampletype, vcontact_cluster_Var1) %>%
-  summarise_each(funs(paste(unique(size), collapse = "\n"))) %>%
+  summarise_each(funs(paste(unique(size), collapse = "; "))) %>%
   left_join(jumbophage_samples, by = c("Location_sampletype", "vcontact_cluster_Var1")) %>%
   left_join(jumbophages_long, by = c("Location_sampletype", "vcontact_cluster_Var1")) %>%
   mutate(num_Location_sampletype = paste0(num_samples, " ", Location_sampletype, " (", Timepoints, ")")) %>%

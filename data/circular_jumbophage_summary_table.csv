@@ -1,99 +1,53 @@
 "","Phage Cluster","Size (nt)","Phage Family","Predicted Host Genus","No. sites (Timepoints)"
-"1","No Phage Cluster","250771","Myoviridae","NA","1 China - dental (1)
-1 China - saliva (1)"
-"2","No Phage Cluster","229992","Myoviridae","NA","1 China - saliva (1)"
-"3","No Phage Cluster","239560","Myoviridae","NA","2 US - dental (1, 2)"
-"4","No Phage Cluster","260460","Myoviridae","NA","2 US - dorsum of tongue (1, 1)"
-"5","No Phage Cluster","389119","Myoviridae","NA","1 US - dorsum of tongue (1)"
-"6","No Phage Cluster","315556","Myoviridae","NA","2 US - dorsum of tongue (1, 2)"
-"7","No Phage Cluster","235552","Myoviridae","NA","1 US - dental (2)"
-"8","No Phage Cluster","211049","Myoviridae","NA","1 China - saliva (1)
-1 US - buccal mucosa (1)"
-"9","No Phage Cluster","237850","Myoviridae","NA","1 US - dental (1)"
-"10","No Phage Cluster","260368","Myoviridae","NA","1 US - buccal mucosa (1)
-1 US - dental (1)"
-"11","No Phage Cluster","232979","Myoviridae","NA","2 US - dental (1, 2)"
-"12","No Phage Cluster","226085","Myoviridae","Selenomonas","1 US - dental (4)"
-"13","VC_1419_0","254595","Myoviridae","NA","1 China - saliva (1)"
-"14","VC_1419_6","256964
-258288
-258293
-256964
-256959
-258288
-258293
-258288
-258293","Myoviridae","Neisseria","2 US - buccal mucosa (1, 1)
-2 US - dental (2, 3)
-1 US - dorsum of tongue (1)"
+"1","No Phage Cluster","250771","Myoviridae","NA","1 dental - China (1)
+1 saliva - China (1)"
+"2","No Phage Cluster","229992","Myoviridae","NA","1 saliva - China (1)"
+"3","No Phage Cluster","239560","Myoviridae","NA","2 dental - US (1, 2)"
+"4","No Phage Cluster","260460","Myoviridae","NA","2 dorsum of tongue - US (1, 1)"
+"5","No Phage Cluster","389119","Myoviridae","NA","1 dorsum of tongue - US (1)"
+"6","No Phage Cluster","315556","Myoviridae","NA","2 dorsum of tongue - US (1, 2)"
+"7","No Phage Cluster","235552","Myoviridae","NA","1 dental - US (2)"
+"8","No Phage Cluster","211049","Myoviridae","NA","1 buccal mucosa - US (1)
+1 saliva - China (1)"
+"9","No Phage Cluster","237850","Myoviridae","NA","1 dental - US (1)"
+"10","No Phage Cluster","260368","Myoviridae","NA","1 buccal mucosa - US (1)
+1 dental - US (1)"
+"11","No Phage Cluster","232979","Myoviridae","NA","2 dental - US (1, 2)"
+"12","No Phage Cluster","226085","Myoviridae","Selenomonas","1 dental - US (4)"
+"13","VC_1419_0","254595","Myoviridae","NA","1 saliva - China (1)"
+"14","VC_1419_6","256964; 258288; 258293
+256964; 256959; 258288; 258293
+258288; 258293","Myoviridae","Neisseria","2 buccal mucosa - US (1, 1)
+2 dental - US (2, 3)
+1 dorsum of tongue - US (1)"
 "15","VC_1655_3","248802
-253437
-249678
-254822
-248802","Myoviridae","NA","1 US - buccal mucosa (1)
-4 US - dorsum of tongue (2, 2, 2, 2)"
-"16","VC_172_4","234839","Myoviridae","Veillonella","1 US - dorsum of tongue (2)"
-"17","VC_1769_9","235695","Myoviridae","NA","2 US - dorsum of tongue (1, 1)"
-"18","VC_1774_10","213047
-210989
-210991","Myoviridae","NA","1 US - dorsum of tongue (4)"
-"19","VC_1774_11","228522
-229773
-228781
-231249
-232905","Myoviridae","Veillonella
-NA","4 US - dorsum of tongue (2, 2, 2, 2)"
-"20","VC_2385_0","220432","Myoviridae","NA","1 US - buccal mucosa (1)
-1 US - dental (1)"
-"21","VC_2385_1","228442
-228445
-228444
-225008
-228010
-227716
-227714
-229051
-228442
-228445
-228444
-227716
-227714
-228010
-228010
-225008
-228149
-229051
-227958","Myoviridae","NA","5 US - buccal mucosa (1, 1, 1, 1, 1)
-3 US - dental (1, 2, 2)
-5 US - dorsum of tongue (1, 1, 1, 2, 2)"
-"22","VC_240_2","207354
-208248","Myoviridae","NA","2 US - dorsum of tongue (1, 1)"
-"23","VC_240_20","214576
-213596","Myoviridae","NA","1 US - buccal mucosa (2)"
-"24","VC_240_3","203503","Myoviridae","NA","1 China - saliva (1)"
-"25","VC_3069_2","269911
-263796
-267299
-269911","Myoviridae","NA","3 US - dental (2, 2, 3)
-1 US - dorsum of tongue (1)"
-"26","VC_3541_1","235074
-241528
-241494
-241528
-241494
-239763
-236619
-240432
-242324
-242314
-204796
-204838","Myoviridae","NA","1 China - saliva (1)
-1 US - buccal mucosa (1)
-7 US - dorsum of tongue (1, 1, 1, 1, 2, 2, 2)"
-"27","VC_703_1","283077","Myoviridae","NA","1 US - buccal mucosa (1)"
-"28","VC_8794_2","244976
-243417
-245864
-245871","Myoviridae","NA","3 US - dorsum of tongue (2, 2, 2)"
-"29","VC_8803_5","263381","Myoviridae","NA","1 US - dental (3)"
-"30","VC_8803_6","253246","Myoviridae","NA","1 US - dorsum of tongue (1)"
+253437; 249678; 254822; 248802","Myoviridae","NA","1 buccal mucosa - US (1)
+4 dorsum of tongue - US (2, 2, 2, 2)"
+"16","VC_172_4","234839","Myoviridae","Veillonella","1 dorsum of tongue - US (2)"
+"17","VC_1769_9","235695","Myoviridae","NA","2 dorsum of tongue - US (1, 1)"
+"18","VC_1774_10","213047; 210989; 210991","Myoviridae","NA","1 dorsum of tongue - US (4)"
+"19","VC_1774_11","228522; 229773
+228781; 231249; 232905","Myoviridae","Veillonella
+NA","4 dorsum of tongue - US (2, 2, 2, 2)"
+"20","VC_2385_0","220432","Myoviridae","NA","1 buccal mucosa - US (1)
+1 dental - US (1)"
+"21","VC_2385_1","228442; 228445; 228444; 225008; 228010; 227716; 227714; 229051
+228442; 228445; 228444; 227716; 227714; 228010
+228010; 225008; 228149; 229051; 227958","Myoviridae","NA","5 buccal mucosa - US (1, 1, 1, 1, 1)
+3 dental - US (1, 2, 2)
+5 dorsum of tongue - US (1, 1, 1, 2, 2)"
+"22","VC_240_2","207354; 208248","Myoviridae","NA","2 dorsum of tongue - US (1, 1)"
+"23","VC_240_20","214576; 213596","Myoviridae","NA","1 buccal mucosa - US (2)"
+"24","VC_240_3","203503","Myoviridae","NA","1 saliva - China (1)"
+"25","VC_3069_2","269911; 263796; 267299
+269911","Myoviridae","NA","3 dental - US (2, 2, 3)
+1 dorsum of tongue - US (1)"
+"26","VC_3541_1","241528; 241494
+241528; 241494; 239763; 236619; 240432; 242324; 242314; 204796; 204838
+235074","Myoviridae","NA","1 buccal mucosa - US (1)
+7 dorsum of tongue - US (1, 1, 1, 1, 2, 2, 2)
+1 saliva - China (1)"
+"27","VC_703_1","283077","Myoviridae","NA","1 buccal mucosa - US (1)"
+"28","VC_8794_2","244976; 243417; 245864; 245871","Myoviridae","NA","3 dorsum of tongue - US (2, 2, 2)"
+"29","VC_8803_5","263381","Myoviridae","NA","1 dental - US (3)"
+"30","VC_8803_6","253246","Myoviridae","NA","1 dorsum of tongue - US (1)"
