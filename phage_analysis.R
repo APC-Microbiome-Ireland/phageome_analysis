@@ -42,6 +42,7 @@ contig_data <- readRDS("data/contig_data.RDS")
 counts_total <- readRDS("data/counts_total.RDS")
 jumbophage_contigs <- read.delim("data/jumbophage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
 metaphlan <- read.csv("data/all_metaphlan.csv", stringsAsFactors = FALSE)
+scaffold_lengths <- readRDS("data/scaffold_lengths.RDS")
 
 # Metadata
 metadata = read.csv("data/metadata_v2.csv", stringsAsFactors = FALSE)
@@ -211,39 +212,43 @@ ggplot(samples_with_n_clusters, aes(n, perc_samples)) +
   ylim(c(0, c(max(samples_with_n_phage$perc_samples, samples_with_n_clusters$perc_samples))))
 dev.off()
 
-# Compute distance matrix and run t-SNE on phage clusters
+# Compute distance matrix and run NMDS on phage clusters
 vir_counts_prop_agg_meta <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %in% metadata$ID[metadata$Visit_Number == 1]]
-cluster_counts_dist = vegdist(t(vir_counts_prop_agg_meta), method = "bray")
-clusters_samples_tsne = tsne(cluster_counts_dist)
 
-#Annotate t-SNE coordinates
-clusters_samples_tsne = as.data.frame(clusters_samples_tsne)
-rownames(clusters_samples_tsne) = colnames(vir_counts_prop_agg_meta)
-clusters_samples_tsne$ID <- rownames(clusters_samples_tsne)
-colnames(clusters_samples_tsne) = c("tsne1", "tsne2", "ID")
-clusters_samples_tsne <- left_join(clusters_samples_tsne, metadata, by = "ID")
-rownames(clusters_samples_tsne) <- clusters_samples_tsne$ID
+cluster_samples_nmds <- metaMDS(t(vir_counts_prop_agg_meta), distance = "bray", k = 2, trymax = 20)
+df_cluster_samples_nmds <- as.data.frame(cluster_samples_nmds$points)
 
 # Silhoette analysis of PAM (k-medoids)
 avg_sil <- numeric(20)
-for(k in 2:(length(avg_sil)+1)) {
-  tmp <- silhouette(pam(clusters_samples_tsne[,c("tsne1", "tsne2")], k = k), clusters_samples_tsne[,c("tsne1", "tsne2")])
+for(k in 3:(length(avg_sil)+1)) {
+  tmp <- silhouette(pam(df_cluster_samples_nmds[,c("MDS1", "MDS2")], k = k), df_cluster_samples_nmds[,c("MDS1", "MDS2")])
   avg_sil[k-1] <- mean(tmp[,3])
 }
+
 # Group by silhouette width
-samples_clust <- pam(clusters_samples_tsne[,c("tsne1", "tsne2")], which.max(avg_sil)+1)
+samples_clust <- pam(df_cluster_samples_nmds[,c("MDS1", "MDS2")], which.max(avg_sil)+1)
+df_cluster_samples_nmds$cluster = as.factor(samples_clust$cluster[row.names(df_cluster_samples_nmds)])
+df_cluster_samples_nmds$ID <- row.names(df_cluster_samples_nmds)
+df_cluster_samples_nmds$Sample.name <- as.character(sapply(df_cluster_samples_nmds$ID, function(x) metadata$Sample.name[metadata$ID == x]))
+df_cluster_samples_nmds$Location <- sapply(df_cluster_samples_nmds$ID, function(x) metadata$Location[metadata$ID == x])
+df_cluster_samples_nmds$sample_type <- sapply(df_cluster_samples_nmds$ID, function(x) metadata$sample_type[metadata$ID == x])
+df_cluster_samples_nmds$Location_sampletype <- paste(df_cluster_samples_nmds$sample_type, "-", df_cluster_samples_nmds$Location)
+df_cluster_samples_nmds$Age <- sapply(df_cluster_samples_nmds$ID, function(x) metadata$Age[metadata$ID == x])
+df_cluster_samples_nmds$Sex <- sapply(df_cluster_samples_nmds$ID, function(x) metadata$Sex[metadata$ID == x])
 
-clusters_samples_tsne$cluster = as.factor(samples_clust$cluster[clusters_samples_tsne$ID])
-clusters_samples_tsne$n_contigs <- sapply(clusters_samples_tsne$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
-clusters_samples_tsne$total_reads = as.numeric(counts_total[clusters_samples_tsne$ID])
-
-saveRDS(clusters_samples_tsne,  file = "data/clusters_samples_tsne.RDS")
-
-# Make t-SNE plots
-group_cols <- viridis(length(unique(clusters_samples_tsne$cluster)))
+# Plot NMDS by sample type and cluster
+tiff("figures/nmds_clusters.tiff", width = 1600, height = 1000, res = 200)
+ggplot(df_cluster_samples_nmds, aes(MDS1, MDS2, colour = Location_sampletype, shape = cluster)) +
+  theme_classic() +
+  geom_text(aes(label=cluster)) +
+  scale_colour_manual("Body Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
+  xlab("NMDS 1") + ylab("NMDS 2")
+dev.off()
 
 # Calculate proportion of samples
-cluster_res <- clusters_samples_tsne %>% group_by(cluster, Location, sample_type) %>% summarise(n = n()) %>%
+cluster_res <- df_cluster_samples_nmds %>% 
+  group_by(cluster, Location, sample_type) %>% 
+  summarise(n = n()) %>%
   group_by(cluster) %>%
   mutate(total_n = sum(n)) %>%
   mutate(prop_cluster = n/total_n*100, Location_sampletype = paste(sample_type, "-", Location))
@@ -257,61 +262,21 @@ cluster_site <- cluster_res %>%
   summarise(summary = paste(summary, collapse = "; ")) %>%
   mutate(summary = paste0("Group ", cluster, " (", summary, ")"))
 
-# Label by cluster
-tsne_plot1 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, colour = sample_type, shape = cluster)) +
-  theme_classic() + 
-  geom_text(aes(label=cluster)) +
-  scale_colour_manual("Body Site", values = cols, 
-                    guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
-  xlab("Dim 1") + ylab("Dim 2")
-
-# Label by contig size
-tsne_plot2 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = n_contigs, size = log10(total_reads))) +
-  theme_classic() + geom_point(alpha = 0.7, pch = 21) +
-  scale_fill_continuous("No. contigs") + scale_size_continuous("Log10(No. reads)") +
-  xlab("Dim 1") + ylab("Dim 2")
-
-# Label by body sites, geographical location and health
-tsne_plot3 <- ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = sample_type, shape = Location)) +
-  theme_classic() + geom_point(size = 1.5, alpha = 0.7) +
-  scale_shape_manual("Country", values = c(21, 24, 22)) +
-  scale_fill_manual("Body Site", values = cols,
-                    guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
-  xlab("Dim 1") + ylab("Dim 2")
-
 # Label by sex and age
-tsne_plot4 = ggplot(clusters_samples_tsne, aes(x = tsne1, y = tsne2, fill = Age, shape = Gender)) +
+tiff("figures/nmds_age_sex.tiff", width = 1600, height = 1000, res = 200)
+ggplot(df_cluster_samples_nmds, aes(x = MDS1, y = MDS2, fill = Age, shape = Sex)) +
   theme_classic() + geom_point(size = 2.5, alpha = 0.7) +
-  scale_shape_manual("Sex", values = c(21, 22)) +
-  #scale_fill_gradient2()
+  scale_shape_manual(values = c(21, 22)) +
   scale_fill_distiller(palette = "Spectral") +
-  xlab("Dim 1") + ylab("Dim 2")
-
-# Save plots
-tiff("figures/tsne_clusters.tiff", width = 800, height = 500, res = 150)
-tsne_plot1
+  xlab("NMDS 1") + ylab("NMDS 2")
 dev.off()
 
-tiff("figures/tsne_bodysite_location.tiff", width = 1000, height = 500, res = 150)
+# Breakdown of groups
+tiff("figures/nmds_group_breakdown.tiff", width = 1600, height = 1000, res = 200)
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
   geom_bar(stat = "identity") +
-  theme_classic() + xlab("Group") + ylab("Percentage") +
+  theme_classic() + xlab("Group") + ylab("% Samples") +
   scale_fill_manual("Body Site - Geographical Location", values = cohort_cols)
-dev.off()
-
-tiff("figures/tsne_bodysite.tiff", width = 800, height = 500, res = 150)
-tsne_plot3
-dev.off()
-
-# Set the same legend widths
-g2 <- ggplotGrob(tsne_plot2)
-g4 <- ggplotGrob(tsne_plot4)
-g3 <- ggplotGrob(tsne_plot3)
-g4$widths <- g2$widths
-g3$widths <- g2$widths
-
-tiff("figures/tsne_contigs_bodysite_age_gender.tiff", width = 2400, height = 500, res = 130)
-grid.arrange(g3, g2, g4, nrow = 1)
 dev.off()
 
 ########## Differentially abundant clusters#####################
@@ -773,30 +738,27 @@ metaphlan_summary <- metaphlan_meta %>%
   group_by(Location, Health, sample_type) %>%
   summarise(n = n_distinct(ID))
 
-metaphlan_dist = vegdist(t(metaphlan_filter), method = "bray")
-set.seed(1)
-metaphlan_tsne <- tsne(metaphlan_dist)
-metaphlan_tsne <- as.data.frame(metaphlan_tsne)
-rownames(metaphlan_tsne) = names(metaphlan)
-metaphlan_tsne$ID <- rownames(metaphlan_tsne)
-names(metaphlan_tsne) = c("tsne1", "tsne2", "ID")
-metaphlan_tsne <- left_join(metaphlan_tsne, metadata, by = "ID")
+# NMDS of metaphlan data
+metaphlan_nmds <- metaMDS(t(metaphlan), distance = "bray", k = 2, trymax = 20)
+df_metaphlan_nmds <- as.data.frame(metaphlan_nmds$points)
+df_metaphlan_nmds$ID <- names(metaphlan)
+names(df_metaphlan_nmds) = c("MDS1", "MDS2", "ID")
+df_metaphlan_nmds <- left_join(df_metaphlan_nmds, metadata, by = "ID")
 
-# Plot microbiome t-sne
-tiff("figures/metaphlan_tsne.tiff", height= 500, width = 800, res = 150)
-ggplot(metaphlan_tsne, aes(x = tsne1, y = tsne2, fill = sample_type)) +
+# Plot microbiome NMDS
+tiff("figures/metaphlan_nmds.tiff", height= 1000, width = 1600, res = 200)
+ggplot(df_metaphlan_nmds, aes(x = MDS1, y = MDS2, fill = sample_type)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
   scale_fill_manual("Body Site", values = cols,
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
-  xlab("Dim 1") + ylab("Dim 2")
+  xlab("NMDS 1") + ylab("NMDS 2")
 dev.off()
 
-# Procrustes analysis
-protest_res <- protest(clusters_samples_tsne[,c(1:2)], metaphlan_tsne[,c(1:2)], scale = TRUE)
-
-tiff("figures/procrustes.tiff")
-plot(protest_res)
-points(protest_res, display = "target", col = "red")
+# Procrustes analysis and plot
+protest_res <- protest(df_cluster_samples_nmds[,c(1:2)], df_metaphlan_nmds[,c(1:2)], scale = TRUE)
+tiff("figures/procrustes.tiff", height = 1000, width = 1200, res = 150)
+plot(protest_res, cex = 0.5, ar.col = "grey", )
+points(protest_res, display = "target", col = "red", cex = 0.5)
 dev.off()
 
 # Heatmap of metaphlan
@@ -991,14 +953,14 @@ vir_counts_prop_melt_meta <- left_join(vir_counts_prop_melt, metadata, by = c("V
 vir_counts_prop_melt_meta <- vir_counts_prop_melt_meta[vir_counts_prop_melt_meta$Visit_Number == 1,]
 
 # Sample - phage cluster matrix
-vir_cluster_counts <- dcast(vir_counts_prop_melt_meta, ID ~ vcontact_cluster, length)
+vir_cluster_counts <- dcast(vir_counts_prop_melt_meta[!is.na(vir_counts_prop_melt_meta$vcontact_cluster),], ID ~ vcontact_cluster, length)
 rownames(vir_cluster_counts) <- vir_cluster_counts[,1]
 vir_cluster_counts <- vir_cluster_counts[,-1]
 
-# # Remove samples with lower than quartile for
-# remove_ids <- rownames(vir_cluster_counts)[rowSums(vir_cluster_counts > 0) <= 3]
-# vir_cluster_counts <- vir_cluster_counts[!rownames(vir_cluster_counts) %in% remove_ids,]
-# metadata_richness <- metadata[!metadata$ID %in% unique(c(remove_ids, metadata$ID[!metadata$ID %in% vir_counts_prop_melt_meta$ID])),]
+# Remove samples with lower than quartile for
+remove_ids <- rownames(vir_cluster_counts)[rowSums(vir_cluster_counts > 0) <= 3]
+vir_cluster_counts <- vir_cluster_counts[!rownames(vir_cluster_counts) %in% remove_ids,]
+metadata_richness <- metadata[!metadata$ID %in% unique(c(remove_ids, metadata$ID[!metadata$ID %in% vir_counts_prop_melt_meta$ID])),]
 
 pair_list <- list(c("stool", "dental"), c("stool", "saliva"), c("dental", "saliva"),
                   c("stool", "dorsum of tongue"), c("stool", "buccal mucosa"),
@@ -1013,11 +975,11 @@ richness_paired <- data.frame(ID = rownames(vir_cluster_counts), richness = rowS
 # Alpha-diversity vs. number of contigs
 richness <- data.frame(ID = rownames(vir_cluster_counts), richness = rowSums(vir_cluster_counts > 0), no_phages = rowSums(vir_cluster_counts)) %>%
   right_join(metadata[metadata$ID %in% unique(paired_metadata$ID),], by = "ID")
-richness$n_contigs <- sapply(richness$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
+richness$n_phage_contigs <- sapply(richness$ID, function(x) length(which(vir_counts_prop_melt$Var2 == x)))
 
-linear_mod <- lm(richness ~ n_contigs, richness)
+linear_mod <- lm(richness ~ n_phage_contigs, richness)
 summary(linear_mod)
-tiff("figures/richness_ncontigs.tiff")
+tiff("figures/richness_n_phage_contigs.tiff")
 plot(richness ~ n_contigs, richness, pch = 16, xlab = "No. contigs", ylab = "Phage Cluster Richness")
 abline(linear_mod, col = "red")
 dev.off()
@@ -1029,34 +991,34 @@ for (i in 1:length(unique_groups)) {
   richness_paired <- richness_paired[!(richness_paired$Sample.name %in% remove_samples & richness_paired$group %in% unique_groups[i]),]
 }
 
-# # Subsample matrix and calculate richness
-# richness_paired_ss <- data.frame()
-# unique_groups <- unique(richness_paired$group)
-# for (i in 1:length(unique_groups)) {
-# 
-#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
-#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
-#   min_clusters <- min(rowSums(vir_cluster_counts_tmp))
-#   max_clusters <- max(rowSums(vir_cluster_counts_tmp))
-# 
-#   for(j in 1:(max_clusters - min_clusters)) {
-#     vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
-#       if (sum(x) > min_clusters) {
-#         ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
-#         x[ss_index] <- x[ss_index] - 1
-#       }
-#       return(x)
-#     }))
-#   }
-# 
-#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
-#     left_join(metadata_richness, by = "ID") %>%
-#     mutate(group = unique_groups[i])
-# 
-#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
-# }
-# 
-# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+# Subsample matrix and calculate richness
+richness_paired_ss <- data.frame()
+unique_groups <- unique(richness_paired$group)
+for (i in 1:length(unique_groups)) {
+
+  group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+  vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+  min_clusters <- min(rowSums(vir_cluster_counts_tmp))
+  max_clusters <- max(rowSums(vir_cluster_counts_tmp))
+
+  for(j in 1:(max_clusters - min_clusters)) {
+    vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+      if (sum(x) > min_clusters) {
+        ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+        x[ss_index] <- x[ss_index] - 1
+      }
+      return(x)
+    }))
+  }
+
+  richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+    left_join(metadata_richness, by = "ID") %>%
+    mutate(group = unique_groups[i])
+
+  richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+}
+
+saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
 
 # T-test and graphs of subsampled data
 richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
@@ -1100,7 +1062,6 @@ ggplot(phage_size_summary, aes(reorder(category, size_lower), n_per_sample, fill
 dev.off()
 
 # Size of all contigs
-scaffold_lengths <- readRDS("data/scaffold_lengths.RDS")
 scaffold_lengths_summary <- left_join(scaffold_lengths, metadata, by = "ID") %>%
   group_by(sample_type) %>%
   summarise("3 <\n<= 10" = sum(size < sizes_upper[1] & size >= sizes_lower[1])/length(size)*100,

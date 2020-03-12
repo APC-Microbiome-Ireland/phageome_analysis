@@ -1,4 +1,4 @@
-ID,Cohort,Sample.name,sample_type,Gender,Age,Health,Merged_with,RA.duration,Location,Visit_Number
+ID,Cohort,Sample.name,sample_type,Sex,Age,Health,Merged_with,RA.duration,Location,Visit_Number
 ERR589346,Chinese,C1,dental,F,49,healthy,NA,NA,China,1
 ERR589355,Chinese,C10,dental,F,68,healthy,NA,NA,China,1
 ERR589363,Chinese,C12,dental,M,52,healthy,NA,NA,China,1
