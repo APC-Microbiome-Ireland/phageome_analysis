@@ -914,7 +914,7 @@ runTtest <- function(df_paired){
 
 plotRichnessGraph <- function(df_paired_richness_group, ttest_group, cols) {
   set.seed(1) # for jitter
-  g <- ggplot(df_paired_richness_group, aes(sample_type, richness, fill = sample_type)) +
+  g <- ggplot(df_paired_richness_group, aes(sample_type, richness)) +
     geom_boxplot(outlier.shape = NA) +
     geom_jitter(size = 0.8) +
     theme_classic() +
@@ -924,7 +924,6 @@ plotRichnessGraph <- function(df_paired_richness_group, ttest_group, cols) {
     geom_text(data = ttest_group, aes(label=asterisk),
               x = 1.5, y = max(df_paired_richness_group$richness)+10, size = 7,
               inherit.aes = FALSE) +
-    scale_fill_manual("Body Site", values = cols[names(cols) %in% unique(df_paired_richness_group$sample_type)]) +
     theme(legend.text = element_text(size = 14), legend.title = element_text(size = 16))
   return(g)
 }
@@ -991,44 +990,44 @@ for (i in 1:length(unique_groups)) {
   richness_paired <- richness_paired[!(richness_paired$Sample.name %in% remove_samples & richness_paired$group %in% unique_groups[i]),]
 }
 
-# Subsample matrix and calculate richness
-richness_paired_ss <- data.frame()
-unique_groups <- unique(richness_paired$group)
-for (i in 1:length(unique_groups)) {
-
-  group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
-  vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
-  min_clusters <- min(rowSums(vir_cluster_counts_tmp))
-  max_clusters <- max(rowSums(vir_cluster_counts_tmp))
-
-  for(j in 1:(max_clusters - min_clusters)) {
-    vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
-      if (sum(x) > min_clusters) {
-        ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
-        x[ss_index] <- x[ss_index] - 1
-      }
-      return(x)
-    }))
-  }
-
-  richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
-    left_join(metadata_richness, by = "ID") %>%
-    mutate(group = unique_groups[i])
-
-  richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
-}
-
-saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+# # Subsample matrix and calculate richness
+# richness_paired_ss <- data.frame()
+# unique_groups <- unique(richness_paired$group)
+# for (i in 1:length(unique_groups)) {
+# 
+#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+#   min_clusters <- min(rowSums(vir_cluster_counts_tmp))
+#   max_clusters <- max(rowSums(vir_cluster_counts_tmp))
+# 
+#   for(j in 1:(max_clusters - min_clusters)) {
+#     vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+#       if (sum(x) > min_clusters) {
+#         ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+#         x[ss_index] <- x[ss_index] - 1
+#       }
+#       return(x)
+#     }))
+#   }
+# 
+#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+#     left_join(metadata_richness, by = "ID") %>%
+#     mutate(group = unique_groups[i])
+# 
+#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+# }
+# 
+# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
 
 # T-test and graphs of subsampled data
 richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
 richness_ttest_ss <- runTtest(richness_paired_ss)
 richness_graphs_ss <- plotMultipleRichnessGraphs(richness_ttest_ss, richness_paired_ss, cols)
-richness_graphs_ss[[length(richness_graphs_ss)+1]] <- g_legend(plotRichnessGraph(richness_paired_ss, richness_ttest_ss, cols))
+#richness_graphs_ss[[length(richness_graphs_ss)+1]] <- g_legend(plotRichnessGraph(richness_paired_ss, richness_ttest_ss, cols))
 
 # Plot graph
-lay <- rbind(c(4,5,6,1,2,3), c(7,8,9,10,10,10))
-tiff("figures/alpha_diversity_subsampled.tiff", width = 4000, height = 2000, res = 220)
+lay <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
+tiff("figures/alpha_diversity_subsampled.tiff", width = 2000, height = 2500, res = 250)
 grid.arrange(grobs = richness_graphs_ss, layout_matrix = lay)
 dev.off()
 
