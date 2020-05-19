@@ -1,0 +1,3 @@
+LEGEND_SHAPES	1	1	1	1	1	1	1	1	1	1
+LEGEND_COLORS	#0D0887FF	#6A00A8FF	#B12A90FF	#FCA636FF	#E16462FF	#8DA0CB	#A6D854	#FC8D62	#66C2A5	#E78AC3
+LEGEND_LABELS	Adult buccal mucosa	Adult dental plaque	Adult dorsum of tongue	Adult fecal samples	Adult saliva	Baboon fecal samples	Biotechnology	Intensive Care Unit	Outside environment	Pig fecal samples

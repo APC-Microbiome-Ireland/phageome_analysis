@@ -1,0 +1,252 @@
+name	size	circular	host	location	environment	country.or.region	study	environment_cols	host_cols	study_cols	vcontact_cluster	cluster_cols
+GWF2_PHAGE_CIR_41_11_1	305866	circular	Proteobacteria	Groundwater, Rifle, Colorado	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	GWF2_PHAGE_CIR_41_11	NA
+R2_PHAGE_46_52_1	283806	linear	Proteobacteria	Neonatal Intensive Care Unit, Pittsburgh	Intensive Care Unit	USA	Al-Shayeb et al.	#FC8D62	#8DD3C7	#E41A1C	R2_PHAGE_46_52	NA
+F-24_PHAGE_27_21_1	279625	linear	Proteobacteria	Baboon fecal samples, Kenya	Baboon fecal samples	Kenya	Devoto et al.	#8DA0CB	#8DD3C7	#377EB8	F-24_PHAGE_27_21	NA
+ALT_PHAGE_CIR_40_13_1	223190	circular	Proteobacteria	Mine tailings impoundment –1, Manitoba Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	ALT_PHAGE_CIR_40_13	NA
+BML_PHAGE_45_11_1	322368	linear	Proteobacteria	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	BML_PHAGE_45_11	NA
+SALIVA_PHAGE_CIR_35_33_1	243172	circular	Proteobacteria	Saliva pregnant woman, preterm delivery, California	Adult saliva	USA	Al-Shayeb et al.	#E16462FF	#8DD3C7	#E41A1C	SALIVA_PHAGE_CIR_35_33	NA
+FFC_PHAGE_CIR_38_15_1	214014	circular	Proteobacteria	Mine tailings Impoundment-2, Manitoba, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	FFC_PHAGE_CIR_38_15	NA
+SR-VP_PHAGE_CIR_49_18_1	369613	circular	Proteobacteria	Vernal pool mud, Lake County, California	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SR-VP_PHAGE_CIR_49_18	NA
+SR-VP_PHAGE_30_18_1	291182	linear	Bacteroidetes	Vernal pool mud, Lake County, California	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	SR-VP_PHAGE_30_18	NA
+LP_PHAGE_29_14_1	261948	linear	Bacteroidetes	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	LP_PHAGE_29_14	NA
+BML_PHAGE_CIR_30_13_1	312403	circular	Bacteroidetes	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	BML_PHAGE_CIR_30_13	NA
+R2_PHAGE_47_28_1	291133	linear	Proteobacteria	Neonatal Intensive Care Unit, Pittsburgh	Intensive Care Unit	USA	Al-Shayeb et al.	#FC8D62	#8DD3C7	#E41A1C	R2_PHAGE_47_28	NA
+SR-VP_PHAGE_54_15_1	230466	linear	Proteobacteria	Vernal pool mud, Lake County, California	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SR-VP_PHAGE_54_15	NA
+A4_PHAGE_COMPLETE_CIR-CU-CL_34_1_1	356281	circular	Bacteroidetes	Bangladeshi adult fecal samples	Adult fecal samples	Bangladesh	Devoto et al.	#FCA636FF	#FFFFB3	#377EB8	A4_PHAGE_COMPLETE_CIR-CU-CL_34_1	NA
+ERM_PHAGE_CIR_34_117_1	305387	circular	Bacteroidetes	Cyanobacterial mats, Eel River, CA	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	ERM_PHAGE_CIR_34_117	NA
+R2_PHAGE_CIR_50_38_1	259229	circular	Proteobacteria	Neonatal Intensive Care Unit, Pittsburgh	Intensive Care Unit	USA	Al-Shayeb et al.	#FC8D62	#8DD3C7	#E41A1C	R2_PHAGE_CIR_50_38	NA
+FFC_PHAGE_43_1208_1	220400	linear	Proteobacteria	Mine tailings Impoundment-2, Manitoba, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	FFC_PHAGE_43_1208	NA
+LP_PHAGE_46_12_1	210462	linear	Proteobacteria	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	LP_PHAGE_46_12	NA
+TARA_PHAGE_44_1_1	310536	linear	Proteobacteria	Mesopelagic zone - North Pacific Ocean	Outside environment	North Pacific Ocean	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	TARA_PHAGE_44_1	NA
+SR-VP_PHAGE_50_14_1	275744	linear	Proteobacteria	Vernal pool mud, Lake County, California	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SR-VP_PHAGE_50_14	NA
+R2_PHAGE_CIR_48_113_1	267210	circular	Proteobacteria	Neonatal Intensive Care Unit, Pittsburgh	Intensive Care Unit	USA	Al-Shayeb et al.	#FC8D62	#8DD3C7	#E41A1C	R2_PHAGE_CIR_48_113	NA
+LP_PHAGE_40_9_1	226594	linear	Bacteroidetes	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	LP_PHAGE_40_9	NA
+PIG_PHAGE_CU_31_44_1	225229	linear	Firmicutes	Pig fecal material, Denmark	Pig fecal samples	Denmark	Devoto et al.	#E78AC3	#BEBADA	#377EB8	PIG_PHAGE_CU_31_44	NA
+BML_PHAGE_48_21_1	281088	linear	Proteobacteria	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	BML_PHAGE_48_21	NA
+PIG_PHAGE_COMPLETE_CIR-CU-CL_31_57_1	227103	circular	Firmicutes	Pig fecal material, Denmark	Pig fecal samples	Denmark	Devoto et al.	#E78AC3	#BEBADA	#377EB8	PIG_PHAGE_COMPLETE_CIR-CU-CL_31_57	NA
+RTP_PHAGE_33_21_1	338752	linear	Bacteroidetes	Mine tailings impoundment, Newfoundland, Canada 	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	RTP_PHAGE_33_21	NA
+RTP_PHAGE_33_21_2	338752	linear	Bacteroidetes	Mine tailings impoundment, Newfoundland, Canada 	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	RTP_PHAGE_33_21	NA
+RIF_PHAGE_CIR_29_13_1	206411	circular	Microgenomates	Groundwater, Rifle, Colorado	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#FB8072	#E41A1C	RIF_PHAGE_CIR_29_13	NA
+F31_PHAGE_CIR_26_47_1	343860	circular	Firmicutes	Baboon fecal samples, Kenya	Baboon fecal samples	Kenya	Devoto et al.	#8DA0CB	#BEBADA	#377EB8	F31_PHAGE_CIR_26_47	NA
+PIG_PHAGE_CU_27_27_1	240683	linear	Firmicutes	Pig fecal material, Denmark	Pig fecal samples	Denmark	Devoto et al.	#E78AC3	#BEBADA	#377EB8	PIG_PHAGE_CU_27_27	NA
+SHALE-W_PHAGE_25_0_1	299394	linear	Bacteroidetes	Hydraulically Fractured Shale, West Virginia, USA	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	SHALE-W_PHAGE_25_0	NA
+BML_PHAGE_29_17_1	394886	linear	Bacteroidetes	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	BML_PHAGE_29_17	NA
+BML_PHAGE_CIR_42_5_1	328581	circular	Proteobacteria	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	BML_PHAGE_CIR_42_5	NA
+SCN_PHAGE_41_19_1	338022	linear	Proteobacteria	Thiocyanate bioreactor, South Africa	Biotechnology	South Africa	Al-Shayeb et al.	#A6D854	#8DD3C7	#E41A1C	SCN_PHAGE_41_19	NA
+SCN_PHAGE_41_19_2	338022	linear	Proteobacteria	Thiocyanate bioreactor, South Africa	Biotechnology	South Africa	Al-Shayeb et al.	#A6D854	#8DD3C7	#E41A1C	SCN_PHAGE_41_19	NA
+BML_PHAGE_COMPLETE_CIR-CU-CL_30_21_1	331854	circular	Bacteroidetes	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	BML_PHAGE_COMPLETE_CIR-CU-CL_30_21	NA
+R2_PHAGE_CIR_46_32_1	469944	circular	Proteobacteria	Neonatal Intensive Care Unit, Pittsburgh	Intensive Care Unit	USA	Al-Shayeb et al.	#FC8D62	#8DD3C7	#E41A1C	R2_PHAGE_CIR_46_32	NA
+FFC_PHAGE_44_113_1	271315	linear	Proteobacteria	Mine tailings Impoundment-2, Manitoba, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	FFC_PHAGE_44_113	NA
+LP_PHAGE_38_12_1	339376	linear	Proteobacteria	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	LP_PHAGE_38_12	NA
+PIG_PHAGE_CU_27_28_1	267703	linear	Firmicutes	Pig fecal material, Denmark	Pig fecal samples	Denmark	Devoto et al.	#E78AC3	#BEBADA	#377EB8	PIG_PHAGE_CU_27_28	NA
+A3_PHAGE_COMPLETE_CIR-CU-CL_34_1_1	352502	circular	Bacteroidetes	Bangladeshi adult fecal samples	Adult fecal samples	Bangladesh	Devoto et al.	#FCA636FF	#FFFFB3	#377EB8	A3_PHAGE_COMPLETE_CIR-CU-CL_34_1	NA
+OS_PHAGE_40_40_1	347087	linear	Proteobacteria	Oil Seep, Santa Barbara	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	OS_PHAGE_40_40	NA
+LP_PHAGE_38_17_1	399135	linear	Proteobacteria	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	LP_PHAGE_38_17	NA
+ALT_PHAGE_40_9_1	209089	linear	Bacteroidetes	Mine tailings impoundment –1, Manitoba Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	ALT_PHAGE_40_9	NA
+SCN_PHAGE_32_18_1	239032	linear	Proteobacteria	Thiocyanate bioreactor, South Africa	Biotechnology	South Africa	Al-Shayeb et al.	#A6D854	#8DD3C7	#E41A1C	SCN_PHAGE_32_18	NA
+GM_PHAGE_38_38_1	343399	linear	Proteobacteria	Giant Mine, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	GM_PHAGE_38_38	NA
+LP_PHAGE_31_18_1	237691	linear	Bacteroidetes	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	LP_PHAGE_31_18	NA
+S9_PHAGE_34_1_1	293356	linear	Bacteroidetes	Bangladeshi adult fecal samples	Adult fecal samples	Bangladesh	Al-Shayeb et al.	#FCA636FF	#FFFFB3	#E41A1C	S9_PHAGE_34_1	NA
+GWC1_PHAGE_CIR_34_18_1	210922	circular	Microgenomates	Groundwater, Rifle, Colorado	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#FB8072	#E41A1C	GWC1_PHAGE_CIR_34_18	NA
+FFC_PHAGE_CIR_42_59_1	203881	circular	Proteobacteria	Mine tailings Impoundment-2, Manitoba, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	FFC_PHAGE_CIR_42_59	NA
+BML_PHAGE_34_18_1	331044	linear	Bacteroidetes	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	BML_PHAGE_34_18	NA
+BML_PHAGE_34_18_2	331044	linear	Bacteroidetes	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	BML_PHAGE_34_18	NA
+SR-VP_PHAGE_COMPLETE_CIR-CU-CL_42_23_1	595163	circular	Proteobacteria	Vernal pool mud, Lake County, California	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SR-VP_PHAGE_COMPLETE_CIR-CU-CL_42_23	NA
+SW-7_PHAGE_46_16_1	322447	linear	Proteobacteria	Atacama salt , Chile	Outside environment	Chile	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SW-7_PHAGE_46_16	NA
+LP_PHAGE_30_17_1	301052	linear	Bacteroidetes	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	LP_PHAGE_30_17	NA
+FFSP_PHAGE_34_11_1	262413	linear	Proteobacteria	Mine tailings Impoundment-2, Manitoba, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	FFSP_PHAGE_34_11	NA
+R2_PHAGE_CIR_43_124_1	316706	circular	Proteobacteria	Neonatal Intensive Care Unit, Pittsburgh	Intensive Care Unit	USA	Al-Shayeb et al.	#FC8D62	#8DD3C7	#E41A1C	R2_PHAGE_CIR_43_124	NA
+SHALE-W_PHAGE_CIR_53_0_1	231862	circular	Proteobacteria	Hydraulically Fractured Shale, Pennsylvania, USA	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SHALE-W_PHAGE_CIR_53_0	NA
+ALT_PHAGE_24_16_1	274127	linear	Bacteroidetes	Mine tailings impoundment –1, Manitoba Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	ALT_PHAGE_24_16	NA
+BML_PHAGE_CIR_40_15_B_1	222739	circular	Proteobacteria	Pit Lake, Alberta, Canada	Outside environment	Canada	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	BML_PHAGE_CIR_40_15_B	NA
+RIF_PHAGE_CU_29_17_1	503412	linear	Bacteroidetes	Sediment, Rifle, Colorado	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#FFFFB3	#E41A1C	RIF_PHAGE_CU_29_17	NA
+ER_PHAGE_49_14_1	298824	linear	Proteobacteria	Sub-soil (saprolite), East River, Colorado	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	ER_PHAGE_49_14	NA
+SR-VP_PHAGE_48_23_A_1	354149	linear	Proteobacteria	Vernal pool mud, Lake County, California	Outside environment	USA	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	SR-VP_PHAGE_48_23_A	NA
+LP_PHAGE_CIR_34_34_1	286030	circular	Proteobacteria	Lac Pavin, France	Outside environment	France	Al-Shayeb et al.	#66C2A5	#8DD3C7	#E41A1C	LP_PHAGE_CIR_34_34	NA
+NC_028999.1_1	309208	circular	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_028999.1	NA
+NC_019526.1_1	345809	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_019526.1	NA
+NC_023568.1_1	246964	linear	Proteobacteria	ocean, China	Outside environment	China	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_023568.1	NA
+NC_031245.1_1	221908	linear	Firmicutes	soil sample, USA	Outside environment	USA	RefSeq	#66C2A5	#BEBADA	#4DAF4A	NC_031245.1	NA
+NC_042116.1_1	354378	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_042116.1	NA
+NC_041884.1_1	234900	linear	Proteobacteria	wastewater influent, Ireland: Co. Cork	Outside environment	Ireland	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_041884.1	NA
+NC_019929.1_1	243050	circular	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_019929.1	NA
+NC_023557.1_1	271084	linear	Proteobacteria	soil adjacent to infected tree, Canada	Outside environment	Canada	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_023557.1	NA
+NC_005260.1_1	233234	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_005260.1	NA
+NC_028829.1_1	248088	linear	Proteobacteria	marine sediment, Malaysia	Outside environment	Malaysia	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_028829.1	NA
+NC_019406.1_1	279967	linear	Proteobacteria	surface water, USA: College Station, TX	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_019406.1	NA
+NC_010821.1_1	316674	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_010821.1	NA
+NC_005083.2_1	244834	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_005083.2	NA
+NC_020851.1_1	208007	linear	Cyanobacteria	NA	NA	NA	RefSeq	#FFFFFF	#80B1D3	#4DAF4A	NC_020851.1	NA
+NC_041994.1_1	278136	circular	Proteobacteria	compost, New Zealand	Outside environment	New Zealand	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_041994.1	NA
+NC_019411.1_1	219216	linear	Proteobacteria	surface water, USA: College Station, TX	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_019411.1	NA
+NC_019410.1_1	221828	linear	Proteobacteria	surface water, USA: TX	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_019410.1	NA
+NC_019408.1_1	223720	linear	Proteobacteria	surface water, USA: College Station, TX	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_019408.1	NA
+NC_019405.1_1	215710	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_019405.1	NA
+NC_042013.1_1	490380	circular	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_042013.1	NA
+NC_031927.1_1	216121	linear	Cyanobacteria	NA	NA	NA	RefSeq	#FFFFFF	#80B1D3	#4DAF4A	NC_031927.1	NA
+NC_027364.1_1	348113	linear	Proteobacteria	river, South Korea	Outside environment	South Korea	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_027364.1	NA
+NC_021531.1_1	223989	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_021531.1	NA
+NC_042056.1_1	241654	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_042056.1	NA
+NC_042098.1_1	272458	linear	Proteobacteria	soil, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_042098.1	NA
+NC_041974.1_1	271088	linear	Proteobacteria	bark, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_041974.1	NA
+NC_041973.1_1	271182	linear	Proteobacteria	leaves and stem, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_041973.1	NA
+NC_041972.1_1	273501	linear	Proteobacteria	branches and blossoms, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_041972.1	NA
+NC_027402.1_1	240413	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_027402.1	NA
+NC_016571.1_1	284757	circular	Proteobacteria	compost sample, Russia: Tver District	Outside environment	Russia	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_016571.1	NA
+NC_031010.1_1	246390	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_031010.1	NA
+NC_031007.1_1	223935	linear	Proteobacteria	apple orchard sample, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_031007.1	NA
+NC_031107.2_1	246290	linear	Proteobacteria	branches and blossoms, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_031107.2	NA
+NC_031120.1_1	241147	linear	Proteobacteria	branches and blossoms, USA	Outside environment	USA	RefSeq	#66C2A5	#8DD3C7	#4DAF4A	NC_031120.1	NA
+NC_031043.1_1	229501	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_031043.1	NA
+NC_031126.1_1	244840	linear	Proteobacteria	NA	NA	NA	RefSeq	#FFFFFF	#8DD3C7	#4DAF4A	NC_031126.1	NA
+NC_043027.1_1	252197	linear	Firmicutes	NA	NA	NA	RefSeq	#FFFFFF	#BEBADA	#4DAF4A	NC_043027.1	NA
+Ga0247723_1000001_88	240045	linear	NA	Subsurface sediment microbial communities from gas well in West Virginia, United States	Outside environment	USA	IMG/VR	#66C2A5	#FFFFFF	#984EA3	Ga0247723_1000001	NA
+Ga0257110_1000001_93	372493	linear	NA	Marine microbial communities from Northeast Subartic Pacific Ocean, Canada	Outside environment	Canada	IMG/VR	#66C2A5	#FFFFFF	#984EA3	Ga0257110_1000001	NA
+SRS022530_LANL_scaffold_32610_168	231357	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS022530_LANL_scaffold_32610	NA
+SRS022530_LANL_scaffold_51249_70	242454	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS022530_LANL_scaffold_51249	NA
+SRS022536_LANL_scaffold_58447_94	232914	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	IMG/VR	#6A00A8FF	#FFFFFF	#984EA3	SRS022536_LANL_scaffold_58447	NA
+SRS022602_Baylor_scaffold_95585_250	268303	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	IMG/VR	#6A00A8FF	#FFFFFF	#984EA3	SRS022602_Baylor_scaffold_95585	NA
+SRS022083_Baylor_scaffold_19610_94	256873	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	IMG/VR	#6A00A8FF	#FFFFFF	#984EA3	SRS022083_Baylor_scaffold_19610	NA
+SRS057791_LANL_scaffold_921_215	234123	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS057791_LANL_scaffold_921	NA
+SRS063193_LANL_scaffold_29753_21	226962	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS063193_LANL_scaffold_29753	NA
+SRS051791_LANL_scaffold_23448_98	239330	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS051791_LANL_scaffold_23448	NA
+SRS015440_WUGC_scaffold_42298_198	228397	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	IMG/VR	#6A00A8FF	#FFFFFF	#984EA3	SRS015440_WUGC_scaffold_42298	NA
+SRS053603_LANL_scaffold_3079_60	220217	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS053603_LANL_scaffold_3079	NA
+SRS016039_WUGC_scaffold_7258_66	278729	linear	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	IMG/VR	#0D0887FF	#FFFFFF	#984EA3	SRS016039_WUGC_scaffold_7258	NA
+SRS016225_WUGC_scaffold_2185_126	238862	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS016225_WUGC_scaffold_2185	NA
+SRS016225_WUGC_scaffold_2185_127	238862	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS016225_WUGC_scaffold_2185	NA
+SRS016746_Baylor_scaffold_37475_66	202213	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	IMG/VR	#6A00A8FF	#FFFFFF	#984EA3	SRS016746_Baylor_scaffold_37475	NA
+SRS022149_LANL_scaffold_20404_32	236788	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	IMG/VR	#6A00A8FF	#FFFFFF	#984EA3	SRS022149_LANL_scaffold_20404	NA
+SRS044662_LANL_scaffold_46740_149	207068	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	IMG/VR	#B12A90FF	#FFFFFF	#984EA3	SRS044662_LANL_scaffold_46740	NA
+ERR589366_NODE_2_length_252267_cov_5.86855_154	252267	linear	NA	Adult dental plaque, China	Adult dental plaque	China	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_6	#BFE6BE
+ERR589374_NODE_1_length_250771_cov_7.48575_207	250771	circular	NA	Adult dental plaque, China	Adult dental plaque	China	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	ERR589374_NODE_1_length_250771_cov_7.48575	NA
+ERR589390_NODE_5_length_254595_cov_11.1926_161	254595	circular	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+ERR589400_NODE_2_length_222094_cov_17.9067_63	222094	linear	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+ERR589418_NODE_2_length_253972_cov_14.627_157	253972	linear	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+ERR589418_NODE_3_length_253054_cov_15.5374_159	253054	linear	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_6	#BFE6BE
+ERR589420_NODE_6_length_229992_cov_13.7426_182	229992	circular	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	ERR589420_NODE_6_length_229992_cov_13.7426	NA
+ERR589420_NODE_11_length_203503_cov_92.1356_162	203503	circular	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_240_3	#BEDB7C
+ERR589420_NODE_11_length_203503_cov_92.1356_164	203503	circular	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_240_3	#BEDB7C
+ERR589420_NODE_12_length_203291_cov_5.79902_163	203291	linear	Firmicutes	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#BEBADA	rgb(255, 220, 0)	ERR589420_NODE_12_length_203291_cov_5.79902	NA
+ERR589426_NODE_11_length_235074_cov_32.5489_214	235074	circular	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+ERR589432_NODE_16_length_215843_cov_9.61145_74	215843	linear	NA	Adult saliva, China	Adult saliva	China	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+ERR589796_NODE_1_length_512029_cov_8.91079_144	512029	linear	NA	Adult fecal samples, China	Adult fecal samples	China	This study	#FCA636FF	#FFFFFF	rgb(255, 220, 0)	ERR589796_NODE_1_length_512029_cov_8.91079	NA
+ERR589826_NODE_12_length_228591_cov_8.75589_239	228591	linear	NA	Adult fecal samples, China	Adult fecal samples	China	This study	#FCA636FF	#FFFFFF	rgb(255, 220, 0)	ERR589826_NODE_12_length_228591_cov_8.75589	NA
+ERR1474568_NODE_4_length_227053_cov_6.57548_96	227053	linear	NA	Adult saliva, Philippines	Adult saliva	Philippines	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+ERR1474568_NODE_6_length_201530_cov_57.6677_231	201530	linear	NA	Adult saliva, Philippines	Adult saliva	Philippines	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_240_3	#BEDB7C
+ERR1474570_NODE_3_length_211527_cov_11.7559_55	211527	linear	NA	Adult saliva, Philippines	Adult saliva	Philippines	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_2465_0	#DED3B3
+ERR1474583_NODE_1_length_238631_cov_8.08518_143	238631	linear	NA	Adult saliva, Philippines	Adult saliva	Philippines	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+ERR1474584_NODE_1_length_239551_cov_58.3549_72	239551	linear	NA	Adult saliva, Philippines	Adult saliva	Philippines	This study	#E16462FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+SRS011140_NODE_15_length_228010_cov_44.6028_15	228010	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS013252_NODE_7_length_269911_cov_143.484_178	269911	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3069_2	#FACDE4
+SRS013879_NODE_7_length_260460_cov_18.7579_14	260460	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS013879_NODE_7_length_260460_cov_18.7579	NA
+SRS013879_NODE_11_length_207354_cov_10.9341_202	207354	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_2	#E8BF63
+SRS013879_NODE_11_length_207354_cov_10.9341_205	207354	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_2	#E8BF63
+SRS014470_NODE_1_length_389119_cov_8.88358_107	389119	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS014470_NODE_1_length_389119_cov_8.88358	NA
+SRS014470_NODE_6_length_244976_cov_7.18311_74	244976	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS014476_NODE_3_length_260597_cov_8.33481_123	260597	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_6	#BFE6BE
+SRS014690_NODE_6_length_210977_cov_55.0985_58	210977	linear	Firmicutes	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#BEBADA	rgb(255, 220, 0)	VC_1770_0	#E59497
+SRS015057_NODE_2_length_227748_cov_65.0344_69	227748	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS015057_NODE_2_length_227748_cov_65.0344	NA
+SRS015215_NODE_3_length_265743_cov_6.54371_189	265743	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS015646_NODE_1_length_220432_cov_27.2438_82	220432	circular	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_0	#84AFCF
+SRS015745_NODE_1_length_241528_cov_13.1549_101	241528	circular	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+SRS015745_NODE_3_length_214576_cov_9.12203_263	214576	circular	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	VC_240_20	#C7D267
+SRS015762_NODE_16_length_233663_cov_52.3172_213	233663	linear	Firmicutes	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#BEBADA	rgb(255, 220, 0)	VC_172_4	#EAE8BF
+SRS015762_NODE_21_length_215763_cov_47.9965_275	215763	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS015762_NODE_21_length_215763_cov_47.9965	NA
+SRS015797_NODE_2_length_388920_cov_36.308_184	388920	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS015797_NODE_2_length_388920_cov_36.308	NA
+SRS015797_NODE_11_length_253437_cov_48.7_134	253437	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1655_3	#F1F9B5
+SRS015893_NODE_8_length_256687_cov_26.4504_223	256687	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_6	#FFED6F
+SRS015941_NODE_1_length_389980_cov_7.93841_20	389980	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS015941_NODE_1_length_389980_cov_7.93841	NA
+SRS015941_NODE_2_length_315556_cov_47.6479_139	315556	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS015941_NODE_2_length_315556_cov_47.6479	NA
+SRS016002_NODE_10_length_225008_cov_10.3289_62	225008	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS016037_NODE_23_length_200325_cov_294.431_225	200325	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_2	#E8BF63
+SRS016086_NODE_14_length_243417_cov_24.8521_158	243417	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS016225_NODE_5_length_249678_cov_27.3838_31	249678	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1655_3	#F1F9B5
+SRS016225_NODE_6_length_244067_cov_149.008_234	244067	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+SRS016319_NODE_4_length_245864_cov_10.831_72	245864	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS016331_NODE_4_length_271840_cov_24.0229_75	271840	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3069_2	#FACDE4
+SRS017007_NODE_18_length_230785_cov_20.6488_272	230785	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS017007_NODE_18_length_230785_cov_20.6488	NA
+SRS017304_NODE_5_length_258288_cov_116.449_92	258288	circular	Proteobacteria	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#8DD3C7	rgb(255, 220, 0)	VC_1419_6	#BFE6BE
+SRS017533_NODE_6_length_223782_cov_53.6916_296	223782	linear	Bacteroidetes	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFB3	rgb(255, 220, 0)	SRS017533_NODE_6_length_223782_cov_53.6916	NA
+SRS017533_NODE_11_length_202276_cov_12.3433_146	202276	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_3	#BEDB7C
+SRS017533_NODE_11_length_202276_cov_12.3433_150	202276	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_3	#BEDB7C
+SRS017713_NODE_6_length_230050_cov_17.426_90	230050	linear	Firmicutes	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#BEBADA	rgb(255, 220, 0)	VC_1774_9	#BB99A4
+SRS018157_NODE_7_length_269576_cov_21.4215_45	269576	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3069_2	#FACDE4
+SRS018337_NODE_5_length_227716_cov_18.7174_108	227716	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS018739_NODE_8_length_253246_cov_9.48565_131	253246	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_6	#FFED6F
+SRS018791_NODE_1_length_395675_cov_35.5222_299	395675	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS018791_NODE_1_length_395675_cov_35.5222	NA
+SRS018791_NODE_1_length_395675_cov_35.5222_300	395675	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS018791_NODE_1_length_395675_cov_35.5222	NA
+SRS018975_NODE_4_length_268195_cov_9.84981_115	268195	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS019022_NODE_2_length_328852_cov_10.0908_116	328852	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS019022_NODE_2_length_328852_cov_10.0908	NA
+SRS019122_NODE_14_length_227426_cov_10.5494_232	227426	linear	Firmicutes	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#BEBADA	rgb(255, 220, 0)	VC_172_4	#EAE8BF
+SRS019128_NODE_3_length_269534_cov_11.4733_234	269534	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3069_2	#FACDE4
+SRS019128_NODE_4_length_264155_cov_13.4601_2	264155	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS019219_NODE_9_length_232804_cov_7.05368_174	232804	linear	Firmicutes	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#BEBADA	rgb(255, 220, 0)	VC_174_0	#CDCAD0
+SRS019327_NODE_9_length_258319_cov_7.57032_19	258319	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_6	#FFED6F
+SRS019607_NODE_9_length_235695_cov_219.599_15	235695	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1769_9	#CAAEC5
+SRS019974_NODE_2_length_240432_cov_14.8021_141	240432	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+SRS020856_NODE_8_length_227958_cov_7.82357_104	227958	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS022143_NODE_9_length_204796_cov_9.87473_149	204796	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+SRS023358_NODE_1_length_276734_cov_13.5505_222	276734	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_703_0	#C191C2
+SRS023538_NODE_2_length_203423_cov_44.5816_119	203423	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_4608_2	#CEB8CE
+SRS023595_NODE_1_length_265806_cov_8.79388_175	265806	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS024081_NODE_17_length_203718_cov_7.10722_226	203718	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_3	#BEDB7C
+SRS024138_NODE_2_length_250931_cov_188.999_20	250931	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+SRS024447_NODE_1_length_212514_cov_9.48817_82	212514	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_240_20	#C7D267
+SRS024447_NODE_1_length_212514_cov_9.48817_85	212514	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_240_20	#C7D267
+SRS024580_NODE_10_length_227515_cov_21.2831_187	227515	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1774_9	#BB99A4
+SRS042984_NODE_5_length_263381_cov_23.199_186	263381	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_5	#E8EC94
+SRS044230_NODE_9_length_235552_cov_53.6224_194	235552	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS044230_NODE_9_length_235552_cov_53.6224	NA
+SRS044486_NODE_3_length_227194_cov_96.9632_79	227194	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS044662_NODE_25_length_232905_cov_15.7753_251	232905	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1774_11	#F18379
+SRS045127_NODE_1_length_246162_cov_12.4049_91	246162	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1655_3	#F1F9B5
+SRS045262_NODE_1_length_211049_cov_23.9758_144	211049	circular	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	SRS045262_NODE_1_length_211049_cov_23.9758	NA
+SRS046686_NODE_2_length_214097_cov_130.255_12	214097	linear	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_0	#84AFCF
+SRS047590_NODE_5_length_276833_cov_10.4231_37	276833	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS047590_NODE_5_length_276833_cov_10.4231	NA
+SRS047634_NODE_2_length_263710_cov_7.45722_178	263710	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS048719_NODE_1_length_279258_cov_17.5972_5	279258	linear	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	VC_703_1	#BF99BE
+SRS049318_NODE_5_length_260427_cov_7.01686_52	260427	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_5	#E8EC94
+SRS049318_NODE_9_length_212020_cov_15.2792_148	212020	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_240_20	#C7D267
+SRS049389_NODE_7_length_231243_cov_30.6114_56	231243	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+SRS050029_NODE_3_length_248730_cov_32.1946_171	248730	linear	NA	Adult buccal mucosa, USA	Adult buccal mucosa	USA	This study	#0D0887FF	#FFFFFF	rgb(255, 220, 0)	VC_1655_3	#F1F9B5
+SRS050244_NODE_7_length_249854_cov_9.23851_85	249854	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+SRS051378_NODE_2_length_237850_cov_42.8995_81	237850	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS051378_NODE_2_length_237850_cov_42.8995	NA
+SRS052518_NODE_3_length_247507_cov_49.7633_85	247507	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+SRS053603_NODE_13_length_255687_cov_6.73762_197	255687	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1655_3	#F1F9B5
+SRS056622_NODE_4_length_271258_cov_12.0151_186	271258	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_6	#FFED6F
+SRS057355_NODE_1_length_251079_cov_131.6_185	251079	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_0	#8DD3C7
+SRS057692_NODE_2_length_248922_cov_148.172_100	248922	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1655_3	#F1F9B5
+SRS058730_NODE_4_length_272497_cov_41.7631_10	272497	linear	Cardiobacterium	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#B3DE69	rgb(255, 220, 0)	SRS058730_NODE_4_length_272497_cov_41.7631	NA
+SRS058808_NODE_7_length_260368_cov_38.0061_240	260368	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS058808_NODE_7_length_260368_cov_38.0061	NA
+SRS062761_NODE_8_length_225204_cov_34.0657_4	225204	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS063603_NODE_10_length_226102_cov_9.39338_185	226102	linear	Firmicutes	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#BEBADA	rgb(255, 220, 0)	SRS063603_NODE_10_length_226102_cov_9.39338	NA
+SRS064423_NODE_6_length_240050_cov_6.58861_140	240050	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS064774_NODE_5_length_238650_cov_8.65785_69	238650	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_3541_1	#EBD2DF
+SRS078182_NODE_8_length_260353_cov_93.28_330	260353	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS078182_NODE_8_length_260353_cov_93.28	NA
+SRS078425_NODE_1_length_226348_cov_18.355_86	226348	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_1769_9	#CAAEC5
+SRS078677_NODE_7_length_263796_cov_15.3008_46	263796	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3069_2	#FACDE4
+SRS098498_NODE_8_length_237971_cov_29.0708_155	237971	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS098735_NODE_1_length_265971_cov_16.2861_70	265971	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS098867_NODE_11_length_229051_cov_63.7156_191	229051	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS101388_NODE_5_length_259202_cov_13.0149_26	259202	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_5	#E8EC94
+SRS101388_NODE_8_length_226735_cov_48.6534_160	226735	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS101388_NODE_8_length_226735_cov_48.6534	NA
+SRS101388_NODE_10_length_222966_cov_7.54998_61	222966	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS101388_NODE_10_length_222966_cov_7.54998	NA
+SRS101388_NODE_11_length_211332_cov_17.1012_7	211332	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_240_20	#C7D267
+SRS103983_NODE_4_length_267175_cov_16.879_63	267175	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9
+SRS104165_NODE_15_length_239970_cov_9.30182_52	239970	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS104830_NODE_17_length_204042_cov_9.71334_85	204042	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2465_0	#DED3B3
+SRS105100_NODE_9_length_273110_cov_7.31174_209	273110	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_703_0	#C191C2
+SRS105100_NODE_14_length_202315_cov_9.26293_57	202315	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_4608_2	#CEB8CE
+SRS105121_NODE_2_length_253326_cov_14.0658_158	253326	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_1419_6	#BFE6BE
+SRS142483_NODE_8_length_267299_cov_53.3807_235	267299	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3069_2	#FACDE4
+SRS142483_NODE_10_length_257797_cov_15.6928_110	257797	circular	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	SRS142483_NODE_10_length_257797_cov_15.6928	NA
+SRS142483_NODE_17_length_212396_cov_60.6612_82	212396	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_8803_2	#D2EBBA
+SRS142664_NODE_4_length_215051_cov_10.1813_96	215051	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_240_20	#C7D267
+SRS144609_NODE_1_length_226381_cov_13.1313_134	226381	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS146894_NODE_2_length_387353_cov_12.7661_48	387353	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS146894_NODE_2_length_387353_cov_12.7661	NA
+SRS146894_NODE_9_length_243248_cov_58.4478_74	243248	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_8794_2	#C6C8C2
+SRS147887_NODE_9_length_237960_cov_5.45839_19	237960	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	SRS147887_NODE_9_length_237960_cov_5.45839	NA
+SRS148150_NODE_17_length_208122_cov_5.04636_75	208122	linear	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_2385_1	#B2B2A5
+SRS148150_NODE_20_length_201279_cov_8.70353_65	201279	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_11	#E8B374
+SRS148150_NODE_20_length_201279_cov_8.70353_69	201279	circular	NA	Adult dorsum of tongue, USA	Adult dorsum of tongue	USA	This study	#B12A90FF	#FFFFFF	rgb(255, 220, 0)	VC_240_11	#E8B374
+SRS148193_NODE_8_length_268969_cov_56.677_192	268969	linear	NA	Adult dental plaque, USA	Adult dental plaque	USA	This study	#6A00A8FF	#FFFFFF	rgb(255, 220, 0)	VC_3542_0	#DBD8D9

@@ -1,0 +1,75 @@
+name	length	taxonomy	host	circular	reference	environment	phylum
+NC_041884.1	234900	Viruses_Caudovirales_Myoviridae_Metrivirus_Acinetobacter virus ME3	Acinetobacter phage vB_AbaM_ME3	linear	Genome Sequence of Jumbo Phage vB_AbaM_ME3 of Acinetobacter baumanni	"wastewater influent, Ireland: Co. Cork"	Proteobacteria
+NC_019538.1	231743	Viruses_Caudovirales_Myoviridae_Tevenvirinae_unclassified Tevenvirinae	Aeromonas phage CC2	linear	Complete Genome Sequence of Aeromonas hydrophila Phage CC2	"sewage, China"	Proteobacteria
+NC_014636.1	225268	Viruses_Caudovirales_Myoviridae_Tevenvirinae_unclassified Tevenvirinae	Aeromonas phage phiAS5	linear	Complete genome sequence and characterization of a broad-host range T4-like bacteriophage phiAS5 infecting Aeromonas salmonicida subsp. salmonicida	"river, South Korea"	Proteobacteria
+NC_023688.1	222006	Viruses_Caudovirales_Myoviridae_Tevenvirinae_unclassified Tevenvirinae	Aeromonas phage PX29	linear	Genomes of the T4-related bacteriophages as windows on microbial genome evolution	NA	Proteobacteria
+NC_015251.1	235229	Viruses_Caudovirales_Myoviridae_Tevenvirinae	Aeromonas virus 65	linear	Genomes of the T4-related bacteriophages as windows on microbial genome evolution	NA	Proteobacteria
+NC_005260.1	233234	Viruses_Caudovirales_Myoviridae_Tevenvirinae	Aeromonas virus Aeh1 (Aeh1)	linear	Phylogeny of the major head and tail genes of the wide-ranging T4-type bacteriophages	NA	Proteobacteria
+NC_042013.1	490380	Viruses_Caudovirales_Myoviridae_Polybotosvirus_Agrobacterium virus Atuph07	Agrobacterium phage Atu_ph07	circular	Direct Submission	NA	Proteobacteria
+NC_009760.1	218948	Viruses_Caudovirales_Myoviridae	Bacillus phage 0305phi8-36	linear	"Complete genomic sequence and mass spectrometric analysis of highly diverse, atypical Bacillus thuringiensis phage 0305phi8-36"	NA	Firmicutes
+NC_031039.1	251042	Viruses_Caudovirales_Myoviridae	Bacillus phage AR9	linear	"The genome of AR9, a giant transducing Bacillus phage encoding two multisubunit RNA polymerases"	NA	Firmicutes
+NC_031245.1	221908	Viruses_Caudovirales_Myoviridae_Thornevirus_Bacillus virus SP15	Bacillus phage SP-15	linear	The Sequence of Two Bacteriophages with Hypermodified Bases Reveals Novel Phage-Host Interactions	"soil sample, USA"	Firmicutes
+NC_023719.1	497513	Viruses_Caudovirales_Myoviridae	Bacillus virus G	linear	Direct Submission	"soil, Italy"	Firmicutes
+NC_043027.1	252197	Viruses_Caudovirales_Myoviridae	Bacillus virus PBS1	linear	Direct Submission	NA	Firmicutes
+NC_019406.1	279967	Viruses_Caudovirales_Siphoviridae	Caulobacter phage CcrColossus	linear	The Caulobacter crescentus phage phiCbK: genomics of a canonical phage	"surface water, USA: College Station, TX"	Proteobacteria
+NC_019410.1	221828	Viruses_Caudovirales_Siphoviridae_Phicbkvirus	Caulobacter virus Karma	linear	The Caulobacter crescentus phage phiCbK: genomics of a canonical phage	"surface water, USA: TX"	Proteobacteria
+NC_019407.1	218929	Viruses_Caudovirales_Siphoviridae_Phicbkvirus	Caulobacter virus Magneto	linear	The Caulobacter crescentus phage phiCbK: genomics of a canonical phage	"surface water, USA: College Station, TX"	Proteobacteria
+NC_019405.1	215710	Viruses_Caudovirales_Siphoviridae_Phicbkvirus	Caulobacter virus phiCbK	linear	The Caulobacter crescentus phage phiCbK: genomics of a canonical phage	NA	Proteobacteria
+NC_019408.1	223720	Viruses_Caudovirales_Siphoviridae_Phicbkvirus	Caulobacter virus Rogue	linear	The Caulobacter crescentus phage phiCbK: genomics of a canonical phage	"surface water, USA: College Station, TX"	Proteobacteria
+NC_019411.1	219216	Viruses_Caudovirales_Siphoviridae_Phicbkvirus	Caulobacter virus Swift	linear	The Caulobacter crescentus phage phiCbK: genomics of a canonical phage	"surface water, USA: College Station, TX"	Proteobacteria
+NC_021531.1	223989	Viruses_Caudovirales_Myoviridae	Cronobacter phage CR5	linear	A Novel Bacteriophage Targeting Cronobacter sakazakii Is a Potential Biocontrol Agent in Foods	NA	Proteobacteria
+NC_019401.1	358663	Viruses_Caudovirales_Myoviridae_Eneladusvirus_unclassified Eneladusvirus	Cronobacter phage vB_CsaM_GAP32	linear	Supersize me: Cronobacter sakazakii phage GAP32	NA	Proteobacteria
+NC_023557.1	271084	Viruses_Caudovirales_Myoviridae_Agricanvirus	Erwinia phage Ea35-70	linear	Complete Genome Sequence of Erwinia amylovora Bacteriophage vB_EamM_Ea35-70	"soil adjacent to infected tree, Canada"	Proteobacteria
+NC_042056.1	241654	Viruses_Caudovirales_Myoviridae_Machinavirus	Erwinia phage Machina	linear	Direct Submission	NA	Proteobacteria
+NC_023610.1	218339	Viruses_Caudovirales_Myoviridae_Iapetusvirus_Erwinia virus EaH1	Erwinia phage PhiEaH1	linear	The genome of the Erwinia amylovora phage PhiEaH1 reveals greater diversity and broadens the applicability of phages for the treatment of fire blight	"fire-blight infected aerial tissue, Hungary"	Proteobacteria
+NC_019929.1	243050	Viruses_Caudovirales_Myoviridae_Erskinevirus	Erwinia phage phiEaH2	circular	Complete Genomic Sequence of Erwinia amylovora Phage PhiEaH2	NA	Proteobacteria
+NC_031107.2	246290	Viruses_Caudovirales_Myoviridae_Erskinevirus	Erwinia phage vB_EamM_Asesino	linear	Direct Submission	"branches and blossoms, USA"	Proteobacteria
+NC_031120.1	241147	Viruses_Caudovirales_Myoviridae_Machinavirus_unclassified Machinavirus	Erwinia phage vB_EamM_Caitlin	linear	Direct Submission	"branches and blossoms, USA"	Proteobacteria
+NC_031126.1	244840	Viruses_Caudovirales_Myoviridae_Machinavirus_unclassified Machinavirus	Erwinia phage vB_EamM_ChrisDB	linear	Direct Submission	NA	Proteobacteria
+NC_041972.1	273501	Viruses_Caudovirales_Myoviridae_Agricanvirus	Erwinia phage vB_EamM_Deimos-Minion	linear	Direct Submission	"branches and blossoms, USA"	Proteobacteria
+NC_042098.1	272458	Viruses_Caudovirales_Myoviridae_Agricanvirus_Erwinia virus Desertfox	Erwinia phage vB_EamM_Desertfox	linear	Direct Submission	"soil, USA"	Proteobacteria
+NC_031007.1	223935	Viruses_Caudovirales_Myoviridae	Erwinia phage vB_EamM_EarlPhillipIV	linear	Direct Submission	"apple orchard sample, USA"	Proteobacteria
+NC_031127.1	240761	Viruses_Caudovirales_Myoviridae_Machinavirus_unclassified Machinavirus	Erwinia phage vB_EamM_Huxley	linear	Direct Submission	"branches and blossoms, USA"	Proteobacteria
+NC_031010.1	246390	Viruses_Caudovirales_Myoviridae	Erwinia phage vB_EamM_Kwan	linear	Direct Submission	NA	Proteobacteria
+NC_031043.1	229501	Viruses_Caudovirales_Myoviridae	Erwinia phage vB_EamM_Phobos	linear	Direct Submission	NA	Proteobacteria
+NC_041973.1	271182	Viruses_Caudovirales_Myoviridae_Agricanvirus	Erwinia phage vB_EamM_RAY	linear	Direct Submission	"leaves and stem, USA"	Proteobacteria
+NC_042018.1	235108	Viruses_Caudovirales_Myoviridae_Risingsunvirus_Erwinia virus Risingsun	Erwinia phage vB_EamM_RisingSun	linear	Direct Submission	"apple tree, USA"	Proteobacteria
+NC_041974.1	271088	Viruses_Caudovirales_Myoviridae_Agricanvirus	Erwinia phage vB_EamM_Simmy50	linear	Direct Submission	"bark, USA"	Proteobacteria
+NC_041975.1	273224	Viruses_Caudovirales_Myoviridae_Agricanvirus	Erwinia phage vB_EamM_Special G	linear	Direct Submission	"branches and blossums, USA"	Proteobacteria
+NC_025447.1	348532	Viruses_Caudovirales_Myoviridae_Asteriusvirus_Escherichia virus 121Q	Escherichia phage 121Q	linear	Direct Submission	"sewage, Canada: Quebec"	Proteobacteria
+NC_027364.1	348113	Viruses_Caudovirales_Myoviridae_Asteriusvirus_Escherichia virus PBECO4	Escherichia phage PBECO4	linear	Genomic analysis of bacteriophage PBECO4 infecting Escherichia coli O157:H7	"river, South Korea"	Proteobacteria
+NC_027399.1	346602	Viruses_Caudovirales_Myoviridae_Alcyoneusvirus_Klebsiella virus K64-1	Klebsiella phage K64-1	linear	Identification of capsular types in carbapenem-resistant Klebsiella pneumoniae strains by wzc sequencing and implications for capsule depolymerase treatment	NA	Proteobacteria
+NC_019526.1	345809	Viruses_Caudovirales_Myoviridae_Alcyoneusvirus_Klebsiella virus RaK2	Klebsiella phage vB_KleM_RaK2	linear	Genome of Klebsiella sp.-Infecting Bacteriophage vB_KleM_RaK2	NA	Proteobacteria
+NC_041878.1	378379	Viruses_Caudovirales_Myoviridae_Eneladusvirus_unclassified Eneladusvirus	Pectobacterium phage CBB	linear	Things Are Getting Hairy: Enterobacteria Bacteriophage vB_PcaM_CBB	"activated sludge from a waste water treatment plant, Ireland: Little Island, Co. Cork"	Proteobacteria
+NC_006883.2	252401	Viruses_Caudovirales_Myoviridae	Prochlorococcus phage P-SSM2	linear	Genomic analysis of oceanic cyanobacterial myoviruses compared with T4-like myoviruses from diverse hosts and environments	NA	Cyanobacteria
+NC_010821.1	316674	Viruses_Caudovirales_Myoviridae_Phikzvirus_unclassified Phikzvirus	Pseudomonas phage 201phi2-1	linear	"Characterization of Pseudomonas chlororaphis myovirus 201varphi2-1 via genomic sequencing, mass spectrometry, and electron microscopy"	NA	Proteobacteria
+NC_007623.1	211215	Viruses_Caudovirales_Myoviridae_Elvirus	Pseudomonas phage EL	circular	Genome comparison of Pseudomonas aeruginosa large phages	NA	Proteobacteria
+NC_017972.1	280538	Viruses_Caudovirales_Myoviridae	Pseudomonas phage Lu11	linear	Complete genome sequence of the giant pseudomonas phage lu11	"soil, Philippines"	Proteobacteria
+NC_041994.1	278136	Viruses_Caudovirales_Myoviridae_Noxifervirus_Pseudomonas virus Noxifer	Pseudomonas phage Noxifer	circular	Direct Submission	"compost, New Zealand"	Proteobacteria
+NC_016571.1	284757	Viruses_Caudovirales_Myoviridae	Pseudomonas phage OBP	circular	Complete Genome Sequence of the Giant Virus OBP and Comparative Genome Analysis of the Diverse phiKZ-Related Phages	"compost sample, Russia: Tver District"	Proteobacteria
+NC_042060.1	266743	Viruses_Caudovirales_Myoviridae_Phikzvirus	Pseudomonas phage PA7	linear	Direct Submission	"mudflat, South Korea"	Proteobacteria
+NC_022096.1	258139	Viruses_Caudovirales_Myoviridae	Pseudomonas phage PaBG	circular	Complete Genome Sequence of the Novel Giant Pseudomonas Phage PaBG	NA	Proteobacteria
+NC_028999.1	309208	Viruses_Caudovirales_Myoviridae_Phikzvirus_unclassified Phikzvirus	Pseudomonas phage PhiPA3	circular	"The Pseudomonas aeruginosa generalized transducing phage phiPA3 is a new member of the phiKZ-like group of 'jumbo' phages, and infects model laboratory strains and clinical isolates from cystic fibrosis patients"	NA	Proteobacteria
+NC_042081.1	279696	Viruses_Caudovirales_Myoviridae_Phikzvirus_Pseudomonas virus SL2	Pseudomonas phage SL2	linear	"Differential Effect of Newly Isolated Phages Belonging to PB1-Like, phiKZ-Like and LUZ24-Like Viruses against Multi-Drug Resistant Pseudomonas aeruginosa under Varying Growth Conditions"	"hospital sewage, Germany"	Proteobacteria
+NC_004629.1	280334	Viruses_Caudovirales_Myoviridae_Phikzvirus	Pseudomonas virus phiKZ	linear	Crystal structure and location of gp131 in the bacteriophage phiKZ virion	NA	Proteobacteria
+NC_010811.2	231255	Viruses_Caudovirales_Myoviridae_Mieseafarmvirus	Ralstonia phage phiRSL1	circular	A jumbo phage infecting the phytopathogen Ralstonia solanacearum defines a new lineage of the Myoviridae family	NA	Proteobacteria
+NC_041911.1	279845	Viruses_Caudovirales_Myoviridae_Ripduovirus_Ralstonia virus RP12	Ralstonia phage RP12	circular	Characterization of two jumbo phages RP12 and RP31 infecting the phytopathogen Ralstonia solanacearum	NA	Proteobacteria
+NC_028899.1	222888	Viruses_Caudovirales_Myoviridae_Chiangmaivirus	Ralstonia phage RSF1	linear	Two Asian jumbo phage RSL2 and RSF1 infecting the phytopathogen Ralstonia solanacearum share common features related to the phi-KZ-like phages	NA	Proteobacteria
+NC_028950.1	223932	Viruses_Caudovirales_Myoviridae_Chiangmaivirus	Ralstonia phage RSL2	linear	Genome analysis of a novel jumbo phage RSL2 infecting the phytopathogen Ralstonia solanacearum	NA	Proteobacteria
+NC_027402.1	240413	Viruses_Caudovirales_Myoviridae_Seoulvirus	Salmonella phage SPN3US	linear	Complete Genome Sequence of Salmonella Bacteriophage SPN3US	NA	Proteobacteria
+NC_041917.1	357154	Viruses_Caudovirales_Myoviridae_Eneladusvirus_Serratia virus BF	Serratia phage BF	linear	Genome sequence of Serratia marcescens phage BF	NA	Proteobacteria
+NC_028945.1	206713	Viruses_Caudovirales_Myoviridae_Emdodecavirus	Sinorhizobium phage phiN3	linear	Direct Submission	NA	Proteobacteria
+NC_019521.1	219372	Viruses_Caudovirales_Myoviridae	Sphingomonas phage PAU	linear	Direct Submission	"silkworms, India: Karnataka State"	Proteobacteria
+NC_026927.1	228143	Viruses_Caudovirales_Myoviridae	Synechococcus phage ACG-2014f	circular	Ecological redundancy of diverse viral populations within a natural community	NA	Cyanobacteria
+NC_031927.1	216121	Viruses_Caudovirales_Myoviridae	Synechococcus phage S-CAM7	linear	The genomic content and context of auxiliary metabolic genes in marine cyanomyoviruses	NA	Cyanobacteria
+NC_020851.1	208007	Viruses_Caudovirales_Myoviridae	Synechococcus phage S-SKS1	linear	The Genome Sequence of Synechococcus phage S-SKS1	NA	Cyanobacteria
+NC_015287.1	232878	Viruses_Caudovirales_Myoviridae	Synechococcus phage S-SSM7	linear	Genomic analysis of oceanic cyanobacterial myoviruses compared with T4-like myoviruses from diverse hosts and environments	NA	Cyanobacteria
+NC_042100.1	237722	Viruses_Caudovirales_Myoviridae_Aphroditevirus_Vibrio virus Aphrodite1	Vibrio phage Aphrodite1	linear	Phage resistance in Vibrio sp. unravels a complex metabolic adaptation strategy	NA	Proteobacteria
+NC_005083.2	244834	Viruses_Caudovirales_Myoviridae_Tevenvirinae_Schizotequatrovirus	Vibrio phage KVP40	linear	Complete genome sequence of the broad-host-range vibriophage KVP40: comparative genomics of a T4-related bacteriophage	NA	Proteobacteria
+NC_021529.2	247511	Viruses_Caudovirales_Myoviridae_Tevenvirinae_Schizotequatrovirus	Vibrio phage nt-1 (nt-1)	linear	Composite conserved promoter-terminator motifs (PeSLs) that mediate modular shuffling in the diverse T4-like myoviruses	NA	Proteobacteria
+NC_041916.1	239276	Viruses_Caudovirales_Myoviridae_Tidunavirus_Vibrio virus pTD1	Vibrio phage pTD1	circular	Complete Genome Sequence of Vibrio Parahaemolyticus Bacteriophage pTD1	NA	Proteobacteria
+NC_028829.1	248088	Viruses_Caudovirales_Myoviridae_Tevenvirinae_Schizotequatrovirus	Vibrio phage ValKK3	linear	Complete genome sequence of a giant Vibrio phage ValKK3 infecting Vibrio alginolyticus	"marine sediment, Malaysia"	Proteobacteria
+NC_023568.1	246964	Viruses_Caudovirales_Myoviridae_Tevenvirinae_Schizotequatrovirus_unclassified Schizotequatrovirus	Vibrio phage VH7D	linear	Comeplete Genome Sequence Of a Novel Gaint Bacteriophage VH7D that Infects Vibrio harveyi	"ocean, China"	Proteobacteria
+NC_042136.1	236053	Viruses_Caudovirales_Myoviridae_Tidunavirus_Vibrio virus VP4B	Vibrio phage VP4B	circular	Complete genome sequence of a novel phiKZ-like Vibrio phage	"ocean, China"	Proteobacteria
+NC_042116.1	354378	Viruses_Caudovirales_Myoviridae_Eneladusvirus_Yersinia virus Yen9-04	Yersinia phage fHe-Yen9-04	linear	Direct Submission	NA	Proteobacteria
+NC_016163.1	262391	Viruses_Caudovirales_Myoviridae	Yersinia phage phiR1-37	circular	Yersiniophage phiR1-37 is a tailed bacteriophage having a 270 kb DNA genome with thymidine replaced by deoxyuridine	NA	Proteobacteria

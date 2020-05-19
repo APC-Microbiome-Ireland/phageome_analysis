@@ -1,0 +1,252 @@
+name	environment	country or region	study
+A3_PHAGE_COMPLETE_CIR-CU-CL_34_1_1	Adult fecal samples	Bangladesh	Devoto et al.
+A4_PHAGE_COMPLETE_CIR-CU-CL_34_1_1	Adult fecal samples	Bangladesh	Devoto et al.
+ALT_PHAGE_24_16_1	Outside environment	Canada	Al-Shayeb et al.
+ALT_PHAGE_40_9_1	Outside environment	Canada	Al-Shayeb et al.
+ALT_PHAGE_CIR_40_13_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_29_17_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_34_18_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_34_18_2	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_45_11_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_48_21_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_CIR_30_13_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_CIR_40_15_B_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_CIR_42_5_1	Outside environment	Canada	Al-Shayeb et al.
+BML_PHAGE_COMPLETE_CIR-CU-CL_30_21_1	Outside environment	Canada	Al-Shayeb et al.
+ER_PHAGE_49_14_1	Outside environment	USA	Al-Shayeb et al.
+ERM_PHAGE_CIR_34_117_1	Outside environment	Canada	Al-Shayeb et al.
+ERR1474568_NODE_4_length_227053_cov_6.57548_96	Adult saliva	Philippines	This study
+ERR1474568_NODE_6_length_201530_cov_57.6677_231	Adult saliva	Philippines	This study
+ERR1474570_NODE_3_length_211527_cov_11.7559_55	Adult saliva	Philippines	This study
+ERR1474583_NODE_1_length_238631_cov_8.08518_143	Adult saliva	Philippines	This study
+ERR1474584_NODE_1_length_239551_cov_58.3549_72	Adult saliva	Philippines	This study
+ERR589366_NODE_2_length_252267_cov_5.86855_154	Adult dental plaque	China	This study
+ERR589374_NODE_1_length_250771_cov_7.48575_207	Adult dental plaque	China	This study
+ERR589390_NODE_5_length_254595_cov_11.1926_161	Adult saliva	China	This study
+ERR589400_NODE_2_length_222094_cov_17.9067_63	Adult saliva	China	This study
+ERR589418_NODE_2_length_253972_cov_14.627_157	Adult saliva	China	This study
+ERR589418_NODE_3_length_253054_cov_15.5374_159	Adult saliva	China	This study
+ERR589420_NODE_11_length_203503_cov_92.1356_162	Adult saliva	China	This study
+ERR589420_NODE_11_length_203503_cov_92.1356_164	Adult saliva	China	This study
+ERR589420_NODE_12_length_203291_cov_5.79902_163	Adult saliva	China	This study
+ERR589420_NODE_6_length_229992_cov_13.7426_182	Adult saliva	China	This study
+ERR589426_NODE_11_length_235074_cov_32.5489_214	Adult saliva	China	This study
+ERR589432_NODE_16_length_215843_cov_9.61145_74	Adult saliva	China	This study
+ERR589796_NODE_1_length_512029_cov_8.91079_144	Adult fecal samples	China	This study
+ERR589826_NODE_12_length_228591_cov_8.75589_239	Adult fecal samples	China	This study
+F-24_PHAGE_27_21_1	Baboon fecal samples	Kenya	Devoto et al.
+F31_PHAGE_CIR_26_47_1	Baboon fecal samples	Kenya	Devoto et al.
+FFC_PHAGE_43_1208_1	Outside environment	Canada	Al-Shayeb et al.
+FFC_PHAGE_44_113_1	Outside environment	Canada	Al-Shayeb et al.
+FFC_PHAGE_CIR_38_15_1	Outside environment	Canada	Al-Shayeb et al.
+FFC_PHAGE_CIR_42_59_1	Outside environment	Canada	Al-Shayeb et al.
+FFSP_PHAGE_34_11_1	Outside environment	Canada	Al-Shayeb et al.
+Ga0247723_1000001_88	Outside environment	USA	IMG/VR
+Ga0257110_1000001_93	Outside environment	Canada	IMG/VR
+GM_PHAGE_38_38_1	Outside environment	Canada	Al-Shayeb et al.
+GWC1_PHAGE_CIR_34_18_1	Outside environment	USA	Al-Shayeb et al.
+GWF2_PHAGE_CIR_41_11_1	Outside environment	USA	Al-Shayeb et al.
+LP_PHAGE_29_14_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_30_17_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_31_18_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_38_12_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_38_17_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_40_9_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_46_12_1	Outside environment	France	Al-Shayeb et al.
+LP_PHAGE_CIR_34_34_1	Outside environment	France	Al-Shayeb et al.
+NC_005083.2_1	NA	NA	RefSeq
+NC_005260.1_1	NA	NA	RefSeq
+NC_010821.1_1	NA	NA	RefSeq
+NC_016571.1_1	Outside environment	Russia	RefSeq
+NC_019405.1_1	NA	NA	RefSeq
+NC_019406.1_1	Outside environment	USA	RefSeq
+NC_019408.1_1	Outside environment	USA	RefSeq
+NC_019410.1_1	Outside environment	USA	RefSeq
+NC_019411.1_1	Outside environment	USA	RefSeq
+NC_019526.1_1	NA	NA	RefSeq
+NC_019929.1_1	NA	NA	RefSeq
+NC_020851.1_1	NA	NA	RefSeq
+NC_021531.1_1	NA	NA	RefSeq
+NC_023557.1_1	Outside environment	Canada	RefSeq
+NC_023568.1_1	Outside environment	China	RefSeq
+NC_027364.1_1	Outside environment	South Korea	RefSeq
+NC_027402.1_1	NA	NA	RefSeq
+NC_028829.1_1	Outside environment	Malaysia	RefSeq
+NC_028999.1_1	NA	NA	RefSeq
+NC_031007.1_1	Outside environment	USA	RefSeq
+NC_031010.1_1	NA	NA	RefSeq
+NC_031043.1_1	NA	NA	RefSeq
+NC_031107.2_1	Outside environment	USA	RefSeq
+NC_031120.1_1	Outside environment	USA	RefSeq
+NC_031126.1_1	NA	NA	RefSeq
+NC_031245.1_1	Outside environment	USA	RefSeq
+NC_031927.1_1	NA	NA	RefSeq
+NC_041884.1_1	Outside environment	Ireland	RefSeq
+NC_041972.1_1	Outside environment	USA	RefSeq
+NC_041973.1_1	Outside environment	USA	RefSeq
+NC_041974.1_1	Outside environment	USA	RefSeq
+NC_041994.1_1	Outside environment	New Zealand	RefSeq
+NC_042013.1_1	NA	NA	RefSeq
+NC_042056.1_1	NA	NA	RefSeq
+NC_042098.1_1	Outside environment	USA	RefSeq
+NC_042116.1_1	NA	NA	RefSeq
+NC_043027.1_1	NA	NA	RefSeq
+OS_PHAGE_40_40_1	Outside environment	USA	Al-Shayeb et al.
+PIG_PHAGE_COMPLETE_CIR-CU-CL_31_57_1	Pig fecal samples	Denmark	Devoto et al.
+PIG_PHAGE_CU_27_27_1	Pig fecal samples	Denmark	Devoto et al.
+PIG_PHAGE_CU_27_28_1	Pig fecal samples	Denmark	Devoto et al.
+PIG_PHAGE_CU_31_44_1	Pig fecal samples	Denmark	Devoto et al.
+R2_PHAGE_46_52_1	Intensive Care Unit	USA	Al-Shayeb et al.
+R2_PHAGE_47_28_1	Intensive Care Unit	USA	Al-Shayeb et al.
+R2_PHAGE_CIR_43_124_1	Intensive Care Unit	USA	Al-Shayeb et al.
+R2_PHAGE_CIR_46_32_1	Intensive Care Unit	USA	Al-Shayeb et al.
+R2_PHAGE_CIR_48_113_1	Intensive Care Unit	USA	Al-Shayeb et al.
+R2_PHAGE_CIR_50_38_1	Intensive Care Unit	USA	Al-Shayeb et al.
+RIF_PHAGE_CIR_29_13_1	Outside environment	USA	Al-Shayeb et al.
+RIF_PHAGE_CU_29_17_1	Outside environment	USA	Al-Shayeb et al.
+RTP_PHAGE_33_21_1	Outside environment	Canada	Al-Shayeb et al.
+RTP_PHAGE_33_21_2	Outside environment	Canada	Al-Shayeb et al.
+S9_PHAGE_34_1_1	Adult fecal samples	Bangladesh	Al-Shayeb et al.
+SALIVA_PHAGE_CIR_35_33_1	Adult saliva	USA	Al-Shayeb et al.
+SCN_PHAGE_32_18_1	Biotechnology	South Africa	Al-Shayeb et al.
+SCN_PHAGE_41_19_1	Biotechnology	South Africa	Al-Shayeb et al.
+SCN_PHAGE_41_19_2	Biotechnology	South Africa	Al-Shayeb et al.
+SHALE-W_PHAGE_25_0_1	Outside environment	USA	Al-Shayeb et al.
+SHALE-W_PHAGE_CIR_53_0_1	Outside environment	USA	Al-Shayeb et al.
+SR-VP_PHAGE_30_18_1	Outside environment	USA	Al-Shayeb et al.
+SR-VP_PHAGE_48_23_A_1	Outside environment	USA	Al-Shayeb et al.
+SR-VP_PHAGE_50_14_1	Outside environment	USA	Al-Shayeb et al.
+SR-VP_PHAGE_54_15_1	Outside environment	USA	Al-Shayeb et al.
+SR-VP_PHAGE_CIR_49_18_1	Outside environment	USA	Al-Shayeb et al.
+SR-VP_PHAGE_COMPLETE_CIR-CU-CL_42_23_1	Outside environment	USA	Al-Shayeb et al.
+SRS011140_NODE_15_length_228010_cov_44.6028_15	Adult dorsum of tongue	USA	This study
+SRS013252_NODE_7_length_269911_cov_143.484_178	Adult dental plaque	USA	This study
+SRS013879_NODE_11_length_207354_cov_10.9341_202	Adult dorsum of tongue	USA	This study
+SRS013879_NODE_11_length_207354_cov_10.9341_205	Adult dorsum of tongue	USA	This study
+SRS013879_NODE_7_length_260460_cov_18.7579_14	Adult dorsum of tongue	USA	This study
+SRS014470_NODE_1_length_389119_cov_8.88358_107	Adult dorsum of tongue	USA	This study
+SRS014470_NODE_6_length_244976_cov_7.18311_74	Adult dorsum of tongue	USA	This study
+SRS014476_NODE_3_length_260597_cov_8.33481_123	Adult dental plaque	USA	This study
+SRS014690_NODE_6_length_210977_cov_55.0985_58	Adult dental plaque	USA	This study
+SRS015057_NODE_2_length_227748_cov_65.0344_69	Adult dorsum of tongue	USA	This study
+SRS015215_NODE_3_length_265743_cov_6.54371_189	Adult dental plaque	USA	This study
+SRS015440_WUGC_scaffold_42298_198	Adult dental plaque	USA	IMG/VR
+SRS015646_NODE_1_length_220432_cov_27.2438_82	Adult buccal mucosa	USA	This study
+SRS015745_NODE_1_length_241528_cov_13.1549_101	Adult buccal mucosa	USA	This study
+SRS015745_NODE_3_length_214576_cov_9.12203_263	Adult buccal mucosa	USA	This study
+SRS015762_NODE_16_length_233663_cov_52.3172_213	Adult dorsum of tongue	USA	This study
+SRS015762_NODE_21_length_215763_cov_47.9965_275	Adult dorsum of tongue	USA	This study
+SRS015797_NODE_11_length_253437_cov_48.7_134	Adult dorsum of tongue	USA	This study
+SRS015797_NODE_2_length_388920_cov_36.308_184	Adult dorsum of tongue	USA	This study
+SRS015893_NODE_8_length_256687_cov_26.4504_223	Adult dorsum of tongue	USA	This study
+SRS015941_NODE_1_length_389980_cov_7.93841_20	Adult dorsum of tongue	USA	This study
+SRS015941_NODE_2_length_315556_cov_47.6479_139	Adult dorsum of tongue	USA	This study
+SRS016002_NODE_10_length_225008_cov_10.3289_62	Adult dorsum of tongue	USA	This study
+SRS016037_NODE_23_length_200325_cov_294.431_225	Adult dorsum of tongue	USA	This study
+SRS016039_WUGC_scaffold_7258_66	Adult buccal mucosa	USA	IMG/VR
+SRS016086_NODE_14_length_243417_cov_24.8521_158	Adult dorsum of tongue	USA	This study
+SRS016225_NODE_5_length_249678_cov_27.3838_31	Adult dorsum of tongue	USA	This study
+SRS016225_NODE_6_length_244067_cov_149.008_234	Adult dorsum of tongue	USA	This study
+SRS016225_WUGC_scaffold_2185_126	Adult dorsum of tongue	USA	IMG/VR
+SRS016225_WUGC_scaffold_2185_127	Adult dorsum of tongue	USA	IMG/VR
+SRS016319_NODE_4_length_245864_cov_10.831_72	Adult dorsum of tongue	USA	This study
+SRS016331_NODE_4_length_271840_cov_24.0229_75	Adult dental plaque	USA	This study
+SRS016746_Baylor_scaffold_37475_66	Adult dental plaque	USA	IMG/VR
+SRS017007_NODE_18_length_230785_cov_20.6488_272	Adult dorsum of tongue	USA	This study
+SRS017304_NODE_5_length_258288_cov_116.449_92	Adult dental plaque	USA	This study
+SRS017533_NODE_11_length_202276_cov_12.3433_146	Adult dorsum of tongue	USA	This study
+SRS017533_NODE_11_length_202276_cov_12.3433_150	Adult dorsum of tongue	USA	This study
+SRS017533_NODE_6_length_223782_cov_53.6916_296	Adult dorsum of tongue	USA	This study
+SRS017713_NODE_6_length_230050_cov_17.426_90	Adult dorsum of tongue	USA	This study
+SRS018157_NODE_7_length_269576_cov_21.4215_45	Adult dental plaque	USA	This study
+SRS018337_NODE_5_length_227716_cov_18.7174_108	Adult dental plaque	USA	This study
+SRS018739_NODE_8_length_253246_cov_9.48565_131	Adult dorsum of tongue	USA	This study
+SRS018791_NODE_1_length_395675_cov_35.5222_299	Adult dorsum of tongue	USA	This study
+SRS018791_NODE_1_length_395675_cov_35.5222_300	Adult dorsum of tongue	USA	This study
+SRS018975_NODE_4_length_268195_cov_9.84981_115	Adult dental plaque	USA	This study
+SRS019022_NODE_2_length_328852_cov_10.0908_116	Adult dorsum of tongue	USA	This study
+SRS019122_NODE_14_length_227426_cov_10.5494_232	Adult dorsum of tongue	USA	This study
+SRS019128_NODE_3_length_269534_cov_11.4733_234	Adult dental plaque	USA	This study
+SRS019128_NODE_4_length_264155_cov_13.4601_2	Adult dental plaque	USA	This study
+SRS019219_NODE_9_length_232804_cov_7.05368_174	Adult dorsum of tongue	USA	This study
+SRS019327_NODE_9_length_258319_cov_7.57032_19	Adult dorsum of tongue	USA	This study
+SRS019607_NODE_9_length_235695_cov_219.599_15	Adult dorsum of tongue	USA	This study
+SRS019974_NODE_2_length_240432_cov_14.8021_141	Adult dorsum of tongue	USA	This study
+SRS020856_NODE_8_length_227958_cov_7.82357_104	Adult dorsum of tongue	USA	This study
+SRS022083_Baylor_scaffold_19610_94	Adult dental plaque	USA	IMG/VR
+SRS022143_NODE_9_length_204796_cov_9.87473_149	Adult dorsum of tongue	USA	This study
+SRS022149_LANL_scaffold_20404_32	Adult dental plaque	USA	IMG/VR
+SRS022530_LANL_scaffold_32610_168	Adult dorsum of tongue	USA	IMG/VR
+SRS022530_LANL_scaffold_51249_70	Adult dorsum of tongue	USA	IMG/VR
+SRS022536_LANL_scaffold_58447_94	Adult dental plaque	USA	IMG/VR
+SRS022602_Baylor_scaffold_95585_250	Adult dental plaque	USA	IMG/VR
+SRS023358_NODE_1_length_276734_cov_13.5505_222	Adult dental plaque	USA	This study
+SRS023538_NODE_2_length_203423_cov_44.5816_119	Adult dental plaque	USA	This study
+SRS023595_NODE_1_length_265806_cov_8.79388_175	Adult dental plaque	USA	This study
+SRS024081_NODE_17_length_203718_cov_7.10722_226	Adult dorsum of tongue	USA	This study
+SRS024138_NODE_2_length_250931_cov_188.999_20	Adult dorsum of tongue	USA	This study
+SRS024447_NODE_1_length_212514_cov_9.48817_82	Adult dental plaque	USA	This study
+SRS024447_NODE_1_length_212514_cov_9.48817_85	Adult dental plaque	USA	This study
+SRS024580_NODE_10_length_227515_cov_21.2831_187	Adult dorsum of tongue	USA	This study
+SRS042984_NODE_5_length_263381_cov_23.199_186	Adult dental plaque	USA	This study
+SRS044230_NODE_9_length_235552_cov_53.6224_194	Adult dental plaque	USA	This study
+SRS044486_NODE_3_length_227194_cov_96.9632_79	Adult dorsum of tongue	USA	This study
+SRS044662_LANL_scaffold_46740_149	Adult dorsum of tongue	USA	IMG/VR
+SRS044662_NODE_25_length_232905_cov_15.7753_251	Adult dorsum of tongue	USA	This study
+SRS045127_NODE_1_length_246162_cov_12.4049_91	Adult dorsum of tongue	USA	This study
+SRS045262_NODE_1_length_211049_cov_23.9758_144	Adult buccal mucosa	USA	This study
+SRS046686_NODE_2_length_214097_cov_130.255_12	Adult buccal mucosa	USA	This study
+SRS047590_NODE_5_length_276833_cov_10.4231_37	Adult dental plaque	USA	This study
+SRS047634_NODE_2_length_263710_cov_7.45722_178	Adult dental plaque	USA	This study
+SRS048719_NODE_1_length_279258_cov_17.5972_5	Adult buccal mucosa	USA	This study
+SRS049318_NODE_5_length_260427_cov_7.01686_52	Adult dental plaque	USA	This study
+SRS049318_NODE_9_length_212020_cov_15.2792_148	Adult dental plaque	USA	This study
+SRS049389_NODE_7_length_231243_cov_30.6114_56	Adult dorsum of tongue	USA	This study
+SRS050029_NODE_3_length_248730_cov_32.1946_171	Adult buccal mucosa	USA	This study
+SRS050244_NODE_7_length_249854_cov_9.23851_85	Adult dorsum of tongue	USA	This study
+SRS051378_NODE_2_length_237850_cov_42.8995_81	Adult dental plaque	USA	This study
+SRS051791_LANL_scaffold_23448_98	Adult dorsum of tongue	USA	IMG/VR
+SRS052518_NODE_3_length_247507_cov_49.7633_85	Adult dorsum of tongue	USA	This study
+SRS053603_LANL_scaffold_3079_60	Adult dorsum of tongue	USA	IMG/VR
+SRS053603_NODE_13_length_255687_cov_6.73762_197	Adult dorsum of tongue	USA	This study
+SRS056622_NODE_4_length_271258_cov_12.0151_186	Adult dorsum of tongue	USA	This study
+SRS057355_NODE_1_length_251079_cov_131.6_185	Adult dorsum of tongue	USA	This study
+SRS057692_NODE_2_length_248922_cov_148.172_100	Adult dorsum of tongue	USA	This study
+SRS057791_LANL_scaffold_921_215	Adult dorsum of tongue	USA	IMG/VR
+SRS058730_NODE_4_length_272497_cov_41.7631_10	Adult dental plaque	USA	This study
+SRS058808_NODE_7_length_260368_cov_38.0061_240	Adult dental plaque	USA	This study
+SRS062761_NODE_8_length_225204_cov_34.0657_4	Adult dorsum of tongue	USA	This study
+SRS063193_LANL_scaffold_29753_21	Adult dorsum of tongue	USA	IMG/VR
+SRS063603_NODE_10_length_226102_cov_9.39338_185	Adult dental plaque	USA	This study
+SRS064423_NODE_6_length_240050_cov_6.58861_140	Adult dorsum of tongue	USA	This study
+SRS064774_NODE_5_length_238650_cov_8.65785_69	Adult dorsum of tongue	USA	This study
+SRS078182_NODE_8_length_260353_cov_93.28_330	Adult dorsum of tongue	USA	This study
+SRS078425_NODE_1_length_226348_cov_18.355_86	Adult dorsum of tongue	USA	This study
+SRS078677_NODE_7_length_263796_cov_15.3008_46	Adult dental plaque	USA	This study
+SRS098498_NODE_8_length_237971_cov_29.0708_155	Adult dorsum of tongue	USA	This study
+SRS098735_NODE_1_length_265971_cov_16.2861_70	Adult dental plaque	USA	This study
+SRS098867_NODE_11_length_229051_cov_63.7156_191	Adult dorsum of tongue	USA	This study
+SRS101388_NODE_10_length_222966_cov_7.54998_61	Adult dental plaque	USA	This study
+SRS101388_NODE_11_length_211332_cov_17.1012_7	Adult dental plaque	USA	This study
+SRS101388_NODE_5_length_259202_cov_13.0149_26	Adult dental plaque	USA	This study
+SRS101388_NODE_8_length_226735_cov_48.6534_160	Adult dental plaque	USA	This study
+SRS103983_NODE_4_length_267175_cov_16.879_63	Adult dental plaque	USA	This study
+SRS104165_NODE_15_length_239970_cov_9.30182_52	Adult dorsum of tongue	USA	This study
+SRS104830_NODE_17_length_204042_cov_9.71334_85	Adult dorsum of tongue	USA	This study
+SRS105100_NODE_14_length_202315_cov_9.26293_57	Adult dental plaque	USA	This study
+SRS105100_NODE_9_length_273110_cov_7.31174_209	Adult dental plaque	USA	This study
+SRS105121_NODE_2_length_253326_cov_14.0658_158	Adult dental plaque	USA	This study
+SRS142483_NODE_10_length_257797_cov_15.6928_110	Adult dental plaque	USA	This study
+SRS142483_NODE_17_length_212396_cov_60.6612_82	Adult dental plaque	USA	This study
+SRS142483_NODE_8_length_267299_cov_53.3807_235	Adult dental plaque	USA	This study
+SRS142664_NODE_4_length_215051_cov_10.1813_96	Adult dental plaque	USA	This study
+SRS144609_NODE_1_length_226381_cov_13.1313_134	Adult dorsum of tongue	USA	This study
+SRS146894_NODE_2_length_387353_cov_12.7661_48	Adult dorsum of tongue	USA	This study
+SRS146894_NODE_9_length_243248_cov_58.4478_74	Adult dorsum of tongue	USA	This study
+SRS147887_NODE_9_length_237960_cov_5.45839_19	Adult dorsum of tongue	USA	This study
+SRS148150_NODE_17_length_208122_cov_5.04636_75	Adult dorsum of tongue	USA	This study
+SRS148150_NODE_20_length_201279_cov_8.70353_65	Adult dorsum of tongue	USA	This study
+SRS148150_NODE_20_length_201279_cov_8.70353_69	Adult dorsum of tongue	USA	This study
+SRS148193_NODE_8_length_268969_cov_56.677_192	Adult dental plaque	USA	This study
+SW-7_PHAGE_46_16_1	Outside environment	Chile	Al-Shayeb et al.
+TARA_PHAGE_44_1_1	Outside environment	North Pacific Ocean	Al-Shayeb et al.

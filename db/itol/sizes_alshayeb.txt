@@ -1,0 +1,139 @@
+DATASET_SIMPLEBAR
+#In simple bar charts, each ID is associated to a single numeric value which is displayed as a bar outside the tree.
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+SEPARATOR TAB
+#SEPARATOR SPACE
+#SEPARATOR COMMA
+
+#label is used in the legend table (can be changed later)
+DATASET_LABEL	sizes - alshayeb
+
+#dataset color (can be changed later)
+COLOR	#377EB8
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+#dataset scale: you can simply set the values where the scale will be drawn
+DATASET_SCALE	200000	250000	300000	350000	400000	450000	500000	550000	600000
+#or you can specify value, label, color, width, style and label size factor for each scale line (dash separated, format: VALUE-LABEL-COLOR-WIDTH-DASHED-LABEL_SCALE_FACTOR)) 
+#DATASET_SCALE,2000-2k line-#0000ff-5-1-1,10000-line at 10k-#ff0000-1-0-2,20000-3rd line-#00ff00-5-1-1
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE	Study
+LEGEND_SHAPES	1	1	1	1	1
+LEGEND_COLORS	#377EB8	#E41A1C	#984EA3	#FF7F00	rgb(255, 220, 0)
+LEGEND_LABELS	Al-Shayeb et al.	Devoto et al.	IMG/VR	RefSeq	This study
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+#all other optional settings can be set or changed later in the web interface (under 'Datasets' tab)
+
+#maximum width
+#WIDTH,1000
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN,0
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL,0
+
+#bar height factor; Default bar height will be slightly less than the available space between leaves, but you can set a multiplication factor here to increase/decrease it (values from 0 to 1 will decrease it, values above 1 will increase it)
+#HEIGHT_FACTOR,1
+
+#Display individual values above the bars
+#SHOW_VALUE,0
+
+#Bars are aligned to the node lines by default. Using BAR_SHIFT, you can move them all up/down by a fixed amount
+#BAR_SHIFT,0
+
+#BAR_ZERO specifies which dataset value will be used as a starting point for drawing the bars. Dataset values smaller than BAR_ZERO will be displayed to the left (possibly overlapping the tree, unless MARGIN is increased)
+#BAR_ZERO,0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the bars
+#BORDER_WIDTH,0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR,#0000ff
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+#ID1,value1
+#ID2,value2
+#9606,10000
+
+GWF2_PHAGE_CIR_41_11_1	305866
+R2_PHAGE_46_52_1	283806
+ALT_PHAGE_CIR_40_13_1	223190
+BML_PHAGE_45_11_1	322368
+SALIVA_PHAGE_CIR_35_33_1	243172
+FFC_PHAGE_CIR_38_15_1	214014
+SR-VP_PHAGE_CIR_49_18_1	369613
+SR-VP_PHAGE_30_18_1	291182
+LP_PHAGE_29_14_1	261948
+BML_PHAGE_CIR_30_13_1	312403
+R2_PHAGE_47_28_1	291133
+SR-VP_PHAGE_54_15_1	230466
+ERM_PHAGE_CIR_34_117_1	305387
+R2_PHAGE_CIR_50_38_1	259229
+FFC_PHAGE_43_1208_1	220400
+LP_PHAGE_46_12_1	210462
+TARA_PHAGE_44_1_1	310536
+SR-VP_PHAGE_50_14_1	275744
+R2_PHAGE_CIR_48_113_1	267210
+LP_PHAGE_40_9_1	226594
+BML_PHAGE_48_21_1	281088
+RTP_PHAGE_33_21_1	338752
+RTP_PHAGE_33_21_2	338752
+RIF_PHAGE_CIR_29_13_1	206411
+SHALE-W_PHAGE_25_0_1	299394
+BML_PHAGE_29_17_1	394886
+BML_PHAGE_CIR_42_5_1	328581
+SCN_PHAGE_41_19_1	338022
+SCN_PHAGE_41_19_2	338022
+BML_PHAGE_COMPLETE_CIR-CU-CL_30_21_1	331854
+R2_PHAGE_CIR_46_32_1	469944
+FFC_PHAGE_44_113_1	271315
+LP_PHAGE_38_12_1	339376
+OS_PHAGE_40_40_1	347087
+LP_PHAGE_38_17_1	399135
+ALT_PHAGE_40_9_1	209089
+SCN_PHAGE_32_18_1	239032
+GM_PHAGE_38_38_1	343399
+LP_PHAGE_31_18_1	237691
+S9_PHAGE_34_1_1	293356
+GWC1_PHAGE_CIR_34_18_1	210922
+FFC_PHAGE_CIR_42_59_1	203881
+BML_PHAGE_34_18_1	331044
+BML_PHAGE_34_18_2	331044
+SR-VP_PHAGE_COMPLETE_CIR-CU-CL_42_23_1	595163
+SW-7_PHAGE_46_16_1	322447
+LP_PHAGE_30_17_1	301052
+FFSP_PHAGE_34_11_1	262413
+R2_PHAGE_CIR_43_124_1	316706
+SHALE-W_PHAGE_CIR_53_0_1	231862
+ALT_PHAGE_24_16_1	274127
+BML_PHAGE_CIR_40_15_B_1	222739
+RIF_PHAGE_CU_29_17_1	503412
+ER_PHAGE_49_14_1	298824
+SR-VP_PHAGE_48_23_A_1	354149
+LP_PHAGE_CIR_34_34_1	286030

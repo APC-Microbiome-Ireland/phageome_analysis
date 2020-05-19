@@ -1,0 +1,162 @@
+TREE_COLORS
+#use this template to define branch colors and styles, colored ranges and label colors/font styles/backgrounds
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+
+SEPARATOR TAB
+#SEPARATOR SPACE
+#SEPARATOR COMMA
+
+#First 3 fields define the node, type and color
+#Possible types are:
+#'range': defines a colored range (colored background for labels/clade)
+#'clade': defines color/style for all branches in a clade
+#'branch': defines color/style for a single branch
+#'label': defines font color/style for the leaf label
+#'label_background': defines the leaf label background color
+
+#The following additional fields are required:
+#for 'range', field 4 defines the colored range label (used in the legend)
+
+#The following additional fields are optional:
+#for 'label', field 4 defines the font style ('normal',''bold', 'italic' or 'bold-italic') and field 5 defines the numeric scale factor for the font size (eg. with value 2, font size for that label will be 2x the standard size)
+#for 'clade' and 'branch', field 4 defines the branch style ('normal' or 'dashed') and field 5 defines the branch width scale factor (eg. with value 0.5, branch width for that clade will be 0.5 the standard width)
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+#NODE_ID TYPE COLOR LABEL_OR_STYLE SIZE_FACTOR
+
+#Examples
+#internal node with solid branches colored blue and twice the standard width
+#9031|9606 clade #0000ff normal 2
+#internal node with dashed branches colored red and one half the standard width
+#601|340 clade #ff0000 dashed 0.5
+#a single internal branch colored green, dashed and 5 times the normal width
+#915|777 branch #00ff00 dashed 5
+
+#colored range covering all leaves of an internal node,  colored red and with label 'Eukaryota'
+#184922|9606 range #ff0000 Eukaryota
+#examples of colored ranges from iTOL's Tree of Life
+#2190|2287 range #aaffaa Archaea
+#623|1502 range #aaaaff Bacteria
+
+#leaf label for node 9606 will be displayed in green, bold and twice the regular font size
+#9606 label #00ff00 bold 2
+
+#leaf label for node 9031 will be displayed in yellow, bold italic and half the regular font size
+#9031 label #ffff00 bold-italic 0.5
+
+#leaf label for node 8015 will be displayed in blue
+#8015 label #0000ff
+
+#leaf label for node 9606 will have a semi-transparent red background
+#9606 label_background rgba(255,0,0,0.5)
+ERR589366_NODE_2_length_252267_cov_5.86855_154	range	#BFE6BE	VC_1419_6
+ERR589390_NODE_5_length_254595_cov_11.1926_161	range	#8DD3C7	VC_1419_0
+ERR589400_NODE_2_length_222094_cov_17.9067_63	range	#EBD2DF	VC_3541_1
+ERR589418_NODE_2_length_253972_cov_14.627_157	range	#8DD3C7	VC_1419_0
+ERR589418_NODE_3_length_253054_cov_15.5374_159	range	#BFE6BE	VC_1419_6
+ERR589420_NODE_11_length_203503_cov_92.1356_162	range	#BEDB7C	VC_240_3
+ERR589420_NODE_11_length_203503_cov_92.1356_164	range	#BEDB7C	VC_240_3
+ERR589426_NODE_11_length_235074_cov_32.5489_214	range	#EBD2DF	VC_3541_1
+ERR589432_NODE_16_length_215843_cov_9.61145_74	range	#B2B2A5	VC_2385_1
+ERR1474568_NODE_4_length_227053_cov_6.57548_96	range	#B2B2A5	VC_2385_1
+ERR1474568_NODE_6_length_201530_cov_57.6677_231	range	#BEDB7C	VC_240_3
+ERR1474570_NODE_3_length_211527_cov_11.7559_55	range	#DED3B3	VC_2465_0
+ERR1474583_NODE_1_length_238631_cov_8.08518_143	range	#8DD3C7	VC_1419_0
+ERR1474584_NODE_1_length_239551_cov_58.3549_72	range	#EBD2DF	VC_3541_1
+SRS011140_NODE_15_length_228010_cov_44.6028_15	range	#B2B2A5	VC_2385_1
+SRS013252_NODE_7_length_269911_cov_143.484_178	range	#FACDE4	VC_3069_2
+SRS013879_NODE_11_length_207354_cov_10.9341_202	range	#E8BF63	VC_240_2
+SRS013879_NODE_11_length_207354_cov_10.9341_205	range	#E8BF63	VC_240_2
+SRS014470_NODE_6_length_244976_cov_7.18311_74	range	#C6C8C2	VC_8794_2
+SRS014476_NODE_3_length_260597_cov_8.33481_123	range	#BFE6BE	VC_1419_6
+SRS014690_NODE_6_length_210977_cov_55.0985_58	range	#E59497	VC_1770_0
+SRS015215_NODE_3_length_265743_cov_6.54371_189	range	#DBD8D9	VC_3542_0
+SRS015646_NODE_1_length_220432_cov_27.2438_82	range	#84AFCF	VC_2385_0
+SRS015745_NODE_1_length_241528_cov_13.1549_101	range	#EBD2DF	VC_3541_1
+SRS015745_NODE_3_length_214576_cov_9.12203_263	range	#C7D267	VC_240_20
+SRS015762_NODE_16_length_233663_cov_52.3172_213	range	#EAE8BF	VC_172_4
+SRS015797_NODE_11_length_253437_cov_48.7_134	range	#F1F9B5	VC_1655_3
+SRS015893_NODE_8_length_256687_cov_26.4504_223	range	#FFED6F	VC_8803_6
+SRS016002_NODE_10_length_225008_cov_10.3289_62	range	#B2B2A5	VC_2385_1
+SRS016037_NODE_23_length_200325_cov_294.431_225	range	#E8BF63	VC_240_2
+SRS016086_NODE_14_length_243417_cov_24.8521_158	range	#C6C8C2	VC_8794_2
+SRS016225_NODE_5_length_249678_cov_27.3838_31	range	#F1F9B5	VC_1655_3
+SRS016225_NODE_6_length_244067_cov_149.008_234	range	#8DD3C7	VC_1419_0
+SRS016319_NODE_4_length_245864_cov_10.831_72	range	#C6C8C2	VC_8794_2
+SRS016331_NODE_4_length_271840_cov_24.0229_75	range	#FACDE4	VC_3069_2
+SRS017304_NODE_5_length_258288_cov_116.449_92	range	#BFE6BE	VC_1419_6
+SRS017533_NODE_11_length_202276_cov_12.3433_146	range	#BEDB7C	VC_240_3
+SRS017533_NODE_11_length_202276_cov_12.3433_150	range	#BEDB7C	VC_240_3
+SRS017713_NODE_6_length_230050_cov_17.426_90	range	#BB99A4	VC_1774_9
+SRS018157_NODE_7_length_269576_cov_21.4215_45	range	#FACDE4	VC_3069_2
+SRS018337_NODE_5_length_227716_cov_18.7174_108	range	#B2B2A5	VC_2385_1
+SRS018739_NODE_8_length_253246_cov_9.48565_131	range	#FFED6F	VC_8803_6
+SRS018975_NODE_4_length_268195_cov_9.84981_115	range	#DBD8D9	VC_3542_0
+SRS019122_NODE_14_length_227426_cov_10.5494_232	range	#EAE8BF	VC_172_4
+SRS019128_NODE_3_length_269534_cov_11.4733_234	range	#FACDE4	VC_3069_2
+SRS019128_NODE_4_length_264155_cov_13.4601_2	range	#DBD8D9	VC_3542_0
+SRS019219_NODE_9_length_232804_cov_7.05368_174	range	#CDCAD0	VC_174_0
+SRS019327_NODE_9_length_258319_cov_7.57032_19	range	#FFED6F	VC_8803_6
+SRS019607_NODE_9_length_235695_cov_219.599_15	range	#CAAEC5	VC_1769_9
+SRS019974_NODE_2_length_240432_cov_14.8021_141	range	#EBD2DF	VC_3541_1
+SRS020856_NODE_8_length_227958_cov_7.82357_104	range	#B2B2A5	VC_2385_1
+SRS022143_NODE_9_length_204796_cov_9.87473_149	range	#EBD2DF	VC_3541_1
+SRS023358_NODE_1_length_276734_cov_13.5505_222	range	#C191C2	VC_703_0
+SRS023538_NODE_2_length_203423_cov_44.5816_119	range	#CEB8CE	VC_4608_2
+SRS023595_NODE_1_length_265806_cov_8.79388_175	range	#DBD8D9	VC_3542_0
+SRS024081_NODE_17_length_203718_cov_7.10722_226	range	#BEDB7C	VC_240_3
+SRS024138_NODE_2_length_250931_cov_188.999_20	range	#8DD3C7	VC_1419_0
+SRS024447_NODE_1_length_212514_cov_9.48817_82	range	#C7D267	VC_240_20
+SRS024447_NODE_1_length_212514_cov_9.48817_85	range	#C7D267	VC_240_20
+SRS024580_NODE_10_length_227515_cov_21.2831_187	range	#BB99A4	VC_1774_9
+SRS042984_NODE_5_length_263381_cov_23.199_186	range	#E8EC94	VC_8803_5
+SRS044486_NODE_3_length_227194_cov_96.9632_79	range	#B2B2A5	VC_2385_1
+SRS044662_NODE_25_length_232905_cov_15.7753_251	range	#F18379	VC_1774_11
+SRS045127_NODE_1_length_246162_cov_12.4049_91	range	#F1F9B5	VC_1655_3
+SRS046686_NODE_2_length_214097_cov_130.255_12	range	#84AFCF	VC_2385_0
+SRS047634_NODE_2_length_263710_cov_7.45722_178	range	#DBD8D9	VC_3542_0
+SRS048719_NODE_1_length_279258_cov_17.5972_5	range	#BF99BE	VC_703_1
+SRS049318_NODE_5_length_260427_cov_7.01686_52	range	#E8EC94	VC_8803_5
+SRS049318_NODE_9_length_212020_cov_15.2792_148	range	#C7D267	VC_240_20
+SRS049389_NODE_7_length_231243_cov_30.6114_56	range	#EBD2DF	VC_3541_1
+SRS050029_NODE_3_length_248730_cov_32.1946_171	range	#F1F9B5	VC_1655_3
+SRS050244_NODE_7_length_249854_cov_9.23851_85	range	#8DD3C7	VC_1419_0
+SRS052518_NODE_3_length_247507_cov_49.7633_85	range	#8DD3C7	VC_1419_0
+SRS053603_NODE_13_length_255687_cov_6.73762_197	range	#F1F9B5	VC_1655_3
+SRS056622_NODE_4_length_271258_cov_12.0151_186	range	#FFED6F	VC_8803_6
+SRS057355_NODE_1_length_251079_cov_131.6_185	range	#8DD3C7	VC_1419_0
+SRS057692_NODE_2_length_248922_cov_148.172_100	range	#F1F9B5	VC_1655_3
+SRS062761_NODE_8_length_225204_cov_34.0657_4	range	#B2B2A5	VC_2385_1
+SRS064423_NODE_6_length_240050_cov_6.58861_140	range	#C6C8C2	VC_8794_2
+SRS064774_NODE_5_length_238650_cov_8.65785_69	range	#EBD2DF	VC_3541_1
+SRS078425_NODE_1_length_226348_cov_18.355_86	range	#CAAEC5	VC_1769_9
+SRS078677_NODE_7_length_263796_cov_15.3008_46	range	#FACDE4	VC_3069_2
+SRS098498_NODE_8_length_237971_cov_29.0708_155	range	#C6C8C2	VC_8794_2
+SRS098735_NODE_1_length_265971_cov_16.2861_70	range	#DBD8D9	VC_3542_0
+SRS098867_NODE_11_length_229051_cov_63.7156_191	range	#B2B2A5	VC_2385_1
+SRS101388_NODE_5_length_259202_cov_13.0149_26	range	#E8EC94	VC_8803_5
+SRS101388_NODE_11_length_211332_cov_17.1012_7	range	#C7D267	VC_240_20
+SRS103983_NODE_4_length_267175_cov_16.879_63	range	#DBD8D9	VC_3542_0
+SRS104165_NODE_15_length_239970_cov_9.30182_52	range	#C6C8C2	VC_8794_2
+SRS104830_NODE_17_length_204042_cov_9.71334_85	range	#DED3B3	VC_2465_0
+SRS105100_NODE_9_length_273110_cov_7.31174_209	range	#C191C2	VC_703_0
+SRS105100_NODE_14_length_202315_cov_9.26293_57	range	#CEB8CE	VC_4608_2
+SRS105121_NODE_2_length_253326_cov_14.0658_158	range	#BFE6BE	VC_1419_6
+SRS142483_NODE_8_length_267299_cov_53.3807_235	range	#FACDE4	VC_3069_2
+SRS142483_NODE_17_length_212396_cov_60.6612_82	range	#D2EBBA	VC_8803_2
+SRS142664_NODE_4_length_215051_cov_10.1813_96	range	#C7D267	VC_240_20
+SRS144609_NODE_1_length_226381_cov_13.1313_134	range	#B2B2A5	VC_2385_1
+SRS146894_NODE_9_length_243248_cov_58.4478_74	range	#C6C8C2	VC_8794_2
+SRS148150_NODE_17_length_208122_cov_5.04636_75	range	#B2B2A5	VC_2385_1
+SRS148150_NODE_20_length_201279_cov_8.70353_65	range	#E8B374	VC_240_11
+SRS148150_NODE_20_length_201279_cov_8.70353_69	range	#E8B374	VC_240_11
+SRS148193_NODE_8_length_268969_cov_56.677_192	range	#DBD8D9	VC_3542_0

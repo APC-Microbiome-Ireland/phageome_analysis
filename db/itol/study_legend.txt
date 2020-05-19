@@ -1,0 +1,3 @@
+LEGEND_SHAPES	1	1	1	1	1
+LEGEND_COLORS	#E41A1C	#377EB8	#984EA3	#4DAF4A	rgb(255, 220, 0)
+LEGEND_LABELS	Al-Shayeb et al.	Devoto et al.	IMG/VR	RefSeq	This study

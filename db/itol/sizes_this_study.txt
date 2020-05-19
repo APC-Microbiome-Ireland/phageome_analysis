@@ -1,0 +1,215 @@
+DATASET_SIMPLEBAR
+#In simple bar charts, each ID is associated to a single numeric value which is displayed as a bar outside the tree.
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+SEPARATOR TAB
+#SEPARATOR SPACE
+#SEPARATOR COMMA
+
+#label is used in the legend table (can be changed later)
+DATASET_LABEL	sizes - alshayeb
+
+#dataset color (can be changed later)
+COLOR	#377EB8
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+#dataset scale: you can simply set the values where the scale will be drawn
+DATASET_SCALE	200000	250000	300000	350000	400000	450000	500000	550000	600000
+#or you can specify value, label, color, width, style and label size factor for each scale line (dash separated, format: VALUE-LABEL-COLOR-WIDTH-DASHED-LABEL_SCALE_FACTOR)) 
+#DATASET_SCALE,2000-2k line-#0000ff-5-1-1,10000-line at 10k-#ff0000-1-0-2,20000-3rd line-#00ff00-5-1-1
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE	Study
+LEGEND_SHAPES	1	1	1	1	1
+LEGEND_COLORS	#377EB8	#E41A1C	#984EA3	#FF7F00	rgb(255, 220, 0)
+LEGEND_LABELS	Al-Shayeb et al.	Devoto et al.	IMG/VR	RefSeq	This study
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+#all other optional settings can be set or changed later in the web interface (under 'Datasets' tab)
+
+#maximum width
+#WIDTH,1000
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN,0
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL,0
+
+#bar height factor; Default bar height will be slightly less than the available space between leaves, but you can set a multiplication factor here to increase/decrease it (values from 0 to 1 will decrease it, values above 1 will increase it)
+#HEIGHT_FACTOR,1
+
+#Display individual values above the bars
+#SHOW_VALUE,0
+
+#Bars are aligned to the node lines by default. Using BAR_SHIFT, you can move them all up/down by a fixed amount
+#BAR_SHIFT,0
+
+#BAR_ZERO specifies which dataset value will be used as a starting point for drawing the bars. Dataset values smaller than BAR_ZERO will be displayed to the left (possibly overlapping the tree, unless MARGIN is increased)
+#BAR_ZERO,0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the bars
+#BORDER_WIDTH,0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR,#0000ff
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+#ID1,value1
+#ID2,value2
+#9606,10000
+
+ERR589366_NODE_2_length_252267_cov_5.86855_154	252267
+ERR589374_NODE_1_length_250771_cov_7.48575_207	250771
+ERR589390_NODE_5_length_254595_cov_11.1926_161	254595
+ERR589400_NODE_2_length_222094_cov_17.9067_63	222094
+ERR589418_NODE_2_length_253972_cov_14.627_157	253972
+ERR589418_NODE_3_length_253054_cov_15.5374_159	253054
+ERR589420_NODE_6_length_229992_cov_13.7426_182	229992
+ERR589420_NODE_11_length_203503_cov_92.1356_162	203503
+ERR589420_NODE_11_length_203503_cov_92.1356_164	203503
+ERR589420_NODE_12_length_203291_cov_5.79902_163	203291
+ERR589426_NODE_11_length_235074_cov_32.5489_214	235074
+ERR589432_NODE_16_length_215843_cov_9.61145_74	215843
+ERR589796_NODE_1_length_512029_cov_8.91079_144	512029
+ERR589826_NODE_12_length_228591_cov_8.75589_239	228591
+ERR1474568_NODE_4_length_227053_cov_6.57548_96	227053
+ERR1474568_NODE_6_length_201530_cov_57.6677_231	201530
+ERR1474570_NODE_3_length_211527_cov_11.7559_55	211527
+ERR1474583_NODE_1_length_238631_cov_8.08518_143	238631
+ERR1474584_NODE_1_length_239551_cov_58.3549_72	239551
+SRS011140_NODE_15_length_228010_cov_44.6028_15	228010
+SRS013252_NODE_7_length_269911_cov_143.484_178	269911
+SRS013879_NODE_7_length_260460_cov_18.7579_14	260460
+SRS013879_NODE_11_length_207354_cov_10.9341_202	207354
+SRS013879_NODE_11_length_207354_cov_10.9341_205	207354
+SRS014470_NODE_1_length_389119_cov_8.88358_107	389119
+SRS014470_NODE_6_length_244976_cov_7.18311_74	244976
+SRS014476_NODE_3_length_260597_cov_8.33481_123	260597
+SRS014690_NODE_6_length_210977_cov_55.0985_58	210977
+SRS015057_NODE_2_length_227748_cov_65.0344_69	227748
+SRS015215_NODE_3_length_265743_cov_6.54371_189	265743
+SRS015646_NODE_1_length_220432_cov_27.2438_82	220432
+SRS015745_NODE_1_length_241528_cov_13.1549_101	241528
+SRS015745_NODE_3_length_214576_cov_9.12203_263	214576
+SRS015762_NODE_16_length_233663_cov_52.3172_213	233663
+SRS015762_NODE_21_length_215763_cov_47.9965_275	215763
+SRS015797_NODE_2_length_388920_cov_36.308_184	388920
+SRS015797_NODE_11_length_253437_cov_48.7_134	253437
+SRS015893_NODE_8_length_256687_cov_26.4504_223	256687
+SRS015941_NODE_1_length_389980_cov_7.93841_20	389980
+SRS015941_NODE_2_length_315556_cov_47.6479_139	315556
+SRS016002_NODE_10_length_225008_cov_10.3289_62	225008
+SRS016037_NODE_23_length_200325_cov_294.431_225	200325
+SRS016086_NODE_14_length_243417_cov_24.8521_158	243417
+SRS016225_NODE_5_length_249678_cov_27.3838_31	249678
+SRS016225_NODE_6_length_244067_cov_149.008_234	244067
+SRS016319_NODE_4_length_245864_cov_10.831_72	245864
+SRS016331_NODE_4_length_271840_cov_24.0229_75	271840
+SRS017007_NODE_18_length_230785_cov_20.6488_272	230785
+SRS017304_NODE_5_length_258288_cov_116.449_92	258288
+SRS017533_NODE_6_length_223782_cov_53.6916_296	223782
+SRS017533_NODE_11_length_202276_cov_12.3433_146	202276
+SRS017533_NODE_11_length_202276_cov_12.3433_150	202276
+SRS017713_NODE_6_length_230050_cov_17.426_90	230050
+SRS018157_NODE_7_length_269576_cov_21.4215_45	269576
+SRS018337_NODE_5_length_227716_cov_18.7174_108	227716
+SRS018739_NODE_8_length_253246_cov_9.48565_131	253246
+SRS018791_NODE_1_length_395675_cov_35.5222_299	395675
+SRS018791_NODE_1_length_395675_cov_35.5222_300	395675
+SRS018975_NODE_4_length_268195_cov_9.84981_115	268195
+SRS019022_NODE_2_length_328852_cov_10.0908_116	328852
+SRS019122_NODE_14_length_227426_cov_10.5494_232	227426
+SRS019128_NODE_3_length_269534_cov_11.4733_234	269534
+SRS019128_NODE_4_length_264155_cov_13.4601_2	264155
+SRS019219_NODE_9_length_232804_cov_7.05368_174	232804
+SRS019327_NODE_9_length_258319_cov_7.57032_19	258319
+SRS019607_NODE_9_length_235695_cov_219.599_15	235695
+SRS019974_NODE_2_length_240432_cov_14.8021_141	240432
+SRS020856_NODE_8_length_227958_cov_7.82357_104	227958
+SRS022143_NODE_9_length_204796_cov_9.87473_149	204796
+SRS023358_NODE_1_length_276734_cov_13.5505_222	276734
+SRS023538_NODE_2_length_203423_cov_44.5816_119	203423
+SRS023595_NODE_1_length_265806_cov_8.79388_175	265806
+SRS024081_NODE_17_length_203718_cov_7.10722_226	203718
+SRS024138_NODE_2_length_250931_cov_188.999_20	250931
+SRS024447_NODE_1_length_212514_cov_9.48817_82	212514
+SRS024447_NODE_1_length_212514_cov_9.48817_85	212514
+SRS024580_NODE_10_length_227515_cov_21.2831_187	227515
+SRS042984_NODE_5_length_263381_cov_23.199_186	263381
+SRS044230_NODE_9_length_235552_cov_53.6224_194	235552
+SRS044486_NODE_3_length_227194_cov_96.9632_79	227194
+SRS044662_NODE_25_length_232905_cov_15.7753_251	232905
+SRS045127_NODE_1_length_246162_cov_12.4049_91	246162
+SRS045262_NODE_1_length_211049_cov_23.9758_144	211049
+SRS046686_NODE_2_length_214097_cov_130.255_12	214097
+SRS047590_NODE_5_length_276833_cov_10.4231_37	276833
+SRS047634_NODE_2_length_263710_cov_7.45722_178	263710
+SRS048719_NODE_1_length_279258_cov_17.5972_5	279258
+SRS049318_NODE_5_length_260427_cov_7.01686_52	260427
+SRS049318_NODE_9_length_212020_cov_15.2792_148	212020
+SRS049389_NODE_7_length_231243_cov_30.6114_56	231243
+SRS050029_NODE_3_length_248730_cov_32.1946_171	248730
+SRS050244_NODE_7_length_249854_cov_9.23851_85	249854
+SRS051378_NODE_2_length_237850_cov_42.8995_81	237850
+SRS052518_NODE_3_length_247507_cov_49.7633_85	247507
+SRS053603_NODE_13_length_255687_cov_6.73762_197	255687
+SRS056622_NODE_4_length_271258_cov_12.0151_186	271258
+SRS057355_NODE_1_length_251079_cov_131.6_185	251079
+SRS057692_NODE_2_length_248922_cov_148.172_100	248922
+SRS058730_NODE_4_length_272497_cov_41.7631_10	272497
+SRS058808_NODE_7_length_260368_cov_38.0061_240	260368
+SRS062761_NODE_8_length_225204_cov_34.0657_4	225204
+SRS063603_NODE_10_length_226102_cov_9.39338_185	226102
+SRS064423_NODE_6_length_240050_cov_6.58861_140	240050
+SRS064774_NODE_5_length_238650_cov_8.65785_69	238650
+SRS078182_NODE_8_length_260353_cov_93.28_330	260353
+SRS078425_NODE_1_length_226348_cov_18.355_86	226348
+SRS078677_NODE_7_length_263796_cov_15.3008_46	263796
+SRS098498_NODE_8_length_237971_cov_29.0708_155	237971
+SRS098735_NODE_1_length_265971_cov_16.2861_70	265971
+SRS098867_NODE_11_length_229051_cov_63.7156_191	229051
+SRS101388_NODE_5_length_259202_cov_13.0149_26	259202
+SRS101388_NODE_8_length_226735_cov_48.6534_160	226735
+SRS101388_NODE_10_length_222966_cov_7.54998_61	222966
+SRS101388_NODE_11_length_211332_cov_17.1012_7	211332
+SRS103983_NODE_4_length_267175_cov_16.879_63	267175
+SRS104165_NODE_15_length_239970_cov_9.30182_52	239970
+SRS104830_NODE_17_length_204042_cov_9.71334_85	204042
+SRS105100_NODE_9_length_273110_cov_7.31174_209	273110
+SRS105100_NODE_14_length_202315_cov_9.26293_57	202315
+SRS105121_NODE_2_length_253326_cov_14.0658_158	253326
+SRS142483_NODE_8_length_267299_cov_53.3807_235	267299
+SRS142483_NODE_10_length_257797_cov_15.6928_110	257797
+SRS142483_NODE_17_length_212396_cov_60.6612_82	212396
+SRS142664_NODE_4_length_215051_cov_10.1813_96	215051
+SRS144609_NODE_1_length_226381_cov_13.1313_134	226381
+SRS146894_NODE_2_length_387353_cov_12.7661_48	387353
+SRS146894_NODE_9_length_243248_cov_58.4478_74	243248
+SRS147887_NODE_9_length_237960_cov_5.45839_19	237960
+SRS148150_NODE_17_length_208122_cov_5.04636_75	208122
+SRS148150_NODE_20_length_201279_cov_8.70353_65	201279
+SRS148150_NODE_20_length_201279_cov_8.70353_69	201279
+SRS148193_NODE_8_length_268969_cov_56.677_192	268969

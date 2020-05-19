@@ -1,132 +1,431 @@
 description_contains	parent	name
-dihydrofolate reductase	Auxilliary metabolic genes	Dihydrofolate reductase
-ferredoxin	Auxilliary metabolic genes	Ferredoxin
-glutaredoxin	Auxilliary metabolic genes	Glutaredoxin
-HipA domain protein	Auxilliary metabolic genes	Serine/threonine kinase toxin HipA
-nicotinamide phosphoribosyltransferase	Auxilliary metabolic genes	Nicotinamide phosphoribosyltransferase
-putative Fe-S oxidoreductase	Auxilliary metabolic genes	Fe-S oxidoreductase
-Ser/Thr phosphatase family protein	Auxilliary metabolic genes	Serine/threonine phosphatase family protein
-Ser/Thr protein phosphatase family protein	Auxilliary metabolic genes	Serine/threonine phosphatase family protein
-serine/threonine kinase	Auxilliary metabolic genes	Serine/threonine kinase
-serine/threonine protein phosphatase	Auxilliary metabolic genes	Serine/threonine phosphatase family protein
-Sodium/hydrogen exchanger family protein	Auxilliary metabolic genes	Sodium/hydrogen exchanger family protein
-UDP-3-O-acyl-N-acetylglucosamine deacetylase	Auxilliary metabolic genes	UDP-3-O-acyl-N-acetylglucosamine deacetylase
 AAA ATPase	DNA-binding and transcription regulators	AAA ATPase
-AAA domain protein	DNA-binding and transcription regulators	AAA ATPase domain protein
-AAA domain-containing protein	DNA-binding and transcription regulators	AAA ATPase domain protein
 AAA family ATPase	DNA-binding and transcription regulators	AAA ATPase
 AAA_23 domain-containing protein	DNA-binding and transcription regulators	AAA ATPase
+AAA domain protein	DNA-binding and transcription regulators	AAA ATPase domain protein
+AAA domain-containing protein	DNA-binding and transcription regulators	AAA ATPase domain protein
+AAA-like domain	DNA-binding and transcription regulators	AAA-like domain protein
 AAA-like domain protein	DNA-binding and transcription regulators	AAA-like domain protein
-dCMP deaminase	DNA-binding and transcription regulators	dCMP deaminase
-DNA methylase	DNA-binding and transcription regulators	DNA methylase
-Protein RecA (Recombinase A)	DNA-binding and transcription regulators	Recombinase A
-Rec A-like recombinase	DNA-binding and transcription regulators	Rec A-like recombinase
-RNA polymerase sigma factor	DNA-binding and transcription regulators	RNA polymerase sigma factor
-transposase	DNA-binding and transcription regulators	Transposase
+Adenine-specific methyltransferase EcoRI	Replication and nucleic acid metabolism	Adenine-specific methyltransferase EcoRI
+adhesin	Packaging and assembly	Adhesin
+Adhesin	Packaging and assembly	Adhesin
+aerobic NDP reductase small subunit	Replication and nucleic acid metabolism	Aerobic NDP reductase small subunit
+anaerobic NTP reductase large subunit	Replication and nucleic acid metabolism	Anaerobic NTP reductase large subunit
+anaerobic NTP reductase small subunit	Replication and nucleic acid metabolism	Anaerobic NTP reductase small subunit
+baseplate hub subunit 	Structural proteins	Baseplate hub subunit
+baseplate wedge initiator 	Structural proteins	Baseplate wedge initiator
+baseplate wedge subunit 	Structural proteins	Baseplate wedge subunit
+baseplate wedge subunit and tail pin 	Structural proteins	Baseplate wedge tail pin
+BspA type Leucine rich repeat region	Membrane proteins	BspA type Leucine rich repeat region
+Calcineurin-like phosphoesterase	Cell signalling	Calcineurin-like phosphoesterase
+capsid decoration protein 	Structural proteins	Capsid decoration protein
+DarB	Structural proteins	Capsid protein
+Cell surface antigen I/II C2 terminal domain	Cell signalling	Cell surface antigen I/II C2 terminal domain
 Cell wall anchor protein	Lysis	Cell wall anchor protein
-cell wall hydrolase protein	Lysis	Cell wall hydrolase protein
-cell wall peptidase 	Lysis	Cell wall peptidase protein
 Cell wall-binding protein	Lysis	Cell wall binding protein
 Cell wall-binding repeat protein	Lysis	Cell wall binding protein
+cell wall hydrolase protein	Lysis	Cell wall hydrolase protein
+cell wall peptidase 	Lysis	Cell wall peptidase protein
+CHAP domain	Lysis	CHAP domain protein
 CHAP domain protein 	Lysis	CHAP domain protein
+chaperonin GroEL	Packaging and assembly	Chaperonin GroEL
+clamp loader subunit	Replication and nucleic acid metabolism	Clamp loader subunit
+CPBP intramembrane metalloprotease	Membrane proteins	CPBP intramembrane metalloprotease
+CRISPR-associated endonuclease Cas9	Replication and nucleic acid metabolism	CRISPR-associated endonuclease Cas9
+dCMP deaminase	DNA-binding and transcription regulators	dCMP deaminase
+deoxyuridine 5'-triphosphate nucleotidohydrolase	Replication and nucleic acid metabolism	Deoxyuridine 5'-triphosphate nucleotidohydrolase
+putative DHH phosphoesterase protein	Replication and nucleic acid metabolism	DHH phosphoesterase
+dihydrofolate reductase	Auxiliary metabolic genes	Dihydrofolate reductase
+distal long tail fiber assembly catalyst 	Structural proteins	Distal long tail fiber assembly catalyst
+"DNA binding domain, excisionase family"	DNA-binding and transcription regulators	"DNA binding domain, excisionase family"
+DNA double-strand break repair Rad50 ATPase	Replication and nucleic acid metabolism	DNA double-strand break repair Rad50 ATPase
+"Exodeoxyribonuclease VII, single-stranded DNA-specific exonuclease"	Replication and nucleic acid metabolism	DNA exonuclease
+helicase	Replication and nucleic acid metabolism	DNA helicase
+DNA ligase	Replication and nucleic acid metabolism	DNA ligase
+DNA methylase	DNA-binding and transcription regulators	DNA methylase
+DNA polymerase	Replication and nucleic acid metabolism	DNA polymerase
+DNA polymerase III subunit alpha 	Replication and nucleic acid metabolism	DNA polymerase III subunit alpha
+DNA primase	Replication and nucleic acid metabolism	DNA primase
+DNA topisomerase II medium subunit	Replication and nucleic acid metabolism	DNA topisomerase subunit
+DNA topoisomerase II large subunit	Replication and nucleic acid metabolism	DNA topisomerase subunit
+DNA topoisomerase	Replication and nucleic acid metabolism	DNA topoisomerase
+DNA/RNA non-specific endonuclease	Replication and nucleic acid metabolism	DNA/RNA non-specific endonuclease
 endolysin 	Lysis	Endolysin
+putative endolysin 	Lysis	Endolysin
+ORF179	Replication and nucleic acid metabolism	Endonuclease
+exonuclease	Replication and nucleic acid metabolism	Exonuclease
+putative Fe-S oxidoreductase	Auxiliary metabolic genes	Fe-S oxidoreductase
+ferredoxin	Auxiliary metabolic genes	Ferredoxin
+flavodoxin	Auxiliary metabolic genes	Flavodoxin
+FtsK/SpoIIIE protein	Packaging and assembly	FtsK/SpoIIIE ATPase
+glutaredoxin	Auxiliary metabolic genes	Glutaredoxin
+gpJ 	Packaging and assembly	GpJ protein
+guanylate kinase	Auxiliary metabolic genes	Guanylate kinase
+head completion protein 	Structural proteins	Head completion protein
+head morphogeneis protein 	Structural proteins	Head morphogenesis protein
+HNH endonuclease	Replication and nucleic acid metabolism	HNH endonuclease
+HNH endonuclease domain protein	Replication and nucleic acid metabolism	HNH endonuclease domain protein
 holin 	Lysis	Holin protein
+gp205	Replication and nucleic acid metabolism	Inhibitor of NS3/4A protease in viral replication 
+integrase	Packaging and assembly	Integrase
+internal (core) protein	Structural proteins	Internal core protein
+internal (core) protein 	Structural proteins	Internal core protein
+"LexA-binding, inner membrane-associated putative hydrolase"	Replication and nucleic acid metabolism	"LexA-binding, inner membrane-associated hydrolase"
+Peptidase S24-like	Replication and nucleic acid metabolism	LexA-like protein superfamily member
 LysB 	Lysis	LysB protein
 LysC 	Lysis	LysC protein
 lysin 	Lysis	Lysin
 lysin A 	Lysis	Lysin A
 lysozyme	Lysis	Lysozyme
 lysozyme-peptidase	Lysis	Lysozyme-peptidase
-protector from prophage-induced early lysis	Lysis	Protector from prophage-induced early lysis
-putative endolysin 	Lysis	Endolysin
-putative peptidase M23	Lysis	Peptidase M23
-putative tail lysin 	Lysis	Tail lysin
-Component of the Dot/Icm secretion system	Membrane proteins	Type IV secretion protein IcmB
-SPFH domain-containing protein	Membrane proteins	SPFH domain-containing protein
-SPFH/Band 7/PHB domain protein	Membrane proteins	SPFH/Band 7/PHB domain protein
-UPF0056 membrane protein	Membrane proteins	UPF0056 membrane protein
-adhesin	Packaging and assembly	Adhesin
-Adhesin	Packaging and assembly	Adhesin
-"DNA binding domain, excisionase family"	Packaging and assembly	"DNA binding domain, excisionase family"
-DNA delivery	Packaging and assembly	Transglycosylase/DNA entry
-gpJ 	Packaging and assembly	GpJ protein
-integrase	Packaging and assembly	Integrase
-putative terminase large subunit 	Packaging and assembly	Terminase large subunit protein
-terminase large subunit 	Packaging and assembly	Terminase large subunit protein
-terminase small subunit 	Packaging and assembly	Terminase large subunit protein
-terminase small subunit nu1 	Packaging and assembly	Terminal small subunit nu1 protein
-FtsK/SpoIIIE protein	Regulate membrane-spanning proteins	FtsK/SpoIIIE ATPase
-Tellurium resistance protein TerC	Regulate membrane-spanning proteins	Tellurium resistance protein TerC
-CRISPR-associated endonuclease Cas9	Replication and nucleic acid metabolism	CRISPR-associated endonuclease Cas9
-DNA double-strand break repair Rad50 ATPase	Replication and nucleic acid metabolism	DNA double-strand break repair Rad50 ATPase
-DNA ligase	Replication and nucleic acid metabolism	DNA ligase
-DNA polymerase	Replication and nucleic acid metabolism	DNA polymerase
-DNA polymerase III subunit alpha 	Replication and nucleic acid metabolism	DNA polymerase III subunit alpha
-DNA topisomerase II medium subunit	Replication and nucleic acid metabolism	DNA topisomerase subunit
-DNA topoisomerase II large subunit	Replication and nucleic acid metabolism	DNA topisomerase subunit
-"Exodeoxyribonuclease VII, single-stranded DNA-specific exonuclease"	Replication and nucleic acid metabolism	DNA exonuclease
-exonuclease	Replication and nucleic acid metabolism	Exonuclease
-gp205	Replication and nucleic acid metabolism	Inhibitor of NS3/4A protease in viral replication 
-helicase	Replication and nucleic acid metabolism	DNA helicase
-HNH endonuclease	Replication and nucleic acid metabolism	HNH endonuclease
-HNH endonuclease domain protein	Replication and nucleic acid metabolism	HNH endonuclease domain protein
-Methyltransferase	Replication and nucleic acid metabolism	Methyltransferase
-Multifunctional CCA protein	Replication and nucleic acid metabolism	Multifunctional CCA protein
-NAD-dependent DNA ligase subunit A	Replication and nucleic acid metabolism	NAD-dependent DNA ligase subunit A
-nudix hydrolase	Replication and nucleic acid metabolism	Nudix hydrolase
-putative DHH phosphoesterase protein	Replication and nucleic acid metabolism	DHH phosphoesterase
-putative TROVE-like domain protein	Replication and nucleic acid metabolism	TROVE-like domain protein
-recombination endonuclease subunit	Replication and nucleic acid metabolism	Recombination endonuclease subunit
-ribonuclease H	Replication and nucleic acid metabolism	Ribonuclease H
-Ribonucleoside-diphosphate reductase	Replication and nucleic acid metabolism	Ribonucleoside diphosphate
-ribonucleotide reductase	Replication and nucleic acid metabolism	Ribonucleotide reductase
-ribonucleotide reductase subunit B	Replication and nucleic acid metabolism	Ribonucleotide reductase subunit
-RNA ligase	Replication and nucleic acid metabolism	RNA ligase
-single stranded DNA-binding protein	Replication and nucleic acid metabolism	Single stranded DNA-binding protein
-thymidylate kinase	Replication and nucleic acid metabolism	Thymidylate kinase
-thymidylate synthase	Replication and nucleic acid metabolism	Thymidylate synthase
-Thymidylate synthase	Replication and nucleic acid metabolism	Thymidylate synthase
-baseplate hub subunit 	Structural proteins	Baseplate hub subunit
-baseplate wedge initiator 	Structural proteins	Baseplate wedge initiator
-baseplate wedge subunit 	Structural proteins	Baseplate wedge subunit
-baseplate wedge subunit and tail pin 	Structural proteins	Baseplate wedge tail pin
-capsid decoration protein 	Structural proteins	Capsid decoration protein
-DarB	Structural proteins	Capsid protein
-distal long tail fiber assembly catalyst 	Structural proteins	Distal long tail fiber assembly catalyst
-head completion protein 	Structural proteins	Head completion protein
-head morphogeneis protein 	Structural proteins	Head morphogenesis protein
-internal (core) protein	Structural proteins	Internal core protein
-internal (core) protein 	Structural proteins	Internal core protein
 major capsid protein 	Structural proteins	Major capsid protein
+Mechanosensitive ion channel	Membrane proteins	Mechanosensitive ion channel
+Methyltransferase	Replication and nucleic acid metabolism	Methyltransferase
 minor capsid protein 	Structural proteins	Minor capsid protein
+putative minor capsid protein 	Structural proteins	Minor capsid protein
+putative minor structural protein 	Structural proteins	Minor structural protein
 minor structural protein gp58 	Structural proteins	Minor structural protein gp58
 minor tail protein 	Structural proteins	Minor tail protein
 morphogenesis protein 	Structural proteins	Morphogenesis protein
+Multifunctional CCA protein	Replication and nucleic acid metabolism	Multifunctional CCA protein
+N-acetylmuramoyl-L-alanine amidase	Replication and nucleic acid metabolism	N-acetylmuramoyl-L-alanine amidase
+NAD-dependent DNA ligase subunit A	Replication and nucleic acid metabolism	NAD-dependent DNA ligase subunit A
+NAD	Auxiliary metabolic genes	NAD+ synthetase
 neck protein 	Structural proteins	Neck protein
+nicotinamide phosphoribosyltransferase	Auxiliary metabolic genes	Nicotinamide phosphoribosyltransferase
+Nucleoside 2-deoxyribosyltransferase like	Replication and nucleic acid metabolism	Nucleoside 2-deoxyribosyltransferase like
+nudix hydrolase	Replication and nucleic acid metabolism	Nudix hydrolase
+ParA	DNA-binding and transcription regulators	ParA partition protein
+putative peptidase M23	Lysis	Peptidase M23
 PfWMP3_27 	Structural proteins	PfWMP3_27 phage internal protein with peptidase_M37 domain
 portal protein 	Structural proteins	Portal protein
 portal vertex protein 	Structural proteins	Portal vertex protein
 portal vertex protein of head 	Structural proteins	Portal vertex protein
-possible virion structural protein 	Structural proteins	Virion structural protein
 prohead core scaffolding protein and protease 	Structural proteins	Prohead core scaffolding protein and protease 
-putative minor capsid protein 	Structural proteins	Minor capsid protein
-putative minor structural protein 	Structural proteins	Minor structural protein
-putative structural protein 	Structural proteins	Virion structural protein
+PHIKZ203	Structural proteins	Prohead peptidase gp175 protein
+protector from prophage-induced early lysis	Lysis	Protector from prophage-induced early lysis
+Protein phosphatase 2C	Cell signalling	Protein phosphatase 2C
+Radical SAM	Auxiliary metabolic genes	Radical SAM family member
+Rec A-like recombinase	DNA-binding and transcription regulators	Rec A-like recombinase
+Protein RecA (Recombinase A)	DNA-binding and transcription regulators	Recombinase A
+recombination endonuclease subunit	Replication and nucleic acid metabolism	Recombination endonuclease subunit
+ribonuclease H	Replication and nucleic acid metabolism	Ribonuclease H
+Ribonucleoside-diphosphate reductase	Replication and nucleic acid metabolism	Ribonucleoside diphosphate
+"ribonucleoside triphosphate reductase, alpha chain"	Replication and nucleic acid metabolism	Ribonucleoside triphosphate reductase (alpha chain)
+ribonucleotide reductase	Replication and nucleic acid metabolism	Ribonucleotide reductase
+ribonucleotide reductase subunit B	Replication and nucleic acid metabolism	Ribonucleotide reductase subunit
+Right handed beta helix region	Structural proteins	Right handed beta helix region
+RNA ligase	Replication and nucleic acid metabolism	RNA ligase
+RNA polymerase sigma factor	DNA-binding and transcription regulators	RNA polymerase sigma factor
+SEC10/PgrA surface exclusion domain	Membrane proteins	SEC10/PgrA surface exclusion domain
+SecA DEAD-like domain	Packaging and assembly	SecA DEAD-like domain
+serine/threonine kinase	Cell signalling	Serine/threonine kinase
+HipA domain protein	Cell signalling	Serine/threonine kinase toxin HipA
+Ser/Thr phosphatase family protein	Cell signalling	Serine/threonine phosphatase family protein
+serine/threonine protein phosphatase	Cell signalling	Serine/threonine phosphatase family protein
+metallophosphoesterase	Auxiliary metabolic genes	Metallophosphoesterase
+Ser/Thr protein phosphatase family protein	Cell signalling	Serine/threonine phosphatase family protein
+single stranded DNA-binding protein	Replication and nucleic acid metabolism	Single stranded DNA-binding protein
+Sodium/hydrogen exchanger family protein	Auxiliary metabolic genes	Sodium/hydrogen exchanger family protein
+Sortase domain	Packaging and assembly	Sortase domain
+SPFH domain-containing protein	Membrane proteins	SPFH domain-containing protein
+SPFH/Band 7/PHB domain protein	Membrane proteins	SPFH/Band 7/PHB domain protein
 putative tail fiber protein 	Structural proteins	Tail fiber protein
 putative tail fiber protein 1 	Structural proteins	Tail fiber protein
-Putative tail sheath protein	Structural proteins	Tail sheath protein 
-putative tail sheath protein 	Structural proteins	Tail sheath protein 
-putative tape measure protein 	Structural proteins	Tape measure protein
-Putative virion structural protein	Structural proteins	Virion structural protein
-putative virion structural protein 	Structural proteins	Virion structural protein
-structural protein 	Structural proteins	Virion structural protein
 tail fiber protein 	Structural proteins	Tail fiber protein
 tail protein 	Structural proteins	Tail fiber protein
+putative tail lysin 	Lysis	Tail lysin
+Putative tail sheath protein	Structural proteins	Tail sheath protein 
+putative tail sheath protein 	Structural proteins	Tail sheath protein 
 tail sheath 	Structural proteins	Tail sheath protein 
 tail sheath protein 	Structural proteins	Tail sheath protein 
 tail tube protein 	Structural proteins	Tail tube protein
+putative tape measure protein 	Structural proteins	Tape measure protein
 tape measure protein 	Structural proteins	Tape measure protein
 tapemeasure 	Structural proteins	Tape measure protein
+Tellurium resistance protein TerC	Membrane proteins	Tellurium resistance protein TerC
+terminase small subunit nu1 	Packaging and assembly	Terminal small subunit nu1 protein
+putative terminase large subunit 	Packaging and assembly	Terminase large subunit protein
+terminase large subunit 	Packaging and assembly	Terminase large subunit protein
+terminase small subunit 	Packaging and assembly	Terminase large subunit protein
+thymidylate kinase	Replication and nucleic acid metabolism	Thymidylate kinase
+thymidylate synthase	Replication and nucleic acid metabolism	Thymidylate synthase
+Thymidylate synthase	Replication and nucleic acid metabolism	Thymidylate synthase
+Transglycosylase	Auxiliary metabolic genes	Transglycosylase
+DNA delivery	Packaging and assembly	DNA delivery
+transposase	DNA-binding and transcription regulators	Transposase
+tRNA nucleotidyltransferase 	Replication and nucleic acid metabolism	tRNA nucleotidyltransferase 
+putative TROVE-like domain protein	Replication and nucleic acid metabolism	TROVE-like domain protein
+Type II/IV secretion system protein	Packaging and assembly	Type II/IV secretion system protein
+Component of the Dot/Icm secretion system	Membrane proteins	Type IV secretion protein IcmB
+UDP-3-O-acyl-N-acetylglucosamine deacetylase	Auxiliary metabolic genes	UDP-3-O-acyl-N-acetylglucosamine deacetylase
+UPF0056 membrane protein	Membrane proteins	UPF0056 membrane protein
+possible virion structural protein 	Structural proteins	Virion structural protein
+putative structural protein 	Structural proteins	Virion structural protein
+Putative virion structural protein	Structural proteins	Virion structural protein
+putative virion structural protein 	Structural proteins	Virion structural protein
+structural protein 	Structural proteins	Virion structural protein
 Virion structural protein	Structural proteins	Virion structural protein
 virion structural protein 	Structural proteins	Virion structural protein
-PHIKZ203	Structural proteins	Prohead peptidase gp175 protein
+1-deoxy-D-xylulose-5-phosphate synthase	Auxiliary metabolic genes	1-deoxy-D-xylulose-5-phosphate synthase
+3-dehydroquinate synthase	Auxiliary metabolic genes	3-dehydroquinate synthase
+"3,4-dihydroxy-2-butanone 4-phosphate synthase"	Auxiliary metabolic genes	"3,4-dihydroxy-2-butanone 4-phosphate synthase"
+5-formyltetrahydrofolate cyclo-ligase family	Auxiliary metabolic genes	5-formyltetrahydrofolate cyclo-ligase family
+"6,7-dimethyl-8-ribityllumazine synthase"	Auxiliary metabolic genes	"6,7-dimethyl-8-ribityllumazine synthase"
+"8-oxoguanine DNA glycosylase, N-terminal domain"	Auxiliary metabolic genes	"8-oxoguanine DNA glycosylase, N-terminal domain"
+Abhydrolase family	Auxiliary metabolic genes	Abhydrolase family
+accessory Sec system glycosyltransferase GtfB	Auxiliary metabolic genes	accessory Sec system glycosyltransferase GtfB
+Acyltransferase	Auxiliary metabolic genes	Acyltransferase
+Acyltransferase family	Auxiliary metabolic genes	Acyltransferase family
+"addiction module antidote protein, HigA family"	Auxiliary metabolic genes	"addiction module antidote protein, HigA family"
+"addiction module antitoxin, RelB/DinJ family"	Auxiliary metabolic genes	"addiction module antitoxin, RelB/DinJ family"
+"addiction module toxin, RelE/StbE family "	Auxiliary metabolic genes	"addiction module toxin, RelE/StbE family "
+Adenylosuccinate synthetase	Auxiliary metabolic genes	Adenylosuccinate synthetase
+AhpC/TSA family	Auxiliary metabolic genes	AhpC/TSA family
+"AIR synthase related protein, C-terminal domain"	Auxiliary metabolic genes	"AIR synthase related protein, C-terminal domain"
+Aldehyde dehydrogenase family	Auxiliary metabolic genes	Aldehyde dehydrogenase family
+Aldo/keto reductase family	Auxiliary metabolic genes	Aldo/keto reductase family
+alpha-ribazole phosphatase CobZ	Auxiliary metabolic genes	alpha-ribazole phosphatase CobZ
+Amidase	Auxiliary metabolic genes	Amidase
+Amidohydrolase family	Auxiliary metabolic genes	Amidohydrolase family
+Amino acid kinase family	Replication and nucleic acid metabolism	Amino acid kinase family
+Aminotransferase class I and II	Auxiliary metabolic genes	Aminotransferase class I and II
+Aminotransferase class-III	Auxiliary metabolic genes	Aminotransferase class-III
+Aminotransferase class-V	Auxiliary metabolic genes	Aminotransferase class-V
+AMP-binding enzyme	Auxiliary metabolic genes	AMP-binding enzyme
+Dihydrofolate reductase	Auxiliary metabolic genes	Dihydrofolate reductase
+Ferric uptake regulator family	Auxiliary metabolic genes	Ferric uptake regulator family
+Formamidopyrimidine-DNA glycosylase H2TH domain	Auxiliary metabolic genes	Formamidopyrimidine-DNA glycosylase H2TH domain
+Glucan-binding protein C	Auxiliary metabolic genes	Glucan-binding protein C
+glucan-binding repeat	Auxiliary metabolic genes	glucan-binding repeat
+Glutamine amidotransferase class-I	Auxiliary metabolic genes	Glutamine amidotransferase class-I
+Glutamine amidotransferase domain	Auxiliary metabolic genes	Glutamine amidotransferase domain
+"Glutamyl-tRNAGlu reductase, N-terminal domain"	Auxiliary metabolic genes	"Glutamyl-tRNAGlu reductase, N-terminal domain"
+Glutaredoxin	Auxiliary metabolic genes	Glutaredoxin
+"Glyceraldehyde 3-phosphate dehydrogenase, C-terminal domain"	Auxiliary metabolic genes	"Glyceraldehyde 3-phosphate dehydrogenase, C-terminal domain"
+Glycerophosphoryl diester phosphodiesterase family	Auxiliary metabolic genes	Glycerophosphoryl diester phosphodiesterase family
+glycerophosphoryl diesterphosphodiesterase 	Auxiliary metabolic genes	glycerophosphoryl diesterphosphodiesterase 
+Glycine radical	Auxiliary metabolic genes	Glycine radical
+Glycine rich protein	Auxiliary metabolic genes	Glycine rich protein
+Glycoprotease family	Auxiliary metabolic genes	Glycoprotease family
+Glycosyl hydrolase 108	Auxiliary metabolic genes	Glycosyl hydrolase 108
+"Glycosyl hydrolase family 20, catalytic domain"	Auxiliary metabolic genes	"Glycosyl hydrolase family 20, catalytic domain"
+Glycosyl hydrolase family 66	Auxiliary metabolic genes	Glycosyl hydrolase family 66
+Glycosyl hydrolase-like 10	Auxiliary metabolic genes	Glycosyl hydrolase-like 10
+Glycosyl hydrolases family 16	Auxiliary metabolic genes	Glycosyl hydrolases family 16
+Glycosyl hydrolases family 25	Auxiliary metabolic genes	Glycosyl hydrolases family 25
+Glycosyl transferase family 2	Auxiliary metabolic genes	Glycosyl transferase family 2
+"Glycosyl transferase family, a/b domain"	Auxiliary metabolic genes	"Glycosyl transferase family, a/b domain"
+Glycosyl transferases group 1	Auxiliary metabolic genes	Glycosyl transferases group 1
+Glycosyltransferase family 10 (fucosyltransferase) C-term	Auxiliary metabolic genes	Glycosyltransferase family 10 (fucosyltransferase) C-term
+glycosyltransferase family 11 	Auxiliary metabolic genes	glycosyltransferase family 11 
+Glycosyltransferase family 25 (LPS biosynthesis protein)	Auxiliary metabolic genes	Glycosyltransferase family 25 (LPS biosynthesis protein)
+Glycosyltransferase like family	Auxiliary metabolic genes	Glycosyltransferase like family
+Glyoxalase/Bleomycin resistance protein/Dioxygenase superfamily	Auxiliary metabolic genes	Glyoxalase/Bleomycin resistance protein/Dioxygenase superfamily
+HipA N-terminal domain	Auxiliary metabolic genes	HipA N-terminal domain
+HipA-like C-terminal domain	Auxiliary metabolic genes	HipA-like C-terminal domain
+Nicotinamide mononucleotide transporter	Auxiliary metabolic genes	Nicotinamide mononucleotide transporter
+nicotinamide mononucleotide transporter 	Auxiliary metabolic genes	nicotinamide mononucleotide transporter 
+Nicotinate phosphoribosyltransferase (NAPRTase) family	Auxiliary metabolic genes	Nicotinate phosphoribosyltransferase (NAPRTase) family
+Nicotinate phosphoribosyltransferase (NAPRTase) N-terminal domain	Auxiliary metabolic genes	Nicotinate phosphoribosyltransferase (NAPRTase) N-terminal domain
+Purine catabolism regulatory protein-like family	Auxiliary metabolic genes	Purine catabolism regulatory protein-like family
+Pyridine nucleotide-disulphide oxidoreductase	Auxiliary metabolic genes	Pyridine nucleotide-disulphide oxidoreductase
+Serine hydroxymethyltransferase	Auxiliary metabolic genes	Serine hydroxymethyltransferase
+Sodium/hydrogen exchanger family	Auxiliary metabolic genes	Sodium/hydrogen exchanger family
+Transglutaminase-like superfamily	Auxiliary metabolic genes	Transglutaminase-like superfamily
+Transglycosylase SLT domain	Auxiliary metabolic genes	Transglycosylase SLT domain
+Transglycosylase-like domain	Auxiliary metabolic genes	Transglycosylase-like domain
+"Transketolase, thiamine diphosphate binding domain"	Auxiliary metabolic genes	"Transketolase, thiamine diphosphate binding domain"
+UDP-3-O-acyl N-acetylglycosamine deacetylase	Auxiliary metabolic genes	UDP-3-O-acyl N-acetylglycosamine deacetylase
+UDP-galactopyranose mutase 	Auxiliary metabolic genes	UDP-galactopyranose mutase 
+UDP-glucose 4-epimerase GalE	Auxiliary metabolic genes	UDP-glucose 4-epimerase GalE
+'Cold-shock' DNA-binding domain	DNA-binding and transcription regulators	'Cold-shock' DNA-binding domain
+\[2Fe-2S\] binding domain	DNA-binding and transcription regulators	\[2Fe-2S\] binding domain
+2Fe-2S iron-sulfur cluster binding domain	DNA-binding and transcription regulators	2Fe-2S iron-sulfur cluster binding domain
+3D domain	DNA-binding and transcription regulators	3D domain
+4Fe-4S binding domain	DNA-binding and transcription regulators	4Fe-4S binding domain
+4Fe-4S single cluster domain	DNA-binding and transcription regulators	4Fe-4S single cluster domain
+50S ribosome-binding GTPase	DNA-binding and transcription regulators	50S ribosome-binding GTPase
+AAA domain	DNA-binding and transcription regulators	AAA domain
+AAA domain (Cdc48 subfamily)	DNA-binding and transcription regulators	AAA domain (Cdc48 subfamily)
+AAA domain (dynein-related subfamily)	DNA-binding and transcription regulators	AAA domain (dynein-related subfamily)
+"AAA domain, putative AbiEii toxin, Type IV TA system"	DNA-binding and transcription regulators	"AAA domain, putative AbiEii toxin, Type IV TA system"
+AAA lid domain	DNA-binding and transcription regulators	AAA lid domain
+AbrB family transcriptional regulator 	DNA-binding and transcription regulators	AbrB family transcriptional regulator 
+Accessory gene regulator B	DNA-binding and transcription regulators	Accessory gene regulator B
+Acetyltransferase (GNAT) domain	DNA-binding and transcription regulators	Acetyltransferase (GNAT) domain
+Acetyltransferase (GNAT) family	DNA-binding and transcription regulators	Acetyltransferase (GNAT) family
+"Bacterial regulatory helix-turn-helix protein, lysR family"	DNA-binding and transcription regulators	"Bacterial regulatory helix-turn-helix protein, lysR family"
+"Bacterial regulatory helix-turn-helix proteins, AraC family"	DNA-binding and transcription regulators	"Bacterial regulatory helix-turn-helix proteins, AraC family"
+CobQ/CobB/MinD/ParA nucleotide binding domain	DNA-binding and transcription regulators	CobQ/CobB/MinD/ParA nucleotide binding domain
+"Control of competence regulator ComK, YlbF/YmcA"	DNA-binding and transcription regulators	"Control of competence regulator ComK, YlbF/YmcA"
+DNA binding protein 	DNA-binding and transcription regulators	DNA binding protein 
+IreB regulatory phosphoprotein	DNA-binding and transcription regulators	IreB regulatory phosphoprotein
+MerR family regulatory protein	DNA-binding and transcription regulators	MerR family regulatory protein
+Phage regulatory protein Rha (Phage_pRha)	DNA-binding and transcription regulators	Phage regulatory protein Rha (Phage_pRha)
+putative 2-component regulator 	DNA-binding and transcription regulators	putative 2-component regulator 
+putative HTH transcription regulator 	DNA-binding and transcription regulators	putative HTH transcription regulator 
+putative regulatory protein 	DNA-binding and transcription regulators	putative regulatory protein 
+putative transcriptional regulator 	DNA-binding and transcription regulators	putative transcriptional regulator 
+recA bacterial DNA recombination protein	DNA-binding and transcription regulators	recA bacterial DNA recombination protein
+Response regulator receiver domain	DNA-binding and transcription regulators	Response regulator receiver domain
+RNA pseudouridylate synthase	DNA-binding and transcription regulators	RNA pseudouridylate synthase
+RNase H	DNA-binding and transcription regulators	RNase H
+RNAse H 	DNA-binding and transcription regulators	RNAse H 
+Sporulation initiation factor Spo0A C terminal	DNA-binding and transcription regulators	Sporulation initiation factor Spo0A C terminal
+"Transcription elongation factor, GreA/GreB, C-term"	DNA-binding and transcription regulators	"Transcription elongation factor, GreA/GreB, C-term"
+"Transcription elongation factor, N-terminal"	DNA-binding and transcription regulators	"Transcription elongation factor, N-terminal"
+Transcription factor WhiB	DNA-binding and transcription regulators	Transcription factor WhiB
+Transcriptional Coactivator p15 (PC4)	DNA-binding and transcription regulators	Transcriptional Coactivator p15 (PC4)
+Transcriptional regulator	DNA-binding and transcription regulators	Transcriptional regulator
+transcriptional regulator NrdR	DNA-binding and transcription regulators	transcriptional regulator NrdR
+Transcriptional regulator PadR-like family	DNA-binding and transcription regulators	Transcriptional regulator PadR-like family
+"transcriptional regulator, y4mF family"	DNA-binding and transcription regulators	"transcriptional regulator, y4mF family"
+Translation initiation factor 1A / IF-1	DNA-binding and transcription regulators	Translation initiation factor 1A / IF-1
+"Translation initiation factor IF-2, N-terminal region"	DNA-binding and transcription regulators	"Translation initiation factor IF-2, N-terminal region"
+"Translation initiation factor IF-3, C-terminal domain"	DNA-binding and transcription regulators	"Translation initiation factor IF-3, C-terminal domain"
+Translation-initiation factor 2	DNA-binding and transcription regulators	Translation-initiation factor 2
+Transposase	DNA-binding and transcription regulators	Transposase
+Transposase IS200 like	DNA-binding and transcription regulators	Transposase IS200 like
+Transposon-encoded protein TnpV	DNA-binding and transcription regulators	Transposon-encoded protein TnpV
+Two component regulator propeller	DNA-binding and transcription regulators	Two component regulator propeller
+XRE family transcriptional regulator 	DNA-binding and transcription regulators	XRE family transcriptional regulator 
+Cell Wall Hydrolase	Lysis	Cell Wall Hydrolase
+Lyase	Lysis	Lyase
+Lysozyme-like	Lysis	Lysozyme-like
+ABC transporter	Membrane proteins	ABC transporter
+AcrB/AcrD/AcrF family	Membrane proteins	AcrB/AcrD/AcrF family
+AI-2E family transporter	Membrane proteins	AI-2E family transporter
+AI-2E family transporter	Membrane proteins	AI-2E family transporter
+"Alanine-zipper, major outer membrane lipoprotein"	Membrane proteins	"Alanine-zipper, major outer membrane lipoprotein"
+Septum formation initiator	Membrane proteins	Septum formation initiator
+Septum formation topological specificity factor MinE	Membrane proteins	Septum formation topological specificity factor MinE
+septum site-determining protein MinD	Membrane proteins	septum site-determining protein MinD
+SPFH domain / Band 7 family	Membrane proteins	SPFH domain / Band 7 family
+FtsK/SpoIIIE family	Packaging and assembly	FtsK/SpoIIIE family
+23S rRNA (adenine(2503)-C(2))-methyltransferase	Replication and nucleic acid metabolism	23S rRNA (adenine(2503)-C(2))-methyltransferase
+"3' exoribonuclease family, domain 1"	Replication and nucleic acid metabolism	"3' exoribonuclease family, domain 1"
+"5' nucleotidase, deoxy (Pyrimidine), cytosolic type C protein (NT5C)"	Replication and nucleic acid metabolism	"5' nucleotidase, deoxy (Pyrimidine), cytosolic type C protein (NT5C)"
+AddA-like protein 	Replication and nucleic acid metabolism	AddA-like protein 
+ADP-ribosylglycohydrolase	Replication and nucleic acid metabolism	ADP-ribosylglycohydrolase
+ADP-ribosyltransferase exoenzyme	Replication and nucleic acid metabolism	ADP-ribosyltransferase exoenzyme
+ADP-Ribosyltransferase in polyvalent proteins	Replication and nucleic acid metabolism	ADP-Ribosyltransferase in polyvalent proteins
+AIR carboxylase	Replication and nucleic acid metabolism	AIR carboxylase
+"Alanine racemase, N-terminal domain"	Replication and nucleic acid metabolism	"Alanine racemase, N-terminal domain"
+alpha-glucosyl-transferase 	Replication and nucleic acid metabolism	alpha-glucosyl-transferase 
+Alternative ribosome-rescue factor A	Replication and nucleic acid metabolism	Alternative ribosome-rescue factor A
+Anaerobic ribonucleoside-triphosphate reductase	Replication and nucleic acid metabolism	Anaerobic ribonucleoside-triphosphate reductase
+anaerobic ribonucleoside-triphosphate reductase	Replication and nucleic acid metabolism	anaerobic ribonucleoside-triphosphate reductase
+CRISPR associated protein	Replication and nucleic acid metabolism	CRISPR associated protein
+CRISPR associated protein Cas1	Replication and nucleic acid metabolism	CRISPR associated protein Cas1
+CRISPR associated protein Cas2	Replication and nucleic acid metabolism	CRISPR associated protein Cas2
+CRISPR associated protein Cas6	Replication and nucleic acid metabolism	CRISPR associated protein Cas6
+CRISPR-associated protein (Cas_Cas2CT1978)	Replication and nucleic acid metabolism	CRISPR-associated protein (Cas_Cas2CT1978)
+CRISPR-associated protein (Cas_Cas5)	Replication and nucleic acid metabolism	CRISPR-associated protein (Cas_Cas5)
+CRISPR-associated protein (Cas_Csd1)	Replication and nucleic acid metabolism	CRISPR-associated protein (Cas_Csd1)
+"CRISPR-associated protein Cas10/Csm1, subtype III-A/MTUBE"	Replication and nucleic acid metabolism	"CRISPR-associated protein Cas10/Csm1, subtype III-A/MTUBE"
+CRISPR-associated protein Cas7	Replication and nucleic acid metabolism	CRISPR-associated protein Cas7
+CRISPR-associated protein TM1802 (cas_TM1802)	Replication and nucleic acid metabolism	CRISPR-associated protein TM1802 (cas_TM1802)
+Crossover junction endodeoxyribonuclease RuvC	Replication and nucleic acid metabolism	Crossover junction endodeoxyribonuclease RuvC
+deoxycytidine triphosphate deaminase	Replication and nucleic acid metabolism	deoxycytidine triphosphate deaminase
+Deoxynucleoside kinase	Replication and nucleic acid metabolism	Deoxynucleoside kinase
+DNA mismatch endonuclease Vsr	Replication and nucleic acid metabolism	DNA mismatch endonuclease Vsr
+DpnII restriction endonuclease	Replication and nucleic acid metabolism	DpnII restriction endonuclease
+Endodeoxyribonuclease RusA	Replication and nucleic acid metabolism	Endodeoxyribonuclease RusA
+Endonuclease NucS	Replication and nucleic acid metabolism	Endonuclease NucS
+Endonuclease/Exonuclease/phosphatase family	Replication and nucleic acid metabolism	Endonuclease/Exonuclease/phosphatase family
+Endoribonuclease L-PSP	Replication and nucleic acid metabolism	Endoribonuclease L-PSP
+"exodeoxyribonuclease V, alpha subunit"	Replication and nucleic acid metabolism	"exodeoxyribonuclease V, alpha subunit"
+Exonuclease	Replication and nucleic acid metabolism	Exonuclease
+Exonuclease VII small subunit	Replication and nucleic acid metabolism	Exonuclease VII small subunit
+"Exonuclease VII, large subunit"	Replication and nucleic acid metabolism	"Exonuclease VII, large subunit"
+group I intron endonuclease	Replication and nucleic acid metabolism	group I intron endonuclease
+Helicase associated domain	Replication and nucleic acid metabolism	Helicase associated domain
+Helicase C-terminal domain	Replication and nucleic acid metabolism	Helicase C-terminal domain
+Helicase conserved C-terminal domain	Replication and nucleic acid metabolism	Helicase conserved C-terminal domain
+"Helicase HerA, central domain"	Replication and nucleic acid metabolism	"Helicase HerA, central domain"
+HNH protein 	Replication and nucleic acid metabolism	HNH protein 
+homing endonuclease 	Replication and nucleic acid metabolism	homing endonuclease 
+Initiator Replication protein	Replication and nucleic acid metabolism	Initiator Replication protein
+MazG nucleotide pyrophosphohydrolase domain	Replication and nucleic acid metabolism	MazG nucleotide pyrophosphohydrolase domain
+NAD dependent epimerase/dehydratase family	Replication and nucleic acid metabolism	NAD dependent epimerase/dehydratase family
+NAD synthase	Replication and nucleic acid metabolism	NAD synthase
+NAD:arginine ADP-ribosyltransferase	Replication and nucleic acid metabolism	NAD:arginine ADP-ribosyltransferase
+NAD+ synthetase 	Replication and nucleic acid metabolism	NAD+ synthetase 
+Nuclease-related domain	Replication and nucleic acid metabolism	Nuclease-related domain
+Nucleoside diphosphate kinase	Replication and nucleic acid metabolism	Nucleoside diphosphate kinase
+Nucleotide modification associated domain 1	Replication and nucleic acid metabolism	Nucleotide modification associated domain 1
+nucleotide-sugar epimerase 	Replication and nucleic acid metabolism	nucleotide-sugar epimerase 
+Nucleotidyl transferase	Replication and nucleic acid metabolism	Nucleotidyl transferase
+"Nucleotidyl transferase AbiEii toxin, Type IV TA system"	Replication and nucleic acid metabolism	"Nucleotidyl transferase AbiEii toxin, Type IV TA system"
+Nucleotidyltransferase	Replication and nucleic acid metabolism	Nucleotidyltransferase
+Nucleotidyltransferase domain	Replication and nucleic acid metabolism	Nucleotidyltransferase domain
+NUDIX domain	Replication and nucleic acid metabolism	NUDIX domain
+ParB-like nuclease domain	Replication and nucleic acid metabolism	ParB-like nuclease domain
+PD-(D/E)XK endonuclease	Replication and nucleic acid metabolism	PD-(D/E)XK endonuclease
+PD-(D/E)XK nuclease superfamily	Replication and nucleic acid metabolism	PD-(D/E)XK nuclease superfamily
+phage-Barnase-EndoU-ColicinE5/D-RelE like nuclease5	Replication and nucleic acid metabolism	phage-Barnase-EndoU-ColicinE5/D-RelE like nuclease5
+"Polymerase beta, Nucleotidyltransferase"	Replication and nucleic acid metabolism	"Polymerase beta, Nucleotidyltransferase"
+putative excinuclease ABC 	Replication and nucleic acid metabolism	putative excinuclease ABC 
+putative nucleotidyltransferase protein 	Replication and nucleic acid metabolism	putative nucleotidyltransferase protein 
+putative site-specific intron-like DNA endonuclease 	Replication and nucleic acid metabolism	putative site-specific intron-like DNA endonuclease 
+Recombination protein O C terminal	Replication and nucleic acid metabolism	Recombination protein O C terminal
+"Recombination, repair and ssDNA binding protein UvsY"	Replication and nucleic acid metabolism	"Recombination, repair and ssDNA binding protein UvsY"
+Replication initiation and membrane attachment	Replication and nucleic acid metabolism	Replication initiation and membrane attachment
+Restriction endonuclease	Replication and nucleic acid metabolism	Restriction endonuclease
+Restriction endonuclease PvuII	Replication and nucleic acid metabolism	Restriction endonuclease PvuII
+Ribonuclease E/G family	Replication and nucleic acid metabolism	Ribonuclease E/G family
+Ribonuclease H-like	Replication and nucleic acid metabolism	Ribonuclease H-like
+Ribonuclease HII	Replication and nucleic acid metabolism	Ribonuclease HII
+"ribonucleoside-diphosphate reductase, class 1b, beta subunit"	Replication and nucleic acid metabolism	"ribonucleoside-diphosphate reductase, class 1b, beta subunit"
+ribonucleotide diphosphate reductas alpha subunit 	Replication and nucleic acid metabolism	ribonucleotide diphosphate reductas alpha subunit 
+"Ribonucleotide reductase, barrel domain"	Replication and nucleic acid metabolism	"Ribonucleotide reductase, barrel domain"
+"Ribonucleotide reductase, small chain"	Replication and nucleic acid metabolism	"Ribonucleotide reductase, small chain"
+RNA dependent RNA polymerase	Replication and nucleic acid metabolism	RNA dependent RNA polymerase
+"RNA polymerase Rpb1, domain 1"	Replication and nucleic acid metabolism	"RNA polymerase Rpb1, domain 1"
+"RNA polymerase Rpb1, domain 2"	Replication and nucleic acid metabolism	"RNA polymerase Rpb1, domain 2"
+"RNA polymerase Rpb2, domain 6"	Replication and nucleic acid metabolism	"RNA polymerase Rpb2, domain 6"
+RNA polymerase Rpb6 	Replication and nucleic acid metabolism	RNA polymerase Rpb6 
+RuvC nuclease domain	Replication and nucleic acid metabolism	RuvC nuclease domain
+Single-strand binding protein family	Replication and nucleic acid metabolism	Single-strand binding protein family
+single-stranded DNA binding protein 	Replication and nucleic acid metabolism	single-stranded DNA binding protein 
+single-stranded DNA-binding protein	Replication and nucleic acid metabolism	single-stranded DNA-binding protein
+Staphylococcal nuclease homologue	Replication and nucleic acid metabolism	Staphylococcal nuclease homologue
+thymidine kinase 	Replication and nucleic acid metabolism	thymidine kinase 
+Thymidylate kinase	Replication and nucleic acid metabolism	Thymidylate kinase
+tRNA (adenine(22)-N(1))-methyltransferase	Replication and nucleic acid metabolism	tRNA (adenine(22)-N(1))-methyltransferase
+tRNA pseudouridine synthase	Replication and nucleic acid metabolism	tRNA pseudouridine synthase
+"tRNA synthetase class II core domain (G, H, P, S and T)"	Replication and nucleic acid metabolism	"tRNA synthetase class II core domain (G, H, P, S and T)"
+tRNA synthetases class I (C) catalytic domain	Replication and nucleic acid metabolism	tRNA synthetases class I (C) catalytic domain
+"tRNA synthetases class I (E and Q), catalytic domain"	Replication and nucleic acid metabolism	"tRNA synthetases class I (E and Q), catalytic domain"
+"tRNA synthetases class I (I, L, M and V)"	Replication and nucleic acid metabolism	"tRNA synthetases class I (I, L, M and V)"
+tRNA synthetases class I (M)	Replication and nucleic acid metabolism	tRNA synthetases class I (M)
+tRNA synthetases class I (R)	Replication and nucleic acid metabolism	tRNA synthetases class I (R)
+tRNA synthetases class I (W and Y)	Replication and nucleic acid metabolism	tRNA synthetases class I (W and Y)
+tRNA synthetases class II (A)	Replication and nucleic acid metabolism	tRNA synthetases class II (A)
+"tRNA synthetases class II (D, K and N) "	Replication and nucleic acid metabolism	"tRNA synthetases class II (D, K and N) "
+tRNA synthetases class II core domain (F)	Replication and nucleic acid metabolism	tRNA synthetases class II core domain (F)
+tRNA-splicing ligase RtcB	Replication and nucleic acid metabolism	tRNA-splicing ligase RtcB
+tRNAHis guanylyltransferase	Replication and nucleic acid metabolism	tRNAHis guanylyltransferase
+Uracil DNA glycosylase superfamily	Replication and nucleic acid metabolism	Uracil DNA glycosylase superfamily
+Very-short-patch mismatch repair endonuclease 	Replication and nucleic acid metabolism	Very-short-patch mismatch repair endonuclease 
+Zinc-binding loop region of homing endonuclease	Replication and nucleic acid metabolism	Zinc-binding loop region of homing endonuclease
+40-residue YVTN family beta-propeller repeat	Structural proteins	40-residue YVTN family beta-propeller repeat
+Actin like proteins N terminal domain	Structural proteins	Actin like proteins N terminal domain
+Base plate wedge protein 53	Structural proteins	Base plate wedge protein 53
+Head fiber protein	Structural proteins	Head fiber protein
+internal (core) protein 	Structural proteins	internal (core) protein 
+Prohead core protein serine protease	Structural proteins	Prohead core protein serine protease
+OmpA family	Membrane proteins	OmpA family
+Isochorismatase family	Auxiliary metabolic genes	Isochorismatase family
+Helix-turn-helix	DNA-binding and transcription regulators	Helix-turn-helix
+Cytidylyltransferase-like	Auxiliary metabolic genes	Cytidylyltransferase-like domain
+Nicotinate phosphoribosyltransferase	Auxiliary metabolic genes	Nicotinate phosphoribosyltransferase (NAPRTase) family
+Yqey-like protein	Unknown	Yqey-like protein
+Fibrobacter succinogenes major domain	Cell signalling	Fibrobacter succinogenes major domain (Fib_succ_major)
+SprT-like family	Auxiliary metabolic genes	SprT-like family
+KTSC domain	Replication and nucleic acid metabolism	KTSC domain
+phage major capsid protein	Structural proteins	Major capsid protein
+Major capsid protein 	Structural proteins	Major capsid protein
+Chaperone of endosialidase	Lysis	Chaperone of tailspike protein endosialidase
+Phage capsid family	Structural proteins	Major capsid protein

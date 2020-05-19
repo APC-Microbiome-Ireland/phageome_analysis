@@ -1,0 +1,3 @@
+LEGEND_SHAPES	1	1	1	1	1	1
+LEGEND_COLORS	#FFFFB3	#B3DE69	#80B1D3	#BEBADA	#FB8072	#8DD3C7
+LEGEND_LABELS	Bacteroidetes	Cardiobacterium	Cyanobacteria	Firmicutes	Microgenomates	Proteobacteria

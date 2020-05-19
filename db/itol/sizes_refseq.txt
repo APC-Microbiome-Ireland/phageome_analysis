@@ -1,0 +1,120 @@
+DATASET_SIMPLEBAR
+#In simple bar charts, each ID is associated to a single numeric value which is displayed as a bar outside the tree.
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+SEPARATOR TAB
+#SEPARATOR SPACE
+#SEPARATOR COMMA
+
+#label is used in the legend table (can be changed later)
+DATASET_LABEL	sizes - alshayeb
+
+#dataset color (can be changed later)
+COLOR	#377EB8
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+#dataset scale: you can simply set the values where the scale will be drawn
+DATASET_SCALE	200000	250000	300000	350000	400000	450000	500000	550000	600000
+#or you can specify value, label, color, width, style and label size factor for each scale line (dash separated, format: VALUE-LABEL-COLOR-WIDTH-DASHED-LABEL_SCALE_FACTOR)) 
+#DATASET_SCALE,2000-2k line-#0000ff-5-1-1,10000-line at 10k-#ff0000-1-0-2,20000-3rd line-#00ff00-5-1-1
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE	Study
+LEGEND_SHAPES	1	1	1	1	1
+LEGEND_COLORS	#377EB8	#E41A1C	#984EA3	#FF7F00	rgb(255, 220, 0)
+LEGEND_LABELS	Al-Shayeb et al.	Devoto et al.	IMG/VR	RefSeq	This study
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+#all other optional settings can be set or changed later in the web interface (under 'Datasets' tab)
+
+#maximum width
+#WIDTH,1000
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN,0
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL,0
+
+#bar height factor; Default bar height will be slightly less than the available space between leaves, but you can set a multiplication factor here to increase/decrease it (values from 0 to 1 will decrease it, values above 1 will increase it)
+#HEIGHT_FACTOR,1
+
+#Display individual values above the bars
+#SHOW_VALUE,0
+
+#Bars are aligned to the node lines by default. Using BAR_SHIFT, you can move them all up/down by a fixed amount
+#BAR_SHIFT,0
+
+#BAR_ZERO specifies which dataset value will be used as a starting point for drawing the bars. Dataset values smaller than BAR_ZERO will be displayed to the left (possibly overlapping the tree, unless MARGIN is increased)
+#BAR_ZERO,0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the bars
+#BORDER_WIDTH,0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR,#0000ff
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+#ID1,value1
+#ID2,value2
+#9606,10000
+
+NC_028999.1_1	309208
+NC_019526.1_1	345809
+NC_023568.1_1	246964
+NC_031245.1_1	221908
+NC_042116.1_1	354378
+NC_041884.1_1	234900
+NC_019929.1_1	243050
+NC_023557.1_1	271084
+NC_005260.1_1	233234
+NC_028829.1_1	248088
+NC_019406.1_1	279967
+NC_010821.1_1	316674
+NC_005083.2_1	244834
+NC_020851.1_1	208007
+NC_041994.1_1	278136
+NC_019411.1_1	219216
+NC_019410.1_1	221828
+NC_019408.1_1	223720
+NC_019405.1_1	215710
+NC_042013.1_1	490380
+NC_031927.1_1	216121
+NC_027364.1_1	348113
+NC_021531.1_1	223989
+NC_042056.1_1	241654
+NC_042098.1_1	272458
+NC_041974.1_1	271088
+NC_041973.1_1	271182
+NC_041972.1_1	273501
+NC_027402.1_1	240413
+NC_016571.1_1	284757
+NC_031010.1_1	246390
+NC_031007.1_1	223935
+NC_031107.2_1	246290
+NC_031120.1_1	241147
+NC_031043.1_1	229501
+NC_031126.1_1	244840
+NC_043027.1_1	252197
