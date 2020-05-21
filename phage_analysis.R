@@ -1392,6 +1392,23 @@ for (i in 1:length(circular_jumbophages)) {
               quote = FALSE, col.names = FALSE, row.names = FALSE, sep = "\t")
 }
 
-# Jumbo phages and args
-args_data <- read.delim("data/jumbophage_proteins_card.out", stringsAsFactors = FALSE, header = FALSE)
-args_data <- args_data[args_data$V3 >= 80,]
+# ARG data
+all_args <- read.csv("data/all_assemblies_card_90.csv", stringsAsFactors = FALSE)
+all_args$ID <- gsub("_card.out", "", gsub(".*output_files/", "", all_args$filename))
+all_args$name <- paste0(all_args$ID, "_", all_args$qseqid)
+
+# Combine and clean
+phages_args <- inner_join(all_args, vir_counts_prop_melt_meta, by = c("name"="Var1")) %>%
+  filter(ID %in% metadata$ID)
+phages_args <- phages_args %>% group_by(qseqid, qseqid_mod, name) %>%
+  filter(evalue == min(evalue)) %>%
+  filter(bitscore == max(bitscore)) %>%
+  summarise_all(paste, collapse = ",") %>% 
+  select(name, qseqid, qseqid_mod, sseqid, ARO.Accession, ARO.Name, Drug.Class, Resistance.Mechanism)
+phages_args <- left_join(phages_args, contig_data[,c("name", "vcontact_cluster")], by = "name")
+
+# jumbo phages with ARGs
+jumbo_args <- phages_args[phages_args$name %in% jumbophage_contigs_meta$name,]
+
+# Phage clusters of jumbo phages with ARGs
+jumbo_cluster_args <- phages_args[as.character(phages_args$vcontact_cluster) %in% jumbophage_contigs_meta$vcontact_cluster[!is.na(jumbophage_contigs_meta$vcontact_cluster)],]
