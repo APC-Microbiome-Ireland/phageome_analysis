@@ -1118,6 +1118,13 @@ jumbophage_contigs_meta_circ <- jumbophage_contigs_meta[jumbophage_contigs_meta$
 n_clusters_with_jumbophages <- length(unique(jumbophage_contigs_meta$vcontact_cluster[!is.na(jumbophage_contigs_meta$vcontact_cluster)]))
 n_jumbophages_in_clusters <- length(jumbophage_contigs_meta$name[!is.na(jumbophage_contigs_meta$vcontact_cluster)])
 
+# Number of circular jumbo phages belonging to clusters
+n_clusters_with_circ_jumbophages <- length(unique(jumbophage_contigs_meta_circ$vcontact_cluster[!is.na(jumbophage_contigs_meta_circ$vcontact_cluster)]))
+n_circ_jumbophages_in_clusters <- length(jumbophage_contigs_meta_circ$name[!is.na(jumbophage_contigs_meta_circ$vcontact_cluster)])
+
+# Mega phage
+megaphage_contigs_meta <- jumbophage_contigs_meta[jumbophage_contigs_meta$size > 500000,]
+
 # Percentage of cohorts containing a jumbophage
 jumbophage_summary <- jumbophage_contigs_meta %>%
   filter(Visit_Number == 1) %>%
