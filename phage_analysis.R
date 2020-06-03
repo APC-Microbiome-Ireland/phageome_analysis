@@ -972,7 +972,7 @@ vir_counts_prop_melt_meta <- left_join(vir_counts_prop_melt, metadata, by = c("V
 vir_counts_prop_melt_meta <- vir_counts_prop_melt_meta[vir_counts_prop_melt_meta$Visit_Number == 1,]
 
 # Sample - phage cluster matrix
-vir_cluster_counts <- dcast(vir_counts_prop_melt_meta[!is.na(vir_counts_prop_melt_meta$vcontact_cluster),], ID ~ vcontact_cluster, length)
+vir_cluster_counts <- dcast(vir_counts_prop_melt_meta[!(is.na(vir_counts_prop_melt_meta$vcontact_cluster) | vir_counts_prop_melt_meta$vcontact_cluster == ""),], ID ~ vcontact_cluster, length)
 rownames(vir_cluster_counts) <- vir_cluster_counts[,1]
 vir_cluster_counts <- vir_cluster_counts[,-1]
 
@@ -1016,33 +1016,30 @@ for (i in 1:length(unique_groups)) {
 }
 
 # Subsample matrix and calculate richness
-# richness_paired_ss <- data.frame()
-# unique_groups <- unique(richness_paired$group)
-# for (i in 1:length(unique_groups)) {
-# 
-#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
-#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
-#   min_clusters <- min(rowSums(vir_cluster_counts_tmp))
-#   max_clusters <- max(rowSums(vir_cluster_counts_tmp))
-# 
-#   for(j in 1:(max_clusters - min_clusters)) {
-#     vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
-#       if (sum(x) > min_clusters) {
-#         ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
-#         x[ss_index] <- x[ss_index] - 1
-#       }
-#       return(x)
-#     }))
-#   }
-# 
-#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
-#     left_join(metadata_richness, by = "ID") %>%
-#     mutate(group = unique_groups[i])
-# 
-#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
-# }
-# 
-# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+richness_paired_ss <- data.frame()
+unique_groups <- unique(richness_paired$group)
+for (i in 1:length(unique_groups)) {
+
+  group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+  vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+  min_phages <- min(rowSums(vir_cluster_counts_tmp))
+
+  vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+    while (sum(x) > min_phages) {
+      ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+      x[ss_index] <- x[ss_index] - 1
+    }
+    return(x)
+  }))
+
+  richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+    left_join(metadata_richness, by = "ID") %>%
+    mutate(group = unique_groups[i])
+
+  richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+}
+
+saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
 
 # T-test and graphs of subsampled data
 richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
