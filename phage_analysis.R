@@ -323,6 +323,9 @@ vir_counts_prop_agg_meta <- vir_counts_prop_agg[,colnames(vir_counts_prop_agg) %
 cluster_samples_nmds <- metaMDS(t(vir_counts_prop_agg_meta), distance = "bray", k = 2, trymax = 20)
 df_cluster_samples_nmds <- as.data.frame(cluster_samples_nmds$points)
 
+# Cluster raw data for check
+cluster_samples_raw <- vegdist(t(vir_counts_prop_agg_meta))
+
 # Silhoette analysis of PAM (k-medoids)
 avg_sil <- numeric(20)
 for(k in 3:(length(avg_sil)+1)) {
@@ -330,9 +333,18 @@ for(k in 3:(length(avg_sil)+1)) {
   avg_sil[k-1] <- mean(tmp[,3])
 }
 
+# Silhoette analysis of raw data for check
+avg_sil_check <- numeric(20)
+for(k in 3:(length(avg_sil_check)+1)) {
+  tmp <- silhouette(pam(as.matrix(cluster_samples_raw), k = k), as.matrix(cluster_samples_raw))
+  avg_sil_check[k-1] <- mean(tmp[,3])
+}
+
 # Group by silhouette width
 samples_clust <- pam(df_cluster_samples_nmds[,c("MDS1", "MDS2")], which.max(avg_sil)+1)
-df_cluster_samples_nmds$cluster = as.factor(samples_clust$cluster[row.names(df_cluster_samples_nmds)])
+samples_clust_check <- pam(as.matrix(cluster_samples_raw), which.max(avg_sil_check)+1)
+df_cluster_samples_nmds$cluster <- as.factor(samples_clust$cluster[row.names(df_cluster_samples_nmds)])
+df_cluster_samples_nmds$cluster_raw <- as.factor(samples_clust_check$cluster[row.names(df_cluster_samples_nmds)])
 df_cluster_samples_nmds$ID <- row.names(df_cluster_samples_nmds)
 df_cluster_samples_nmds$Sample.name <- as.character(sapply(df_cluster_samples_nmds$ID, function(x) metadata$Sample.name[metadata$ID == x]))
 df_cluster_samples_nmds$Location <- sapply(df_cluster_samples_nmds$ID, function(x) metadata$Location[metadata$ID == x])
@@ -342,10 +354,19 @@ df_cluster_samples_nmds$Age <- sapply(df_cluster_samples_nmds$ID, function(x) me
 df_cluster_samples_nmds$Sex <- sapply(df_cluster_samples_nmds$ID, function(x) metadata$Sex[metadata$ID == x])
 
 # Plot NMDS by sample type and cluster
-tiff("figures/nmds_clusters.tiff", width = 1600, height = 1000, res = 200)
+tiff("figures/nmds_clusters.tiff", width = 1600, height = 1000, res = 300)
 ggplot(df_cluster_samples_nmds, aes(MDS1, MDS2, colour = Location_sampletype, shape = cluster)) +
   theme_classic() +
   geom_text(aes(label=cluster)) +
+  scale_colour_manual("Body Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 4))) +
+  xlab("NMDS 1") + ylab("NMDS 2")
+dev.off()
+
+# Plot NMDS by sample type and cluster check
+tiff("figures/nmds_clusters_check.tiff", width = 1600, height = 1000, res = 200)
+ggplot(df_cluster_samples_nmds, aes(MDS1, MDS2, colour = Location_sampletype, shape = cluster_raw)) +
+  theme_classic() +
+  geom_text(aes(label=cluster_raw)) +
   scale_colour_manual("Body Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("NMDS 1") + ylab("NMDS 2")
 dev.off()
@@ -368,7 +389,7 @@ cluster_site <- cluster_res %>%
   mutate(summary = paste0("Group ", cluster, " (", summary, ")"))
 
 # Label by sex and age
-tiff("figures/nmds_age_sex.tiff", width = 1600, height = 1000, res = 200)
+tiff("figures/nmds_age_sex.tiff", width = 1600, height = 1000, res = 300)
 ggplot(df_cluster_samples_nmds, aes(x = MDS1, y = MDS2, fill = Age, shape = Sex)) +
   theme_classic() + geom_point(size = 2.5, alpha = 0.7) +
   scale_shape_manual(values = c(21, 22)) +
@@ -377,7 +398,7 @@ ggplot(df_cluster_samples_nmds, aes(x = MDS1, y = MDS2, fill = Age, shape = Sex)
 dev.off()
 
 # Breakdown of groups
-tiff("figures/nmds_group_breakdown.tiff", width = 1600, height = 1000, res = 200)
+tiff("figures/nmds_group_breakdown.tiff", width = 1600, height = 1000, res = 300)
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
   geom_bar(stat = "identity") +
   theme_classic() + xlab("Group") + ylab("% Samples") +
@@ -442,7 +463,9 @@ vir_group_list <- sapply(unique_clusters, function(x) {
   vir_group <- rownames(vir_tmp)[rowSums(vir_tmp) != 0]
   return(vir_group)
   })
-names(vir_group_list) <- paste("Group", unique_clusters)
+
+group_names <- paste("Group", unique_clusters, c("\n(buccal mucosa)", "\n(dorsum of tongue/saliva)", "\n(dental)", "\n(stool)"))
+names(vir_group_list) <- group_names
 max_group_length <- max(sapply(vir_group_list, function(x) length(x)))
 
 vir_group_list <- lapply(vir_group_list, function(x) c(x, rep(NA, max_group_length - length(x))))
@@ -450,7 +473,7 @@ vir_group_list <- lapply(vir_group_list, function(x) c(x, rep(NA, max_group_leng
 vir_group_all <- do.call(cbind, vir_group_list)
 
 tiff("figures/venn_diagram.tiff", width = 600, height = 600)
-suma2Venn(vir_group_all, zcolor = group_cols, cexil = 1.5, cexsn = 1.4)
+suma2Venn(vir_group_all, cexil = 2, cexsn = 1.4)
 dev.off()
 
 ########## Longitudinal analysis and core phageome #########
@@ -504,8 +527,8 @@ ggplot(cluster_count_tp_summary, aes(as.factor(tp), cluster_frac, fill = as.fact
   geom_boxplot() +
   geom_jitter() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
-  theme_classic() + xlab("No. of time points") + ylab("Proportion of phage clusters in at least x time points") +
-  theme(strip.background = element_blank(), strip.text.x = element_blank()) +
+  theme_classic() + xlab("No. of time points") + ylab("Proportion of phage clusters") +
+  theme(strip.background = element_blank(), strip.text.x = element_blank(), text = element_text(size = 16)) +
   scale_fill_manual("body site", values = cols)
 dev.off()
 
@@ -526,12 +549,12 @@ cluster_count_reads_summary <- left_join(cluster_count_reads, cluster_count_read
   group_by(sample_type, Sample.name, vcontact_cluster) %>%
   mutate(tp = order(Visit_Number))
 
-tiff("figures/longitudinal_read_count.tiff", height = 400, width = 1100, res = 90)
+tiff("figures/longitudinal_read_count.tiff", height = 400, width = 1100, res = 100)
 ggplot(cluster_count_reads_summary, aes(x = as.factor(tp), y = frac_reads, fill = sample_type)) +
   geom_boxplot() +
   facet_grid(~ sample_type, scale = "free", space = "free") +
-  theme_classic() + xlab("No. of time points") + ylab("Proportion of reads mapped in at least x time points") +
-  theme(strip.background = element_blank(), strip.text.x = element_blank()) +
+  theme_classic() + xlab("No. of time points") + ylab("Proportion of mapped reads") +
+  theme(strip.background = element_blank(), strip.text.x = element_blank(), text = element_text(size = 16)) +
   scale_fill_manual("body site", values = cols)
 dev.off()
 
@@ -614,6 +637,7 @@ for (i in 1:length(unique(vir_counts_longus_demovir$sample_type))) {
     geom_point(alpha = 0.5, colour = cols[unique(vir_counts_longus_demovir$sample_type)[i]]) +
     geom_encircle(aes(fill = Sample.name), alpha=0.3, expand = 0) +
     theme_classic() +
+    theme(text = element_text(size = 16)) +
     guides(fill = FALSE) +
     scale_fill_manual(values = rep(cols[unique(vir_counts_longus_demovir$sample_type)[i]], length(unique(df_nmds_persist$Sample.name)))) +
     ggtitle(unique(vir_counts_longus_demovir$sample_type)[i])
@@ -636,6 +660,7 @@ for (i in 1:length(unique(vir_counts_longus_demovir$sample_type))) {
     geom_point(alpha = 0.5, colour = cols[unique(vir_counts_longus_demovir$sample_type)[i]]) +
     geom_encircle(aes(fill = Sample.name), alpha=0.3, expand = 0) +
     theme_classic() +
+    theme(text = element_text(size = 16)) +
     guides(fill = FALSE) +
     scale_fill_manual(values = rep(cols[unique(vir_counts_longus_demovir$sample_type)[i]], length(unique(df_nmds_transient$Sample.name)))) +
     ggtitle(unique(vir_counts_longus_demovir$sample_type)[i])
@@ -662,11 +687,11 @@ n_transient_clusters <- cluster_transient_all %>%
   group_by(sample_type) %>%
   summarise(n = n_distinct(vcontact_cluster))
 
-tiff("figures/persistent_phage_clusters.tiff", width = 2000, height = 1000, res = 200)
+tiff("figures/persistent_phage_clusters.tiff", width = 2000, height = 1500, res = 200)
 grid.arrange(grobs = persist_graphs, layout_matrix = rbind(c(1,3), c(2,4)))
 dev.off()
 
-tiff("figures/transient_phage_clusters.tiff", width = 2000, height = 1000, res = 200)
+tiff("figures/transient_phage_clusters.tiff", width = 2000, height = 1500, res = 200)
 grid.arrange(grobs = transient_graphs, layout_matrix = rbind(c(1,3), c(2,4)))
 dev.off()
 
@@ -705,6 +730,7 @@ for (i in 1:length(unique(cluster_summary$sample_type))) {
   cluster_summary_graphs[[i]] <- ggplot(cluster_sample_type, aes(vcontact_cluster, perc, fill = group)) +
     geom_bar(stat = "identity") +
     theme_classic() +
+    theme(text = element_text(size = 16)) +
     scale_fill_manual("Status", values = c("white", "lightblue", "blue"), labels = c("Absent", "Transient", "Persistent")) +
     ylab("% Individuals") + xlab("Phage clusters") +
     theme(axis.text.x = element_blank()) + 
@@ -731,7 +757,7 @@ ggplot(cluster_persist_demovir, aes(x = Sample.name, y = V1_prop, fill = demovir
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic"), text = element_text(size = 16)) +
   ylab("Proportion of mapped reads") + xlab("Sample")
 dev.off()
 
@@ -751,7 +777,7 @@ ggplot(cluster_transient_demovir, aes(x = Sample.name, y = V1_prop, fill = demov
   geom_bar(stat = "identity") +
   scale_fill_manual("Viral Family",  values = demovir_cols) +
   facet_wrap(~sample_type, scale = "free", shrink = FALSE) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic")) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank(), legend.text = element_text(face="italic"), text = element_text(size = 16)) +
   ylab("Proportion of mapped reads") + xlab("Sample")
 dev.off()
 
@@ -859,7 +885,7 @@ names(df_metaphlan_nmds) = c("MDS1", "MDS2", "ID")
 df_metaphlan_nmds <- left_join(df_metaphlan_nmds, metadata, by = "ID")
 
 # Plot microbiome NMDS
-tiff("figures/metaphlan_nmds.tiff", height= 1000, width = 1600, res = 200)
+tiff("figures/metaphlan_nmds.tiff", height= 1000, width = 1600, res = 300)
 ggplot(df_metaphlan_nmds, aes(x = MDS1, y = MDS2, fill = sample_type)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
   scale_fill_manual("Body Site", values = cols,
@@ -869,9 +895,36 @@ dev.off()
 
 # Procrustes analysis and plot
 protest_res <- protest(df_cluster_samples_nmds[,c(1:2)], df_metaphlan_nmds[,c(1:2)], scale = TRUE)
-tiff("figures/procrustes.tiff", height = 1000, width = 1200, res = 150)
+tiff("figures/procrustes.tiff", height = 1000, width = 1200, res = 200)
 plot(protest_res, cex = 0.5, ar.col = "grey", )
 points(protest_res, display = "target", col = "red", cex = 0.5)
+dev.off()
+
+# Proportion of crispr hosts for each viral family
+perc_fam_host_ass <- vir_counts_prop_melt %>%
+  filter(!is.na(crispr_host)) %>%
+  group_by(sample_type, demovir, crispr_host) %>%
+  summarise(n = n_distinct(Var1)) %>% ungroup() %>%
+  group_by(sample_type, crispr_host) %>%
+  mutate(sum_n = sum(n)) %>%
+  mutate(perc = n/sum_n*100)
+perc_fam_host_ass$label <- paste0(perc_fam_host_ass$crispr_host, " (", as.character(perc_fam_host_ass$sum_n), ")")
+  
+# Plot proportion of crispr hosts for each viral family
+perc_fam_host_plot <- list()
+for (i in 1:length(unique(perc_fam_host_ass$sample_type))) {
+  perc_fam_host_plot[[i]] <- ggplot(perc_fam_host_ass[perc_fam_host_ass$sample_type %in% unique(perc_fam_host_ass$sample_type)[i],], 
+         aes(label, perc, fill = demovir)) +
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    theme(axis.text.x = element_text(angle = 60, hjust = 1, face="italic"), legend.text = element_text(face="italic")) +
+    scale_fill_manual("Phage Family", values = demovir_cols) +
+    ylab("% Phage Contigs\nwith Predicted Host") + xlab("Predicted Host Genera") +
+    ggtitle(unique(perc_fam_host_ass$sample_type)[i])
+}
+
+tiff("figures/perc_fam_host.tiff", width = 2200, height = 5000, res = 250)
+grid.arrange(grobs = perc_fam_host_plot, layout_matrix = matrix(1:5))
 dev.off()
 
 # Percentage of crispr host predictions
@@ -1015,31 +1068,31 @@ for (i in 1:length(unique_groups)) {
   richness_paired <- richness_paired[!(richness_paired$Sample.name %in% remove_samples & richness_paired$group %in% unique_groups[i]),]
 }
 
-# Subsample matrix and calculate richness
-richness_paired_ss <- data.frame()
-unique_groups <- unique(richness_paired$group)
-for (i in 1:length(unique_groups)) {
-
-  group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
-  vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
-  min_phages <- min(rowSums(vir_cluster_counts_tmp))
-
-  vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
-    while (sum(x) > min_phages) {
-      ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
-      x[ss_index] <- x[ss_index] - 1
-    }
-    return(x)
-  }))
-
-  richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
-    left_join(metadata_richness, by = "ID") %>%
-    mutate(group = unique_groups[i])
-
-  richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
-}
-
-saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
+# # Subsample matrix and calculate richness
+# richness_paired_ss <- data.frame()
+# unique_groups <- unique(richness_paired$group)
+# for (i in 1:length(unique_groups)) {
+# 
+#   group_ids <- unique(richness_paired$ID[richness_paired$group %in% unique_groups[i]])
+#   vir_cluster_counts_tmp <- vir_cluster_counts[rownames(vir_cluster_counts) %in% group_ids,]
+#   min_phages <- min(rowSums(vir_cluster_counts_tmp))
+# 
+#   vir_cluster_counts_tmp <- t(apply(vir_cluster_counts_tmp, 1, function(x) {
+#     while (sum(x) > min_phages) {
+#       ss_index <- sample(1:length(x), 1, prob = ifelse(x > 0, x/sum(x), 0))
+#       x[ss_index] <- x[ss_index] - 1
+#     }
+#     return(x)
+#   }))
+# 
+#   richness_paired_tmp <- data.frame(ID = rownames(vir_cluster_counts_tmp), richness = rowSums(vir_cluster_counts_tmp > 0)) %>%
+#     left_join(metadata_richness, by = "ID") %>%
+#     mutate(group = unique_groups[i])
+# 
+#   richness_paired_ss <- rbind(richness_paired_ss, richness_paired_tmp)
+# }
+# 
+# saveRDS(richness_paired_ss, file = "data/subsampled_phage_cluster_richness.RDS")
 
 # T-test and graphs of subsampled data
 richness_paired_ss <- readRDS("data/subsampled_phage_cluster_richness.RDS")
@@ -1140,6 +1193,7 @@ tiff("figures/jumbophage_percentage_samples.tiff", width = 1000, height = 500, r
 ggplot(jumbophage_summary, aes(Location_sampletype, perc_samples, fill = circular)) +
   geom_bar(stat = "identity") +
   theme_classic() +
+  theme(text = element_text(size = 16)) +
   xlab("Cohort") + ylab("% samples") + ylim(c(0,100))
 dev.off()
 
@@ -1164,7 +1218,7 @@ jumbophage_contigs_meta_nodup <- jumbophage_contigs_meta[!duplicated(paste(jumbo
 
 jumbophage_contigs_meta_nodup$sampletype_Location <- paste(jumbophage_contigs_meta_nodup$sample_type, "-", jumbophage_contigs_meta_nodup$Location)
 h = 200
-tiff("figures/jumbophages_size.tiff", width = 3000, height = 1000, res = 270)
+tiff("figures/jumbophages_size.tiff", width = 3000, height = 1500, res = 270)
 set.seed(1)
 ggplot(jumbophage_contigs_meta_nodup, aes(x = "Contigs", y = size/1000, colour = sample_type, shape = circular, size = circular)) +
   geom_jitter(alpha = 0.6) +
@@ -1175,10 +1229,9 @@ ggplot(jumbophage_contigs_meta_nodup, aes(x = "Contigs", y = size/1000, colour =
   scale_size_manual(values = c(1, 3)) +
   facet_grid(~Location, scale = "free", space = "free") +
   theme(panel.grid.major.y = element_line(colour = "grey90"), 
-        axis.text.x = element_text(size = 12), 
         axis.title = element_text(size = 16),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 16)) +
+        legend.title = element_text(size = 16),
+        text = element_text(size = 16)) +
   scale_colour_manual("Body Site", values = cols)
 dev.off()
 
@@ -1247,12 +1300,12 @@ plot(vcontact_igraph,
      rescale = TRUE,
      layout = graph_layout,
      vertex.size = V(vcontact_igraph)$size/150000,
-     vertex.frame.color = vertex_cluster,
+     #vertex.frame.color = vertex_cluster,
      vertex.color = vertex_host,
      vertex.shape = c("square","circle")[as.numeric(as.factor(V(vcontact_igraph)$circular))],
      vertex.label = NA)
-legend('topleft',legend=as.expression(lapply(unique(sort(names(vertex_host))), function(a) bquote(italic(.(a))))),col='black',pch=21, 
-       cex = 0.8, pt.bg=unique(vertex_host[order(names(vertex_host))]), title = "Predicted Host Genus")
+legend('bottomleft',legend=as.expression(lapply(unique(sort(names(vertex_host))), function(a) bquote(italic(.(a))))),col='black',pch=21, 
+       cex = 0.7, pt.bg=unique(vertex_host[order(names(vertex_host))]), title = "Predicted Host Genus")
 legend('topright',legend=c("circular", "linear"), col='black',pch=c(1,0), cex = 1)
 dev.off()
 
@@ -1278,11 +1331,13 @@ jumbophage_gff_summary$Name <- factor(jumbophage_gff_summary$Name, levels = jumb
 fun_colours <- c("#E0A8E0", "#A6AAD1", "#D6A738", "#4D4CD4", "#6ED4C0", "#40A339", "#e88012","#B64ED9", "#d1d1d1")
 names(fun_colours) <- sort(unique(jumbophage_gff_summary$category))
 
-tiff("figures/jumbophage_functions.tiff", width = 2500, height = 2500, res = 200)
+tiff("figures/jumbophage_functions.tiff", width = 3000, height = 2500, res = 200)
 ggplot(jumbophage_gff_summary[jumbophage_gff_summary$n >= 50,], aes(Name, n, fill = category)) +
   geom_bar(stat = "identity") +
   coord_flip() +
   theme_bw() +
+  theme(text = element_text(size = 16),
+        axis.title = element_text(size = 26)) +
   xlab("Protein function") + 
   scale_fill_manual("Functional Category", values = fun_colours, labels = names(fun_colours)) +
   scale_y_continuous("No. jumbo phages", breaks = seq(0, 500, 50))
