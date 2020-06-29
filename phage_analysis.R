@@ -288,33 +288,42 @@ dev.off()
 # Calculate number of samples with number of unique phages and vcontact clusters
 samples_with_n_phage <- vir_counts_prop_melt %>% 
   group_by(Var1) %>%
-  summarise(n = n_distinct(Var2)) %>%
-  group_by(n) %>%
-  summarise(num_samples = n()) %>%
-  mutate(perc_samples = num_samples/sum(num_samples)*100)
+  summarise(n = n_distinct(Var2))
+
+median_n_phage <- median(samples_with_n_phage$n)
 
 samples_with_n_clusters <- vir_counts_prop_melt %>% 
-  filter(vcontact_cluster != "" | !is.na(vcontact_cluster)) %>%
+  filter(vcontact_cluster != "") %>%
+  filter(!is.na(vcontact_cluster)) %>%
   group_by(vcontact_cluster) %>%
-  summarise(n = n_distinct(Var2)) %>%
+  summarise(n = n_distinct(Var2))
+
+median_n_cluster <- median(samples_with_n_clusters$n)
+
+samples_with_n_phage <- samples_with_n_phage %>%
   group_by(n) %>%
-  summarise(num_samples = n()) %>%
-  mutate(perc_samples = num_samples/sum(num_samples)*100)
+  summarise(freq = n())
 
 tiff("figures/unique_phages.tiff", width= 500, height = 500, res = 100)
-ggplot(samples_with_n_phage, aes(n, perc_samples)) +
+ggplot(samples_with_n_phage, aes(n, freq)) +
   geom_bar(stat="identity") + theme_classic() +
-  xlab("No. unique phages") + ylab("% samples") +
-  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 25)) +
-  ylim(c(0, c(max(samples_with_n_phage$perc_samples, samples_with_n_clusters$perc_samples))))
+  xlab("No. unique phages") + ylab("Sample frequency") +
+  scale_x_continuous(limits = c(0, 50), breaks = seq(0, 50, by = 5)) +
+  ylim(c(0, c(max(samples_with_n_phage$freq, samples_with_n_clusters$freq)))) +
+  geom_vline(xintercept = median_n_phage, colour = "red")
 dev.off()
 
+samples_with_n_clusters <- samples_with_n_clusters %>%
+  group_by(n) %>%
+  summarise(freq = n())
+
 tiff("figures/unique_clusters.tiff", width= 500, height = 500, res = 100)
-ggplot(samples_with_n_clusters, aes(n, perc_samples)) +
+ggplot(samples_with_n_clusters, aes(n, freq)) +
   geom_bar(stat="identity") + theme_classic() +
-  xlab("No. unique phage clusters") + ylab("% samples") + 
-  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 25)) +
-  ylim(c(0, c(max(samples_with_n_phage$perc_samples, samples_with_n_clusters$perc_samples))))
+  xlab("No. unique phage clusters") + ylab("Sample frequency") + 
+  scale_x_continuous(limits = c(0, 50), breaks = seq(0, 100, by = 5)) +
+  ylim(c(0, c(max(samples_with_n_phage$freq, samples_with_n_clusters$freq)))) +
+  geom_vline(xintercept = median_n_cluster, colour = "red")
 dev.off()
 
 # Compute distance matrix and run NMDS on phage clusters
@@ -1068,6 +1077,9 @@ for (i in 1:length(unique_groups)) {
   richness_paired <- richness_paired[!(richness_paired$Sample.name %in% remove_samples & richness_paired$group %in% unique_groups[i]),]
 }
 
+paired_metadata_summary <- paired_metadata %>% filter(ID %in% richness_paired$ID) %>%
+  group_by(Location, group, sample_type) %>% summarise(n())
+
 # # Subsample matrix and calculate richness
 # richness_paired_ss <- data.frame()
 # unique_groups <- unique(richness_paired$group)
@@ -1111,28 +1123,15 @@ dev.off()
 contig_data_meta <- left_join(vir_counts_prop_melt, metadata, by = c("Var2"="ID","sample_type","Location")) %>% rename(ID = Var2) %>%
   left_join(contig_data[,c("name", "circular", "size")], by = c("Var1"="name"))
 
-countSizeCat <- function(contig_data_meta, size_lower, size_upper) {
-  size_summary <- contig_data_meta %>%
-    group_by(sample_type) %>%
-    mutate(n_samples = n_distinct(ID)) %>% ungroup() %>%
-    filter(size < size_upper, size >= size_lower) %>%
-    group_by(sample_type, n_samples) %>%
-    summarise(n = n_distinct(Var1)) %>%
-    mutate(n_per_sample = n/n_samples) %>%
-    mutate(size_lower = size_lower, category = paste(as.character(size_lower/1e3), "<=\n<", as.character(size_upper/1e3)))
-  return(size_summary)
-}
-
-sizes_lower <- c(3e3, 1e4, 5e4, 2e5)
-sizes_upper <- c(sizes_lower[-1], Inf)
-phage_size_summary <- map2_df(.x = sizes_lower, .y = sizes_upper, .f = function(.x, .y) countSizeCat(contig_data_meta, .x, .y))
-phage_size_summary$category <- gsub("\n< Inf", "", phage_size_summary$category)
-
-tiff("figures/phage_size.tiff", width = 800, height = 500, res = 150)
-ggplot(phage_size_summary, aes(reorder(category, size_lower), n_per_sample, fill = sample_type)) +
-  geom_bar(stat = "identity") + xlab("Size (kb)") + ylab("No. unqiue phages") + 
+tiff("figures/phage_size.tiff", width = 1500, height = 1000, res = 250)
+ggplot(contig_data_meta, aes(size, fill = sample_type)) +
+  geom_histogram(breaks = seq(0, 6e5, 5e4)) +
   theme_classic() +
-  scale_fill_manual("Body Site", values = cols)
+  scale_fill_manual("GIT Site", values = cols) +
+  scale_x_continuous(breaks = seq(0, 6e5, 5e4)) +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  xlab("Size (bp)") +
+  ylab("Frequency")
 dev.off()
 
 # Size of all contigs
