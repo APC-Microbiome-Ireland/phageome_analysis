@@ -367,7 +367,7 @@ tiff("figures/nmds_clusters.tiff", width = 1600, height = 1000, res = 300)
 ggplot(df_cluster_samples_nmds, aes(MDS1, MDS2, colour = Location_sampletype, shape = cluster)) +
   theme_classic() +
   geom_text(aes(label=cluster)) +
-  scale_colour_manual("Body Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 4))) +
+  scale_colour_manual("GIT Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 4))) +
   xlab("NMDS 1") + ylab("NMDS 2")
 dev.off()
 
@@ -376,7 +376,7 @@ tiff("figures/nmds_clusters_check.tiff", width = 1600, height = 1000, res = 200)
 ggplot(df_cluster_samples_nmds, aes(MDS1, MDS2, colour = Location_sampletype, shape = cluster_raw)) +
   theme_classic() +
   geom_text(aes(label=cluster_raw)) +
-  scale_colour_manual("Body Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
+  scale_colour_manual("GIT Site", values = cohort_cols, guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("NMDS 1") + ylab("NMDS 2")
 dev.off()
 
@@ -411,7 +411,7 @@ tiff("figures/nmds_group_breakdown.tiff", width = 1600, height = 1000, res = 300
 ggplot(cluster_res, aes(cluster, prop_cluster, fill = Location_sampletype)) +
   geom_bar(stat = "identity") +
   theme_classic() + xlab("Group") + ylab("% Samples") +
-  scale_fill_manual("Body Site - Geographical Location", values = cohort_cols)
+  scale_fill_manual("GIT Site - Country", values = cohort_cols)
 dev.off()
 
 ########## Differentially abundant clusters#####################
@@ -456,7 +456,7 @@ heatmap.2(vir_counts_prop_agg_meta_diff_log,
 )
 legend(x = 0.8, y = 0.35, legend = levels(factor(metadata[colnames(vir_counts_prop_agg_meta_diff), "sample_type"])),
        col = cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.8, title = "Sample clusters:")
+       lty = 1, lwd = 5, cex = 0.8, title = "GIT Sites")
 
 legend(x = 0.8, y = 0.2, xpd=TRUE, legend = levels(factor(viral_clusters_df[rownames(viral_clusters_df) %in% rownames(vir_counts_prop_agg_meta_diff),"demovir"], levels = names(demovir_cols))),
        col = demovir_cols, bg = "white", box.col = "black",
@@ -538,7 +538,7 @@ ggplot(cluster_count_tp_summary, aes(as.factor(tp), cluster_frac, fill = as.fact
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of phage clusters") +
   theme(strip.background = element_blank(), strip.text.x = element_blank(), text = element_text(size = 16)) +
-  scale_fill_manual("body site", values = cols)
+  scale_fill_manual("GIT Site", values = cols)
 dev.off()
 
 # Proportion of reads mapped to clusters
@@ -564,7 +564,7 @@ ggplot(cluster_count_reads_summary, aes(x = as.factor(tp), y = frac_reads, fill 
   facet_grid(~ sample_type, scale = "free", space = "free") +
   theme_classic() + xlab("No. of time points") + ylab("Proportion of mapped reads") +
   theme(strip.background = element_blank(), strip.text.x = element_blank(), text = element_text(size = 16)) +
-  scale_fill_manual("body site", values = cols)
+  scale_fill_manual("GIT Site", values = cols)
 dev.off()
 
 # Select persistent contigs (3 at least, 2 doesnt converge)
@@ -833,7 +833,7 @@ heatmap.2(vir_counts_prop_agg2_log,
 )
 legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(vir_counts_prop_agg2_log), "sample_type"])),
        col = cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+       lty = 1, lwd = 5, cex = 0.5, title = "GIT Sites")
 dev.off()
 
 # Phage host for each phage family
@@ -897,7 +897,7 @@ df_metaphlan_nmds <- left_join(df_metaphlan_nmds, metadata, by = "ID")
 tiff("figures/metaphlan_nmds.tiff", height= 1000, width = 1600, res = 300)
 ggplot(df_metaphlan_nmds, aes(x = MDS1, y = MDS2, fill = sample_type)) +
   theme_classic() + geom_point(size = 1.5, alpha = 0.7, pch = 21) +
-  scale_fill_manual("Body Site", values = cols,
+  scale_fill_manual("GIT Site", values = cols,
                     guide = guide_legend(override.aes = list(shape = 21, size = 3))) +
   xlab("NMDS 1") + ylab("NMDS 2")
 dev.off()
@@ -977,7 +977,7 @@ heatmap.2(metaphlan_host_log,
 )
 legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(metaphlan_host_log), "sample_type"])),
        col = cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+       lty = 1, lwd = 5, cex = 0.5, title = "GIT Sites")
 dev.off()
 
 # Plot species of genera that are abundant in all sites but only found in certain sites as phage hosts
@@ -1025,7 +1025,7 @@ heatmap.2(metaphlan_abund_log,
 )
 legend(x = 0.85, y = 1.05, xpd=TRUE, legend = levels(as.factor(metadata[colnames(metaphlan_abund_log), "sample_type"])),
        col = cols, bg = "white", box.col = "black",
-       lty = 1, lwd = 5, cex = 0.5, title = "Body sites")
+       lty = 1, lwd = 5, cex = 0.5, title = "GIT Sites")
 dev.off()
 
 ########## Alpha-diversity and phage richness ####
@@ -1066,7 +1066,7 @@ ggplot(richness) +
   geom_point(aes(n_phage_contigs, richness, color = Location_sampletype)) +
   xlab("No. phage contigs") + ylab("Phage Cluster Richness") +
   theme_classic() +
-  scale_color_manual("Body Site - Geographical Location", values = cohort_cols) +
+  scale_color_manual("GIT Site - Country", values = cohort_cols) +
   geom_abline(color = "red", slope = linear_mod$coefficients[2], intercept = linear_mod$coefficients[1])
 dev.off()
 
@@ -1135,6 +1135,9 @@ ggplot(contig_data_meta, aes(size, fill = sample_type)) +
 dev.off()
 
 # Size of all contigs
+sizes_lower <- c(3e3, 1e4, 5e4, 2e5)
+sizes_upper <- c(sizes_lower[-1], Inf)
+
 scaffold_lengths_summary <- left_join(scaffold_lengths, metadata, by = "ID") %>%
   group_by(sample_type) %>%
   summarise("3 <\n<= 10" = sum(size < sizes_upper[1] & size >= sizes_lower[1])/length(size)*100,
@@ -1148,7 +1151,7 @@ tiff("figures/contigs_size.tiff", width = 3000, height = 1000, res = 200)
 ggplot(scaffold_lengths_summary, aes(perc_category, value, fill = sample_type)) +
   geom_bar(stat="identity") +
   facet_grid(~sample_type, scale = "free", space = "free") +
-  scale_fill_manual("Body Site", values = cols, labels = names(cols)) +
+  scale_fill_manual("GIT Site", values = cols, labels = names(cols)) +
   theme_classic() + xlab("Size (kb)") + ylab("% All Contigs") + ylim(c(0,100))
 dev.off()
 
@@ -1231,7 +1234,7 @@ ggplot(jumbophage_contigs_meta_nodup, aes(x = "Contigs", y = size/1000, colour =
         axis.title = element_text(size = 16),
         legend.title = element_text(size = 16),
         text = element_text(size = 16)) +
-  scale_colour_manual("Body Site", values = cols)
+  scale_colour_manual("GIT Site", values = cols)
 dev.off()
 
 
