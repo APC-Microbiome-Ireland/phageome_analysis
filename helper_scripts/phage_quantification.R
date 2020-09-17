@@ -3,10 +3,8 @@ library(reshape2)
 
 # Read in metadata and data
 metadata = read.csv("../data/metadata_v2.csv", stringsAsFactors = FALSE)
-contig_ids = read.table("../data/virsorter_positive.ids")
-contig_ids = unique(as.character(contig_ids$V1))
-contig_data <- readRDS("../data/contig_data.RDS")
-jumbophage_contigs <- read.table("../data/jumbophage_contigs.txt", stringsAsFactors = FALSE)
+contig_data <- readRDS("../data/contig_data_filtered.RDS")
+jumbophage_contigs <- read.table("../data/jumbophage_contigs_filtered.txt", stringsAsFactors = FALSE)
 
 ########## Create read data ####
 #Read alignment counts
@@ -18,12 +16,8 @@ vir_counts <- vir_counts[,names(vir_counts) %in%  metadata$ID]
 vir_coverage <- vir_coverage[,names(vir_coverage) %in% metadata$ID]
 
 #Remove unwanted contigs
-vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_ids),]
-vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_ids,]
-
-# Remove jumbophages that are not viral from vir_counts and vir_coverage
-vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", jumbophage_contigs$name, contig_data$name[contig_data$size < 200000]),]
-vir_coverage <- vir_coverage[rownames(vir_coverage) %in% c(jumbophage_contigs$name, contig_data$name[contig_data$size < 200000]),]
+vir_counts <- vir_counts[rownames(vir_counts) %in% c("Total_reads", contig_data$name),]
+vir_coverage <- vir_coverage[rownames(vir_coverage) %in% contig_data$name,]
 
 counts_total = vir_counts["Total_reads",]
 saveRDS(counts_total, "../data/counts_total.RDS")
@@ -59,6 +53,15 @@ vir_counts_prop_melt <- vir_counts_prop_melt %>% filter(value != 0)
 # Add metadata
 vir_counts_prop_melt <- left_join(vir_counts_prop_melt, metadata[,c("ID", "sample_type", "Location")], by = c("Var2"="ID"))
 saveRDS(vir_counts_prop_melt, file = "../data/vir_counts_prop_melt.RDS")
+
+# Create filtered contig catalogue
+contig_data_final <- contig_data[contig_data$name %in% vir_counts_prop_melt$Var1,]
+saveRDS(contig_data_final, file = "../data/contig_data_filtered_final.RDS")
+write.table(contig_data_final, file = "../data/contig_data_filtered_final.txt")
+
+# Create final jumbophage catalogue
+jumbophage_contigs_final <- contig_data_final[which(contig_data_final$size >= 200000),]
+write.table(jumbophage_contigs_final, file = "../data/jumbophage_contigs_final.txt")
 
 # Aggregate counts by Demovir/vConTACT2
 vir_counts_prop_melt <- as.data.table(vir_counts_prop_melt)

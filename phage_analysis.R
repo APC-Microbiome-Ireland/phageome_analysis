@@ -131,9 +131,9 @@ vir_counts_prop_agg <- readRDS("data/vir_counts_prop_agg.RDS")
 vir_counts_prop_agg_phage <- readRDS("data/vir_counts_prop_agg_phage.RDS")
 vir_counts_prop_melt_agg <- readRDS("data/vir_counts_prop_melt_agg.RDS")
 vir_counts_prop_melt_agg2 <- readRDS("data/vir_counts_prop_melt_agg2.RDS")
-contig_data <- readRDS("data/contig_data.RDS")
+contig_data <- readRDS("data/contig_data_filtered_final.RDS")
 counts_total <- readRDS("data/counts_total.RDS")
-jumbophage_contigs <- read.delim("data/jumbophage_contigs.txt", sep = " ", stringsAsFactors = FALSE)
+jumbophage_contigs <- read.delim("data/jumbophage_contigs_final.txt", sep = " ", stringsAsFactors = FALSE)
 scaffold_lengths <- readRDS("data/scaffold_lengths.RDS")
 
 # Metadata
@@ -1458,7 +1458,7 @@ all_args$ID <- gsub("_card.out", "", gsub(".*output_files/", "", all_args$filena
 all_args$name <- paste0(all_args$ID, "_", all_args$qseqid)
 
 # Combine and clean
-phages_args <- inner_join(all_args, vir_counts_prop_melt_meta, by = c("name"="Var1")) %>%
+phages_args <- inner_join(all_args, vir_counts_prop_melt_meta, by = c("name"="Var1", "ID")) %>%
   filter(ID %in% metadata$ID)
 phages_args <- phages_args %>% group_by(qseqid, qseqid_mod, name) %>%
   filter(evalue == min(evalue)) %>%

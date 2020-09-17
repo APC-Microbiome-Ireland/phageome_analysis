@@ -74,12 +74,8 @@ contig_data$pvogs_count = pvogs_count[rownames(contig_data), "V1"]
 
 contig_data <- left_join(contig_data, vcontact[,c("Genome", "VC.Subcluster")], by = c("name"="Genome")) %>%
   rename(vcontact_cluster = VC.Subcluster)
-
-country = read.table("../data/sample_countries.txt")
-rownames(country) = country$V2
 contig_data$sample = sapply(strsplit(as.character(contig_data$name), split = "_"), "[[", 1)
 
-contig_data$country = country[contig_data$sample,"V1"]
 contig_data[is.na(contig_data$ribo_prot_count), "ribo_prot_count"] = 0
 contig_data[is.na(contig_data$pvogs_count), "pvogs_count"] = 0
 
@@ -123,4 +119,3 @@ rm(integrase,circular,vir_refseq,crasslike,demovir,gc_content,ribo_prot_count,
 contig_data <- data.table(contig_data)
 
 saveRDS(contig_data,  file = "../data/contig_data.RDS")
-write.table(contig_data, file = "../data/contig_data.txt")

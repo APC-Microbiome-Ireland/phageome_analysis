@@ -19,4 +19,4 @@ vcontact_sig_jumboph = vcontact_sig_jumboph[V1 %in% names(which(table(vcontact_s
 jumbophage_contigs = jumbophage_contigs[jumbophage_contigs$name %in% unique(vcontact_sig_jumboph$V1),]
 
 # Output jumbo phage headers
-write.table(jumbophage_contigs$name, file = "../data/jumbophage_contigs_for_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
+write.table(jumbophage_contigs, file = "../data/jumbophage_contigs.txt")

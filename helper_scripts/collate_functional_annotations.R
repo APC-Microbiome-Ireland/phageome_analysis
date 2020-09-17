@@ -118,7 +118,15 @@ struct_prot_prev <- prodigal_gff %>%
 phages_w_cp <- unique(prodigal_gff$V1[prodigal_gff$Name %in% "Major capsid protein"])
 linear_phages <- jumbophage_contigs$name[!jumbophage_contigs$circular]
 jumbophage_contigs <- jumbophage_contigs[jumbophage_contigs$name %in% unique(c(phages_w_cp, linear_phages)),]
-write.table(jumbophage_contigs, file = "../data/jumbophage_contigs.txt")
+write.table(jumbophage_contigs, file = "../data/jumbophage_contigs_filtered.txt")
+
+# Output jumbo phage headers
+write.table(jumbophage_contigs$name, file = "../data/jumbophage_contigs_for_annot.txt", quote = FALSE, col.names = FALSE, row.names = FALSE)
+
+# Remove filtered jumbophages from catalogue
+contig_data <- readRDS("../data/contig_data.RDS")
+contig_data_filtered <- contig_data[contig_data$name %in% c(jumbophage_contigs$name, contig_data$name[contig_data$size < 200000]),]
+saveRDS(contig_data_filtered, file = "../data/contig_data_filtered.RDS")
 
 # Jumbophage headers with capsid proteins
 jumbophages_proteins$protein_description <- tolower(jumbophages_proteins$protein_description)
