@@ -160,6 +160,11 @@ n_phage_clusters <- length(unique(vir_counts_prop_melt$vcontact_cluster[!(is.na(
 n_phage_contigs_in_clusters <- length(unique(vir_counts_prop_melt$Var1[!(is.na(vir_counts_prop_melt$vcontact_cluster) | vir_counts_prop_melt$vcontact_cluster %in% "")]))
 n_phage_contigs_not_in_clusters <- length(unique(vir_counts_prop_melt$Var1[is.na(vir_counts_prop_melt$vcontact_cluster) | vir_counts_prop_melt$vcontact_cluster %in% ""]))
 
+# Combine singletons and clusters to contig data
+contig_data$vcontact_cluster[contig_data$vcontact_cluster %in% ""] <- NA
+contig_data$vcontact_cluster_Var1 <- as.character(contig_data$vcontact_cluster)
+contig_data$vcontact_cluster_Var1[is.na(contig_data$vcontact_cluster_Var1)] <- contig_data$name[is.na(contig_data$vcontact_cluster_Var1)]
+length(unique(contig_data$vcontact_cluster_Var1))
 
 # Body site colours
 cols <- plasma(length(unique(metadata$sample_type)), end = 0.8)
@@ -859,11 +864,12 @@ crispr_cols <- brewer.pal(12, "Set3")
 crispr_cols <- c(crispr_cols, "grey")
 names(crispr_cols) <- c(unique(vir_fam_host_summary$crispr_host_alt[vir_fam_host_summary$crispr_host_alt != "Unassigned"]), "Unassigned")
 
-tiff("figures/vir_family_host.tiff", width = 2000)
+tiff("figures/vir_family_host.tiff", width = 2500, height = 1000, res = 230)
 ggplot(vir_fam_host_summary, aes(demovir, prop, fill = factor(crispr_host_alt))) +
   geom_bar(stat = "identity") +
   facet_grid(~sample_type, scales = "free", space = "free") +
   theme_classic() + xlab("Phage Family") + ylab("Proportion of Phage Clusters") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual("Predicted Phage Host", values = crispr_cols[names(crispr_cols) %in% unique(vir_fam_host_summary$crispr_host_alt)])
 dev.off()
 
@@ -1146,7 +1152,7 @@ scaffold_lengths_summary <- left_join(scaffold_lengths, metadata, by = "ID") %>%
   ungroup() %>%
   melt(variable.name = "perc_category", value.names = "perc", id.vars = "sample_type")
 
-tiff("figures/contigs_size.tiff", width = 3000, height = 1000, res = 200)
+tiff("figures/contigs_size.tiff", width = 3000, height = 1000, res = 300)
 ggplot(scaffold_lengths_summary, aes(perc_category, value, fill = sample_type)) +
   geom_bar(stat="identity") +
   facet_grid(~sample_type, scale = "free", space = "free") +
