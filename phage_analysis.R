@@ -1354,7 +1354,7 @@ jumbophage_fun_table <- jumbophage_gff_meta %>%
   select(V1, coding_region, protein, protein_description) %>%
   rename("name"="V1", "protein_function"="protein_description")
 
-write.csv(jumbophage_fun_table, "data/jumbophage_function_supplementary_table.csv", row.names = FALSE)
+write.csv(jumbophage_fun_table[!is.na(jumbophage_fun_table$protein),], "data/jumbophage_function_supplementary_table.csv", row.names = FALSE)
 
 # Group into metabolic profiles
 jumbophage_fun_mat <- table(jumbophage_gff_meta$vcontact_cluster_Var1, jumbophage_gff_meta$protein)
