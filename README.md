@@ -12,11 +12,16 @@ The raw reads for all samples were trimmed using AlienTrimmer 0.4.0 using defaul
 - Identifying tRNA using ARAGORN: bash_scripts/extract_trna_from_jumbophages.sh
 - Identifying ARGs using CARD database: bash_scripts/annotate_args.sh
 - Other data cleaning/wraggling: helper_scripts
+  - Step 1: Unfiltered catalog* -> helper_scripts/create_catalogue_dataset.R -> Filtered catalog
+  - Step 2: helper_scripts/get_candidate_jumbophages.R
+  - Step 3: helper_scripts/collate_functional_annotations.R
+  - Step 4: helper_scripts/phage_quantification.R
 
 #### To Do
 - Dependency scripts in commands.sh
 - Command for vConTACT
-- data/virsorter_positive.fasta file
+- *Recreate the data/virsorter_positive.fasta unfiltered catalog and data/virsorter_positive.ids
 
 ### Data analysis and visualisation
+Creating phage catalogue and quantification
 - Statistical analysis and data visualisation: phage_analysis.R
